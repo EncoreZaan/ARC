@@ -1,0 +1,632 @@
+[
+  {
+    "id": 1,
+    "name": "revit_health_check",
+    "endpoint": "healthz",
+    "desc": "Check whether the local RevitMCP addin bridge is reachable before running model read/write tools. Returns bridge host, timeout, and addin /healthz response.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 2,
+    "name": "revit_get_model_info",
+    "endpoint": "model/info",
+    "desc": "Returns basic information about the currently open Revit document: file path, project name, number, author, phases, and active view.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 3,
+    "name": "revit_get_elements",
+    "endpoint": "elements/query",
+    "desc": "Query elements in the Revit model. Filter by category (e.g. 'Walls', 'Doors', 'Floors'), family name, level name, or view name. Returns element IDs, types, parameters and host info.",
+    "paramsInfo": "category, familyName, levelName, viewName, limit",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 4,
+    "name": "revit_get_element_parameters",
+    "endpoint": "elements/parameters",
+    "desc": "Get all parameters (built-in and shared) for a specific element by its integer Element ID.",
+    "paramsInfo": "elementId",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 5,
+    "name": "revit_get_views",
+    "endpoint": "views/list",
+    "desc": "List all views in the model. Optionally filter by view type: FloorPlan, CeilingPlan, Elevation, Section, 3D, DraftingView, Schedule, etc.",
+    "paramsInfo": "viewType",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 6,
+    "name": "revit_get_sheets",
+    "endpoint": "sheets/list",
+    "desc": "List all sheets in the project with their sheet number, name, and which views are placed on each sheet.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 7,
+    "name": "revit_get_levels",
+    "endpoint": "levels/list",
+    "desc": "List all levels in the project with their name, elevation, and ID.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 8,
+    "name": "revit_get_families",
+    "endpoint": "families/list",
+    "desc": "List all loaded families and their types/symbols for a given category.",
+    "paramsInfo": "category",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 9,
+    "name": "revit_get_rooms",
+    "endpoint": "rooms/list",
+    "desc": "List all rooms in the project with number, name, area, level, and bounding-box coordinates.",
+    "paramsInfo": "levelName",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 10,
+    "name": "revit_create_wall",
+    "endpoint": "elements/create-wall",
+    "desc": "Create a straight wall in the Revit model. Coordinates are in millimetres (model units). Returns the new element ID.",
+    "paramsInfo": "startX, startY, endX, endY, levelName, wallTypeName, height",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 11,
+    "name": "revit_place_family_instance",
+    "endpoint": "elements/place-instance",
+    "desc": "Place a family instance (door, window, furniture, equipment, etc.) at a given point. For hosted families (doors/windows), provide the host wall element ID.",
+    "paramsInfo": "familyName, typeName, x, y, z, levelName, hostElementId, rotation",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 12,
+    "name": "revit_set_parameter",
+    "endpoint": "elements/set-parameter",
+    "desc": "Set a parameter value on a Revit element. Supports text, integer, double, and Yes/No parameters.",
+    "paramsInfo": "elementId, parameterName, value",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 13,
+    "name": "revit_delete_element",
+    "endpoint": "elements/delete",
+    "desc": "Delete an element from the model by its element ID. This operation is permanent (but undoable inside Revit with Ctrl+Z).",
+    "paramsInfo": "elementId",
+    "risk": "Destructif (suppression)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 14,
+    "name": "revit_move_element",
+    "endpoint": "elements/move",
+    "desc": "Move an element by a translation vector in mm.",
+    "paramsInfo": "elementId, deltaX, deltaY, deltaZ",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 15,
+    "name": "revit_create_sheet",
+    "endpoint": "sheets/create",
+    "desc": "Create a new sheet in the project with a given sheet number, name, and title block family.",
+    "paramsInfo": "sheetNumber, sheetName, titleBlockName",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 16,
+    "name": "revit_place_view_on_sheet",
+    "endpoint": "sheets/place-view",
+    "desc": "Place an existing view onto a sheet at the given viewport centre coordinates (in mm on the sheet).",
+    "paramsInfo": "sheetId, viewId, centerX, centerY",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 17,
+    "name": "revit_activate_view",
+    "endpoint": "views/activate",
+    "desc": "Set the active view in the Revit UI to the specified view by its element ID or name.",
+    "paramsInfo": "viewId, viewName",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 18,
+    "name": "revit_export_pdf",
+    "endpoint": "export/pdf",
+    "desc": "Export one or more sheets or views to PDF. Returns the output file path.",
+    "paramsInfo": "outputPath, sheetIds, viewIds, combineIntoOne, paperSize",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 19,
+    "name": "revit_export_dwg",
+    "endpoint": "export/dwg",
+    "desc": "Export views or sheets to DWG/DXF format. Returns output file paths.",
+    "paramsInfo": "outputPath, viewIds, format, exportSetupName",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 20,
+    "name": "revit_export_ifc",
+    "endpoint": "export/ifc",
+    "desc": "Export the model or a subset of elements to IFC format.",
+    "paramsInfo": "outputPath, ifcVersion, exportBaseQuantities",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 21,
+    "name": "revit_export_schedule",
+    "endpoint": "export/schedule",
+    "desc": "Export a schedule view to CSV or TXT.",
+    "paramsInfo": "scheduleViewId, outputPath, delimiter",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 22,
+    "name": "revit_run_command",
+    "endpoint": "commands/run",
+    "desc": "Execute a built-in Revit command by its PostableCommandId name (e.g. 'ID_REVIT_THIN_LINES', 'ID_VIEW_GRAPHIC_DISPLAY_OPTIONS'). Use for UI commands not exposed via other tools.",
+    "paramsInfo": "commandId",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 23,
+    "name": "revit_run_dynamo_script",
+    "endpoint": "commands/run-dynamo",
+    "desc": "Run a Dynamo script (.dyn file) on the current Revit model. Returns stdout/stderr from Dynamo.",
+    "paramsInfo": "scriptPath, journalData",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 24,
+    "name": "revit_get_material_takeoff",
+    "endpoint": "takeoff/materials",
+    "desc": "Generate a full material takeoff for the project. Collects all structural/architectural elements, reads their material layers, area, volume, and count — grouped and summed per material. Optionally filter by category or level. Returns a ready-to-use table. Much faster than querying elements one by one.",
+    "paramsInfo": "categories, levelName, includeLayerBreakdown",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 25,
+    "name": "revit_export_material_takeoff_csv",
+    "endpoint": "takeoff/export-csv",
+    "desc": "Run a material takeoff and save the result directly to a CSV file. Columns: Material, Category, TotalAreaM2, TotalVolM3, ElementCount, Unit. Ready to open in Excel.",
+    "paramsInfo": "outputPath, categories, levelName, includeLayerBreakdown",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 26,
+    "name": "revit_create_material_schedule",
+    "endpoint": "takeoff/create-schedule",
+    "desc": "Create a proper Revit Material Takeoff schedule view inside the project for a given category (e.g. 'Walls'). The schedule will appear in the Project Browser under Schedules and can be placed on sheets.",
+    "paramsInfo": "category, scheduleName, fields",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 27,
+    "name": "revit_detect_clashes",
+    "endpoint": "clash/detect",
+    "desc": "Detect geometric clashes (intersections) between two sets of elements. Typical use: check structural columns vs MEP ducts, or walls vs beams. Returns clash pairs with element IDs, categories, locations, and severity. Saves hours of manual coordination.",
+    "paramsInfo": "categoryA, categoryB, levelName, tolerance",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 28,
+    "name": "revit_export_clash_report",
+    "endpoint": "clash/export-report",
+    "desc": "Run clash detection and export a detailed HTML or CSV report with clash pairs, element info, and 3D coordinates. One command replaces hours of manual coordination review.",
+    "paramsInfo": "outputPath, categoryA, categoryB, format, tolerance",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 29,
+    "name": "revit_issue_drawings",
+    "endpoint": "revisions/issue-drawings",
+    "desc": "Automate a full drawing issue: add a revision to the project, stamp selected sheets with that revision, update the issue date parameter on all sheets, and optionally export to PDF. Replaces 30–60 minutes of manual sheet management on deadline day.",
+    "paramsInfo": "revisionDescription, revisionDate, revisionNumber, sheetIds, exportPdfPath",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 30,
+    "name": "revit_get_revision_history",
+    "endpoint": "revisions/history",
+    "desc": "List all revisions in the project with sequence, number, description, date, and which sheets carry each revision.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 31,
+    "name": "revit_get_room_finishes",
+    "endpoint": "rooms/finishes",
+    "desc": "Read the finish parameters (Floor Finish, Wall Finish, Ceiling Finish, Base Finish) for all rooms. Returns a complete room finish matrix grouped by level — ready to verify or export.",
+    "paramsInfo": "levelName",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 32,
+    "name": "revit_set_room_finishes_bulk",
+    "endpoint": "rooms/set-finishes-bulk",
+    "desc": "Set finish parameters on multiple rooms in one call. Pass an array of room updates with room ID and the finish values to apply. Replaces clicking through each room one by one — saves hours on large projects.",
+    "paramsInfo": "updates, roomId, floorFinish, wallFinish, ceilingFinish, baseFinish, comments",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 33,
+    "name": "revit_apply_view_template_bulk",
+    "endpoint": "views/apply-template-bulk",
+    "desc": "Apply a view template to multiple views in one operation. Filter target views by type, name pattern, or level. Replaces clicking through dozens of views manually — a 5-minute job becomes one command.",
+    "paramsInfo": "templateName, viewIds, viewType, nameContains",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 34,
+    "name": "revit_bulk_rename_views",
+    "endpoint": "views/bulk-rename",
+    "desc": "Rename multiple views or sheets using find-and-replace or a prefix/suffix pattern. Useful for standardising naming conventions across the whole project at once.",
+    "paramsInfo": "targets, findText, replaceText, addPrefix, addSuffix, nameContains, dryRun",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 35,
+    "name": "revit_audit_families",
+    "endpoint": "audit/families",
+    "desc": "Audit all loaded families in the project. Reports: total family count, families not used in the model (candidates for purging), families with large instance counts, and non-standard families (not from the office library path). Helps reduce file bloat.",
+    "paramsInfo": "libraryPath",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 36,
+    "name": "revit_import_parameters_from_csv",
+    "endpoint": "elements/import-csv-params",
+    "desc": "Bulk-import parameter values from a CSV file onto elements. CSV format: first column = ElementId, remaining columns = parameter name/value pairs. Replaces manual data entry for large datasets — e.g. populating asset tags, fire ratings, or specifications from a spreadsheet.",
+    "paramsInfo": "csvPath, delimiter, dryRun",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 37,
+    "name": "revit_batch_set_parameters",
+    "endpoint": "elements/batch-set-parameters",
+    "desc": "Set one or more parameters on many matching elements at once. Use dryRun first to preview. Saves repetitive property edits across rooms, doors, windows, equipment, sheets, or any filtered category.",
+    "paramsInfo": "parameterValues, category, familyName, levelName, viewName, nameContains, limit, dryRun",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 38,
+    "name": "revit_create_plan_views_for_levels",
+    "endpoint": "views/create-plans-for-levels",
+    "desc": "Create floor, ceiling, or structural plan views for multiple levels using a naming template and optional view template. This turns setup of drawing views from repetitive clicking into one dry-run/apply flow.",
+    "paramsInfo": "levelNames, viewFamily, nameTemplate, viewTemplateName, skipExisting, dryRun",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 39,
+    "name": "revit_duplicate_views_bulk",
+    "endpoint": "views/duplicate-bulk",
+    "desc": "Duplicate many matching views with detailing, as dependent views, or plain duplicates, then optionally apply a template. Useful for creating permit/construction/coordination drawing sets fast.",
+    "paramsInfo": "viewIds, viewType, nameContains, duplicateOption, nameTemplate, viewTemplateName, dryRun",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 40,
+    "name": "revit_auto_populate_sheets",
+    "endpoint": "sheets/auto-populate",
+    "desc": "Automatically create sheets and place matching views based on a naming convention. For example: for every floor plan view named 'FP - Level N', create sheet 'A-1N0 - Level N Floor Plan' and place the view on it. Handles an entire drawing set in seconds instead of hours.",
+    "paramsInfo": "rules, viewNamePattern, sheetNumberPrefix, sheetNameTemplate, titleBlockName, skipExistingSheets",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 41,
+    "name": "revit_get_current_selection",
+    "endpoint": "selection/get",
+    "desc": "Get currently selected elements in the active Revit document. Returns element IDs, unique IDs, names, and categories.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 42,
+    "name": "revit_set_current_selection",
+    "endpoint": "selection/set",
+    "desc": "Select specific elements in the active Revit view by their integer element IDs.",
+    "paramsInfo": "elementIds",
+    "risk": "Affichage / Sélection UI (non destructif)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 43,
+    "name": "revit_isolate_elements",
+    "endpoint": "elements/isolate",
+    "desc": "Temporarily isolate specific elements in the current active Revit view (hides all other elements).",
+    "paramsInfo": "elementIds",
+    "risk": "Affichage / Sélection UI (non destructif)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 44,
+    "name": "revit_reset_temporary_override",
+    "endpoint": "views/reset-temporary-override",
+    "desc": "Reset temporary hide/isolate mode in the active Revit view, restoring full element visibility.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Affichage / Sélection UI (non destructif)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 45,
+    "name": "revit_list_categories",
+    "endpoint": "categories/list",
+    "desc": "List all available BIM categories in the active Revit project (model categories and bound categories).",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 46,
+    "name": "revit_count_elements",
+    "endpoint": "elements/count",
+    "desc": "Count elements in the active Revit document, optionally filtered by category (e.g. 'Walls', 'Doors', 'Windows').",
+    "paramsInfo": "category",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 47,
+    "name": "revit_get_model_warnings",
+    "endpoint": "model/warnings",
+    "desc": "Retrieve all active warnings and failure messages in the Revit project (e.g. overlapping walls, unclosed room boundaries).",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Validé en direct sur Revit 2027 (Session live 1)"
+  },
+  {
+    "id": 48,
+    "name": "revit_create_floor",
+    "endpoint": "elements/create-floor",
+    "desc": "Create a rectangular floor element on a given level with specified dimensions in millimeters.",
+    "paramsInfo": "levelId, widthMm, lengthMm, originX, originY",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 49,
+    "name": "revit_create_room",
+    "endpoint": "rooms/create",
+    "desc": "Create and place a Revit room on a specific level at coordinates (x, y) with custom name and number.",
+    "paramsInfo": "levelId, xMm, yMm, name, number",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 50,
+    "name": "revit_validate_model_changes",
+    "endpoint": "model/info",
+    "desc": "Validate model state by checking for warnings, verifying critical elements, and reporting active document health.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 51,
+    "name": "revit_zoom_to_elements",
+    "endpoint": "views/zoom-elements",
+    "desc": "Zoom and pan the active Revit view to frame specific elements by their IDs so the user can inspect them visually.",
+    "paramsInfo": "elementIds",
+    "risk": "Affichage / Sélection UI (non destructif)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 52,
+    "name": "revit_color_elements",
+    "endpoint": "elements/set-color",
+    "desc": "Highlight and color specific elements in the active Revit view using RGB color overrides (Color Splash).",
+    "paramsInfo": "elementIds, red, green, blue",
+    "risk": "Affichage / Sélection UI (non destructif)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 53,
+    "name": "revit_reset_color_overrides",
+    "endpoint": "elements/reset-color",
+    "desc": "Reset graphics and color overrides for elements in the active Revit view.",
+    "paramsInfo": "elementIds",
+    "risk": "Affichage / Sélection UI (non destructif)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 54,
+    "name": "revit_create_grid",
+    "endpoint": "grids/create",
+    "desc": "Create a datum grid line between two points with smart alphabetic or numeric naming.",
+    "paramsInfo": "startX, startY, endX, endY, name",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 55,
+    "name": "revit_get_phases",
+    "endpoint": "phases/list",
+    "desc": "List project phases (e.g. Existing, Demolition, New Construction).",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 56,
+    "name": "revit_get_links",
+    "endpoint": "links/list",
+    "desc": "List all linked Revit models (.rvt) and CAD links/imports (.dwg, .ifc) with their loaded state.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 57,
+    "name": "revit_rotate_element",
+    "endpoint": "elements/rotate",
+    "desc": "Rotate an element around its vertical central axis by a specified angle in degrees.",
+    "paramsInfo": "elementId, angleDegrees",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 58,
+    "name": "revit_export_view_image",
+    "endpoint": "export/image",
+    "desc": "Export a rendered or shaded image preview (PNG) of the active view or a sheet to disk for visual verification.",
+    "paramsInfo": "viewId, filePath, pixelSize",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 59,
+    "name": "revit_save_document",
+    "endpoint": "model/save",
+    "desc": "Save the currently active Revit document or save a backup copy under a new file path.",
+    "paramsInfo": "filePath",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 60,
+    "name": "revit_get_summary_report",
+    "endpoint": "model/info",
+    "desc": "Get a consolidated high-level summary of the entire Revit project (document info, levels, views count, sheets count, warnings, elements count).",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 61,
+    "name": "revit_get_worksets",
+    "endpoint": "worksets/list",
+    "desc": "List user worksets in workshared projects (or indicates that the project is not workshared).",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 62,
+    "name": "revit_get_revisions",
+    "endpoint": "revisions/list",
+    "desc": "List all revisions and drawing issue sequences defined in the Revit project.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 63,
+    "name": "revit_get_materials",
+    "endpoint": "materials/list",
+    "desc": "List materials defined in the Revit project with class, RGB colors, transparency and surface properties.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 64,
+    "name": "revit_get_view_templates",
+    "endpoint": "views/list-templates",
+    "desc": "List all View Templates available in the Revit project with view type and names.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 65,
+    "name": "revit_create_section_box",
+    "endpoint": "views/create-section-box",
+    "desc": "Create or adjust a 3D isometric view section box tightly framing the specified elements or current selection with padding.",
+    "paramsInfo": "elementIds, paddingMm",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 66,
+    "name": "revit_find_elements_by_parameter",
+    "endpoint": "elements/find-by-parameter",
+    "desc": "Search for elements across the model matching a given parameter name and text string value.",
+    "paramsInfo": "parameterName, searchValue, exactMatch, limit",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 67,
+    "name": "revit_copy_parameter_values",
+    "endpoint": "parameters/copy-values",
+    "desc": "Batch copy parameter values from a source parameter to a target parameter across elements.",
+    "paramsInfo": "sourceParameter, targetParameter, elementIds",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 68,
+    "name": "revit_duplicate_sheet",
+    "endpoint": "sheets/duplicate",
+    "desc": "Duplicate an existing drawing sheet with its title block and assign a new number and name.",
+    "paramsInfo": "sheetId, sheetNumber, sheetName",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 69,
+    "name": "revit_get_unused_types",
+    "endpoint": "model/purge-unused",
+    "desc": "Model hygiene audit: identify family symbols and types that have 0 instances placed in the project.",
+    "paramsInfo": "Aucun paramètre",
+    "risk": "Lecture seule (aucun risque)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  },
+  {
+    "id": 70,
+    "name": "revit_create_detail_line",
+    "endpoint": "annotations/create-detail-line",
+    "desc": "Draw a 2D detail line in the active 2D view (floor plan, section, elevation, drafting view).",
+    "paramsInfo": "startX, startY, endX, endY",
+    "risk": "Modification BIM (Transaction contrôlée avec rollback)",
+    "testStatus": "Implémenté & Validé tests unitaires / mock"
+  }
+]

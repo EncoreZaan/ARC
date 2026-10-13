@@ -218,9 +218,17 @@ public class RevitEventHandler : IExternalEventHandler
 
     private static T WithTransaction<T>(Document doc, string name, Func<T> action)
     {
+        if (doc.IsModifiable)
+        {
+            throw new InvalidOperationException($"Impossible de démarrer la transaction '{name}' : le document est déjà en cours de modification dans une autre transaction.");
+        }
+
         using var tx = new Transaction(doc, name);
         var options = tx.GetFailureHandlingOptions();
-        options.SetFailuresPreprocessor(new WarningSwallower());
+        var failurePreprocessor = new SafeFailurePreprocessor();
+        options.SetFailuresPreprocessor(failurePreprocessor);
+        options.SetClearAfterRollback(true);
+        options.SetForcedModalHandling(false);
         tx.SetFailureHandlingOptions(options);
 
         tx.Start();
@@ -232,6 +240,12 @@ public class RevitEventHandler : IExternalEventHandler
             {
                 throw new InvalidOperationException($"La transaction Revit '{name}' n'a pas pu être validée (statut: {status}).");
             }
+
+            if (result is JObject jObj && failurePreprocessor.Warnings.Count > 0)
+            {
+                jObj["bimWarnings"] = new JArray(failurePreprocessor.Warnings);
+            }
+
             return result;
         }
         catch
@@ -242,15 +256,20 @@ public class RevitEventHandler : IExternalEventHandler
         }
     }
 
-    private class WarningSwallower : IFailuresPreprocessor
+    private class SafeFailurePreprocessor : IFailuresPreprocessor
     {
+        public List<string> Warnings { get; } = new();
+
         public FailureProcessingResult PreprocessFailures(FailuresAccessor failuresAccessor)
         {
             var failures = failuresAccessor.GetFailureMessages();
             foreach (var f in failures)
             {
+                var desc = f.GetDescriptionText();
                 if (f.GetSeverity() == FailureSeverity.Warning)
                 {
+                    if (!string.IsNullOrWhiteSpace(desc))
+                        Warnings.Add(desc);
                     failuresAccessor.DeleteWarning(f);
                 }
             }
@@ -2030,8 +2049,38 @@ th,td{{border:1px solid #ccc;padding:6px 8px}} th{{background:#2c3e50;color:#fff
     {
         if (uiDoc == null) throw new InvalidOperationException("No active UI document");
         var idsArray = p["elementIds"] as JArray ?? throw new ArgumentException("elementIds array is required");
-        var ids = idsArray.Select(t => new ElementId(t.Value<int>())).ToList();
-        uiDoc.ShowElements(ids);
+        var ids = idsArray.Select(t => new ElementId(t.Value<long>())).ToList();
+        if (ids.Count == 0) return new JObject { ["success"] = true, ["elementsCount"] = 0 };
+
+        var doc = uiDoc.Document;
+        BoundingBoxXYZ? bbox = null;
+        foreach (var id in ids)
+        {
+            var el = doc.GetElement(id);
+            var b = el?.get_BoundingBox(null);
+            if (b != null)
+            {
+                if (bbox == null)
+                    bbox = new BoundingBoxXYZ { Min = new XYZ(b.Min.X, b.Min.Y, b.Min.Z), Max = new XYZ(b.Max.X, b.Max.Y, b.Max.Z) };
+                else
+                {
+                    bbox.Min = new XYZ(Math.Min(bbox.Min.X, b.Min.X), Math.Min(bbox.Min.Y, b.Min.Y), Math.Min(bbox.Min.Z, b.Min.Z));
+                    bbox.Max = new XYZ(Math.Max(bbox.Max.X, b.Max.X), Math.Max(bbox.Max.Y, b.Max.Y), Math.Max(bbox.Max.Z, b.Max.Z));
+                }
+            }
+        }
+
+        var openViews = uiDoc.GetOpenUIViews();
+        var activeUIView = openViews.FirstOrDefault(v => v.ViewId == doc.ActiveView?.Id) ?? openViews.FirstOrDefault();
+        if (activeUIView != null && bbox != null)
+        {
+            activeUIView.ZoomAndCenterRectangle(bbox.Min, bbox.Max);
+        }
+        else
+        {
+            uiDoc.Selection.SetElementIds(ids);
+        }
+
         return new JObject { ["success"] = true, ["elementsCount"] = ids.Count };
     }
 
