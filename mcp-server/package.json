@@ -1,0 +1,35 @@
+{
+  "name": "revit-claude-mcp-server",
+  "version": "2.0.0",
+  "description": "Local MCP server for controlling Autodesk Revit 2027/2026/2025 from Claude through Revit AI Bridge.",
+  "type": "module",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test test/bridge.test.mjs test/readme.test.mjs test/mcp-tools.test.mjs"
+  },
+  "keywords": [
+    "revit",
+    "claude",
+    "mcp",
+    "model-context-protocol",
+    "bim",
+    "aec",
+    "autodesk"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

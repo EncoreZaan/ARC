@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+mcp-server/node_modules/
+
+# .NET Build output
+bin/
+obj/
+revit-addin/**/bin/
+revit-addin/**/obj/
+*.user
+*.suo
+*.userosscache
+
+# Local editor and OS files
+.vs/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# Third-party audit repositories (large cloned repos analyzed during setup)
+_audit/
+
+# Local Revit / project artifacts
+*.rvt
+*.rfa
+*.rte
+*.000*.rvt
+Exports/
