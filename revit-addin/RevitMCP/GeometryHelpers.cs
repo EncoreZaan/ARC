@@ -30,6 +30,8 @@ public static class GeometryHelpers
         if (element.Location is LocationPoint lp)
         {
             var ptMm = UnitConversions.FeetToMm(lp.Point);
+            double rotDeg = 0;
+            try { rotDeg = UnitConversions.RadToDeg(lp.Rotation); } catch { }
             return new JObject
             {
                 ["type"] = "point",
@@ -39,7 +41,7 @@ public static class GeometryHelpers
                     ["y"] = Math.Round(ptMm.Y, 2),
                     ["z"] = Math.Round(ptMm.Z, 2)
                 },
-                ["rotationDeg"] = Math.Round(UnitConversions.RadToDeg(lp.Rotation), 2)
+                ["rotationDeg"] = Math.Round(rotDeg, 2)
             };
         }
 
