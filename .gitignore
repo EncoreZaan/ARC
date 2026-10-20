@@ -37,6 +37,7 @@ Exports/
 target/
 installer/target/
 installer/payload.tar.gz
+revit-mcp-server/target/
 
 # Release distribution output
 /dist/

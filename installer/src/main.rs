@@ -19,6 +19,7 @@ struct InstallOptions {
     silent: bool,
     uninstall: bool,
     status_only: bool,
+    force_node: bool,
 }
 
 fn main() {
@@ -30,6 +31,7 @@ fn main() {
             "--silent" | "-s" => opts.silent = true,
             "--uninstall" | "-u" => opts.uninstall = true,
             "--status" => opts.status_only = true,
+            "--use-node" => opts.force_node = true,
             "--help" | "-h" => {
                 print_help();
                 return;
@@ -52,7 +54,7 @@ fn main() {
         return;
     }
 
-    run_install(opts.silent);
+    run_install(opts.silent, opts.force_node);
 }
 
 fn print_help() {
@@ -63,6 +65,7 @@ fn print_help() {
           -s, --silent       Installation silencieuse sans confirmation utilisateur\n\
           -u, --uninstall    Désinstalle l'add-in Revit et retire la configuration Claude\n\
               --status       Affiche le diagnostic d'installation et l'état du pont\n\
+              --use-node     Force le serveur MCP Node.js au lieu du binaire Rust natif\n\
           -h, --help         Affiche cette aide\n",
         format!("Revit AI Bridge Installer v{}", VERSION).cyan().bold()
     );
@@ -137,7 +140,7 @@ fn detect_revit_years() -> Vec<String> {
     detected
 }
 
-fn run_install(silent: bool) {
+fn run_install(silent: bool, force_node: bool) {
     if !silent {
         print_banner();
     }
@@ -222,7 +225,7 @@ fn run_install(silent: bool) {
         }
     }
 
-    // 3. Deploy standalone MCP server bundle
+    // 3. Deploy MCP server backends (Rust native binary and/or Node bundle)
     if !silent {
         println!("\n{}", "[3/4] Déploiement du serveur MCP autonome...".yellow().bold());
     }
@@ -230,21 +233,45 @@ fn run_install(silent: bool) {
     let mcp_install_dir = Path::new(&appdata).join("RevitMCP").join("mcp-server");
     fs::create_dir_all(&mcp_install_dir).unwrap_or_default();
 
+    let mut has_rust_server = false;
+    let rust_exe_dest = mcp_install_dir.join("revit-mcp-server.exe");
+    if let Some(exe_data) = payload.get("server/revit-mcp-server.exe") {
+        let _ = fs::write(&rust_exe_dest, exe_data);
+        has_rust_server = true;
+        if !silent {
+            println!("  {} Serveur MCP Rust natif déployé ({})", "[OK]".green(), rust_exe_dest.display());
+        }
+    }
+
     let server_bundle_dest = mcp_install_dir.join("index.bundle.mjs");
     if let Some(bundle_data) = payload.get("server/index.bundle.mjs") {
         let _ = fs::write(&server_bundle_dest, bundle_data);
-    }
-
-    if !silent {
-        println!("  {} Serveur MCP déployé dans {}", "[OK]".green(), mcp_install_dir.display());
+        if !silent {
+            println!("  {} Serveur MCP Node bundle déployé ({})", "[OK]".green(), server_bundle_dest.display());
+        }
     }
 
     // 4. Configure Claude Desktop
-    if !silent {
-        println!("\n{}", "[4/4] Configuration automatique de Claude Desktop...".yellow().bold());
-    }
+    let use_rust = has_rust_server && !force_node;
+    let claude_command = if use_rust {
+        rust_exe_dest.to_string_lossy().replace('\\', "/")
+    } else {
+        "node".to_string()
+    };
+    let claude_args: Vec<String> = if use_rust {
+        vec![]
+    } else {
+        vec![server_bundle_dest.to_string_lossy().replace('\\', "/")]
+    };
 
-    let normalized_bundle_path = server_bundle_dest.to_string_lossy().replace('\\', "/");
+    if !silent {
+        let mode_desc = if use_rust {
+            "Rust natif autonome (Zéro dépendance Node.js)".cyan().bold()
+        } else {
+            "Node.js bundle".yellow()
+        };
+        println!("\n{} [{}]", "[4/4] Configuration automatique de Claude Desktop...".yellow().bold(), mode_desc);
+    }
 
     let claude_configs = [
         // Standard Claude Desktop
@@ -264,7 +291,7 @@ fn run_install(silent: bool) {
         if let Some(parent) = cfg_path.parent() {
             if parent.exists() || cfg_path == &claude_configs[0] {
                 fs::create_dir_all(parent).unwrap_or_default();
-                if patch_claude_config(cfg_path, &normalized_bundle_path) {
+                if patch_claude_config(cfg_path, &claude_command, &claude_args) {
                     configured_count += 1;
                     if !silent {
                         println!("  {} Configuration injectée dans {}", "[OK]".green(), cfg_path.display());
@@ -333,7 +360,7 @@ fn patch_revit_ini(ini_path: &Path) {
     }
 }
 
-fn patch_claude_config(cfg_path: &Path, server_bundle_path: &str) -> bool {
+fn patch_claude_config(cfg_path: &Path, command: &str, args: &[String]) -> bool {
     let mut root_val: Value = if cfg_path.exists() {
         let Ok(text) = fs::read_to_string(cfg_path) else { return false };
         serde_json::from_str(&text).unwrap_or_else(|_| json!({}))
@@ -353,8 +380,8 @@ fn patch_claude_config(cfg_path: &Path, server_bundle_path: &str) -> bool {
     let servers_obj = root_obj.get_mut("mcpServers").unwrap().as_object_mut().unwrap();
 
     let revit_entry = json!({
-        "command": "node",
-        "args": [server_bundle_path],
+        "command": command,
+        "args": args,
         "env": {
             "REVIT_HOST": "http://localhost:6543",
             "REVIT_TIMEOUT_MS": "120000"
@@ -394,18 +421,27 @@ fn run_status() {
         }
     }
 
+    let rust_server = Path::new(&appdata).join("RevitMCP").join("mcp-server").join("revit-mcp-server.exe");
+    if rust_server.exists() {
+        println!("  {} Serveur MCP Rust natif : Déployé ({})", "[OK]".green(), rust_server.display());
+    } else {
+        println!("  {} Serveur MCP Rust natif : Non déployé", "[!]".yellow());
+    }
+
     let mcp_bundle = Path::new(&appdata).join("RevitMCP").join("mcp-server").join("index.bundle.mjs");
     if mcp_bundle.exists() {
-        println!("  {} Serveur MCP autonome : Déployé ({})", "[OK]".green(), mcp_bundle.display());
+        println!("  {} Serveur MCP Node bundle : Déployé ({})", "[OK]".green(), mcp_bundle.display());
     } else {
-        println!("  {} Serveur MCP autonome : Non déployé", "[!]".yellow());
+        println!("  {} Serveur MCP Node bundle : Non déployé", "[!]".yellow());
     }
 
     let claude_cfg = Path::new(&appdata).join("Claude").join("claude_desktop_config.json");
     if claude_cfg.exists() {
         let content = fs::read_to_string(&claude_cfg).unwrap_or_default();
-        if content.contains("\"revit\"") {
-            println!("  {} Claude Desktop : Serveur 'revit' déclaré", "[OK]".green());
+        if content.contains("revit-mcp-server.exe") {
+            println!("  {} Claude Desktop : Serveur 'revit' actif via Rust natif", "[OK]".green());
+        } else if content.contains("\"revit\"") {
+            println!("  {} Claude Desktop : Serveur 'revit' actif via Node.js bundle", "[OK]".green());
         } else {
             println!("  {} Claude Desktop : Serveur 'revit' manquant", "[!]".yellow());
         }

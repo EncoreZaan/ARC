@@ -163,13 +163,16 @@ Téléchargez la dernière version de l'installateur dans les [Releases GitHub](
 Développé en **Rust natif** ultra-léger et autonome, cet installateur embarque l'intégralité du pont (Add-in C#, compilateurs Roslyn, serveur MCP autonome bundled sans dépendances `node_modules`).
 
 ```powershell
-# Installation interactive standard
+# Installation interactive standard (serveur Rust natif par défaut, zéro dépendance Node.js)
 .\RevitMCP-Setup-v2.1.1.exe
 
 # Diagnostic du système et de l'installation
 .\RevitMCP-Setup-v2.1.1.exe --status
 
-# Installation silencieuse
+# Forcer le mode Node.js (secours / rétrocompatibilité)
+.\RevitMCP-Setup-v2.1.1.exe --use-node
+
+# Installation silencieuse (déploiement automatisé)
 .\RevitMCP-Setup-v2.1.1.exe --silent
 
 # Désinstallation propre
@@ -180,7 +183,9 @@ L'installateur effectue automatiquement :
 1. **Détection multi-versions** de Revit (2024, 2025, 2026, 2027) via Program Files, APPDATA et le Registre Windows.
 2. **Déploiement de l'add-in** `.NET` dans `%APPDATA%\Autodesk\Revit\Addins\<Année>\` sans jamais écraser vos réglages personnalisés de sécurité (`allowCodeExecution`).
 3. **Démarrage silencieux garanti** : injection automatique de `[Misc] DisableAddInSecurity=1` dans `Revit.ini` (compatible UTF-16 LE) et enregistrement du GUID canonique dans `HKCU:\SOFTWARE\Autodesk\Revit\Autodesk Revit <Année>\CodeSigning`. Zéro popup au lancement de Revit.
-4. **Déploiement du serveur MCP autonome** dans `%APPDATA%\RevitMCP\mcp-server\index.bundle.mjs`.
+4. **Déploiement du serveur MCP double-moteur** :
+   - Moteur principal : **Rust natif autonome** (`revit-mcp-server.exe`, 1,28 Mo, temps de réponse < 2 ms, 0 dépendance Node.js).
+   - Moteur de secours : **Node.js bundle** (`index.bundle.mjs`) activable instantanément via `--use-node`.
 5. **Configuration automatique de Claude Desktop** (supporte les profils standard APPDATA et Windows Store MSIX).
 
 ---

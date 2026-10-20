@@ -25,8 +25,8 @@ $csproj = Join-Path $RepoRoot "revit-addin\RevitMCP\RevitMCP.csproj"
 dotnet build $csproj -c Release -p:DeployAddin=false --no-incremental
 if ($LASTEXITCODE -ne 0) { throw "Erreur lors du build C#" }
 
-# 2. Build et bundle du serveur MCP
-Write-Host "`n[2/4] Compilation et bundling du serveur MCP TypeScript..." -ForegroundColor Yellow
+# 2. Build et bundle du serveur MCP TypeScript
+Write-Host "`n[2/5] Compilation et bundling du serveur MCP TypeScript..." -ForegroundColor Yellow
 $mcpDir = Join-Path $RepoRoot "mcp-server"
 Push-Location $mcpDir
 try {
@@ -38,14 +38,23 @@ try {
     Pop-Location
 }
 
-# 3. Compilation de l'installateur en Rust
-Write-Host "`n[3/4] Compilation de l'installateur natif Rust (Cargo Release)..." -ForegroundColor Yellow
+# 3. Extraction du manifeste et compilation du serveur MCP Rust natif
+Write-Host "`n[3/5] Compilation du serveur MCP natif en Rust (revit-mcp-server)..." -ForegroundColor Yellow
+node (Join-Path $RepoRoot "scripts\extract-tools-manifest.js")
+if ($LASTEXITCODE -ne 0) { throw "Erreur extract-tools-manifest.js" }
+
+$serverCargo = Join-Path $RepoRoot "revit-mcp-server\Cargo.toml"
+cargo build --release --manifest-path $serverCargo
+if ($LASTEXITCODE -ne 0) { throw "Erreur lors du build revit-mcp-server" }
+
+# 4. Compilation de l'installateur en Rust
+Write-Host "`n[4/5] Compilation de l'installateur natif Rust (Cargo Release)..." -ForegroundColor Yellow
 $cargoToml = Join-Path $RepoRoot "installer\Cargo.toml"
 cargo build --release --manifest-path $cargoToml
-if ($LASTEXITCODE -ne 0) { throw "Erreur lors du build Cargo" }
+if ($LASTEXITCODE -ne 0) { throw "Erreur lors du build Cargo installer" }
 
-# 4. Packaging dans le dossier dist
-Write-Host "`n[4/4] Finalisation du package de distribution..." -ForegroundColor Yellow
+# 5. Packaging dans le dossier dist
+Write-Host "`n[5/5] Finalisation du package de distribution..." -ForegroundColor Yellow
 $distDir = Join-Path $RepoRoot "dist"
 if (-not (Test-Path $distDir)) {
     New-Item -ItemType Directory -Path $distDir | Out-Null

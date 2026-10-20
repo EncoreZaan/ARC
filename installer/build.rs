@@ -46,7 +46,13 @@ fn main() {
     add_file(&addin_bin.join("Microsoft.CodeAnalysis.dll"), "addin/Microsoft.CodeAnalysis.dll");
     add_file(&addin_bin.join("Microsoft.CodeAnalysis.CSharp.dll"), "addin/Microsoft.CodeAnalysis.CSharp.dll");
 
-    // 2. Server bundle
+    // 2. Server payloads (both Rust native server if present, and JS bundle)
+    let rust_server_bin = root.join("revit-mcp-server").join("target").join("release").join("revit-mcp-server.exe");
+    if rust_server_bin.exists() {
+        add_file(&rust_server_bin, "server/revit-mcp-server.exe");
+        println!("cargo:rerun-if-changed={}", rust_server_bin.display());
+    }
+
     add_file(&server_dist.join("index.bundle.mjs"), "server/index.bundle.mjs");
 
     tar.finish().expect("Failed to finalize tar archive");
