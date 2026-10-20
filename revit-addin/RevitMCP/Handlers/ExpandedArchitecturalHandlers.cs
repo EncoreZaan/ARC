@@ -585,6 +585,11 @@ public partial class RevitEventHandler
                 .OrderBy(fi => (fi.Location as LocationPoint)?.Point.DistanceTo(l.GetEndPoint(0)) ?? 0)
                 .ToList();
 
+            if (inserts.Count == 0)
+            {
+                throw new RevitMcpException("NO_OPENINGS", $"Le mur {wall.Id.Value} ne contient aucune ouverture à coter.");
+            }
+
             var refs = new ReferenceArray();
             var opt = new Options { ComputeReferences = true, View = planView, IncludeNonVisibleObjects = true };
 

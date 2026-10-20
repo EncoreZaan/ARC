@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.DB;
 
 using Autodesk.Revit.DB.Architecture;
 
@@ -601,7 +601,12 @@ public partial class RevitEventHandler : IExternalEventHandler
             }
             if (doc != null && !request.Result.ContainsKey("documentTitle"))
             {
-                request.Result["documentTitle"] = doc.Title;
+                try
+                {
+                    if (doc.IsValidObject)
+                        request.Result["documentTitle"] = doc.Title;
+                }
+                catch { }
             }
         }
 

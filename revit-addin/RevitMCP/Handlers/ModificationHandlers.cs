@@ -623,8 +623,13 @@ public partial class RevitEventHandler
 
             if (parametersObj != null && parametersObj.Count > 0 && applied.Count == 0)
             {
+                var details = new JObject
+                {
+                    ["unknownParameters"] = new JArray(unknown),
+                    ["readOnlyParameters"] = new JArray(readOnlyList)
+                };
                 throw new RevitMcpException("PARAMETERS_NOT_APPLIED",
-                    $"Aucun paramètre n'a pu être appliqué sur le type dupliqué '{duplicated.Name}'. Inexistants : [{string.Join(", ", unknown)}], Lecture seule : [{string.Join(", ", readOnlyList)}]");
+                    $"Aucun paramètre n'a pu être appliqué sur le type dupliqué '{duplicated.Name}'. Inexistants : [{string.Join(", ", unknown)}], Lecture seule : [{string.Join(", ", readOnlyList)}]", details);
             }
 
             return new JObject
@@ -653,8 +658,13 @@ public partial class RevitEventHandler
 
             if (parametersObj.Count > 0 && applied.Count == 0)
             {
+                var details = new JObject
+                {
+                    ["unknownParameters"] = new JArray(unknown),
+                    ["readOnlyParameters"] = new JArray(readOnlyList)
+                };
                 throw new RevitMcpException("PARAMETERS_NOT_APPLIED",
-                    $"Aucun paramètre n'a pu être appliqué sur le type '{type.Name}'. Inexistants : [{string.Join(", ", unknown)}], Lecture seule : [{string.Join(", ", readOnlyList)}]");
+                    $"Aucun paramètre n'a pu être appliqué sur le type '{type.Name}'. Inexistants : [{string.Join(", ", unknown)}], Lecture seule : [{string.Join(", ", readOnlyList)}]", details);
             }
 
             return new JObject
