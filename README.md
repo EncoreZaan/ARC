@@ -1,162 +1,203 @@
-# REVIT AI BRIDGE — MCP POUR AUTODESK REVIT (v2.2.0)
+# ⚡ REVIT AI BRIDGE — LE PONT MCP INTELLIGENT POUR AUTODESK REVIT
 
-Pont natif et haute performance entre **Claude (Claude Desktop / Claude Code)** et **Autodesk Revit 2027** (compatible 2026, 2025 et 2024) via le **Model Context Protocol (MCP)**.
+[![Release](https://img.shields.io/github/v/release/EncoreZaan/Revit-MCP?color=00d2ff&label=Version)](https://github.com/EncoreZaan/Revit-MCP/releases/tag/v2.2.0)
+[![Revit](https://img.shields.io/badge/Autodesk%20Revit-2024%20%7C%202025%20%7C%202026%20%7C%202027-blue.svg)](https://www.autodesk.fr/products/revit/overview)
+[![Rust](https://img.shields.io/badge/Server-Rust%20100%25%20Natif-orange.svg)](https://www.rust-lang.org/)
+[![MCP](https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-green.svg)](https://modelcontextprotocol.io/)
+[![Zero Crash](https://img.shields.io/badge/Architecture-Zéro--Crash%20Garanti-brightgreen.svg)](#-architecture--résilience-zéro-crash)
 
-Revit AI Bridge permet à Claude de lire, concevoir, modifier, annoter, coter, auditer et coordonner des maquettes BIM Revit à travers **196 outils locaux dédiés**.
-
----
-
-## 1. Architecture & Résilience Zéro-Crash
-
-```
-Claude (Claude Desktop ou Claude CLI)
-       │
-       │ Protocole MCP (stdio / JSON-RPC)
-       ▼
-Serveur MCP Local (Node.js / TypeScript)
-       │
-       │ HTTP REST JSON (http://localhost:6543)
-       ▼
-Add-in Revit C# .NET 10 / .NET 8 (RevitMCP.dll)
-       │
-       │ Revit ExternalEvent (Thread UI Principal)
-       ▼
-Autodesk Revit 2027 API (Document BIM ouvert)
-```
-
-### Principes de robustesse et sécurité absolue
-1. **Thread-Safety Revit API** : Toutes les opérations modifiant ou interrogeant le modèle BIM transitent par un `ExternalEvent` marshalisé sur le thread UI principal de Revit. Aucun appel multi-thread non sécurisé n'est exécuté.
-2. **SafeFailurePreprocessor & Zéro Boîte de Dialogue Bloquante** : Toutes les transactions Revit intègrent un préprocesseur d'échecs (`SafeFailurePreprocessor`) qui absorbe et valide automatiquement les alertes mineures de Revit sans freeze modal, tout en renvoyant systématiquement les messages dans `bimWarnings: string[]`.
-3. **Rollback Automatique & Mode Simulation (`dryRun`)** : En cas d'erreur ou d'exception lors d'une transaction, celle-ci est immédiatement annulée (`tx.RollBack()`). De plus, tous les outils d'écriture supportent le paramètre `dryRun: boolean` pour tester les modifications sans impacter le document.
-4. **Transactions nommées & Annulation** : Chaque modification porte le nom `"MCP: <nom_outil>"`. Les outils `revit_undo`, `revit_redo` et `revit_get_transaction_history` permettent de suivre et d'annuler les opérations pas à pas.
-5. **Concurrence & Sérialisation** : Un sémaphore (`SemaphoreSlim`) sérialise les requêtes vers Revit pour empêcher tout télescopage de transactions.
-6. **Support Bilingue Universel (FR / EN / BuiltInCategory)** : Grâce au résolveur automatique `CategoryResolver`, les catégories peuvent être spécifiées en français (`Mobilier`, `Murs`, `Portes`, `Toits`), en anglais (`Furniture`, `Walls`, `Doors`, `Roofs`) ou en identifiant interne `BuiltInCategory` (`OST_Furniture`).
-7. **Identifiants 64 bits (`long`)** : Compatibilité native avec l'architecture `ElementId` 64 bits de Revit 2024+.
-8. **Unités standardisées** : Toutes les longueurs en **millimètres (mm)**, les angles en **degrés (°)**, les surfaces en **m²** et les volumes en **m³** (conversions automatiques via `UnitUtils`).
-9. **Multi-Documents** : Chaque outil accepte le paramètre optionnel `documentTitle` ou `documentPath`. Si omis, l'opération cible automatiquement le document actif.
-10. **Format d'erreur normalisé** : Toutes les anomalies renvoient une structure `{ "success": false, "error": { "code": "...", "message": "...", "details": {...} } }`.
-11. **Démarrage Silencieux & Signature** : Configuration automatique du commutateur officiel `DisableAddInSecurity=1` dans `Revit.ini` et enregistrement canonique dans le registre Windows, garantissant le chargement direct sans popup de confirmation d'éditeur.
+> **Revit AI Bridge** connecte **Claude (Claude Desktop, Cursor, Claude Code)** directement à **Autodesk Revit** via le protocole ouvert **Model Context Protocol (MCP)**.
+>
+> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **196 outils locaux ultra-rapides**, un **panneau latéral WPF incrusté dans Revit**, des **audits PMR en 1 clic** et une **vision multimodale instantanée** propulsée par un serveur autonome en **Rust**.
 
 ---
 
-## 2. Nouveautés Majeures v2.2.0
+## 🚀 Installation Express en 1 Clic (Zéro-Config)
 
-1. **Feedback Visuel Multimodal (`revit_screenshot_active_view`)** : L'IA a désormais des yeux dans Revit. Capture instantanée transmise nativement en Base64 via le serveur Rust MCP pour auto-correction visuelle, contrôle d'alignement ou lecture de croquis scannés.
-2. **Panneau Latéral Ancrable DANS Revit (Dockable Panel WPF)** : Onglet dédié dans le ruban Revit ("Revit AI Copilot") et panneau ancré interactif. Mode "Sélection active" avec diagnostic immédiat et actions rapides au clic.
-3. **Audits Réglementaires Automatisés en 1 Clic (`revit_audit_pmr`)** : Vérification des largeurs de portes ($\ge 83$ cm), aires de rotation libre ($\varnothing 1{,}50$ m) et pentes de rampes, avec surbrillance automatique vert/rouge dans Revit.
-4. **Génération Spatiale & Macro-Conception (`revit_generate_spatial_layout`)** : Conception intégrale d'un projet en 1 clic (dalle, enveloppe thermique, cloisons, pièces, baies vitrées RE2020 et portes).
-5. **Copilote Proactif en Temps Réel (`ProactiveGuardian`)** : Écoute continue de `DocumentChanged` pour alerter immédiatement sur les clashs, cloisons rompues ou linteaux hors gabarit.
+Pas besoin de compiler du code ou de configurer des variables d'environnement. Tout est automatisé dans un installateur autonome ultra-léger de 4,8 Mo écrit en Rust.
 
----
+### Option A : L'installateur universel (Recommandé) ⚡
 
-## 3. Inventaire des 196 outils MCP
-
-Consultez le document détaillé [`docs/mcp_tools_reference.md`](docs/mcp_tools_reference.md) pour la documentation exhaustive des paramètres et schémas JSON.
-
-### A. Diagnostic, Connexion & Santé (6 outils)
-`revit_health_check`, `revit_get_model_info`, `revit_get_ui_state`, `revit_bring_to_front`, `revit_dismiss_dialogs`, `revit_get_log`.
-
-### B. Gestion des Documents, Projet & Variantes (13 outils)
-`revit_list_open_documents`, `revit_activate_document`, `revit_open_document`, `revit_close_document`, `revit_save_document`, `revit_save_as`, `revit_purge_unused`, `revit_set_project_info`, `revit_copy_elements_between_documents`, `revit_get_design_options`, `revit_create_design_option`, `revit_move_elements_to_design_option`, `revit_set_view_design_option`.
-
-### C. Exécution de Code, Transactions & Automatisation (8 outils)
-`revit_execute_csharp`, `revit_execute_python`, `revit_batch`, `revit_undo`, `revit_redo`, `revit_get_transaction_history`, `revit_list_dynamo_scripts`, `revit_run_dynamo_inline`.
-
-### D. Géométrie, Espace & Requêtes Spatiales (9 outils)
-`revit_get_element_location`, `revit_get_element_geometry`, `revit_get_elements_in_region`, `revit_measure_distance`, `revit_get_height_at_point`, `revit_check_clearance`, `revit_get_wall_openings`, `revit_get_room_at_point`, `revit_detect_clashes`.
-
-### E. Exploration du Modèle BIM (8 outils)
-`revit_get_elements`, `revit_get_element_parameters`, `revit_count_elements`, `revit_list_categories`, `revit_get_levels`, `revit_get_families`, `revit_find_elements_by_parameter`, `revit_get_materials`.
-
-### F. Modification d'Éléments & Positionnement (14 outils)
-`revit_set_element_location`, `revit_move_element`, `revit_rotate_element`, `revit_change_element_type`, `revit_copy_elements`, `revit_mirror_elements`, `revit_align_elements`, `revit_flip_element`, `revit_hosted_set_position`, `revit_set_element_pinned`, `revit_join_geometry`, `revit_group_elements`, `revit_ungroup_elements`, `revit_delete_element`.
-
-### G. Création & Modification d'Architecture & Structure (18 outils)
-`revit_create_wall`, `revit_modify_wall`, `revit_split_wall`, `revit_attach_wall`, `revit_create_floor`, `revit_modify_floor_boundary`, `revit_create_roof_footprint`, `revit_create_roof_extrusion`, `revit_modify_roof`, `revit_create_ceiling`, `revit_create_structural_column`, `revit_create_structural_beam`, `revit_create_beam_system`, `revit_create_railing`, `revit_create_stair`, `revit_place_family_instance`, `revit_create_simple_family`, `revit_edit_family_parameters`.
-
-### H. Niveaux, Pièces, Cloisonnement & Finitions (15 outils)
-`revit_create_level`, `revit_modify_level`, `revit_create_room`, `revit_create_room_separation_lines`, `revit_place_room_at_point`, `revit_delete_unplaced_rooms`, `revit_tag_rooms`, `revit_get_rooms`, `revit_get_room_finishes`, `revit_set_room_finishes_bulk`, `revit_set_room_color_fill`, `revit_create_color_fill_scheme`, `revit_apply_color_fill`, `revit_create_area_plan`, `revit_create_area`.
-
-### I. Types, Familles & Bibliothèque (6 outils)
-`revit_duplicate_type`, `revit_set_type_parameters`, `revit_get_type_parameters`, `revit_create_window_or_door_type`, `revit_load_family`, `revit_list_family_library`.
-
-### J. Vues, Caméras, Filtres & Gabarits (19 outils)
-`revit_get_views`, `revit_activate_view`, `revit_create_plan_views_for_levels`, `revit_create_section_view`, `revit_create_3d_view`, `revit_create_elevation_views`, `revit_create_drafting_view`, `revit_create_legend_view`, `revit_place_legend_component`, `revit_duplicate_view`, `revit_set_view_properties`, `revit_set_category_visibility`, `revit_hide_elements_in_view`, `revit_isolate_elements_in_view`, `revit_crop_view_to_elements`, `revit_create_section_box`, `revit_apply_view_template_bulk`, `revit_create_view_template_from_view`, `revit_create_view_filter`, `revit_apply_view_filter`, `revit_delete_views`, `revit_close_inactive_views`.
-
-### K. Annotations, Cotations, Symboles & Dessin 2D (14 outils)
-`revit_create_linear_dimension`, `revit_auto_dimension_walls`, `revit_dimension_openings`, `revit_create_spot_elevation`, `revit_create_tag`, `revit_tag_all`, `revit_create_text_note`, `revit_create_detail_curve`, `revit_create_filled_region`, `revit_create_grid`, `revit_create_detail_line`, `revit_create_line_style`, `revit_place_annotation_symbol`, `revit_place_detail_component`.
-
-### L. Feuilles, Cartouches & Mises en Page (12 outils)
-`revit_get_sheets`, `revit_create_sheet`, `revit_duplicate_sheet`, `revit_change_title_block`, `revit_set_sheet_parameters`, `revit_place_view_on_sheet`, `revit_get_viewports`, `revit_move_viewport`, `revit_set_viewport_type`, `revit_align_viewports`, `revit_place_schedule_on_sheet`, `revit_auto_populate_sheets`.
-
-### M. Réservations, Trémies, Escaliers & Formes Libres (4 outils)
-`revit_create_opening`, `revit_create_ladder`, `revit_create_direct_shape`, `revit_paint_face`.
-
-### N. Matériaux, Nomenclatures & Quantitatifs (6 outils)
-`revit_create_material`, `revit_assign_material`, `revit_create_schedule`, `revit_get_schedule_data`, `revit_get_material_takeoff`, `revit_export_material_takeoff_csv`.
-
-### O. Paramètres & Données BIM (5 outils)
-`revit_set_parameter`, `revit_batch_set_parameters`, `revit_import_csv_parameters`, `revit_copy_parameter_values`, `revit_set_element_phase`.
-
-### P. Imports, Exports & Formats Vectoriels (11 outils)
-`revit_export_pdf`, `revit_export_dwg`, `revit_export_dxf`, `revit_export_ifc`, `revit_export_view_image`, `revit_render_view`, `revit_import_cad`, `revit_get_cad_geometry`, `revit_create_walls_from_cad`, `revit_import_image`, `revit_export_clash_report`, `revit_export_schedule`.
-
-### Q. Graphismes, Révisions & Variantes (13 outils)
-`revit_color_elements`, `revit_reset_color_overrides`, `revit_zoom_to_elements`, `revit_get_current_selection`, `revit_set_current_selection`, `revit_isolate_elements`, `revit_reset_temporary_override`, `revit_get_view_templates`, `revit_bulk_rename_views`, `revit_duplicate_views_bulk`, `revit_get_revision_history`, `revit_get_revisions`, `revit_add_revision_cloud`, `revit_get_worksets`, `revit_issue_drawings`.
+1. Téléchargez la dernière version : **[📥 Télécharger RevitMCP-Setup-v2.2.0.exe](https://github.com/EncoreZaan/Revit-MCP/releases/download/v2.2.0/RevitMCP-Setup-v2.2.0.exe)**
+2. Double-cliquez sur **`RevitMCP-Setup-v2.2.0.exe`**.
+3. **C'est tout !** L'installateur :
+   - Déploie automatiquement l'add-in Revit pour vos versions installées (2027, 2026, 2025 ou 2024).
+   - Configure automatiquement le commutateur silencieux `DisableAddInSecurity=1` (zéro popup d'éditeur non vérifié au démarrage).
+   - Configure le serveur MCP autonome Rust dans votre **Claude Desktop** (`claude_desktop_config.json`).
+4. Démarrez **Revit**, ouvrez un projet, lancez **Claude Desktop** et discutez avec votre maquette !
 
 ---
 
-## 3. Serveur Compagnon CAD-MCP (Python)
+### Option B : Installation développeur depuis les sources 🛠️
 
-Le dossier `cad-mcp/` contient un serveur MCP autonome dédié à l'inspection et à la coordination DXF/DWG :
+Si vous souhaitez contribuer ou modifier le code source :
 
-- `dxf_info` : Métadonnées complètes d'un fichier DXF (version, calques, limites en mm, compteurs).
-- `dxf_list_entities` : Lecture détaillée de la géométrie CAO 2D/3D avec coordonnées en millimètres.
-- `dxf_render` : Rendu vectoriel haute résolution en image PNG ou PDF à l'échelle avec gestion des tirets réels.
-- `dxf_render_all_layouts_pdf` : Rendu de toutes les présentations (Model et Paper Space) dans un PDF multi-pages.
-- `dxf_audit` : Détection des anomalies du plan (lignes dupliquées, polylignes ouvertes, tolérances).
-- `dxf_edit` : Édition vectorielle sûre (ajout/déplacement/suppression d'entités) avec détection de verrou.
-- `dxf_diff` : Comparaison géométrique et structurelle entre deux versions d'un fichier DXF.
-- `dxf_compare_with_revit` : Comparaison spatiale croisée directe entre le fond de plan DXF et la maquette 3D Revit active.
+```powershell
+# 1. Cloner le dépôt
+git clone https://github.com/EncoreZaan/Revit-MCP.git
+cd "Revit-MCP"
 
----
-
-## 4. Configuration & Sécurité (`RevitMCP.config.json`)
-
-```json
-{
-  "port": 6543,
-  "queueTimeoutSeconds": 10,
-  "revitApiTimeoutSeconds": 120,
-  "maxRequestBytes": 2097152,
-  "allowCodeExecution": false,
-  "logLevel": "Information"
-}
+# 2. Exécuter le script d'installation automatique
+powershell -ExecutionPolicy Bypass -File "scripts/install.ps1"
 ```
 
-> [!CAUTION]
-> L'exécution de code dynamique (`revit_execute_csharp`, `revit_execute_python`, `revit_run_dynamo_inline`) est **désactivée par défaut** pour la sécurité de la distribution. Elle ne peut être autorisée qu'en basculant `"allowCodeExecution": true` dans le fichier déployé dans `%APPDATA%\Autodesk\Revit\Addins\[Version]\RevitMCP.config.json`. Toute tentative sans cette autorisation renvoie une erreur `PERMISSION_DENIED`.
+---
+
+## 🌟 Les 5 Super-Pouvoirs Majeurs (v2.2.0)
+
+### 👁️ 1. Le Feedback Visuel (L'IA qui a des yeux dans Revit)
+Finies les modélisations à l'aveugle basées sur de simples coordonnées !
+- **Capture instantanée (`revit_screenshot_active_view`)** : L'IA prend un cliché haute définition (jusqu'à 4096 px) de la vue 3D ou d'un plan d'étage.
+- **Vision Multimodale Native en Rust** : Le serveur Rust convertit l'image en Base64 et l'envoie au format image officiel MCP. **Claude 3.5 Sonnet** ou **GPT-4o** visualise le résultat immédiatement dans le fil de discussion.
+- **Auto-Correction visuelle** : L'IA inspecte les proportions d'une façade, identifie un mauvais alignement ou un clash visuel, et corrige la géométrie d'elle-même avant de valider.
+- **Croquis & Esquisses scannés** : Vous pouvez lui soumettre une esquisse papier ou un schéma côté ; l'IA lit le dessin et le modélise directement dans Revit.
 
 ---
 
-## 5. Configuration pour Claude Desktop & Claude Code
+### 💬 2. Le Panneau Latéral Ancrable DANS Revit (Dockable Panel WPF)
+Ne changez plus jamais de fenêtre entre Claude Desktop et Revit !
+- **Incrustation native** : Un panneau rétractable moderne (`RevitAiDockablePanel`) intégré directement dans l'interface Revit, à côté de l'Arborescence du Projet et des Propriétés.
+- **Nouvel onglet Ruban "Revit AI Copilot"** : Commandes directes dans le ruban Revit pour ouvrir le panneau, lancer un audit PMR ou capturer la vue courante.
+- **Mode "Sélection Active" en direct** : Dès que vous cliquez sur un élément dans Revit (mur, porte, fenêtre, poteau), le panneau affiche son ID, sa catégorie, sa famille et ses dimensions, avec 4 boutons d'action instantanée :
+  - 🔍 **Isoler l'élément**
+  - 🔄 **Rétablir la vue**
+  - 📋 **Audit d'accessibilité PMR**
+  - 💬 **Demander conseil à l'IA**
 
-Dans votre fichier `claude_desktop_config.json` :
+---
+
+### 📋 3. Les Audits Réglementaires Automatisés en 1 Clic (PMR & Normes)
+Le cauchemar des architectes et bureaux d'études réglé en 1 seconde.
+- **Outil dédié `revit_audit_pmr`** : Scan complet du projet selon les normes d'accessibilité handicapée françaises et européennes :
+  - **Largeur utile de passage des portes** ($\ge 83\text{ cm}$ déduction d'huisserie faite).
+  - **Aire de rotation libre** ($\varnothing 1{,}50\text{ m}$) dans les pièces d'eau, sanitaires, WC, entrées et dégagements.
+  - **Pentes des rampes d'accès** ($< 5\%$).
+- **Surbrillance automatique en vue** : En 1 seconde, l'IA colorie directement dans votre vue Revit les éléments conformes en **Vert** (`RGB: 46, 204, 113`) et les non-conformités en **Rouge** (`RGB: 231, 76, 60`).
+- **Rapport synthétique et recommandations** : Calcul immédiat du taux de conformité globale (%) et propositions correctives ciblées (ex. *"Remplacer le bloc-porte 73 cm par un bloc-porte 90 cm"*).
+
+---
+
+### 🏗️ 4. Génération Spatiale & Macro-Conception (Architecte Génératif)
+Oubliez la fastidieuse saisie mur par mur. Passez au **Macro-Prompting** architectural !
+- **Outil dédié `revit_generate_spatial_layout`** :
+  > *"Conçois-moi un pavillon T4 contemporain de 115 m² de plain-pied : séjour/cuisine traversant au Sud de 45 m², suite parentale isolée à l'Est, garage au Nord, toiture ardoise."*
+- **Composition spatiale automatisée** :
+  1. Résolution de l'organigramme fonctionnel et des surfaces Loi Carrez.
+  2. Implantation de la dalle de sol (`Floor`) et de l'enveloppe thermique extérieure (`Wall`).
+  3. Cloisonnement intérieur optimisé pour les circulations.
+  4. Création des pièces (`Room`) avec étiquettes et calculs de surface réels.
+  5. Insertion bioclimatique des menuiseries conforme **RE2020** (grandes baies vitrées au Sud avec ratio vitrage $\ge 1/6$) et portes conformes PMR.
+
+---
+
+### ⚡ 5. Copilote Proactif en Temps Réel (`ProactiveGuardian`)
+L'IA ne dort jamais : elle veille en arrière-plan pendant que vous concevez !
+- **Écoute continue des événements Revit** (`DocumentChanged` & `Idling`).
+- **Détections intelligentes en direct** :
+  - ⚠️ *"Attention, le déplacement du mur porteur a rendu la pièce 'Séjour' non délimitée."*
+  - ⚠️ *"Vous venez de supprimer une pièce mais 3 séparateurs de pièces orphelins sont restés actifs."*
+  - ⚠️ *"La fenêtre insérée possède un linteau plus haut que la sous-face de la dalle supérieure (risque de clash)."*
+  - ⚠️ *"Détection d'un segment de mur anormalement court (< 15 cm) susceptible d'altérer les jonctions."*
+- **Diffusion directe** : Notification instantanée dans le **Dockable Panel** et consultation via MCP (`revit_get_proactive_alerts`).
+
+---
+
+## 💬 Exemples de Prompts à tester dans Claude Desktop
+
+Une fois Revit ouvert avec votre projet, collez ces exemples de requêtes dans Claude :
+
+### 📸 Feedback Visuel
+> *"Prends une capture d'écran de la vue 3D actuelle de Revit avec `revit_screenshot_active_view`, analyse l'harmonie des façades et indique-moi si des alignements de baies sont disgracieux."*
+
+### 📋 Audit Réglementaire PMR
+> *"Lance un audit PMR complet sur ma maquette avec `revit_audit_pmr`. Surligne en vert ce qui est conforme et en rouge les non-conformités directement dans la vue 3D, puis dresse-moi la liste des blocs-portes à remplacer."*
+
+### 🏗️ Macro-Conception Immédiate
+> *"Utilise `revit_generate_spatial_layout` pour implanter un pavillon T4 contemporain de 12,50 × 9,50 m avec dalle, cloisons, séjour traversant plein Sud, pièces nommées et baies vitrées conformes RE2020."*
+
+### 🔍 Requête BIM & Sélection
+> *"Quels sont les éléments actuellement sélectionnés dans Revit ? Donne-moi leurs cotes précises et vérifie s'ils respectent les hauteurs sous plafond avec `revit_get_height_at_point`."*
+
+---
+
+## 🛡️ Architecture & Résilience Zéro-Crash
+
+```mermaid
+flowchart TD
+    subgraph Client["🤖 Client IA"]
+        Claude["Claude Desktop / Cursor / Claude CLI\n(Modèles multimodaux : Sonnet 3.5, GPT-4o)"]
+    end
+
+    subgraph RustServer["🦀 Serveur Standalone Rust (revit-mcp-server)"]
+        RPC["Protocole MCP (stdio / JSON-RPC 2024-11-05)"]
+        Registry["Registre embarqué : 196 Outils Locaux"]
+        VisionEngine["Support Image Multimodal (Base64 -> image/png)"]
+    end
+
+    subgraph AddIn["🏢 Autodesk Revit (C# .NET 10 / .NET 8)"]
+        HTTP["Pont HTTP Local (http://localhost:6543)"]
+        Gate["Sémaphore & File d'attente thread-safe"]
+        ExtEvent["ExternalEvent (Thread UI Principal Revit)"]
+        TxRunner["TransactionRunner (Rollback automatique & dryRun)"]
+        SafeFailure["SafeFailurePreprocessor (0 popup bloquante)"]
+        Guardian["ProactiveGuardian (DocumentChanged / Idling)"]
+        WPF["Revit AI Dockable Panel + Ruban Revit"]
+    end
+
+    Claude <-->|"JSON-RPC (stdio)"| RPC
+    RPC --> Registry
+    Registry --> VisionEngine
+    VisionEngine <-->|"HTTP REST JSON"| HTTP
+    HTTP --> Gate
+    Gate --> ExtEvent
+    ExtEvent --> TxRunner
+    TxRunner --> SafeFailure
+    TxRunner <-->|"Revit API 2024-2027"| Guardian
+    Guardian --> WPF
+```
+
+### Principes de robustesse absolue :
+1. **Thread-Safety Revit API** : Tous les appels transitent par un `ExternalEvent` marshalisé sur le thread UI principal de Revit. Aucun appel multi-thread illégal.
+2. **Zéro Boîte de Dialogue Bloquante (`SafeFailurePreprocessor`)** : Les transactions absorbent automatiquement les avertissements mineurs (jonctions imparfaites, éléments déconnectés) sans jamais figer l'interface.
+3. **Mode Simulation Universel (`dryRun: true`)** : Tous les outils d'écriture supportent `dryRun`. Testez n'importe quelle modification géométrique sans altérer la maquette.
+4. **Rollback Automatique & Annulation** : En cas d'exception, `TransactionRunner` effectue un `RollBack()` immédiat. Historique complet disponible via `revit_undo` et `revit_redo`.
+5. **Support Bilingue Universel (FR / EN / BuiltInCategory)** : Noms de catégories acceptés indifféremment en français (*Murs*, *Portes*, *Mobilier*), en anglais (*Walls*, *Doors*, *Furniture*) ou en énumération Revit (*OST_Walls*).
+6. **Système Métrique Universel** : Conversions automatiques en millimètres (**mm**), degrés (**°**), mètres carrés (**m²**) et mètres cubes (**m³**).
+
+---
+
+## 📚 Inventaire des 196 Outils MCP
+
+| Catégorie | Outils Phares | Description |
+|---|---|---|
+| **👁️ Vision & Feedback Visuel** | `revit_screenshot_active_view`, `revit_export_view_image`, `revit_render_view` | Capture instantanée multimodale Base64 pour l'analyse visuelle IA et rendus HD. |
+| **📋 Audits & Réglementation** | `revit_audit_pmr`, `revit_detect_clashes`, `revit_check_clearance` | Audits PMR (portes, aires de giration, rampes), surbrillance couleur vert/rouge, détection de clashs. |
+| **🏗️ Macro-Conception & Archi** | `revit_generate_spatial_layout`, `revit_create_wall`, `revit_create_floor`, `revit_create_roof_footprint` | Génération de pavillons complets, enveloppes thermiques, dalles, toitures, cloisons. |
+| **⚡ Copilote Proactif** | `revit_get_proactive_alerts`, `revit_clear_proactive_alerts` | Interrogation des alertes de modélisation captées en tâche de fond (DocumentChanged). |
+| **📐 Géométrie & Cotations** | `revit_get_wall_openings`, `revit_get_height_at_point`, `revit_auto_dimension_walls`, `revit_dimension_openings` | Raycast vertical 3D dédié, plans cotés automatiques, détection des ouvertures. |
+| **🚪 Pièces, Cloisons & Finitions** | `revit_create_room`, `revit_tag_rooms`, `revit_get_rooms`, `revit_set_room_color_fill` | Création de pièces, étiquetage automatique, plans de repérage colorés. |
+| **🎯 Sélection & Graphisme** | `revit_get_current_selection`, `revit_set_current_selection`, `revit_color_elements`, `revit_isolate_elements` | Interaction avec la sélection Revit en temps réel, surcharges graphiques temporaires. |
+| **📄 Feuilles & Documentation** | `revit_create_sheet`, `revit_place_view_on_sheet`, `revit_auto_populate_sheets`, `revit_export_pdf` | Mises en page automatiques, alignement de cartouches, exports PDF et DWG. |
+| **🔄 Modèle, Phases & Variantes** | `revit_list_open_documents`, `revit_activate_document`, `revit_get_design_options`, `revit_undo`, `revit_redo` | Gestion multi-documents, variantes de conception, historique de transactions. |
+
+Consultez le document exhaustif [`docs/mcp_tools_reference.md`](docs/mcp_tools_reference.md) pour la liste intégrale et les schémas d'entrées JSON.
+
+---
+
+## ⚙️ Configuration Manuelle (`claude_desktop_config.json`)
+
+Si vous utilisez Claude Desktop, l'installateur configure automatiquement ce fichier situé dans `%APPDATA%\Claude\claude_desktop_config.json` :
 
 ```json
 {
   "mcpServers": {
     "revit": {
-      "command": "node",
-      "args": ["c:/Users/teoba/Documents/Devs/MCP Revit/mcp-server/dist/index.js"],
+      "command": "C:/Users/<VOTRE_UTILISATEUR>/Documents/Devs/MCP Revit/revit-mcp-server/target/release/revit-mcp-server.exe",
+      "args": [],
       "env": {
         "REVIT_HOST": "http://localhost:6543",
         "REVIT_TIMEOUT_MS": "120000"
       }
-    },
-    "cad-mcp": {
-      "command": "python",
-      "args": ["c:/Users/teoba/Documents/Devs/MCP Revit/cad-mcp/server.py"]
     }
   }
 }
@@ -164,64 +205,20 @@ Dans votre fichier `claude_desktop_config.json` :
 
 ---
 
-## 6. Installation & Déploiement
+## 🤝 Contribution & Développement
 
-### Option A : Installateur Universel 1-Clic en Rust (Recommandé)
+Les contributions, signalements de bugs et propositions d'outils sont les bienvenus !
 
-Téléchargez la dernière version de l'installateur dans les [Releases GitHub](https://github.com/EncoreZaan/Revit-MCP/releases) : **`RevitMCP-Setup-v2.1.1.exe`** (~4 Mo).
-
-Développé en **Rust natif** ultra-léger et autonome, cet installateur embarque l'intégralité du pont (Add-in C#, compilateurs Roslyn, serveur MCP autonome bundled sans dépendances `node_modules`).
-
-```powershell
-# Installation interactive standard (serveur Rust natif par défaut, zéro dépendance Node.js)
-.\RevitMCP-Setup-v2.1.1.exe
-
-# Diagnostic du système et de l'installation
-.\RevitMCP-Setup-v2.1.1.exe --status
-
-# Forcer le mode Node.js (secours / rétrocompatibilité)
-.\RevitMCP-Setup-v2.1.1.exe --use-node
-
-# Installation silencieuse (déploiement automatisé)
-.\RevitMCP-Setup-v2.1.1.exe --silent
-
-# Désinstallation propre
-.\RevitMCP-Setup-v2.1.1.exe --uninstall
-```
-
-L'installateur effectue automatiquement :
-1. **Détection multi-versions** de Revit (2024, 2025, 2026, 2027) via Program Files, APPDATA et le Registre Windows.
-2. **Déploiement de l'add-in** `.NET` dans `%APPDATA%\Autodesk\Revit\Addins\<Année>\` sans jamais écraser vos réglages personnalisés de sécurité (`allowCodeExecution`).
-3. **Démarrage silencieux garanti** : injection automatique de `[Misc] DisableAddInSecurity=1` dans `Revit.ini` (compatible UTF-16 LE) et enregistrement du GUID canonique dans `HKCU:\SOFTWARE\Autodesk\Revit\Autodesk Revit <Année>\CodeSigning`. Zéro popup au lancement de Revit.
-4. **Déploiement du serveur MCP double-moteur** :
-   - Moteur principal : **Rust natif autonome** (`revit-mcp-server.exe`, 1,28 Mo, temps de réponse < 2 ms, 0 dépendance Node.js).
-   - Moteur de secours : **Node.js bundle** (`index.bundle.mjs`) activable instantanément via `--use-node`.
-5. **Configuration automatique de Claude Desktop** (supporte les profils standard APPDATA et Windows Store MSIX).
+1. Forkez le dépôt : `https://github.com/EncoreZaan/Revit-MCP`
+2. Créez votre branche : `git checkout -b feature/nouvel-outil`
+3. Vérifiez les builds complets :
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File "scripts/build-release.ps1"
+   ```
+4. Committez et ouvrez une Pull Request.
 
 ---
 
-### Option B : Déploiement Développeur depuis les sources
+## 📄 Licence
 
-```powershell
-# Build complet de la release (C# + Bundle TS + Rust Setup)
-.\scripts\build-release.ps1
-
-# Déploiement rapide en développement local
-.\scripts\install.ps1
-```
-
-### Build et tests manuels
-```powershell
-# Add-in C# .NET 10 / 8
-dotnet build revit-addin\RevitMCP\RevitMCP.csproj -c Release
-
-# Serveur MCP TypeScript
-npm run build --prefix mcp-server
-npm test --prefix mcp-server
-
-# Serveur compagnon CAD-MCP Python
-python -m unittest discover -s cad-mcp
-```
-
-### Validation et tests d'acceptation
-Consultez le document [`docs/test_report.md`](docs/test_report.md) pour les preuves d'exécution réelles sur Autodesk Revit 2027 et le protocole des scénarios validés.
+Ce projet est sous licence **MIT**. Vous êtes libre de l'utiliser, le modifier et l'intégrer dans vos agences d'architecture et bureaux d'études.
