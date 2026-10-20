@@ -1,0 +1,4 @@
+mcp>=1.3.0
+ezdxf>=1.3.0
+matplotlib>=3.8.0
+requests>=2.31.0

@@ -18,6 +18,7 @@ public class App : IExternalApplication
 
         try
         {
+            OpenDocumentsCache.Initialize(application);
             _server = new RevitHttpServer(application);
             _server.Start();
 

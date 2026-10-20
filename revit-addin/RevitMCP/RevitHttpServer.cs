@@ -18,7 +18,7 @@ public class RevitHttpServer
 {
     private const string Prefix = "http://localhost:6543/";
     private const string ServiceName = "RevitMCP";
-    private const string ServiceVersion = "2.0.0";
+    private const string ServiceVersion = "2.1.0";
     private static readonly DateTime StartedUtc = DateTime.UtcNow;
     private static readonly Regex SafeActionPattern = new("^[a-z0-9-]+(?:/[a-z0-9-]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
     private static readonly TimeSpan QueueTimeout = TimeSpan.FromSeconds(10);
@@ -89,26 +89,27 @@ public class RevitHttpServer
                     uptimeSeconds = Math.Round((DateTime.UtcNow - StartedUtc).TotalSeconds, 3),
                     queueTimeoutSeconds = QueueTimeout.TotalSeconds,
                     revitApiTimeoutSeconds = RevitApiTimeout.TotalSeconds,
-                    maxRequestBytes = MaxRequestBytes
+                    maxRequestBytes = MaxRequestBytes,
+                    openDocuments = OpenDocumentsCache.GetList()
                 });
                 return;
             }
 
             if (req.HttpMethod != "POST")
             {
-                WriteJson(res, 405, new { error = "Only POST requests are supported." });
+                WriteJson(res, 405, RevitMcpException.CreateErrorResponse("METHOD_NOT_ALLOWED", "Only POST requests are supported."));
                 return;
             }
 
             if (!path.StartsWith("/api/"))
             {
-                WriteJson(res, 404, new { error = "Not found" });
+                WriteJson(res, 404, RevitMcpException.CreateErrorResponse("NOT_FOUND", $"Path '{path}' not found."));
                 return;
             }
 
             if (req.ContentLength64 > MaxRequestBytes)
             {
-                WriteJson(res, 413, new { error = "Request body is too large." });
+                WriteJson(res, 413, RevitMcpException.CreateErrorResponse("PAYLOAD_TOO_LARGE", "Request body is too large (max 2 MB)."));
                 return;
             }
 
@@ -126,26 +127,26 @@ public class RevitHttpServer
             }
             catch (JsonReaderException ex)
             {
-                WriteJson(res, 400, new { error = $"Invalid JSON: {ex.Message}" });
+                WriteJson(res, 400, RevitMcpException.CreateErrorResponse("INVALID_ARGUMENT", $"Invalid JSON body: {ex.Message}"));
                 return;
             }
 
             var action = path["/api/".Length..].TrimEnd('/');
             if (string.IsNullOrWhiteSpace(action))
             {
-                WriteJson(res, 400, new { error = "Missing Revit action in /api/<action>." });
+                WriteJson(res, 400, RevitMcpException.CreateErrorResponse("INVALID_ARGUMENT", "Missing Revit action in /api/<action>."));
                 return;
             }
 
             if (!SafeActionPattern.IsMatch(action))
             {
-                WriteJson(res, 400, new { error = "Invalid Revit action. Expected lowercase path segments like 'model/info'." });
+                WriteJson(res, 400, RevitMcpException.CreateErrorResponse("INVALID_ARGUMENT", "Invalid Revit action. Expected lowercase path segments like 'model/info'."));
                 return;
             }
 
             if (!_requestGate.Wait(QueueTimeout))
             {
-                WriteJson(res, 429, new { error = "RevitMCP is busy. Try again in a few seconds." });
+                WriteJson(res, 429, RevitMcpException.CreateErrorResponse("TIMEOUT", "RevitMCP is busy. Try again in a few seconds."));
                 return;
             }
 
@@ -157,15 +158,23 @@ public class RevitHttpServer
 
                 if (!RevitEventHandler.WaitForResult(request, RevitApiTimeout))
                 {
-                    WriteJson(res, 504, new { error = $"Revit API timeout after {RevitApiTimeout.TotalSeconds:0} s" });
+                    WriteJson(res, 504, RevitMcpException.CreateErrorResponse("TIMEOUT", $"Revit API timeout after {RevitApiTimeout.TotalSeconds:0} s"));
                     return;
                 }
 
                 var (result, error) = RevitEventHandler.GetResult(request);
-                if (error != null)
-                    WriteJson(res, 500, new { error });
+                if (result != null)
+                {
+                    WriteJson(res, 200, result);
+                }
+                else if (error != null)
+                {
+                    WriteJson(res, 200, RevitMcpException.CreateErrorResponse("REVIT_API_ERROR", error));
+                }
                 else
-                    WriteJson(res, 200, result!);
+                {
+                    WriteJson(res, 200, RevitMcpException.CreateErrorResponse("REVIT_API_ERROR", "Unknown error during Revit execution."));
+                }
             }
             finally
             {
@@ -174,7 +183,7 @@ public class RevitHttpServer
         }
         catch (Exception ex)
         {
-            WriteJson(res, 500, new { error = ex.Message });
+            WriteJson(res, 500, RevitMcpException.FromException(ex));
         }
     }
 

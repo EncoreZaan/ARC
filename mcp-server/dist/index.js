@@ -6,13 +6,13 @@ const bridgeConfig = resolveRevitBridgeConfig();
 // ─── Server ──────────────────────────────────────────────────────────────────
 const server = new McpServer({
     name: "revit-claude-mcp",
-    version: "2.0.0",
+    version: "2.1.0",
 });
 // ════════════════════════════════════════════════════════════════════════════
 // CONNECTION / DIAGNOSTIC TOOLS
 // ════════════════════════════════════════════════════════════════════════════
 server.registerTool("revit_health_check", {
-    description: "Check whether the local RevitMCP addin bridge is reachable before running model read/write tools. Returns bridge host, timeout, and addin /healthz response.",
+    description: "Vérifie l'état du pont local RevitMCP 2.1.0, la disponibilité de Revit et la liste des documents ouverts (titre, chemin, actif, modifié). Exemple : revit_health_check({}).",
     inputSchema: {},
     annotations: { readOnlyHint: true },
 }, async () => {
@@ -38,17 +38,24 @@ server.registerTool("revit_get_model_info", {
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_get_elements", {
-    description: "Query elements in the Revit model. Filter by category (e.g. 'Walls', 'Doors', 'Floors'), family name, level name, or view name. Returns element IDs, types, parameters and host info.",
+    description: "Interroge les éléments du modèle Revit (catégories FR/EN/OST ex: 'Mobilier', 'Walls', 'OST_Doors'). Renvoie position (mm), boîte englobante bbox (mm), orientation, hôte et type. Exemple : revit_get_elements({ category: 'Mobilier', limit: 50 }).",
     inputSchema: {
-        category: z.string().optional().describe("Revit category name, e.g. 'Walls', 'Doors', 'Windows', 'Floors', 'Rooms'"),
-        familyName: z.string().optional().describe("Filter by family name"),
-        levelName: z.string().optional().describe("Filter by level name, e.g. 'Level 1'"),
-        viewName: z.string().optional().describe("Filter elements visible in this view"),
-        limit: z.number().int().min(1).max(500).default(100).describe("Max elements to return"),
+        category: z.string().optional().describe("Nom de catégorie FR ('Mobilier', 'Portes'), EN ('Furniture', 'Walls') ou BuiltInCategory"),
+        familyName: z.string().optional().describe("Filtrer par nom de famille"),
+        levelName: z.string().optional().describe("Filtrer par nom de niveau"),
+        viewName: z.string().optional().describe("Filtrer les éléments visibles dans cette vue"),
+        bboxFilter: z.object({
+            min: z.object({ x: z.number().describe("Min X en mm"), y: z.number().describe("Min Y en mm"), z: z.number().describe("Min Z en mm") }),
+            max: z.object({ x: z.number().describe("Max X en mm"), y: z.number().describe("Max Y en mm"), z: z.number().describe("Max Z en mm") })
+        }).optional().describe("Filtre spatial : éléments intersectant la boîte englobante en mm"),
+        includeGeometry: z.boolean().optional().describe("Inclure les propriétés géométriques (volume m³, surfaces m²)"),
+        limit: z.number().int().min(1).max(500).default(100).describe("Nombre max d'éléments à renvoyer"),
+        offset: z.number().int().min(0).default(0).optional().describe("Pagination offset"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)")
     },
     annotations: { readOnlyHint: true },
-}, async ({ category, familyName, levelName, viewName, limit }) => {
-    const data = await revit("elements/query", { category, familyName, levelName, viewName, limit });
+}, async (args) => {
+    const data = await revit("elements/query", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_get_element_parameters", {
@@ -88,23 +95,27 @@ server.registerTool("revit_get_levels", {
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_get_families", {
-    description: "List all loaded families and their types/symbols for a given category.",
+    description: "Liste les familles chargées et leurs types pour une catégorie (accepte FR 'Mobilier', EN 'Furniture', 'OST_Furniture'). Renvoie aussi les paramètres de type si demandé. Exemple : revit_get_families({ category: 'Mobilier', includeTypeParameters: true }).",
     inputSchema: {
-        category: z.string().optional().describe("Category to filter, e.g. 'Doors', 'Windows'"),
+        category: z.string().optional().describe("Catégorie en français ('Mobilier', 'Fenêtres'), anglais ou BuiltInCategory"),
+        includeTypeParameters: z.boolean().optional().describe("Si vrai, extrait tous les paramètres de type avec unités et lecture seule"),
+        documentTitle: z.string().optional().describe("Document cible")
     },
     annotations: { readOnlyHint: true },
-}, async ({ category }) => {
-    const data = await revit("families/list", { category });
+}, async (args) => {
+    const data = await revit("families/list", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_get_rooms", {
-    description: "List all rooms in the project with number, name, area, level, and bounding-box coordinates.",
+    description: "Liste les pièces du projet avec nom, numéro, surface (m²), périmètre (mm) et contour géométrique polygonal optionnel en mm. Exemple : revit_get_rooms({ includeBoundary: true }).",
     inputSchema: {
-        levelName: z.string().optional().describe("Filter rooms by level name"),
+        levelName: z.string().optional().describe("Filtrer par niveau"),
+        includeBoundary: z.boolean().optional().describe("Si vrai, renvoie les coordonnées fermées des contours de pièce en mm"),
+        documentTitle: z.string().optional().describe("Document cible")
     },
     annotations: { readOnlyHint: true },
-}, async ({ levelName }) => {
-    const data = await revit("rooms/list", { levelName });
+}, async (args) => {
+    const data = await revit("rooms/list", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -120,27 +131,34 @@ server.registerTool("revit_create_wall", {
         levelName: z.string().describe("Name of the level to host the wall, e.g. 'Level 1'"),
         wallTypeName: z.string().optional().describe("Wall type name; omit to use the project default"),
         height: z.number().optional().describe("Unconnected height in mm; defaults to level-to-level"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("elements/create-wall", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_place_family_instance", {
-    description: "Place a family instance (door, window, furniture, equipment, etc.) at a given point. For hosted families (doors/windows), provide the host wall element ID.",
+    description: "Place une occurrence de famille à un point (coordonnées en mm). Rotation en degrés autour du point d'insertion. Charge automatiquement la famille si familyPath est fourni. Exemple : revit_place_family_instance({ familyName: 'Canapé', typeName: '180', x: 2000, y: 3500, levelName: 'Niveau 1', rotation: 90 }).",
     inputSchema: {
-        familyName: z.string().describe("Family name, e.g. 'Single-Flush'"),
-        typeName: z.string().describe("Type name within the family, e.g. '900 x 2100mm'"),
-        x: z.number().describe("Insertion X coordinate in mm"),
-        y: z.number().describe("Insertion Y coordinate in mm"),
-        z: z.number().optional().describe("Insertion Z coordinate in mm; defaults to level elevation"),
-        levelName: z.string().describe("Level name for the instance"),
-        hostElementId: z.number().int().optional().describe("Element ID of the host wall/floor/ceiling (required for hosted families)"),
-        rotation: z.number().optional().describe("Rotation angle in degrees around Z axis"),
+        familyName: z.string().describe("Nom de famille Revit"),
+        typeName: z.string().describe("Nom du type dans la famille"),
+        familyPath: z.string().optional().describe("Chemin .rfa pour chargement automatique si absent du projet"),
+        x: z.number().describe("Position X d'insertion en mm"),
+        y: z.number().describe("Position Y d'insertion en mm"),
+        z: z.number().optional().describe("Position Z d'insertion en mm (défaut : niveau)"),
+        levelName: z.string().describe("Nom du niveau d'accueil"),
+        hostElementId: z.number().int().optional().describe("ID de l'hôte (mur, sol, plafond)"),
+        rotation: z.number().optional().describe("Rotation en degrés autour de l'axe vertical passant par le point d'insertion"),
+        dryRun: z.boolean().optional().describe("Simule la création sans modifier le modèle"),
+        documentTitle: z.string().optional().describe("Document cible")
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("elements/place-instance", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_set_parameter", {
@@ -149,20 +167,26 @@ server.registerTool("revit_set_parameter", {
         elementId: z.number().int().describe("Element ID to modify"),
         parameterName: z.string().describe("Parameter name (built-in name or shared parameter name)"),
         value: z.union([z.string(), z.number(), z.boolean()]).describe("Value to set"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true },
 }, async (args) => {
     const data = await revit("elements/set-parameter", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_delete_element", {
     description: "Delete an element from the model by its element ID. This operation is permanent (but undoable inside Revit with Ctrl+Z).",
     inputSchema: {
         elementId: z.number().int().describe("Element ID to delete"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: true },
-}, async ({ elementId }) => {
-    const data = await revit("elements/delete", { elementId });
+}, async (args) => {
+    const data = await revit("elements/delete", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_move_element", {
@@ -172,10 +196,13 @@ server.registerTool("revit_move_element", {
         deltaX: z.number().describe("X displacement in mm"),
         deltaY: z.number().describe("Y displacement in mm"),
         deltaZ: z.number().optional().default(0).describe("Z displacement in mm"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("elements/move", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -187,10 +214,13 @@ server.registerTool("revit_create_sheet", {
         sheetNumber: z.string().describe("Sheet number, e.g. 'A-101'"),
         sheetName: z.string().describe("Sheet name, e.g. 'Ground Floor Plan'"),
         titleBlockName: z.string().optional().describe("Title block family type name; omit to use project default"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("sheets/create", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_place_view_on_sheet", {
@@ -200,10 +230,13 @@ server.registerTool("revit_place_view_on_sheet", {
         viewId: z.number().int().describe("View element ID to place"),
         centerX: z.number().describe("Viewport centre X on sheet in mm"),
         centerY: z.number().describe("Viewport centre Y on sheet in mm"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("sheets/place-view", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_activate_view", {
@@ -211,10 +244,13 @@ server.registerTool("revit_activate_view", {
     inputSchema: {
         viewId: z.number().int().optional().describe("View element ID"),
         viewName: z.string().optional().describe("View name (used if viewId not provided)"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("views/activate", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -228,10 +264,13 @@ server.registerTool("revit_export_pdf", {
         viewIds: z.array(z.number().int()).optional().describe("View element IDs to export (non-sheet views)"),
         combineIntoOne: z.boolean().optional().default(false).describe("Combine all pages into a single PDF file"),
         paperSize: z.string().optional().default("A1").describe("Paper size: A0, A1, A2, A3, A4"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("export/pdf", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_export_dwg", {
@@ -241,10 +280,13 @@ server.registerTool("revit_export_dwg", {
         viewIds: z.array(z.number().int()).optional().describe("View/sheet element IDs; omit for active view"),
         format: z.enum(["DWG", "DXF"]).optional().default("DWG"),
         exportSetupName: z.string().optional().describe("Name of saved DWG export settings; omit for default"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("export/dwg", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_export_ifc", {
@@ -253,10 +295,13 @@ server.registerTool("revit_export_ifc", {
         outputPath: z.string().describe("Full file path for the IFC output, e.g. 'C:\\\\Exports\\\\model.ifc'"),
         ifcVersion: z.enum(["IFC2x3", "IFC4", "IFC4x3"]).optional().default("IFC4").describe("IFC schema version"),
         exportBaseQuantities: z.boolean().optional().default(true),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("export/ifc", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_export_schedule", {
@@ -265,10 +310,13 @@ server.registerTool("revit_export_schedule", {
         scheduleViewId: z.number().int().describe("Element ID of the Schedule view"),
         outputPath: z.string().describe("Full file path, e.g. 'C:\\\\Exports\\\\schedule.csv'"),
         delimiter: z.enum(["comma", "tab", "semicolon"]).optional().default("comma"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("export/schedule", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -278,10 +326,13 @@ server.registerTool("revit_run_command", {
     description: "Execute a built-in Revit command by its PostableCommandId name (e.g. 'ID_REVIT_THIN_LINES', 'ID_VIEW_GRAPHIC_DISPLAY_OPTIONS'). Use for UI commands not exposed via other tools.",
     inputSchema: {
         commandId: z.string().describe("PostableCommandId string, e.g. 'ID_REVIT_THIN_LINES'"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
-}, async ({ commandId }) => {
-    const data = await revit("commands/run", { commandId });
+}, async (args) => {
+    const data = await revit("commands/run", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_run_dynamo_script", {
@@ -289,10 +340,13 @@ server.registerTool("revit_run_dynamo_script", {
     inputSchema: {
         scriptPath: z.string().describe("Absolute path to the .dyn file, e.g. 'C:\\\\Scripts\\\\myscript.dyn'"),
         journalData: z.record(z.string(), z.string()).optional().describe("Key-value pairs injected into the Dynamo journal"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("commands/run-dynamo", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -317,10 +371,13 @@ server.registerTool("revit_export_material_takeoff_csv", {
         categories: z.array(z.string()).optional().describe("Categories to include; omit for all"),
         levelName: z.string().optional().describe("Filter by level"),
         includeLayerBreakdown: z.boolean().optional().default(true),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("takeoff/export-csv", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_create_material_schedule", {
@@ -329,10 +386,13 @@ server.registerTool("revit_create_material_schedule", {
         category: z.string().describe("Category to schedule, e.g. 'Walls', 'Floors', 'Roofs'"),
         scheduleName: z.string().optional().describe("Name for the new schedule view; defaults to '<Category> Material Takeoff'"),
         fields: z.array(z.string()).optional().describe("Parameter names to include as columns. Defaults to: ['Material: Name','Material: Area','Material: Volume','Count']"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("takeoff/create-schedule", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -359,10 +419,13 @@ server.registerTool("revit_export_clash_report", {
         categoryB: z.string().describe("Second category"),
         format: z.enum(["html", "csv"]).optional().default("html"),
         tolerance: z.number().optional().default(0),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("clash/export-report", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -376,10 +439,13 @@ server.registerTool("revit_issue_drawings", {
         revisionNumber: z.string().optional().describe("Revision number/letter, e.g. 'B' or '02'"),
         sheetIds: z.array(z.number().int()).optional().describe("Sheet element IDs to stamp; omit for all sheets"),
         exportPdfPath: z.string().optional().describe("If provided, export issued sheets to PDF at this folder path"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("revisions/issue-drawings", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_get_revision_history", {
@@ -414,10 +480,13 @@ server.registerTool("revit_set_room_finishes_bulk", {
             baseFinish: z.string().optional().describe("Base Finish parameter value"),
             comments: z.string().optional().describe("Comments parameter value"),
         })).describe("Array of room finish updates"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("rooms/set-finishes-bulk", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -430,10 +499,13 @@ server.registerTool("revit_apply_view_template_bulk", {
         viewIds: z.array(z.number().int()).optional().describe("Specific view IDs to update; if omitted, use filters below"),
         viewType: z.string().optional().describe("Apply only to views of this type, e.g. 'FloorPlan'"),
         nameContains: z.string().optional().describe("Apply only to views whose name contains this string"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("views/apply-template-bulk", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_bulk_rename_views", {
@@ -446,10 +518,12 @@ server.registerTool("revit_bulk_rename_views", {
         addSuffix: z.string().optional().describe("Suffix to append to all matching names"),
         nameContains: z.string().optional().describe("Only rename views/sheets whose name contains this string"),
         dryRun: z.boolean().optional().default(false).describe("If true, return what would be renamed without making changes"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("views/bulk-rename", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -471,10 +545,12 @@ server.registerTool("revit_import_parameters_from_csv", {
         csvPath: z.string().describe("Full path to the CSV file, e.g. 'C:\\\\Data\\\\params.csv'"),
         delimiter: z.enum(["comma", "tab", "semicolon"]).optional().default("comma"),
         dryRun: z.boolean().optional().default(false).describe("If true, validate the CSV and report what would change without writing to the model"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("elements/import-csv-params", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -491,10 +567,12 @@ server.registerTool("revit_batch_set_parameters", {
         nameContains: z.string().optional().describe("Only match elements whose name contains this text"),
         limit: z.number().int().min(1).max(5000).optional().default(1000).describe("Safety cap for matched elements"),
         dryRun: z.boolean().optional().default(true).describe("Preview matched elements without writing. Set false to apply."),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true },
 }, async (args) => {
     const data = await revit("elements/batch-set-parameters", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_create_plan_views_for_levels", {
@@ -506,10 +584,12 @@ server.registerTool("revit_create_plan_views_for_levels", {
         viewTemplateName: z.string().optional().describe("Optional Revit view template to apply"),
         skipExisting: z.boolean().optional().default(true).describe("Skip views whose target name already exists"),
         dryRun: z.boolean().optional().default(true).describe("Preview the views that would be created. Set false to apply."),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("views/create-plans-for-levels", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_duplicate_views_bulk", {
@@ -522,10 +602,12 @@ server.registerTool("revit_duplicate_views_bulk", {
         nameTemplate: z.string().optional().default("{viewName} - Copy").describe("Use {viewName} and {index} placeholders"),
         viewTemplateName: z.string().optional().describe("Optional view template to apply to duplicated views"),
         dryRun: z.boolean().optional().default(true).describe("Preview duplicated views without writing. Set false to apply."),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("views/duplicate-bulk", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_auto_populate_sheets", {
@@ -538,10 +620,13 @@ server.registerTool("revit_auto_populate_sheets", {
             titleBlockName: z.string().optional().describe("Title block to use; omit for project default"),
         })).describe("Matching rules — each rule pairs view name patterns to sheet naming"),
         skipExistingSheets: z.boolean().optional().default(true).describe("Skip if a sheet with the same number already exists"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("sheets/auto-populate", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ════════════════════════════════════════════════════════════════════════════
@@ -559,49 +644,36 @@ server.registerTool("revit_set_current_selection", {
     description: "Select specific elements in the active Revit view by their integer element IDs.",
     inputSchema: {
         elementIds: z.array(z.number().int()).describe("Array of Revit element IDs to select"),
+        documentTitle: z.string().optional().describe("Document cible")
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
-}, async ({ elementIds }) => {
-    const data = await revit("selection/set", { elementIds });
+}, async (args) => {
+    const data = await revit("selection/set", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_isolate_elements", {
     description: "Temporarily isolate specific elements in the current active Revit view (hides all other elements).",
     inputSchema: {
         elementIds: z.array(z.number().int()).describe("Array of element IDs to isolate"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
-}, async ({ elementIds }) => {
-    const data = await revit("elements/isolate", { elementIds });
+}, async (args) => {
+    const data = await revit("elements/isolate", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_reset_temporary_override", {
     description: "Reset temporary hide/isolate mode in the active Revit view, restoring full element visibility.",
-    inputSchema: {},
-    annotations: { readOnlyHint: false, destructiveHint: false },
-}, async () => {
-    const data = await revit("views/reset-temporary-override");
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
-});
-// ════════════════════════════════════════════════════════════════════════════
-// CATEGORIES & INSPECTION TOOLS
-// ════════════════════════════════════════════════════════════════════════════
-server.registerTool("revit_list_categories", {
-    description: "List all available BIM categories in the active Revit project (model categories and bound categories).",
-    inputSchema: {},
-    annotations: { readOnlyHint: true },
-}, async () => {
-    const data = await revit("categories/list");
-    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
-});
-server.registerTool("revit_count_elements", {
-    description: "Count elements in the active Revit document, optionally filtered by category (e.g. 'Walls', 'Doors', 'Windows').",
     inputSchema: {
-        category: z.string().optional().describe("Revit category name, e.g. 'Walls', 'Doors', 'Rooms'"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
-    annotations: { readOnlyHint: true },
-}, async ({ category }) => {
-    const data = await revit("elements/count", { category });
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/count", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_get_model_warnings", {
@@ -623,6 +695,8 @@ server.registerTool("revit_create_floor", {
         lengthMm: z.number().positive().default(5000).describe("Length in millimeters along Y axis"),
         originX: z.number().default(0).describe("Origin X coordinate in millimeters"),
         originY: z.number().default(0).describe("Origin Y coordinate in millimeters"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)")
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
@@ -637,10 +711,13 @@ server.registerTool("revit_create_room", {
         yMm: z.number().describe("Y coordinate in millimeters"),
         name: z.string().optional().describe("Room name, e.g. 'Living Room'"),
         number: z.string().optional().describe("Room number, e.g. '101'"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("rooms/create", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_validate_model_changes", {
@@ -668,10 +745,11 @@ server.registerTool("revit_zoom_to_elements", {
     description: "Zoom and pan the active Revit view to frame specific elements by their IDs so the user can inspect them visually.",
     inputSchema: {
         elementIds: z.array(z.number().int()).describe("Array of element IDs to frame"),
+        documentTitle: z.string().optional().describe("Document cible")
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
-}, async ({ elementIds }) => {
-    const data = await revit("views/zoom-elements", { elementIds });
+}, async (args) => {
+    const data = await revit("views/zoom-elements", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_color_elements", {
@@ -681,20 +759,26 @@ server.registerTool("revit_color_elements", {
         red: z.number().int().min(0).max(255).default(255).describe("Red channel (0-255)"),
         green: z.number().int().min(0).max(255).default(0).describe("Green channel (0-255)"),
         blue: z.number().int().min(0).max(255).default(0).describe("Blue channel (0-255)"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("elements/set-color", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_reset_color_overrides", {
     description: "Reset graphics and color overrides for elements in the active Revit view.",
     inputSchema: {
         elementIds: z.array(z.number().int()).optional().describe("Specific element IDs to reset, or omit to reset active view"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("elements/reset-color", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_create_grid", {
@@ -705,10 +789,13 @@ server.registerTool("revit_create_grid", {
         endX: z.number().default(10000).describe("End X in mm"),
         endY: z.number().default(0).describe("End Y in mm"),
         name: z.string().optional().describe("Optional grid name (e.g. 'A', '1')"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("grids/create", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_get_phases", {
@@ -732,6 +819,8 @@ server.registerTool("revit_rotate_element", {
     inputSchema: {
         elementId: z.number().int().describe("Element ID to rotate"),
         angleDegrees: z.number().default(90).describe("Rotation angle in degrees"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
@@ -754,10 +843,13 @@ server.registerTool("revit_save_document", {
     description: "Save the currently active Revit document or save a backup copy under a new file path.",
     inputSchema: {
         filePath: z.string().optional().describe("Optional path for Save As; omit to save in place"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("model/save", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_get_summary_report", {
@@ -826,6 +918,8 @@ server.registerTool("revit_create_section_box", {
     inputSchema: {
         elementIds: z.array(z.number()).optional().describe("Element IDs to frame; if omitted, uses current selection"),
         paddingMm: z.number().optional().describe("Margin around the bounding box in millimeters (default: 300 mm)"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
@@ -851,10 +945,13 @@ server.registerTool("revit_copy_parameter_values", {
         sourceParameter: z.string().describe("Source parameter name to read value from"),
         targetParameter: z.string().describe("Target parameter name to write value to"),
         elementIds: z.array(z.number()).optional().describe("Element IDs; if omitted, attempts copy across all model elements"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("parameters/copy-values", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_duplicate_sheet", {
@@ -863,10 +960,13 @@ server.registerTool("revit_duplicate_sheet", {
         sheetId: z.number().describe("ID of the sheet to duplicate"),
         sheetNumber: z.string().optional().describe("New sheet number"),
         sheetName: z.string().optional().describe("New sheet name"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("sheets/duplicate", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 server.registerTool("revit_get_unused_types", {
@@ -884,10 +984,1816 @@ server.registerTool("revit_create_detail_line", {
         startY: z.number().describe("Start Y coordinate in millimeters"),
         endX: z.number().describe("End X coordinate in millimeters"),
         endY: z.number().describe("End Y coordinate in millimeters"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("annotations/create-detail-line", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.A — EXÉCUTION DE CODE ET TRANSACTIONS (P0)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_execute_csharp", {
+    description: "Compile et exécute dynamiquement du code C# via Roslyn avec accès direct à doc, uidoc et app. Sécurisé par allowCodeExecution. Exemple : revit_execute_csharp({ code: 'return doc.Title;' }).",
+    inputSchema: {
+        code: z.string().describe("Corps de la méthode C# avec accès à (doc, uidoc, app, stdout)"),
+        transaction: z.boolean().optional().default(true).describe("Exécuter dans une transaction Revit"),
+        dryRun: z.boolean().optional().describe("Exécute et annule pour simuler l'effet"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("code/csharp", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_execute_python", {
+    description: "Exécute du code Python dans l'environnement Revit / Dynamo. Sécurisé par allowCodeExecution. Exemple : revit_execute_python({ code: 'print(doc.Title)' }).",
+    inputSchema: {
+        code: z.string().describe("Code Python à exécuter"),
+        transaction: z.boolean().optional().default(true).describe("Exécuter dans une transaction"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("code/python", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_batch", {
+    description: "Exécute une suite d'opérations MCP dans un groupe de transaction atomique unique. Si une opération échoue, tout est annulé. Exemple : revit_batch({ operations: [{ tool: 'revit_create_wall', args: {...} }] }).",
+    inputSchema: {
+        operations: z.array(z.object({
+            tool: z.string().describe("Nom de l'outil ou action"),
+            args: z.record(z.string(), z.unknown()).describe("Arguments de l'outil")
+        })).describe("Liste des opérations séquentielles"),
+        atomic: z.boolean().optional().default(true).describe("Si vrai, rollback complet en cas d'échec d'une opération"),
+        documentTitle: z.string().optional().describe("Document cible"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("batch/execute", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_undo", {
+    description: "Annule les dernières transactions effectuées dans Revit. Exemple : revit_undo({ steps: 1 }).",
+    inputSchema: {
+        steps: z.number().int().min(1).default(1).optional().describe("Nombre de transactions à annuler"),
+        documentTitle: z.string().optional().describe("Document cible"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: true },
+}, async (args) => {
+    const data = await revit("transactions/undo", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_redo", {
+    description: "Rétablit les dernières transactions annulées dans Revit. Exemple : revit_redo({ steps: 1 }).",
+    inputSchema: {
+        steps: z.number().int().min(1).default(1).optional().describe("Nombre de transactions à rétablir"),
+        documentTitle: z.string().optional().describe("Document cible"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("transactions/redo", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_transaction_history", {
+    description: "Consulte l'historique récent des transactions MCP exécutées sur le modèle. Exemple : revit_get_transaction_history({ limit: 10 }).",
+    inputSchema: {
+        limit: z.number().int().optional().default(20).describe("Nombre max de transactions à retourner"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("transactions/history", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.B — GESTION DES DOCUMENTS (P0)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_list_open_documents", {
+    description: "Renvoie la liste des documents ouverts dans la session Revit en cours (titre, chemin, statut actif, modifié). Exemple : revit_list_open_documents({}).",
+    inputSchema: {},
+    annotations: { readOnlyHint: true },
+}, async () => {
+    const data = await revit("documents/list");
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_activate_document", {
+    description: "Active un document spécifique déjà ouvert par son titre ou chemin. Exemple : revit_activate_document({ title: 'Projet_Cabane' }).",
+    inputSchema: {
+        title: z.string().optional().describe("Titre du document"),
+        path: z.string().optional().describe("Chemin du fichier")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("documents/activate", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_open_document", {
+    description: "Ouvre un document Revit dans la session active sans lancer une nouvelle instance Revit. Exemple : revit_open_document({ path: 'C:\\Projets\\Maison.rvt' }).",
+    inputSchema: {
+        path: z.string().describe("Chemin absolu du fichier .rvt"),
+        detachFromCentral: z.boolean().optional().describe("Détacher du fichier central"),
+        audit: z.boolean().optional().describe("Effectuer un audit à l'ouverture"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("documents/open", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_close_document", {
+    description: "Ferme un document ouvert avec option d'enregistrement. Exemple : revit_close_document({ title: 'Variante 1', save: true }).",
+    inputSchema: {
+        title: z.string().describe("Titre du document à fermer"),
+        save: z.boolean().optional().default(false).describe("Enregistrer les modifications avant de fermer"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: true },
+}, async (args) => {
+    const data = await revit("documents/close", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_save_as", {
+    description: "Enregistre le document sous un nouveau chemin avec options d'écrasement et sauvegardes max. Exemple : revit_save_as({ path: 'C:\\Projets\\Variante_B.rvt' }).",
+    inputSchema: {
+        path: z.string().describe("Nouveau chemin de fichier .rvt"),
+        overwrite: z.boolean().optional().default(true).describe("Écraser si le fichier existe"),
+        maxBackups: z.number().int().optional().default(3).describe("Nombre max de fichiers de sauvegarde .0001"),
+        documentTitle: z.string().optional().describe("Document cible"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("documents/save-as", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_purge_unused", {
+    description: "Identifie ou supprime les types et familles inutilisés dans le projet (0 occurrences). Exemple : revit_purge_unused({ dryRun: true }).",
+    inputSchema: {
+        dryRun: z.boolean().optional().describe("Si vrai, liste seulement ce qui serait purgé sans supprimer"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: true },
+}, async (args) => {
+    const data = await revit("model/purge-unused", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_set_project_info", {
+    description: "Définit les informations du projet (nom, numéro, auteur, client, statut, adresse) exploitées par les cartouches. Exemple : revit_set_project_info({ name: 'Micro-Habitat', number: '2026-01' }).",
+    inputSchema: {
+        name: z.string().optional().describe("Nom du projet"),
+        number: z.string().optional().describe("Numéro du projet"),
+        author: z.string().optional().describe("Auteur / dessinateur"),
+        client: z.string().optional().describe("Nom du client"),
+        status: z.string().optional().describe("Statut du projet (ex: APD, Permis)"),
+        address: z.string().optional().describe("Adresse"),
+        issueDate: z.string().optional().describe("Date d'émission"),
+        custom: z.record(z.string(), z.unknown()).optional().describe("Paramètres personnalisés supplémentaires"),
+        documentTitle: z.string().optional().describe("Document cible"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("documents/set-project-info", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.C — GÉOMÉTRIE ET REQUÊTES SPATIALES (P0)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_get_element_location", {
+    description: "Récupère avec précision la position (point x,y,z en mm ou ligne), l'angle de rotation (degrés), la boîte englobante et l'hôte d'une liste d'éléments. Exemple : revit_get_element_location({ elementIds: [12345] }).",
+    inputSchema: {
+        elementIds: z.array(z.number().int()).describe("Liste des identifiants 64 bits des éléments"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("elements/location", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_element_geometry", {
+    description: "Extrait les solides, le volume (m³), la surface (m²), les faces et arêtes d'un élément (coordonnées en mm). Exemple : revit_get_element_geometry({ elementId: 12345, detail: 'faces' }).",
+    inputSchema: {
+        elementId: z.number().int().describe("ID de l'élément"),
+        detail: z.enum(["bbox", "faces", "edges", "mesh"]).optional().default("bbox").describe("Niveau de détail géométrique"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("elements/geometry", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_elements_in_region", {
+    description: "Trouve tous les éléments dont la boîte géométrique intersecte une boîte spatiale 3D spécifiée en millimètres. Exemple : revit_get_elements_in_region({ min: {x:0, y:0, z:0}, max: {x:6400, y:6200, z:3000} }).",
+    inputSchema: {
+        min: z.object({ x: z.number().describe("Min X en mm"), y: z.number().describe("Min Y en mm"), z: z.number().describe("Min Z en mm") }),
+        max: z.object({ x: z.number().describe("Max X en mm"), y: z.number().describe("Max Y en mm"), z: z.number().describe("Max Z en mm") }),
+        categories: z.array(z.string()).optional().describe("Catégories cibles optionnelles"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("elements/in-region", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_measure_distance", {
+    description: "Mesure la distance minimale 3D et horizontale en plan entre deux éléments ou deux points (résultats en mm). Exemple : revit_measure_distance({ pointA: {x:0,y:0,z:0}, pointB: {x:1000,y:2000,z:0} }).",
+    inputSchema: {
+        elementIdA: z.number().int().optional().describe("ID du premier élément"),
+        elementIdB: z.number().int().optional().describe("ID du second élément"),
+        pointA: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional().describe("Point A en mm"),
+        pointB: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional().describe("Point B en mm"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("geometry/measure-distance", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_height_at_point", {
+    description: "Effectue un lancer de rayon vertical pour calculer la hauteur libre sous toiture, plancher ou plafond au point (x, y en mm). Exemple : revit_get_height_at_point({ x: 1700, y: 3000, fromZ: 2400 }).",
+    inputSchema: {
+        x: z.number().describe("Coordonnée X en mm"),
+        y: z.number().describe("Coordonnée Y en mm"),
+        fromZ: z.number().optional().default(0).describe("Élévation de départ Z en mm (ex: niveau de sol ou mezzanine)"),
+        categories: z.array(z.string()).optional().describe("Catégories cibles à intercepter (Toits, Planchers, Plafonds)"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("geometry/height-at-point", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_check_clearance", {
+    description: "Vérifie l'absence d'obstacles physiques dans une zone de dégagement devant ou à côté d'un meuble ou d'une porte (profondeur en mm). Exemple : revit_check_clearance({ elementId: 12345, side: 'front', depth: 900 }).",
+    inputSchema: {
+        elementId: z.number().int().describe("ID de l'élément (porte, mobilier, meuble cuisine)"),
+        side: z.enum(["front", "back", "left", "right"]).optional().default("front").describe("Côté de vérification"),
+        depth: z.number().optional().default(900).describe("Profondeur de dégagement en mm (ex: 900 mm devant cuisine)"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("geometry/check-clearance", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_wall_openings", {
+    description: "Retourne la liste ordonnée des portes et fenêtres hébergées par un mur avec dimensions (largeur, hauteur, allège en mm) et distances depuis le début et la fin du mur. Exemple : revit_get_wall_openings({ wallId: 98765 }).",
+    inputSchema: {
+        wallId: z.number().int().describe("Identifiant 64 bits du mur"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("walls/openings", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_room_at_point", {
+    description: "Identifie la pièce BIM qui contient le point 3D spécifié (coordonnées en mm). Exemple : revit_get_room_at_point({ x: 2000, y: 3000, z: 0 }).",
+    inputSchema: {
+        x: z.number().describe("Coordonnée X en mm"),
+        y: z.number().describe("Coordonnée Y en mm"),
+        z: z.number().optional().default(0).describe("Coordonnée Z en mm"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("rooms/at-point", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.D — MODIFICATION D'ÉLÉMENTS (P0)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_set_element_location", {
+    description: "Définit la position absolue d'un élément par point (mm) ou courbe, avec orientation absolue optionnelle (degrés). Exemple : revit_set_element_location({ elementId: 12345, point: { x: 3000, y: 1500, z: 0 }, rotationDeg: 45 }).",
+    inputSchema: {
+        elementId: z.number().int().describe("ID de l'élément"),
+        point: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional().describe("Position absolue en mm"),
+        curve: z.object({
+            start: z.object({ x: z.number(), y: z.number(), z: z.number() }),
+            end: z.object({ x: z.number(), y: z.number(), z: z.number() })
+        }).optional().describe("Nouvelle ligne directrice en mm"),
+        rotationDeg: z.number().optional().describe("Angle d'orientation absolu en degrés"),
+        dryRun: z.boolean().optional().describe("Simule la modification"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/set-location", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_change_element_type", {
+    description: "Modifie le type d'un ou plusieurs éléments existants (ex: remplacer un canapé 180 par un modèle 200). Exemple : revit_change_element_type({ elementIds: [12345], typeName: 'Canapé convertible 200' }).",
+    inputSchema: {
+        elementIds: z.array(z.number().int()).describe("Identifiants des éléments à mettre à jour"),
+        typeName: z.string().optional().describe("Nom du nouveau type"),
+        typeId: z.number().int().optional().describe("ID du nouveau type"),
+        familyName: z.string().optional().describe("Nom de famille optionnel"),
+        dryRun: z.boolean().optional().describe("Simule la modification"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/change-type", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_copy_elements", {
+    description: "Copie des éléments avec un vecteur de décalage delta (mm). Répète la copie si count > 1 pour créer un réseau linéaire. Exemple : revit_copy_elements({ elementIds: [123], delta: {x: 1000, y: 0, z: 0}, count: 3 }).",
+    inputSchema: {
+        elementIds: z.array(z.number().int()).describe("Éléments à dupliquer"),
+        delta: z.object({ x: z.number().describe("Déplacement X en mm"), y: z.number().describe("Déplacement Y en mm"), z: z.number().describe("Déplacement Z en mm") }),
+        count: z.number().int().optional().default(1).describe("Nombre de copies à effectuer"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/copy", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_mirror_elements", {
+    description: "Applique un miroir à des éléments selon un axe défini par deux points 2D (coordonnées en mm). Exemple : revit_mirror_elements({ elementIds: [123], axisStart: {x:0,y:0}, axisEnd: {x:0,y:5000}, copy: true }).",
+    inputSchema: {
+        elementIds: z.array(z.number().int()).describe("Éléments à inverser"),
+        axisStart: z.object({ x: z.number(), y: z.number() }).describe("Point de début de l'axe de symétrie en mm"),
+        axisEnd: z.object({ x: z.number(), y: z.number() }).describe("Point de fin de l'axe de symétrie en mm"),
+        copy: z.boolean().optional().default(false).describe("Conserver les éléments d'origine (duplication miroir)"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/mirror", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_align_elements", {
+    description: "Aligne une sélection d'éléments sur une coordonnée ou par rapport à un autre élément cible (minX, maxX, centerX, minY, maxY, centerZ). Exemple : revit_align_elements({ elementIds: [10, 20], reference: 'centerX', value: 3000 }).",
+    inputSchema: {
+        elementIds: z.array(z.number().int()).describe("Éléments à aligner"),
+        reference: z.enum(["minX", "maxX", "centerX", "minY", "maxY", "centerY", "minZ", "maxZ"]).describe("Point de référence"),
+        value: z.number().optional().describe("Valeur cible en mm"),
+        toElementId: z.number().int().optional().describe("Élément cible de référence"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/align", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_copy_elements_between_documents", {
+    description: "Transfère et copie des éléments d'un document ouvert à un autre (ex: copier du mobilier entre deux variantes). Exemple : revit_copy_elements_between_documents({ sourceDocument: 'Variante 1', targetDocument: 'Variante 2', elementIds: [12345] }).",
+    inputSchema: {
+        sourceDocument: z.string().describe("Titre du document source"),
+        targetDocument: z.string().describe("Titre du document cible"),
+        elementIds: z.array(z.number().int()).describe("IDs des éléments à copier"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/copy-between-docs", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_flip_element", {
+    description: "Inverse le sens d'ouverture d'une porte ou d'une fenêtre (sens de battement hand et/ou face intérieure/extérieure). Exemple : revit_flip_element({ elementId: 12345, hand: true }).",
+    inputSchema: {
+        elementId: z.number().int().describe("ID de l'occurrence"),
+        hand: z.boolean().optional().describe("Inverser le sens d'ouverture de la poignée / battement"),
+        facing: z.boolean().optional().describe("Inverser l'orientation intérieure/extérieure"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/flip", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_hosted_set_position", {
+    description: "Positionne avec précision une porte ou une fenêtre le long de son mur hôte selon une distance cotée en millimètres depuis le début ou la fin du mur. Exemple : revit_hosted_set_position({ elementId: 12345, distanceFromWallStart: 820 }).",
+    inputSchema: {
+        elementId: z.number().int().describe("ID de la porte ou fenêtre"),
+        distanceFromWallStart: z.number().optional().describe("Distance en mm depuis le point de départ du mur hôte"),
+        distanceFromWallEnd: z.number().optional().describe("Distance en mm depuis la fin du mur hôte"),
+        sillHeight: z.number().optional().describe("Hauteur d'allège en mm"),
+        headHeight: z.number().optional().describe("Hauteur sous linteau en mm"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/hosted-set-position", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_set_element_pinned", {
+    description: "Verrouille ou déverrouille des éléments BIM pour interdire leur déplacement involontaire. Exemple : revit_set_element_pinned({ elementIds: [12345], pinned: true }).",
+    inputSchema: {
+        elementIds: z.array(z.number().int()).describe("IDs des éléments"),
+        pinned: z.boolean().describe("État de verrouillage"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/set-pinned", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_join_geometry", {
+    description: "Joint ou disjoint la géométrie de deux éléments sécants (murs, planchers, toitures). Exemple : revit_join_geometry({ elementIdA: 10, elementIdB: 20, join: true }).",
+    inputSchema: {
+        elementIdA: z.number().int().describe("Premier élément"),
+        elementIdB: z.number().int().describe("Second élément"),
+        join: z.boolean().optional().default(true).describe("Vrai pour joindre, faux pour disjoindre"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/join-geometry", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_group_elements", {
+    description: "Regroupe une sélection d'éléments en un groupe nommé Revit. Exemple : revit_group_elements({ elementIds: [10, 20], groupName: 'Bloc Sanitaire' }).",
+    inputSchema: {
+        elementIds: z.array(z.number().int()).describe("Éléments à regrouper"),
+        groupName: z.string().optional().describe("Nom du groupe"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/group", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_ungroup", {
+    description: "Dissocie un groupe Revit en ses éléments constituants. Exemple : revit_ungroup({ groupId: 999 }).",
+    inputSchema: {
+        groupId: z.number().int().describe("ID de l'occurrence du groupe"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/ungroup", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.E — TYPES ET FAMILLES (P0)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_load_family", {
+    description: "Charge un fichier de famille (.rfa) externe dans le projet Revit avec gestion de l'écrasement. Exemple : revit_load_family({ path: 'C:\\Familles\\Table.rfa' }).",
+    inputSchema: {
+        path: z.string().describe("Chemin absolu vers le fichier .rfa"),
+        overwrite: z.enum(["none", "type", "all"]).optional().default("all").describe("Mode d'écrasement"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("families/load", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_list_family_library", {
+    description: "Recherche les fichiers de familles Revit .rfa disponibles dans la bibliothèque standard ou un dossier donné. Exemple : revit_list_family_library({ search: 'Canapé' }).",
+    inputSchema: {
+        folder: z.string().optional().describe("Dossier racine à scanner (défaut : bibliothèque Revit FR)"),
+        search: z.string().optional().describe("Mot clé de recherche (ex: 'Canapé', 'Table', 'Fenêtre')")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("families/list-library", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_duplicate_type", {
+    description: "Duplique un type de famille existant sous un nouveau nom et règle immédiatement ses dimensions en mm. Exemple : revit_duplicate_type({ familyName: 'Canapé 2 places', typeName: '180', newName: 'Canapé convertible 200', parameters: { 'Largeur': 2000 } }).",
+    inputSchema: {
+        typeId: z.number().int().optional().describe("ID du type source"),
+        familyName: z.string().optional().describe("Nom de la famille"),
+        typeName: z.string().optional().describe("Nom du type source"),
+        newName: z.string().describe("Nouveau nom du type dérivé"),
+        parameters: z.record(z.string(), z.unknown()).optional().describe("Dictionnaire des paramètres dimensionnels (valeurs en mm)"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("types/duplicate", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_set_type_parameters", {
+    description: "Modifie les paramètres de type (largeur, hauteur, profondeur, etc. en mm) pour tous les éléments d'un type. Exemple : revit_set_type_parameters({ typeId: 54321, parameters: { 'Largeur': 2000 } }).",
+    inputSchema: {
+        typeId: z.number().int().describe("ID du type"),
+        parameters: z.record(z.string(), z.unknown()).describe("Paramètres à mettre à jour"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("types/set-parameters", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_type_parameters", {
+    description: "Extrait les paramètres d'un type d'élément avec leurs valeurs typées, unités et statut de lecture seule. Exemple : revit_get_type_parameters({ typeId: 54321 }).",
+    inputSchema: {
+        typeId: z.number().int().describe("ID du type"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("types/get-parameters", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_window_type", {
+    description: "Raccourci spécialisé pour créer et calibrer un nouveau type de fenêtre avec largeur et hauteur en mm. Exemple : revit_create_window_type({ familyName: 'Fenêtre 1 vantail', newName: 'F60x95', width: 600, height: 950, sillHeight: 1100 }).",
+    inputSchema: {
+        familyName: z.string().describe("Nom de famille de fenêtre"),
+        newName: z.string().describe("Nom du nouveau type"),
+        width: z.number().describe("Largeur en mm"),
+        height: z.number().describe("Hauteur en mm"),
+        sillHeight: z.number().optional().describe("Hauteur d'allège en mm"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("types/create-window-type", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_door_type", {
+    description: "Raccourci spécialisé pour créer et calibrer un nouveau type de porte avec largeur et hauteur en mm. Exemple : revit_create_door_type({ familyName: 'Porte simple', newName: 'P83x204', width: 830, height: 2040 }).",
+    inputSchema: {
+        familyName: z.string().describe("Famille de porte"),
+        newName: z.string().describe("Nom du nouveau type"),
+        width: z.number().describe("Largeur en mm"),
+        height: z.number().describe("Hauteur en mm"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("types/create-door-type", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_directshape", {
+    description: "Crée un volume géométrique direct (boîte, extrusion) sans fichier de famille externe, idéal pour mobilier sur mesure ou agencement. Dimensions en mm. Exemple : revit_create_directshape({ category: 'Mobilier', name: 'Meuble vasque', shape: { type: 'box', width: 600, length: 1200, height: 850, x: 1000, y: 2000, z: 0 } }).",
+    inputSchema: {
+        category: z.string().optional().default("Generic Models").describe("Catégorie Revit"),
+        name: z.string().describe("Nom de l'élément"),
+        shape: z.object({
+            type: z.enum(["box", "extrusion"]).default("box"),
+            width: z.number().optional().describe("Largeur Y en mm"),
+            length: z.number().optional().describe("Longueur X en mm"),
+            height: z.number().optional().describe("Hauteur Z en mm"),
+            x: z.number().optional().describe("Origine X en mm"),
+            y: z.number().optional().describe("Origine Y en mm"),
+            z: z.number().optional().describe("Origine Z en mm")
+        }).describe("Définition dimensionnelle du volume"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("elements/create-directshape", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.F — MURS, TOITS, SOLS, PLAFONDS, OUVERTURES (P0/P1)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_modify_wall", {
+    description: "Modifie la géométrie ou les contraintes d'un mur existant (coordonnées départ/fin en mm, hauteur en mm, décalages, contrainte supérieure, type). Exemple : revit_modify_wall({ wallId: 12345, height: 3500 }).",
+    inputSchema: {
+        wallId: z.number().int().describe("ID du mur"),
+        start: z.object({ x: z.number(), y: z.number() }).optional().describe("Point de départ en mm"),
+        end: z.object({ x: z.number(), y: z.number() }).optional().describe("Point de fin en mm"),
+        height: z.number().optional().describe("Hauteur non contrainte en mm"),
+        baseOffset: z.number().optional().describe("Décalage inférieur en mm"),
+        topOffset: z.number().optional().describe("Décalage supérieur en mm"),
+        topConstraintLevel: z.string().optional().describe("Niveau de contrainte supérieure"),
+        typeName: z.string().optional().describe("Nouveau type de mur"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("walls/modify", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_split_wall", {
+    description: "Scinde un mur en deux segments distincts à une distance donnée en mm depuis son origine. Exemple : revit_split_wall({ wallId: 12345, distanceFromStart: 3200 }).",
+    inputSchema: {
+        wallId: z.number().int().describe("ID du mur"),
+        distanceFromStart: z.number().describe("Distance de coupe en mm depuis le point de départ"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("walls/split", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_attach_wall", {
+    description: "Attache ou détache le haut ou la base d'un mur à un toit ou un plancher. Exemple : revit_attach_wall({ wallIds: [12345], targetId: 67890, side: 'top' }).",
+    inputSchema: {
+        wallIds: z.array(z.number().int()).describe("IDs des murs"),
+        targetId: z.number().int().describe("ID du toit ou plancher cible"),
+        side: z.enum(["top", "base"]).optional().default("top").describe("Côté à attacher"),
+        detach: z.boolean().optional().default(false).describe("Détacher si vrai"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("walls/attach", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_roof_footprint", {
+    description: "Crée une toiture par tracé (contour polygonal fermé en mm) avec pentes configurables sur chaque arête (degrés). Exemple : revit_create_roof_footprint({ level: 'Niveau 2', boundary: [{x:0,y:0},{x:6400,y:0},{x:6400,y:6200},{x:0,y:6200}], slopedEdges: [{ edgeIndex: 1, slopeDeg: 35 }, { edgeIndex: 3, slopeDeg: 35 }] }).",
+    inputSchema: {
+        level: z.string().describe("Niveau d'implantation"),
+        boundary: z.array(z.object({ x: z.number(), y: z.number(), z: z.number().optional() })).describe("Polygone fermé en mm"),
+        slopedEdges: z.array(z.object({
+            edgeIndex: z.number().int().describe("Index de l'arête (0 à n-1)"),
+            slopeDeg: z.number().describe("Pente en degrés")
+        })).optional().describe("Définition des pentes par arête"),
+        baseOffset: z.number().optional().describe("Décalage d'élévation en mm"),
+        typeName: z.string().optional().describe("Type de toiture"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("roofs/create-footprint", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_ceiling", {
+    description: "Crée un plafond selon un contour fermé (coordonnées en mm) à une hauteur donnée au-dessus du niveau. Exemple : revit_create_ceiling({ level: 'Niveau 1', boundary: [{x:0,y:0},{x:3000,y:0},{x:3000,y:3000},{x:0,y:3000}], heightOffset: 2500 }).",
+    inputSchema: {
+        level: z.string().describe("Nom du niveau de référence"),
+        boundary: z.array(z.object({ x: z.number(), y: z.number(), z: z.number().optional() })).describe("Points du contour fermé en mm"),
+        heightOffset: z.number().describe("Hauteur du plafond au-dessus du sol en mm (ex: 2500 mm)"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("ceilings/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_railing", {
+    description: "Crée un garde-corps le long d'un tracé linéaire en mm (ex: trémie, mezzanine). Exemple : revit_create_railing({ level: 'Mezzanine', path: [{x:0,y:0},{x:3000,y:0}] }).",
+    inputSchema: {
+        path: z.array(z.object({ x: z.number(), y: z.number(), z: z.number().optional() })).describe("Chemin du garde-corps en mm"),
+        level: z.string().describe("Nom du niveau"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("railings/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_opening", {
+    description: "Crée une réservation ou trémie dans un mur, un sol ou un plafond. Contour en mm. Exemple : revit_create_opening({ hostId: 12345, boundary: [{x:1000,y:1000},{x:2000,y:1000},{x:2000,y:2000},{x:1000,y:2000}] }).",
+    inputSchema: {
+        hostId: z.number().int().describe("ID de l'hôte (sol, mur, toit)"),
+        boundary: z.array(z.object({ x: z.number(), y: z.number(), z: z.number().optional() })).describe("Contour de l'ouverture en mm"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("openings/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_ladder", {
+    description: "Crée une échelle de meunier droite dimensionnée (largeur, hauteur, espacement en mm). Exemple : revit_create_ladder({ base: {x: 1500, y: 2000}, width: 500, height: 2600, rungSpacing: 250 }).",
+    inputSchema: {
+        base: z.object({ x: z.number(), y: z.number() }).describe("Point au sol en mm"),
+        width: z.number().optional().default(500).describe("Largeur en mm"),
+        height: z.number().optional().default(2600).describe("Hauteur totale en mm"),
+        rungSpacing: z.number().optional().default(250).describe("Espacement des échelons en mm"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("ladders/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_level", {
+    description: "Crée un nouveau niveau d'élévation dans le projet (élévation en mm). Exemple : revit_create_level({ name: 'Mezzanine +2.40', elevation: 2400 }).",
+    inputSchema: {
+        name: z.string().describe("Nom du niveau (ex: 'Mezzanine')"),
+        elevation: z.number().describe("Élévation en millimètres par rapport au niveau zéro"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("levels/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_modify_level", {
+    description: "Modifie le nom ou l'élévation (mm) d'un niveau existant. Exemple : revit_modify_level({ name: 'Niveau 1', elevation: 0 }).",
+    inputSchema: {
+        levelId: z.number().int().optional().describe("ID du niveau"),
+        name: z.string().optional().describe("Nom actuel du niveau"),
+        newName: z.string().optional().describe("Nouveau nom"),
+        elevation: z.number().optional().describe("Nouvelle élévation en mm"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("levels/modify", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.G — PIÈCES ET ZONING (P0)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_create_room_separation_lines", {
+    description: "Dessine des lignes de séparation de pièces (segments en mm) pour subdiviser un espace sans cloison physique (ex: coin cuisine / salon). Exemple : revit_create_room_separation_lines({ lines: [{start: {x:0, y:2000}, end: {x:3000, y:2000}}] }).",
+    inputSchema: {
+        lines: z.array(z.object({
+            start: z.object({ x: z.number(), y: z.number(), z: z.number().optional() }),
+            end: z.object({ x: z.number(), y: z.number(), z: z.number().optional() })
+        })).describe("Segments de séparation en mm"),
+        viewId: z.number().int().optional().describe("Vue en plan associée"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("rooms/create-separation-lines", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_place_room_at_point", {
+    description: "Place et nomme une pièce BIM dans le contour fermé contenant le point (x, y en mm). Exemple : revit_place_room_at_point({ x: 2500, y: 2000, level: 'Niveau 1', name: 'Séjour' }).",
+    inputSchema: {
+        x: z.number().describe("Position X en mm"),
+        y: z.number().describe("Position Y en mm"),
+        level: z.string().describe("Niveau d'accueil"),
+        name: z.string().describe("Nom de la pièce (ex: 'Chambre', 'Séjour')"),
+        number: z.string().optional().describe("Numéro de pièce optionnel"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("rooms/place-at-point", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_delete_unplaced_rooms", {
+    description: "Supprime automatiquement toutes les pièces non placées ou superflues (surface nulle). Exemple : revit_delete_unplaced_rooms({ dryRun: false }).",
+    inputSchema: {
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: true },
+}, async (args) => {
+    const data = await revit("rooms/delete-unplaced", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_tag_rooms", {
+    description: "Ajoute des étiquettes de pièce (nom + surface m²) dans la vue en plan pour toutes les pièces non encore étiquetées. Exemple : revit_tag_rooms({ viewId: 150126 }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue en plan (défaut : active)"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("rooms/tag-rooms", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.H — VUES (P0)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_create_section_view", {
+    description: "Crée une vue en coupe architecturale définie par une ligne de coupe (départ, fin en mm), profondeur de champ (mm) et échelle. Exemple : revit_create_section_view({ name: 'Coupe A-A', lineStart: {x: 0, y: 4600}, lineEnd: {x: 6400, y: 4600}, depth: 3000, scale: 50 }).",
+    inputSchema: {
+        name: z.string().describe("Nom de la coupe (ex: 'Coupe A-A')"),
+        lineStart: z.object({ x: z.number(), y: z.number() }).describe("Point de début en mm"),
+        lineEnd: z.object({ x: z.number(), y: z.number() }).describe("Point de fin en mm"),
+        depth: z.number().optional().default(5000).describe("Profondeur de champ en mm"),
+        zMin: z.number().optional().default(-500).describe("Limite basse en Z en mm"),
+        zMax: z.number().optional().default(6000).describe("Limite haute en Z en mm"),
+        scale: z.number().int().optional().default(50).describe("Échelle (ex: 50 pour 1:50)"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/create-section", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_3d_view", {
+    description: "Crée une vue 3D axonométrique ou perspective avec réglage de caméra et d'orientation (SE, SO, NE, NO). Exemple : revit_create_3d_view({ name: 'Axo Sud-Est', type: 'iso', isoDirection: 'SE' }).",
+    inputSchema: {
+        name: z.string().describe("Nom de la vue 3D"),
+        type: z.enum(["iso", "perspective"]).optional().default("iso").describe("Type de projection"),
+        isoDirection: z.enum(["SE", "SO", "SW", "NE", "NO", "NW"]).optional().default("SE").describe("Direction axonométrique"),
+        eye: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional().describe("Position de caméra en mm"),
+        target: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional().describe("Cible en mm"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/create-3d", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_duplicate_view", {
+    description: "Duplique une vue existante (simple, avec détails d'annotation ou dépendante). Exemple : revit_duplicate_view({ viewId: 150126, mode: 'withDetailing', newName: 'Plan RDC - Coté' }).",
+    inputSchema: {
+        viewId: z.number().int().describe("ID de la vue à dupliquer"),
+        mode: z.enum(["duplicate", "withDetailing", "dependent"]).optional().default("withDetailing").describe("Mode de duplication"),
+        newName: z.string().optional().describe("Nouveau nom de la vue"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/duplicate", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_set_view_properties", {
+    description: "Règle les propriétés d'affichage d'une vue : échelle, niveau de détail, visibilité du cadre de cadrage. Exemple : revit_set_view_properties({ viewId: 150126, scale: 50, detailLevel: 'fine', cropVisible: true }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue (défaut : active)"),
+        scale: z.number().int().optional().describe("Échelle (ex: 50 pour 1:50)"),
+        detailLevel: z.enum(["coarse", "medium", "fine"]).optional().describe("Niveau de détail"),
+        cropVisible: z.boolean().optional().describe("Visibilité du cadre de cadrage"),
+        cropActive: z.boolean().optional().describe("Activation du cadrage"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/set-properties", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_set_category_visibility", {
+    description: "Règle la visibilité et le graphisme permanent par catégorie dans une vue (visible, demi-teinte, transparence). Exemple : revit_set_category_visibility({ viewId: 150126, categories: ['Mobilier'], visible: true, halftone: true }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue"),
+        categories: z.array(z.string()).describe("Noms de catégories (FR/EN/OST)"),
+        visible: z.boolean().optional().describe("Afficher ou masquer la catégorie"),
+        halftone: z.boolean().optional().describe("Affichage en demi-teinte"),
+        transparency: z.number().int().min(0).max(100).optional().describe("Pourcentage de transparence (0 à 100)"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/set-category-visibility", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_hide_elements_in_view", {
+    description: "Masque ou affiche des éléments spécifiques uniquement dans une vue donnée (ex: masquer le lit escamotable sur le plan semaine). Exemple : revit_hide_elements_in_view({ viewId: 150126, elementIds: [12345], hide: true }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue cible"),
+        elementIds: z.array(z.number().int()).describe("IDs des éléments"),
+        hide: z.boolean().optional().default(true).describe("Vrai pour masquer, faux pour afficher"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/hide-elements", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.I — ANNOTATIONS ET COTATION (P0)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_create_linear_dimension", {
+    description: "Crée une ligne de cote linéaire entre éléments dans une vue 2D. Position de la ligne en mm. Exemple : revit_create_linear_dimension({ viewId: 150126, linePosition: {x: 0, y: -500}, references: [{elementId: 10}, {elementId: 20}] }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue 2D"),
+        linePosition: z.object({ x: z.number(), y: z.number() }).describe("Point de passage de la ligne de cote en mm"),
+        references: z.array(z.object({
+            elementId: z.number().int().describe("ID de l'élément à coter")
+        })).describe("Références des éléments"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("annotations/create-linear-dimension", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_spot_elevation", {
+    description: "Place une cote de niveau altimétrique (±0,00, +2,40 m) sur un élément ou point en coordonnées mm. Exemple : revit_create_spot_elevation({ viewId: 150126, elementId: 12345, point: {x: 2000, y: 1500, z: 2400} }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue"),
+        elementId: z.number().int().describe("ID de l'élément hôte"),
+        point: z.object({ x: z.number(), y: z.number(), z: z.number() }).describe("Point altimétrique en mm"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("annotations/create-spot-elevation", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_text_note", {
+    description: "Place une note textuelle 2D dans une vue à une position (mm). Exemple : revit_create_text_note({ viewId: 150126, text: 'Hauteur libre 2,40 m', position: {x: 2000, y: 3000, z: 0} }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue"),
+        text: z.string().describe("Texte de la note"),
+        position: z.object({ x: z.number(), y: z.number(), z: z.number().optional() }).describe("Position en mm"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("annotations/create-text-note", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_tag", {
+    description: "Place une étiquette d'annotation sur un élément (porte, fenêtre, mobilier). Exemple : revit_create_tag({ viewId: 150126, elementId: 12345, leader: false }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue"),
+        elementId: z.number().int().describe("ID de l'élément cible"),
+        leader: z.boolean().optional().default(false).describe("Ligne de repère"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("annotations/create-tag", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_tag_all", {
+    description: "Étiquette automatiquement tous les éléments non étiquetés des catégories spécifiées dans la vue. Exemple : revit_tag_all({ viewId: 150126, categories: ['Portes', 'Fenêtres'] }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue"),
+        categories: z.array(z.string()).describe("Catégories à étiqueter"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("annotations/tag-all", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_filled_region", {
+    description: "Crée une zone remplie / hachurée 2D selon un contour polygonal fermé en millimètres (utile pour zoning graphique). Exemple : revit_create_filled_region({ viewId: 150126, boundary: [{x:0,y:0},{x:2000,y:0},{x:2000,y:2000},{x:0,y:2000}] }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue 2D"),
+        boundary: z.array(z.object({ x: z.number(), y: z.number(), z: z.number().optional() })).describe("Polygone en mm"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("annotations/create-filled-region", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_detail_curve", {
+    description: "Dessine une chaîne de lignes de détail 2D (polyligne) dans une vue en millimètres. Exemple : revit_create_detail_curve({ viewId: 150126, points: [{x:0,y:0},{x:1000,y:1000},{x:2000,y:0}], closed: true }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue"),
+        points: z.array(z.object({ x: z.number(), y: z.number(), z: z.number().optional() })).describe("Sommets en mm"),
+        closed: z.boolean().optional().default(false).describe("Fermer la polyligne"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("annotations/create-detail-curve", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.J — FEUILLES ET MISE EN PAGE (P1)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_get_viewports", {
+    description: "Liste toutes les fenêtres de vue (viewports) placées sur une feuille avec leur centre et limites en mm papier. Exemple : revit_get_viewports({ sheetId: 12345 }).",
+    inputSchema: {
+        sheetId: z.number().int().describe("ID de la feuille (ViewSheet)"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("sheets/get-viewports", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_move_viewport", {
+    description: "Déplace une fenêtre de vue (viewport) sur une feuille vers un nouveau centre en mm papier. Exemple : revit_move_viewport({ viewportId: 98765, center: {x: 150, y: 100} }).",
+    inputSchema: {
+        viewportId: z.number().int().describe("ID du viewport"),
+        center: z.object({ x: z.number().describe("Centre X en mm papier"), y: z.number().describe("Centre Y en mm papier") }),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("sheets/move-viewport", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.K — NOMENCLATURES (P1)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_create_schedule", {
+    description: "Crée une nomenclature de projet pour une catégorie donnée (pièces, portes, fenêtres, mobilier) avec champs spécifiés. Exemple : revit_create_schedule({ category: 'Rooms', name: 'Tableau des surfaces', fields: ['Name', 'Area'] }).",
+    inputSchema: {
+        category: z.string().describe("Catégorie de la nomenclature (ex: 'Rooms', 'Doors')"),
+        name: z.string().describe("Nom de la nomenclature créée"),
+        fields: z.array(z.string()).describe("Liste des noms de champs à inclure"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("schedules/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_schedule_data", {
+    description: "Extrait les valeurs tabulaires d'une nomenclature existante sous forme de matrice lignes/colonnes. Exemple : revit_get_schedule_data({ scheduleId: 12345 }).",
+    inputSchema: {
+        scheduleId: z.number().int().describe("ID de la nomenclature ViewSchedule"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("schedules/get-data", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.L — MATÉRIAUX ET APPARENCE (P1)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_create_material", {
+    description: "Crée un nouveau matériau BIM dans le projet avec couleur RGB (#RRGGBB). Exemple : revit_create_material({ name: 'Chêne clair', color: '#D2B48C' }).",
+    inputSchema: {
+        name: z.string().describe("Nom du matériau"),
+        color: z.string().describe("Couleur hexadécimale, ex: '#D2B48C'"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("materials/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_assign_material", {
+    description: "Assigne un matériau par son nom à des éléments ou un paramètre de matériau spécifique. Exemple : revit_assign_material({ elementIds: [12345], materialName: 'Chêne clair' }).",
+    inputSchema: {
+        elementIds: z.array(z.number().int()).describe("IDs des éléments cibles"),
+        materialName: z.string().describe("Nom du matériau"),
+        parameterName: z.string().optional().default("Material").describe("Nom du paramètre de matériau"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("materials/assign", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_paint_face", {
+    description: "Applique une peinture de matériau sur la face d'un élément géométrique. Exemple : revit_paint_face({ elementId: 12345, materialName: 'Peinture blanche' }).",
+    inputSchema: {
+        elementId: z.number().int().describe("ID de l'élément"),
+        materialName: z.string().describe("Nom du matériau de peinture"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("materials/paint-face", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.M — PHASES ET OPTIONS DE CONCEPTION (P1)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_get_design_options", {
+    description: "Liste tous les jeux d'options de conception et options du projet (ex: variante 1, variante 2). Exemple : revit_get_design_options({}).",
+    inputSchema: {
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("design-options/list", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_design_option", {
+    description: "Vérifie ou prépare la création d'une option de conception. Exemple : revit_create_design_option({ setName: 'Aménagement', optionName: 'Semaine' }).",
+    inputSchema: {
+        setName: z.string().describe("Nom du jeu d'options"),
+        optionName: z.string().describe("Nom de l'option"),
+        documentTitle: z.string().optional().describe("Document cible"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("design-options/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_move_elements_to_design_option", {
+    description: "Affecte une sélection d'éléments à une option de conception spécifique. Exemple : revit_move_elements_to_design_option({ elementIds: [123], optionName: 'Option Week-end' }).",
+    inputSchema: {
+        elementIds: z.array(z.number().int()).describe("IDs des éléments à déplacer"),
+        optionName: z.string().describe("Nom de l'option cible"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("design-options/move-elements", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_set_view_design_option", {
+    description: "Configure la visibilité d'une option de conception pour une vue donnée (ex: Plan semaine vs Plan week-end). Exemple : revit_set_view_design_option({ viewId: 150126, optionName: 'Option Semaine' }).",
+    inputSchema: {
+        viewId: z.number().int().optional().describe("ID de la vue cible"),
+        optionName: z.string().describe("Nom de l'option à afficher"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("design-options/set-view-option", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_set_element_phase", {
+    description: "Définit la phase de création ou de démolition d'éléments du projet (ex: Existant, Projeté). Exemple : revit_set_element_phase({ elementIds: [123], createdPhase: 'Nouvelle construction' }).",
+    inputSchema: {
+        elementIds: z.array(z.number().int()).describe("IDs des éléments"),
+        createdPhase: z.string().optional().describe("Nom de la phase de création"),
+        demolishedPhase: z.string().optional().describe("Nom de la phase de démolition"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("phases/set-element-phase", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.N — IMPORTS ET EXPORTS (P0)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_export_dxf", {
+    description: "Exporte des vues ou feuilles au format DXF pour validation CAO à l'échelle. Exemple : revit_export_dxf({ outputPath: 'C:\\Exports\\Planche.dxf' }).",
+    inputSchema: {
+        outputPath: z.string().describe("Chemin du fichier DXF de sortie"),
+        viewIds: z.array(z.number().int()).optional().describe("Vues à exporter"),
+        version: z.string().optional().default("2018").describe("Version DXF (ex: '2018')"),
+        documentTitle: z.string().optional().describe("Document cible"),
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("export/dxf", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_import_cad", {
+    description: "Lie ou importe un fichier DWG ou DXF validé comme calque de fond de plan pour caler les modifications (unités en mm ou m). Exemple : revit_import_cad({ path: 'C:\\Dessins\\FondPlan.dxf', link: true, units: 'mm' }).",
+    inputSchema: {
+        path: z.string().describe("Chemin du fichier .dwg ou .dxf"),
+        link: z.boolean().optional().default(true).describe("Lier le fichier (true) ou importer directement (false)"),
+        viewId: z.number().int().optional().describe("ID de la vue d'accueil"),
+        units: z.enum(["mm", "cm", "m"]).optional().default("mm").describe("Unités du fichier CAO"),
+        currentViewOnly: z.boolean().optional().default(true).describe("Visible uniquement dans la vue actuelle"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("import/cad", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_cad_geometry", {
+    description: "Extrait les lignes, arcs et polylignes d'un DWG/DXF lié dans Revit en coordonnées projet (mm). Exemple : revit_get_cad_geometry({ importInstanceId: 77777 }).",
+    inputSchema: {
+        importInstanceId: z.number().int().describe("ID de l'occurrence d'importation (ImportInstance)"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("import/get-cad-geometry", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_walls_from_cad", {
+    description: "Convertit automatiquement les segments de lignes d'un calque DWG/DXF en véritables murs Revit (hauteur en mm). Exemple : revit_create_walls_from_cad({ importInstanceId: 77777, height: 2600 }).",
+    inputSchema: {
+        importInstanceId: z.number().int().describe("ID de l'instance CAO"),
+        height: z.number().optional().default(3000).describe("Hauteur des murs créés en mm"),
+        wallType: z.string().optional().describe("Nom du type de mur à appliquer"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("import/create-walls-from-cad", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_import_image", {
+    description: "Importe une image (plan scanné, croquis) en fond de plan 2D avec largeur imposée en mm pour mise à l'échelle. Exemple : revit_import_image({ path: 'C:\\Images\\Plan.png', widthMm: 6400 }).",
+    inputSchema: {
+        path: z.string().describe("Chemin de l'image .png ou .jpg"),
+        viewId: z.number().int().optional().describe("ID de la vue"),
+        position: z.object({ x: z.number(), y: z.number() }).optional().describe("Centre en mm"),
+        widthMm: z.number().optional().describe("Largeur de l'image en mm pour calage d'échelle"),
+        dryRun: z.boolean().optional().describe("Simuler"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("import/image", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.O — INTERFACE ET DIAGNOSTIC (P1)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_get_ui_state", {
+    description: "Retourne l'état complet de l'interface Revit : document actif, vue active, onglets ouverts et handle de fenêtre. Exemple : revit_get_ui_state({}).",
+    inputSchema: {},
+    annotations: { readOnlyHint: true },
+}, async () => {
+    const data = await revit("ui/state");
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_bring_to_front", {
+    description: "Restaure et place la fenêtre Autodesk Revit au premier plan sur l'écran principal. Exemple : revit_bring_to_front({}).",
+    inputSchema: {},
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async () => {
+    const data = await revit("ui/bring-to-front");
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_capture_ui", {
+    description: "Réalise une capture d'écran fiable de la fenêtre Autodesk Revit par l'add-in (évite les écrans noirs de l'OS). Exemple : revit_capture_ui({ outputPath: 'C:\\Screenshots\\Revit.png' }).",
+    inputSchema: {
+        outputPath: z.string().optional().describe("Chemin du fichier PNG de destination")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("ui/capture", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_log", {
+    description: "Récupère les dernières lignes du journal d'audit de l'add-in RevitMCP. Exemple : revit_get_log({ lines: 50 }).",
+    inputSchema: {
+        lines: z.number().int().optional().default(50).describe("Nombre de lignes récentes à extraire")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("system/get-log", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_dismiss_dialogs", {
+    description: "Vérifie et configure la suppression automatique des boîtes de dialogue modales bloquantes dans Revit. Exemple : revit_dismiss_dialogs({ policy: 'ok' }).",
+    inputSchema: {
+        policy: z.enum(["ok", "cancel", "report"]).optional().default("ok").describe("Politique de réponse")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("dialogs/dismiss", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION 4.P — DYNAMO (P2)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_list_dynamo_scripts", {
+    description: "Liste les scripts Dynamo (.dyn) disponibles dans un dossier ou le répertoire utilisateur. Exemple : revit_list_dynamo_scripts({ search: 'mezzanine' }).",
+    inputSchema: {
+        folder: z.string().optional().describe("Dossier à explorer"),
+        search: z.string().optional().describe("Filtre de recherche")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("dynamo/list-scripts", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION COMPLÉMENTAIRE — ARCHITECTURE, ANNOTATION ET DOCUMENTATION (v2.1.0)
+// ════════════════════════════════════════════════════════════════════════════
+server.registerTool("revit_create_roof_extrusion", {
+    description: "Crée une toiture par extrusion le long d'un profil vertical donné et l'extrude entre deux limites en millimètres. Exemple : revit_create_roof_extrusion({ profile: [{startX: 0, startY: 0, startZ: 2500, endX: 3200, endY: 0, endZ: 5000}], levelName: 'Niveau 1', endExtrusionMm: 6200 }).",
+    inputSchema: {
+        profile: z.array(z.object({
+            startX: z.number().describe("Début X en mm"),
+            startY: z.number().describe("Début Y en mm"),
+            startZ: z.number().describe("Début Z en mm"),
+            endX: z.number().describe("Fin X en mm"),
+            endY: z.number().describe("Fin Y en mm"),
+            endZ: z.number().describe("Fin Z en mm")
+        })).describe("Profil vertical de la toiture"),
+        levelName: z.string().describe("Niveau d'attache"),
+        startExtrusionMm: z.number().optional().default(0).describe("Début d'extrusion en mm"),
+        endExtrusionMm: z.number().optional().default(5000).describe("Fin d'extrusion en mm"),
+        roofTypeName: z.string().optional().describe("Nom du type de toiture"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("roofs/create-extrusion", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_modify_roof", {
+    description: "Modifie les caractéristiques d'une toiture existante (type, niveau de base). Exemple : revit_modify_roof({ roofId: 123456, typeName: 'Toiture chaude isolée 30cm' }).",
+    inputSchema: {
+        roofId: z.number().describe("ID 64 bits de la toiture"),
+        typeName: z.string().optional().describe("Nouveau type de toiture"),
+        baseLevelName: z.string().optional().describe("Nouveau niveau de base"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("roofs/modify", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_modify_floor_boundary", {
+    description: "Modifie le contour fermé d'un sol ou d'une dalle existante à partir d'une liste ordonnée de points en millimètres. Exemple : revit_modify_floor_boundary({ floorId: 123456, boundary: [{x: 0, y: 0}, {x: 6400, y: 0}, {x: 6400, y: 6200}, {x: 0, y: 6200}] }).",
+    inputSchema: {
+        floorId: z.number().describe("ID 64 bits du sol"),
+        boundary: z.array(z.object({ x: z.number(), y: z.number() })).describe("Polygone fermé en mm"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("floors/modify-boundary", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_stair", {
+    description: "Crée un escalier droit standard entre deux niveaux du projet avec une volée définie par ses points de départ et d'arrivée en millimètres. Exemple : revit_create_stair({ baseLevelName: 'RDC', topLevelName: 'Mezzanine', startX: 1000, startY: 2000, endX: 3500, endY: 2000 }).",
+    inputSchema: {
+        baseLevelName: z.string().describe("Niveau de départ"),
+        topLevelName: z.string().describe("Niveau d'arrivée"),
+        startX: z.number().describe("Point de départ X en mm"),
+        startY: z.number().describe("Point de départ Y en mm"),
+        endX: z.number().describe("Point d'arrivée X en mm"),
+        endY: z.number().describe("Point d'arrivée Y en mm"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("stairs/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_simple_family", {
+    description: "Génère et insère un composant volumique paramétrique simple (forme parallélépipédique) dans une catégorie cible avec dimensions en millimètres. Exemple : revit_create_simple_family({ familyName: 'CaissonRangement', category: 'Mobilier', widthMm: 800, depthMm: 500, heightMm: 750 }).",
+    inputSchema: {
+        familyName: z.string().describe("Nom de la famille ou du composant"),
+        category: z.string().optional().default("Mobilier").describe("Catégorie FR/EN"),
+        widthMm: z.number().describe("Largeur en mm"),
+        depthMm: z.number().describe("Profondeur en mm"),
+        heightMm: z.number().describe("Hauteur en mm"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("families/create-simple", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_edit_family_parameters", {
+    description: "Modifie directement les paramètres internes d'une famille RFA chargée dans le projet puis la recharge automatiquement. Exemple : revit_edit_family_parameters({ familyName: 'Table', parameters: { 'Largeur': 1600, 'Hauteur': 750 } }).",
+    inputSchema: {
+        familyName: z.string().describe("Nom de la famille chargée"),
+        parameters: z.record(z.string(), z.unknown()).describe("Dictionnaire des paramètres à mettre à jour"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("families/edit-parameters", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_elevation_views", {
+    description: "Crée un marqueur d'élévation et génère automatiquement les 4 vues d'élévation cardinales (Nord, Est, Sud, Ouest) associées à un plan. Exemple : revit_create_elevation_views({ x: 3200, y: 3100 }).",
+    inputSchema: {
+        x: z.number().describe("Coordonnée X du centre du marqueur en mm"),
+        y: z.number().describe("Coordonnée Y du centre du marqueur en mm"),
+        planViewId: z.number().optional().describe("ID de la vue en plan de référence"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/create-elevations", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_drafting_view", {
+    description: "Crée une vue de dessin 2D indépendante du modèle (Drafting View) à une échelle donnée. Exemple : revit_create_drafting_view({ name: 'Détail étanchéité acrotère', scale: 10 }).",
+    inputSchema: {
+        name: z.string().describe("Nom de la vue de dessin"),
+        scale: z.number().optional().default(50).describe("Échelle (ex: 20 pour 1:20)"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/create-drafting", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_view_filter", {
+    description: "Crée un filtre de vue basé sur des règles pour cibler une ou plusieurs catégories d'éléments. Exemple : revit_create_view_filter({ filterName: 'Murs extérieurs', categories: ['Murs'] }).",
+    inputSchema: {
+        filterName: z.string().describe("Nom du filtre"),
+        categories: z.array(z.string()).describe("Liste des catégories ciblées (FR ou EN)"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/filters/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_apply_view_filter", {
+    description: "Applique un filtre de vue existant sur une vue avec contrôle de visibilité et remplacements graphiques. Exemple : revit_apply_view_filter({ viewId: 123456, filterId: 654321, visible: true }).",
+    inputSchema: {
+        viewId: z.number().describe("ID de la vue"),
+        filterId: z.number().describe("ID du filtre"),
+        visible: z.boolean().optional().describe("Visibilité des éléments filtrés"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/filters/apply", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_view_template_from_view", {
+    description: "Génère un gabarit de vue (View Template) à partir des réglages d'affichage et de visibilité d'une vue existante. Exemple : revit_create_view_template_from_view({ viewId: 123456, templateName: 'Gabarit Plan Aménagement' }).",
+    inputSchema: {
+        viewId: z.number().describe("ID de la vue source"),
+        templateName: z.string().describe("Nom du nouveau gabarit"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/create-template", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_delete_views", {
+    description: "Supprime une liste de vues ou de feuilles du projet par leurs identifiants. Exemple : revit_delete_views({ viewIds: [123456, 123457] }).",
+    inputSchema: {
+        viewIds: z.array(z.number()).describe("Liste des identifiants 64 bits des vues à supprimer"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: true },
+}, async (args) => {
+    const data = await revit("views/delete", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_close_inactive_views", {
+    description: "Ferme tous les onglets de vue inactifs pour libérer la mémoire graphique et optimiser les performances de Revit. Exemple : revit_close_inactive_views({}).",
+    inputSchema: {
+        dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
+        documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("annotations/auto-dimension-walls", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_dimension_openings", {
+    description: "Crée une chaîne complète de cotes linéaires le long d'un mur reliant le départ du mur, chaque porte/fenêtre et la fin du mur. Exemple : revit_dimension_openings({ wallId: 123456 }).",
+    inputSchema: {
+        wallId: z.number().describe("ID du mur à coter"),
+        viewId: z.number().optional().describe("ID de la vue"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("annotations/dimension-openings", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_line_style", {
+    description: "Crée ou met à jour un style de ligne personnalisé dans la catégorie Lignes avec épaisseur et couleur RGB. Exemple : revit_create_line_style({ name: 'Axe Mezzanine', weight: 3, red: 255, green: 0, blue: 0 }).",
+    inputSchema: {
+        name: z.string().describe("Nom du style de ligne"),
+        weight: z.number().optional().default(2).describe("Épaisseur de trait (1 à 16)"),
+        red: z.number().min(0).max(255).optional().default(0),
+        green: z.number().min(0).max(255).optional().default(0),
+        blue: z.number().min(0).max(255).optional().default(0),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("lines/create-style", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_place_annotation_symbol", {
+    description: "Insère un symbole d'annotation 2D (étiquette générique, flèche, repère) sur une vue à des coordonnées données en millimètres. Exemple : revit_place_annotation_symbol({ symbolName: 'Nord Géographique', x: 5000, y: 5000 }).",
+    inputSchema: {
+        symbolName: z.string().describe("Nom du symbole ou type d'annotation"),
+        x: z.number().describe("Position X en mm"),
+        y: z.number().describe("Position Y en mm"),
+        viewId: z.number().optional().describe("ID de la vue"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("annotations/place-symbol", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_place_detail_component", {
+    description: "Place une instance de composant de détail 2D (vis, tasseau, isolant, meuble 2D) sur une vue de détail ou de coupe. Exemple : revit_place_detail_component({ componentName: 'Chevron 60x80', x: 1200, y: 2400 }).",
+    inputSchema: {
+        componentName: z.string().describe("Nom du type de composant de détail"),
+        x: z.number().describe("Position X en mm"),
+        y: z.number().describe("Position Y en mm"),
+        viewId: z.number().optional().describe("ID de la vue"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("details/place-component", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_legend_view", {
+    description: "Crée une nouvelle vue de légende pour documenter les composants graphiques ou matériaux à une échelle définie. Exemple : revit_create_legend_view({ name: 'Légende Menuiseries', scale: 20 }).",
+    inputSchema: {
+        name: z.string().describe("Nom de la légende"),
+        scale: z.number().optional().default(50).describe("Échelle"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/create-legend", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_place_legend_component", {
+    description: "Place un composant de famille sur une vue de légende pour illustrer la nomenclature graphique. Exemple : revit_place_legend_component({ legendId: 123456, familyTypeName: 'Fenêtre 1 vantail 60x80', x: 200, y: 200 }).",
+    inputSchema: {
+        legendId: z.number().describe("ID de la vue de légende"),
+        familyTypeName: z.string().describe("Nom du type de famille"),
+        x: z.number().describe("Position X en mm"),
+        y: z.number().describe("Position Y en mm"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("legends/place-component", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_color_fill_scheme", {
+    description: "Configure ou interroge un schéma de couleur automatique pour les pièces ou surfaces du document. Exemple : revit_create_color_fill_scheme({ name: 'Schéma Destination', category: 'Pièces' }).",
+    inputSchema: {
+        name: z.string().describe("Nom du schéma de couleur"),
+        category: z.string().optional().default("Pièces").describe("Catégorie ciblée (Pièces ou Surfaces)"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("colors/create-scheme", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_apply_color_fill", {
+    description: "Applique un schéma de remplissage couleur sur une vue en plan et insère sa légende graphique à des coordonnées en millimètres. Exemple : revit_apply_color_fill({ viewId: 123456, legendX: 7000, legendY: 3000 }).",
+    inputSchema: {
+        viewId: z.number().optional().describe("ID de la vue"),
+        legendX: z.number().optional().default(5000).describe("Position X de la légende en mm"),
+        legendY: z.number().optional().default(5000).describe("Position Y de la légende en mm"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("colors/apply-legend", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_area_plan", {
+    description: "Crée un plan de surface réglementaire (Surface Habitable / Emprise) associé à un niveau du projet. Exemple : revit_create_area_plan({ levelName: 'RDC' }).",
+    inputSchema: {
+        levelName: z.string().describe("Niveau associé"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("areas/create-plan", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_area", {
+    description: "Place une zone de surface réglementaire calculée sur un plan de surface existant à des coordonnées données en mm. Exemple : revit_create_area({ areaPlanId: 123456, x: 2500, y: 3000 }).",
+    inputSchema: {
+        areaPlanId: z.number().describe("ID de la vue de plan de surface"),
+        x: z.number().describe("Coordonnée X en mm"),
+        y: z.number().describe("Coordonnée Y en mm"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("areas/create", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_change_title_block", {
+    description: "Remplace ou met à jour le type de cartouche (fond de page A4, A3, A0...) présent sur une feuille de présentation. Exemple : revit_change_title_block({ sheetId: 123456, titleBlockName: 'Cartouche A4 Paysage' }).",
+    inputSchema: {
+        sheetId: z.number().describe("ID de la feuille"),
+        titleBlockName: z.string().describe("Nom du nouveau type de cartouche"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("sheets/change-titleblock", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_set_sheet_parameters", {
+    description: "Met à jour les paramètres de titre, numéro, date et intervenants d'une feuille de présentation. Exemple : revit_set_sheet_parameters({ sheetId: 123456, sheetNumber: 'A101', sheetName: 'Plan RDC et Mezzanine', drawnBy: 'Antigravity', issueDate: '2026-10-20' }).",
+    inputSchema: {
+        sheetId: z.number().describe("ID de la feuille"),
+        sheetNumber: z.string().optional().describe("Numéro de feuille"),
+        sheetName: z.string().optional().describe("Nom de la feuille"),
+        drawnBy: z.string().optional().describe("Dessiné par"),
+        checkedBy: z.string().optional().describe("Vérifié par"),
+        approvedBy: z.string().optional().describe("Approuvé par"),
+        issueDate: z.string().optional().describe("Date d'émission"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("sheets/set-parameters", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_set_viewport_type", {
+    description: "Change le style graphique d'une fenêtre de vue sur feuille (avec titre, sans titre, ligne masquée). Exemple : revit_set_viewport_type({ viewportId: 123456, typeName: 'Sans titre' }).",
+    inputSchema: {
+        viewportId: z.number().describe("ID du viewport"),
+        typeName: z.string().describe("Nom du type de viewport cible"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("viewports/set-type", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_place_schedule_on_sheet", {
+    description: "Place une nomenclature existante sous forme de tableau graphique sur une feuille de présentation à des coordonnées en millimètres. Exemple : revit_place_schedule_on_sheet({ sheetId: 123456, scheduleId: 654321, x: 200, y: 150 }).",
+    inputSchema: {
+        sheetId: z.number().describe("ID de la feuille de présentation"),
+        scheduleId: z.number().describe("ID de la nomenclature"),
+        x: z.number().optional().default(100).describe("Position X sur feuille en mm"),
+        y: z.number().optional().default(100).describe("Position Y sur feuille en mm"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("sheets/place-schedule", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_align_viewports", {
+    description: "Aligne plusieurs fenêtres de vue (viewports) sur un axe horizontal ou vertical commun. Exemple : revit_align_viewports({ viewportIds: [123456, 123457], mode: 'horizontal' }).",
+    inputSchema: {
+        viewportIds: z.array(z.number()).describe("Liste des identifiants des viewports à aligner"),
+        mode: z.enum(["horizontal", "vertical"]).optional().default("horizontal").describe("Axe d'alignement"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("viewports/align", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_render_view", {
+    description: "Génère un rendu d'image haute résolution vectoriel/photoréaliste de n'importe quelle vue du projet. Exemple : revit_render_view({ viewId: 123456, width: 2560, outputPath: 'C:\Render\VueSalon.png' }).",
+    inputSchema: {
+        viewId: z.number().optional().describe("ID de la vue à rendre"),
+        width: z.number().optional().default(1920).describe("Largeur en pixels"),
+        outputPath: z.string().optional().describe("Chemin du fichier PNG de destination"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("views/render", args);
+    ;
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_run_dynamo_inline", {
+    description: "Exécute du code inline Python/Dynamo directement au sein du document Revit actif. Exemple : revit_run_dynamo_inline({ code: 'result = doc.Title' }).",
+    inputSchema: {
+        code: z.string().describe("Code Python/Dynamo à exécuter"),
+        dryRun: z.boolean().optional().describe("Mode simulation"),
+        documentTitle: z.string().optional().describe("Document cible")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("dynamo/run-inline", args);
+    ;
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 // ─── Start ───────────────────────────────────────────────────────────────────

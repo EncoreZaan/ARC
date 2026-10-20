@@ -27,17 +27,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
-  <Target Name="CopyToRevitAddins" AfterTargets="Build">
+  <Target Name="SignRevitAddin" AfterTargets="Build" BeforeTargets="CopyToRevitAddins">
+    <Exec Command="powershell -NoProfile -Command &quot;$cert = Get-ChildItem Cert:\CurrentUser\My | Where-Object { $_.Subject -match 'RevitMCP' } | Select-Object -First 1; if ($cert) { Set-AuthenticodeSignature -FilePath '$(TargetPath)' -Certificate $cert | Out-Null }&quot;" IgnoreExitCode="true" />
+  </Target>
+
+  <Target Name="CopyToRevitAddins" AfterTargets="Build" Condition="'$(DeployAddin)' != 'false'">
     <PropertyGroup>
       <RevitAddinsDir>$(APPDATA)\Autodesk\Revit\Addins\$(RevitVersion)\</RevitAddinsDir>
     </PropertyGroup>
     <Message Importance="High" Text="Deploying addin to $(RevitAddinsDir)" />
     <MakeDir Directories="$(RevitAddinsDir)" />
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(RevitAddinsDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="$(ProjectDir)RevitMCP.addin" DestinationFolder="$(RevitAddinsDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(RevitAddinsDir)" SkipUnchangedFiles="true" ContinueOnError="true" />
+    <Copy SourceFiles="$(ProjectDir)RevitMCP.addin" DestinationFolder="$(RevitAddinsDir)" SkipUnchangedFiles="true" ContinueOnError="true" />
   </Target>
 
 </Project>

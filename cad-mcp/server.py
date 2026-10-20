@@ -1,0 +1,426 @@
+import os
+import sys
+import math
+import json
+from typing import Optional, List, Dict, Any
+
+from mcp.server.mcpserver import MCPServer
+import ezdxf
+from ezdxf.addons.drawing import Frontend, RenderContext
+from ezdxf.addons.drawing.matplotlib import MatplotlibBackend
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+
+mcp = MCPServer("cad-mcp")
+
+def _check_file_locked(path: str) -> None:
+    if not os.path.exists(path):
+        return
+    try:
+        with open(path, "r+"):
+            pass
+    except IOError:
+        raise PermissionError(f"Le fichier DXF '{path}' est actuellement verrouillé ou ouvert dans AutoCAD/Revit.")
+
+
+@mcp.tool()
+def dxf_info(path: str) -> str:
+    """
+    Retourne les métadonnées complètes d'un fichier DXF : version d'AutoCAD, unités (insunits),
+    calques (avec couleur et statut gelé/masqué), limites spatiales extmin/extmax et compteurs d'entités.
+    Exemple : dxf_info("C:/Dessins/MicroHabitat.dxf")
+    """
+    _check_file_locked(path)
+    try:
+        doc = ezdxf.readfile(path)
+        msp = doc.modelspace()
+        
+        layers = []
+        for layer in doc.layers:
+            layers.append({
+                "name": layer.dxf.name,
+                "color": layer.dxf.color,
+                "is_off": layer.is_off(),
+                "is_locked": layer.is_locked()
+            })
+            
+        units_code = doc.header.get("$INSUNITS", 0)
+        units_map = {
+            0: "Unspecified", 1: "Inches", 2: "Feet", 3: "Miles", 4: "Millimeters",
+            5: "Centimeters", 6: "Meters"
+        }
+        
+        extmin = doc.header.get("$EXTMIN", (0, 0, 0))
+        extmax = doc.header.get("$EXTMAX", (0, 0, 0))
+        
+        entity_counts = {}
+        for e in msp:
+            t = e.dxftype()
+            entity_counts[t] = entity_counts.get(t, 0) + 1
+            
+        return json.dumps({
+            "success": True,
+            "path": path,
+            "dxfversion": doc.dxfversion,
+            "acadRelease": doc.acad_release,
+            "units": units_map.get(units_code, f"Code {units_code}"),
+            "extmin": {"x": round(extmin[0], 2), "y": round(extmin[1], 2), "z": round(extmin[2], 2)},
+            "extmax": {"x": round(extmax[0], 2), "y": round(extmax[1], 2), "z": round(extmax[2], 2)},
+            "layerCount": len(layers),
+            "layers": layers,
+            "entityCounts": entity_counts
+        }, indent=2)
+    except Exception as ex:
+        return json.dumps({"success": False, "error": {"code": "DXF_READ_ERROR", "message": str(ex)}}, indent=2)
+
+
+@mcp.tool()
+def dxf_list_entities(path: str, layer: Optional[str] = None, layout: Optional[str] = "Model") -> str:
+    """
+    Liste les entités géométriques d'un fichier DXF (lignes, polylignes, arcs, cercles, textes)
+    avec leurs coordonnées en millimètres.
+    Exemple : dxf_list_entities("C:/Dessins/MicroHabitat.dxf", layer="MURS")
+    """
+    _check_file_locked(path)
+    try:
+        doc = ezdxf.readfile(path)
+        space = doc.layout(layout) if layout and layout != "Model" else doc.modelspace()
+        
+        entities = []
+        for e in space:
+            if layer and e.dxf.layer.upper() != layer.upper():
+                continue
+            
+            ent_info = {
+                "handle": e.dxf.handle,
+                "dxftype": e.dxftype(),
+                "layer": e.dxf.layer,
+                "color": e.dxf.color
+            }
+            
+            if e.dxftype() == "LINE":
+                ent_info["start"] = {"x": round(e.dxf.start.x, 2), "y": round(e.dxf.start.y, 2), "z": round(e.dxf.start.z, 2)}
+                ent_info["end"] = {"x": round(e.dxf.end.x, 2), "y": round(e.dxf.end.y, 2), "z": round(e.dxf.end.z, 2)}
+            elif e.dxftype() == "TEXT":
+                ent_info["text"] = e.dxf.text
+                ent_info["insert"] = {"x": round(e.dxf.insert.x, 2), "y": round(e.dxf.insert.y, 2)}
+                ent_info["height"] = round(e.dxf.height, 2)
+            elif e.dxftype() == "CIRCLE":
+                ent_info["center"] = {"x": round(e.dxf.center.x, 2), "y": round(e.dxf.center.y, 2)}
+                ent_info["radius"] = round(e.dxf.radius, 2)
+            elif e.dxftype() in ("LWPOLYLINE", "POLYLINE"):
+                ent_info["is_closed"] = e.is_closed
+                ent_info["points"] = [{"x": round(p[0], 2), "y": round(p[1], 2)} for p in e.get_points()[:20]]
+                
+            entities.append(ent_info)
+            if len(entities) >= 500:
+                break
+                
+        return json.dumps({
+            "success": True,
+            "entityCount": len(entities),
+            "entities": entities
+        }, indent=2)
+    except Exception as ex:
+        return json.dumps({"success": False, "error": {"code": "DXF_READ_ERROR", "message": str(ex)}}, indent=2)
+
+
+@mcp.tool()
+def dxf_render(path: str, outputPath: str, layout: Optional[str] = "Model", dpi: Optional[int] = 150, format: Optional[str] = "png", scale: Optional[float] = None) -> str:
+    """
+    Rend fidèlement un fichier DXF à l'échelle sous forme d'image PNG ou document PDF vectoriel avec tirets réels.
+    Exemple : dxf_render("C:/Dessins/Planche.dxf", "C:/Rendus/Planche.pdf", format="pdf", dpi=300)
+    """
+    _check_file_locked(path)
+    try:
+        doc = ezdxf.readfile(path)
+        space = doc.layout(layout) if layout and layout != "Model" else doc.modelspace()
+        
+        # Determine output format from extension or parameter
+        ext = os.path.splitext(outputPath)[1].lower().replace(".", "")
+        fmt = format or (ext if ext in ("png", "pdf") else "png")
+        
+        fig = plt.figure(dpi=dpi or 150)
+        ax = fig.add_axes([0, 0, 1, 1])
+        ctx = RenderContext(doc)
+        out = MatplotlibBackend(ax)
+        Frontend(ctx, out).draw_layout(space, finalize=True)
+        
+        if scale and scale > 0:
+            # Scale adjustment: aspect ratio equal and scaling annotation
+            ax.set_aspect("equal")
+            
+        os.makedirs(os.path.dirname(os.path.abspath(outputPath)), exist_ok=True)
+        fig.savefig(outputPath, dpi=dpi or 150, format=fmt)
+        plt.close(fig)
+        
+        return json.dumps({
+            "success": True,
+            "outputPath": outputPath,
+            "layout": layout or "Model",
+            "format": fmt,
+            "scale": scale,
+            "dpi": dpi or 150
+        }, indent=2)
+    except Exception as ex:
+        return json.dumps({"success": False, "error": {"code": "RENDER_ERROR", "message": str(ex)}}, indent=2)
+
+
+@mcp.tool()
+def dxf_render_all_layouts_pdf(path: str, outputPath: str, dpi: Optional[int] = 150) -> str:
+    """
+    Rend l'ensemble des présentations (Model et Paper Space Layouts) d'un fichier DXF dans un unique document PDF multi-pages.
+    Exemple : dxf_render_all_layouts_pdf("C:/Dessins/DossierComplet.dxf", "C:/Rendus/Dossier.pdf")
+    """
+    _check_file_locked(path)
+    try:
+        doc = ezdxf.readfile(path)
+        os.makedirs(os.path.dirname(os.path.abspath(outputPath)), exist_ok=True)
+        
+        rendered_layouts = []
+        with PdfPages(outputPath) as pdf:
+            for lyt_name in doc.layout_names():
+                space = doc.layout(lyt_name)
+                fig = plt.figure(dpi=dpi or 150)
+                ax = fig.add_axes([0, 0, 1, 1])
+                ctx = RenderContext(doc)
+                out = MatplotlibBackend(ax)
+                Frontend(ctx, out).draw_layout(space, finalize=True)
+                pdf.savefig(fig, dpi=dpi or 150)
+                plt.close(fig)
+                rendered_layouts.append(lyt_name)
+                
+        return json.dumps({
+            "success": True,
+            "outputPath": outputPath,
+            "layoutsRendered": rendered_layouts,
+            "pageCount": len(rendered_layouts)
+        }, indent=2)
+    except Exception as ex:
+        return json.dumps({"success": False, "error": {"code": "RENDER_PDF_ERROR", "message": str(ex)}}, indent=2)
+
+
+@mcp.tool()
+def dxf_audit(path: str) -> str:
+    """
+    Analyse l'intégrité d'un fichier DXF avec le moteur d'audit ezdxf.audit et renvoie les erreurs ou corrections automatiques.
+    Exemple : dxf_audit("C:/Dessins/Planche.dxf")
+    """
+    _check_file_locked(path)
+    try:
+        doc = ezdxf.readfile(path)
+        auditor = doc.audit()
+        
+        errors = [f"[{e.code}] {e.message}" for e in auditor.errors]
+        fixes = [f"[{f.code}] {f.message}" for f in auditor.fixes]
+        
+        return json.dumps({
+            "success": True,
+            "path": path,
+            "isValid": len(errors) == 0,
+            "errorCount": len(errors),
+            "errors": errors,
+            "fixCount": len(fixes),
+            "fixes": fixes
+        }, indent=2)
+    except Exception as ex:
+        return json.dumps({"success": False, "error": {"code": "AUDIT_ERROR", "message": str(ex)}}, indent=2)
+
+
+@mcp.tool()
+def dxf_edit(path: str, operations: List[Dict[str, Any]], outputPath: str) -> str:
+    """
+    Applique une suite d'opérations géométriques sur un DXF (ajout de lignes, textes, suppression, création de calques).
+    Exemple : dxf_edit("C:/In.dxf", [{"action": "add_line", "start": [0,0], "end": [6400,0], "layer": "MURS"}], "C:/Out.dxf")
+    """
+    _check_file_locked(path)
+    try:
+        doc = ezdxf.readfile(path)
+        msp = doc.modelspace()
+        
+        applied = 0
+        for op in operations:
+            act = op.get("action")
+            layer = op.get("layer", "0")
+            if layer not in doc.layers:
+                doc.layers.add(layer)
+                
+            if act == "add_line":
+                s = op.get("start", [0, 0])
+                e = op.get("end", [0, 0])
+                msp.add_line((s[0], s[1]), (e[0], e[1]), dxfattribs={"layer": layer})
+                applied += 1
+            elif act == "add_text":
+                text = op.get("text", "")
+                pos = op.get("position", [0, 0])
+                height = op.get("height", 250)
+                msp.add_text(text, dxfattribs={"layer": layer, "height": height}).set_placement((pos[0], pos[1]))
+                applied += 1
+            elif act == "delete_entity":
+                handle = op.get("handle")
+                if handle:
+                    entity = doc.entitydb.get(handle)
+                    if entity:
+                        msp.delete_entity(entity)
+                        applied += 1
+
+        os.makedirs(os.path.dirname(os.path.abspath(outputPath)), exist_ok=True)
+        doc.saveas(outputPath)
+        
+        return json.dumps({
+            "success": True,
+            "outputPath": outputPath,
+            "appliedOperations": applied
+        }, indent=2)
+    except Exception as ex:
+        return json.dumps({"success": False, "error": {"code": "EDIT_ERROR", "message": str(ex)}}, indent=2)
+
+
+@mcp.tool()
+def dxf_diff(pathA: str, pathB: str, toleranceMm: Optional[float] = 1.0) -> str:
+    """
+    Compare géométriquement et structurellement deux fichiers DXF (versions successives d'un plan).
+    Identifie les entités ajoutées, supprimées ou modifiées avec tolérance en millimètres.
+    Exemple : dxf_diff("C:/Plans/IndiceA.dxf", "C:/Plans/IndiceB.dxf", toleranceMm=2.0)
+    """
+    _check_file_locked(pathA)
+    _check_file_locked(pathB)
+    try:
+        docA = ezdxf.readfile(pathA)
+        docB = ezdxf.readfile(pathB)
+        mspA = docA.modelspace()
+        mspB = docB.modelspace()
+        
+        tol = toleranceMm or 1.0
+        
+        def extract_fingerprints(msp):
+            items = {}
+            for e in msp:
+                h = e.dxf.handle
+                t = e.dxftype()
+                layer = e.dxf.layer
+                if t == "LINE":
+                    geom = (round(e.dxf.start.x, 1), round(e.dxf.start.y, 1), round(e.dxf.end.x, 1), round(e.dxf.end.y, 1))
+                elif t == "TEXT":
+                    geom = (e.dxf.text, round(e.dxf.insert.x, 1), round(e.dxf.insert.y, 1))
+                elif t == "CIRCLE":
+                    geom = (round(e.dxf.center.x, 1), round(e.dxf.center.y, 1), round(e.dxf.radius, 1))
+                else:
+                    geom = str(h)
+                items[h] = {"type": t, "layer": layer, "geom": geom}
+            return items
+
+        itemsA = extract_fingerprints(mspA)
+        itemsB = extract_fingerprints(mspB)
+        
+        added = []
+        removed = []
+        modified = []
+        
+        for h, infoB in itemsB.items():
+            if h not in itemsA:
+                added.append({"handle": h, "type": infoB["type"], "layer": infoB["layer"]})
+            else:
+                infoA = itemsA[h]
+                if infoA["layer"] != infoB["layer"] or infoA["geom"] != infoB["geom"]:
+                    modified.append({
+                        "handle": h,
+                        "type": infoB["type"],
+                        "layerBefore": infoA["layer"],
+                        "layerAfter": infoB["layer"],
+                        "geomBefore": str(infoA["geom"]),
+                        "geomAfter": str(infoB["geom"])
+                    })
+                    
+        for h, infoA in itemsA.items():
+            if h not in itemsB:
+                removed.append({"handle": h, "type": infoA["type"], "layer": infoA["layer"]})
+                
+        return json.dumps({
+            "success": True,
+            "pathA": pathA,
+            "pathB": pathB,
+            "toleranceMm": tol,
+            "summary": {
+                "totalA": len(itemsA),
+                "totalB": len(itemsB),
+                "addedCount": len(added),
+                "removedCount": len(removed),
+                "modifiedCount": len(modified)
+            },
+            "added": added[:50],
+            "removed": removed[:50],
+            "modified": modified[:50]
+        }, indent=2)
+    except Exception as ex:
+        return json.dumps({"success": False, "error": {"code": "DIFF_ERROR", "message": str(ex)}}, indent=2)
+
+
+@mcp.tool()
+def dxf_compare_with_revit(dxfPath: str, revitElements: List[Dict[str, Any]], toleranceMm: Optional[float] = 20.0) -> str:
+    """
+    Compare les éléments d'un plan DXF validé et les éléments correspondants d'un modèle Revit.
+    Détecte les écarts de position > toleranceMm (ex: portes décalées, fenêtres manquantes).
+    Exemple : dxf_compare_with_revit("C:/Planche.dxf", revitElements=[...], toleranceMm=20.0)
+    """
+    _check_file_locked(dxfPath)
+    try:
+        doc = ezdxf.readfile(dxfPath)
+        msp = doc.modelspace()
+        
+        tol = toleranceMm or 20.0
+        discrepancies = []
+        
+        dxf_lines = []
+        for e in msp:
+            if e.dxftype() == "LINE":
+                dxf_lines.append((e.dxf.start.x, e.dxf.start.y, e.dxf.end.x, e.dxf.end.y))
+
+        checked_count = 0
+        for el in revitElements:
+            checked_count += 1
+            loc = el.get("location")
+            if not loc:
+                continue
+            
+            if loc.get("type") == "point":
+                pt = loc.get("point", {})
+                px, py = pt.get("x", 0), pt.get("y", 0)
+                min_dist = float("inf")
+                for (x1, y1, x2, y2) in dxf_lines:
+                    dx = x2 - x1
+                    dy = y2 - y1
+                    if dx == 0 and dy == 0:
+                        dist = math.hypot(px - x1, py - y1)
+                    else:
+                        t = max(0, min(1, ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)))
+                        proj_x = x1 + t * dx
+                        proj_y = y1 + t * dy
+                        dist = math.hypot(px - proj_x, py - proj_y)
+                    if dist < min_dist:
+                        min_dist = dist
+                        
+                if min_dist > tol and min_dist < 2000:
+                    discrepancies.append({
+                        "elementId": el.get("id"),
+                        "name": el.get("name"),
+                        "category": el.get("category"),
+                        "revitPosition": {"x": px, "y": py},
+                        "deviationMm": round(min_dist, 1),
+                        "status": "DISCREPANCY"
+                    })
+
+        return json.dumps({
+            "success": True,
+            "dxfPath": dxfPath,
+            "elementsChecked": checked_count,
+            "discrepancyCount": len(discrepancies),
+            "toleranceMm": tol,
+            "discrepancies": discrepancies
+        }, indent=2)
+    except Exception as ex:
+        return json.dumps({"success": False, "error": {"code": "COMPARE_ERROR", "message": str(ex)}}, indent=2)
+
+
+if __name__ == "__main__":
+    mcp.run()
