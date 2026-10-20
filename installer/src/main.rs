@@ -5,7 +5,7 @@ use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::io::{Cursor, Read};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use tar::Archive;
 use winreg::enums::{HKEY_CURRENT_USER, KEY_ALL_ACCESS, KEY_READ};
 use winreg::RegKey;
@@ -251,7 +251,7 @@ fn run_install(silent: bool, force_node: bool) {
         }
     }
 
-    // 4. Configure Claude Desktop
+    // 4. Configure all AI clients (Universal Zero-Config)
     let use_rust = has_rust_server && !force_node;
     let claude_command = if use_rust {
         rust_exe_dest.to_string_lossy().replace('\\', "/")
@@ -270,51 +270,266 @@ fn run_install(silent: bool, force_node: bool) {
         } else {
             "Node.js bundle".yellow()
         };
-        println!("\n{} [{}]", "[4/4] Configuration automatique de Claude Desktop...".yellow().bold(), mode_desc);
+        println!("\n{} [{}]", "[4/4] Configuration automatique de toutes vos IA (Zéro-Config)...".yellow().bold(), mode_desc);
     }
 
-    let claude_configs = [
-        // Standard Claude Desktop
-        Path::new(&appdata).join("Claude").join("claude_desktop_config.json"),
-        // Windows Store MSIX Claude
-        Path::new(&localappdata)
-            .join("Packages")
-            .join("Claude_pzs8sxrjxfjjc")
-            .join("LocalCache")
-            .join("Roaming")
-            .join("Claude")
-            .join("claude_desktop_config.json"),
-    ];
+    let home = env::var("USERPROFILE").unwrap_or_else(|_| env::var("HOME").unwrap_or_default());
+    let home_path = Path::new(&home);
 
+    let ai_targets = get_ai_client_targets(&appdata, &localappdata, home_path);
     let mut configured_count = 0;
-    for cfg_path in &claude_configs {
-        if let Some(parent) = cfg_path.parent() {
-            if parent.exists() || cfg_path == &claude_configs[0] {
-                fs::create_dir_all(parent).unwrap_or_default();
-                if patch_claude_config(cfg_path, &claude_command, &claude_args) {
-                    configured_count += 1;
-                    if !silent {
-                        println!("  {} Configuration injectée dans {}", "[OK]".green(), cfg_path.display());
-                    }
+
+    for target in &ai_targets {
+        let should_configure = target.path.exists()
+            || target.condition_dir.as_ref().map(|d| d.exists()).unwrap_or(false)
+            || target.always_create;
+
+        if should_configure {
+            if let Some(parent) = target.path.parent() {
+                let _ = fs::create_dir_all(parent);
+            }
+            if patch_mcp_config(&target.path, &claude_command, &claude_args, target.is_cline_style) {
+                configured_count += 1;
+                if !silent {
+                    println!("  {} {} configuré ({})", "[OK]".green(), target.name, target.path.display());
                 }
             }
         }
     }
+
     if !silent && configured_count == 0 {
-        println!("  {} Aucun profil Claude Desktop détecté (sera configuré au premier lancement de Claude)", "[!]".yellow());
+        println!("  {} Aucune IA détectée pour l'instant (les fichiers seront créés dès le premier lancement)", "[!]".yellow());
     }
 
+    // 5. Live connection verification with Revit
     if !silent {
+        println!("\n{}", "[VÉRIFICATION DU PONT EN DIRECT]".cyan().bold());
+        match check_live_revit_bridge() {
+            Some(info) => {
+                println!("  {} Autodesk Revit est OUVERT et CONNECTÉ !", "[CONNECTÉ]".green().bold());
+                println!("     Maquette(s) active(s) : {}", info.cyan());
+            }
+            None => {
+                println!("  {} Autodesk Revit n'est pas encore ouvert.", "[EN ATTENTE]".yellow().bold());
+                println!("     Dès que vous lancerez Revit, toutes vos IA s'y connecteront automatiquement avec zéro configuration.");
+            }
+        }
+
         println!();
         println!("{}", "==========================================================".green());
         println!("{}", "     INSTALLATION DE REVIT AI BRIDGE TERMINÉE AVEC SUCCÈS !".green().bold());
         println!("{}", "==========================================================".green());
-        println!("\nProchaines étapes :");
-        println!("1. Lancez {} et ouvrez un projet BIM.", "Autodesk Revit".cyan().bold());
-        println!("2. Lancez {} : l'icône des 191 outils MCP sera active.", "Claude Desktop".cyan().bold());
-        println!("3. Testez directement : {}", "\"Fais un diagnostic de la maquette Revit active.\"".yellow());
+        println!("\nPrêt à l'emploi :");
+        println!("* Lancez n'importe quelle IA (Claude Desktop, Claude Code, Cursor, Windsurf, Cline, Roo Code).");
+        println!("* Les 191 outils Revit sont immédiatement reconnus et disponibles !");
         println!();
     }
+}
+
+struct AiClientTarget {
+    name: &'static str,
+    path: PathBuf,
+    is_cline_style: bool,
+    condition_dir: Option<PathBuf>,
+    always_create: bool,
+}
+
+fn get_ai_client_targets(appdata: &str, localappdata: &str, home: &Path) -> Vec<AiClientTarget> {
+    vec![
+        // 1. Claude Desktop (APPDATA standard)
+        AiClientTarget {
+            name: "Claude Desktop",
+            path: Path::new(appdata).join("Claude").join("claude_desktop_config.json"),
+            is_cline_style: false,
+            condition_dir: Some(Path::new(appdata).join("Claude")),
+            always_create: true,
+        },
+        // 2. Claude Desktop (Windows Store MSIX)
+        AiClientTarget {
+            name: "Claude Desktop (Windows Store)",
+            path: Path::new(localappdata)
+                .join("Packages")
+                .join("Claude_pzs8sxrjxfjjc")
+                .join("LocalCache")
+                .join("Roaming")
+                .join("Claude")
+                .join("claude_desktop_config.json"),
+            is_cline_style: false,
+            condition_dir: Some(Path::new(localappdata).join("Packages").join("Claude_pzs8sxrjxfjjc")),
+            always_create: false,
+        },
+        // 3. Claude Code CLI
+        AiClientTarget {
+            name: "Claude Code CLI",
+            path: home.join(".claude.json"),
+            is_cline_style: false,
+            condition_dir: None,
+            always_create: home.join(".claude.json").exists(),
+        },
+        // 4. Cline (VS Code)
+        AiClientTarget {
+            name: "Cline (VS Code)",
+            path: Path::new(appdata)
+                .join("Code")
+                .join("User")
+                .join("globalStorage")
+                .join("saoudrizwan.claude-dev")
+                .join("settings")
+                .join("cline_mcp_settings.json"),
+            is_cline_style: true,
+            condition_dir: Some(Path::new(appdata).join("Code")),
+            always_create: false,
+        },
+        // 5. Cline (VS Code Insiders)
+        AiClientTarget {
+            name: "Cline (VS Code Insiders)",
+            path: Path::new(appdata)
+                .join("Code - Insiders")
+                .join("User")
+                .join("globalStorage")
+                .join("saoudrizwan.claude-dev")
+                .join("settings")
+                .join("cline_mcp_settings.json"),
+            is_cline_style: true,
+            condition_dir: Some(Path::new(appdata).join("Code - Insiders")),
+            always_create: false,
+        },
+        // 6. Roo Code (VS Code)
+        AiClientTarget {
+            name: "Roo Code (VS Code)",
+            path: Path::new(appdata)
+                .join("Code")
+                .join("User")
+                .join("globalStorage")
+                .join("rooveterinaryinc.roo-cline")
+                .join("settings")
+                .join("cline_mcp_settings.json"),
+            is_cline_style: true,
+            condition_dir: Some(Path::new(appdata).join("Code")),
+            always_create: false,
+        },
+        // 7. Roo Code (VS Code Insiders)
+        AiClientTarget {
+            name: "Roo Code (VS Code Insiders)",
+            path: Path::new(appdata)
+                .join("Code - Insiders")
+                .join("User")
+                .join("globalStorage")
+                .join("rooveterinaryinc.roo-cline")
+                .join("settings")
+                .join("cline_mcp_settings.json"),
+            is_cline_style: true,
+            condition_dir: Some(Path::new(appdata).join("Code - Insiders")),
+            always_create: false,
+        },
+        // 8. Cursor IDE (Global)
+        AiClientTarget {
+            name: "Cursor IDE (Global MCP)",
+            path: home.join(".cursor").join("mcp.json"),
+            is_cline_style: false,
+            condition_dir: Some(home.join(".cursor")),
+            always_create: true,
+        },
+        // 9. Cursor IDE (Extension Storage)
+        AiClientTarget {
+            name: "Cursor IDE (Storage MCP)",
+            path: Path::new(appdata)
+                .join("Cursor")
+                .join("User")
+                .join("globalStorage")
+                .join("rooveterinaryinc.cursor-mcp")
+                .join("mcp.json"),
+            is_cline_style: false,
+            condition_dir: Some(Path::new(appdata).join("Cursor")),
+            always_create: false,
+        },
+        // 10. Windsurf / Codeium IDE
+        AiClientTarget {
+            name: "Windsurf / Codeium IDE",
+            path: home.join(".codeium").join("windsurf").join("mcp_config.json"),
+            is_cline_style: false,
+            condition_dir: Some(home.join(".codeium")),
+            always_create: true,
+        },
+    ]
+}
+
+fn patch_mcp_config(cfg_path: &Path, command: &str, args: &[String], is_cline_style: bool) -> bool {
+    let mut root_val: Value = if cfg_path.exists() {
+        let Ok(text) = fs::read_to_string(cfg_path) else { return false };
+        serde_json::from_str(&text).unwrap_or_else(|_| json!({}))
+    } else {
+        json!({})
+    };
+
+    if !root_val.is_object() {
+        root_val = json!({});
+    }
+
+    let root_obj = root_val.as_object_mut().unwrap();
+    if !root_obj.contains_key("mcpServers") || !root_obj["mcpServers"].is_object() {
+        root_obj.insert("mcpServers".to_string(), json!({}));
+    }
+
+    let servers_obj = root_obj.get_mut("mcpServers").unwrap().as_object_mut().unwrap();
+
+    let mut revit_entry = json!({
+        "command": command,
+        "args": args,
+        "env": {
+            "REVIT_HOST": "http://localhost:6543",
+            "REVIT_TIMEOUT_MS": "120000"
+        }
+    });
+
+    if is_cline_style {
+        if let Some(obj) = revit_entry.as_object_mut() {
+            obj.insert("disabled".to_string(), json!(false));
+            obj.insert("autoApprove".to_string(), json!([]));
+        }
+    }
+
+    servers_obj.insert("revit".to_string(), revit_entry);
+
+    let Ok(formatted) = serde_json::to_string_pretty(&root_val) else { return false };
+    fs::write(cfg_path, formatted).is_ok()
+}
+
+fn check_live_revit_bridge() -> Option<String> {
+    use std::io::{Read, Write};
+    use std::net::{SocketAddr, TcpStream};
+    use std::time::Duration;
+
+    let addr: SocketAddr = "127.0.0.1:6543".parse().ok()?;
+    let mut stream = TcpStream::connect_timeout(&addr, Duration::from_millis(800)).ok()?;
+    stream.set_read_timeout(Some(Duration::from_millis(1500))).ok()?;
+    stream.set_write_timeout(Some(Duration::from_millis(800))).ok()?;
+
+    let req = "GET /healthz HTTP/1.1\r\nHost: localhost:6543\r\nConnection: close\r\n\r\n";
+    stream.write_all(req.as_bytes()).ok()?;
+
+    let mut resp = String::new();
+    stream.read_to_string(&mut resp).ok()?;
+
+    if let Some(body_start) = resp.find("\r\n\r\n") {
+        let body = &resp[body_start + 4..];
+        if let Ok(val) = serde_json::from_str::<Value>(body) {
+            if val.get("ok").and_then(|v| v.as_bool()) == Some(true) {
+                let open_docs = val.get("openDocuments").and_then(|d| d.as_array());
+                if let Some(docs) = open_docs {
+                    let titles: Vec<String> = docs
+                        .iter()
+                        .filter_map(|d| d.get("title").and_then(|t| t.as_str()).map(|s| s.to_string()))
+                        .collect();
+                    if !titles.is_empty() {
+                        return Some(titles.join(", "));
+                    }
+                }
+                return Some("Revit actif (aucun projet ouvert)".to_string());
+            }
+        }
+    }
+    None
 }
 
 fn read_file_text_utf16_or_utf8(path: &Path) -> Option<(String, bool)> {
@@ -360,45 +575,15 @@ fn patch_revit_ini(ini_path: &Path) {
     }
 }
 
-fn patch_claude_config(cfg_path: &Path, command: &str, args: &[String]) -> bool {
-    let mut root_val: Value = if cfg_path.exists() {
-        let Ok(text) = fs::read_to_string(cfg_path) else { return false };
-        serde_json::from_str(&text).unwrap_or_else(|_| json!({}))
-    } else {
-        json!({})
-    };
-
-    if !root_val.is_object() {
-        root_val = json!({});
-    }
-
-    let root_obj = root_val.as_object_mut().unwrap();
-    if !root_obj.contains_key("mcpServers") || !root_obj["mcpServers"].is_object() {
-        root_obj.insert("mcpServers".to_string(), json!({}));
-    }
-
-    let servers_obj = root_obj.get_mut("mcpServers").unwrap().as_object_mut().unwrap();
-
-    let revit_entry = json!({
-        "command": command,
-        "args": args,
-        "env": {
-            "REVIT_HOST": "http://localhost:6543",
-            "REVIT_TIMEOUT_MS": "120000"
-        }
-    });
-
-    servers_obj.insert("revit".to_string(), revit_entry);
-
-    let Ok(formatted) = serde_json::to_string_pretty(&root_val) else { return false };
-    fs::write(cfg_path, formatted).is_ok()
-}
-
 fn run_status() {
     print_banner();
     println!("{}", "[DIAGNOSTIC DU SYSTÈME ET DE L'INSTALLATION]".cyan().bold());
 
     let appdata = env::var("APPDATA").unwrap_or_default();
+    let localappdata = env::var("LOCALAPPDATA").unwrap_or_default();
+    let home = env::var("USERPROFILE").unwrap_or_else(|_| env::var("HOME").unwrap_or_default());
+    let home_path = Path::new(&home);
+
     let years = detect_revit_years();
     println!("* Versions Revit détectées : {}", years.join(", "));
 
@@ -435,18 +620,30 @@ fn run_status() {
         println!("  {} Serveur MCP Node bundle : Non déployé", "[!]".yellow());
     }
 
-    let claude_cfg = Path::new(&appdata).join("Claude").join("claude_desktop_config.json");
-    if claude_cfg.exists() {
-        let content = fs::read_to_string(&claude_cfg).unwrap_or_default();
-        if content.contains("revit-mcp-server.exe") {
-            println!("  {} Claude Desktop : Serveur 'revit' actif via Rust natif", "[OK]".green());
-        } else if content.contains("\"revit\"") {
-            println!("  {} Claude Desktop : Serveur 'revit' actif via Node.js bundle", "[OK]".green());
-        } else {
-            println!("  {} Claude Desktop : Serveur 'revit' manquant", "[!]".yellow());
+    println!("\n* Clients d'Intelligence Artificielle configurés :");
+    let ai_targets = get_ai_client_targets(&appdata, &localappdata, home_path);
+    for t in &ai_targets {
+        if t.path.exists() {
+            let content = fs::read_to_string(&t.path).unwrap_or_default();
+            if content.contains("revit-mcp-server.exe") {
+                println!("  {} {} : 'revit' actif via Rust natif", "[OK]".green(), t.name);
+            } else if content.contains("\"revit\"") {
+                println!("  {} {} : 'revit' actif via Node.js bundle", "[OK]".green(), t.name);
+            } else {
+                println!("  {} {} : Présent mais 'revit' non configuré", "[!]".yellow(), t.name);
+            }
         }
-    } else {
-        println!("  {} Claude Desktop config : Introuvable", "[!]".yellow());
+    }
+
+    println!("\n* État de connexion avec Revit en direct :");
+    match check_live_revit_bridge() {
+        Some(info) => {
+            println!("  {} Autodesk Revit est OUVERT et le pont est ACTIF !", "[CONNECTÉ]".green().bold());
+            println!("     Maquette(s) : {}", info.cyan());
+        }
+        None => {
+            println!("  {} Autodesk Revit n'est pas ouvert en ce moment.", "[EN ATTENTE]".yellow());
+        }
     }
     println!();
 }
@@ -458,6 +655,10 @@ fn run_uninstall(silent: bool) {
     }
 
     let appdata = env::var("APPDATA").unwrap_or_default();
+    let localappdata = env::var("LOCALAPPDATA").unwrap_or_default();
+    let home = env::var("USERPROFILE").unwrap_or_else(|_| env::var("HOME").unwrap_or_default());
+    let home_path = Path::new(&home);
+
     let years = detect_revit_years();
 
     for year in &years {
@@ -482,16 +683,19 @@ fn run_uninstall(silent: bool) {
         }
     }
 
-    let claude_cfg = Path::new(&appdata).join("Claude").join("claude_desktop_config.json");
-    if claude_cfg.exists() {
-        if let Ok(text) = fs::read_to_string(&claude_cfg) {
-            if let Ok(mut val) = serde_json::from_str::<Value>(&text) {
-                if let Some(obj) = val.get_mut("mcpServers").and_then(|s| s.as_object_mut()) {
-                    obj.remove("revit");
-                    if let Ok(out) = serde_json::to_string_pretty(&val) {
-                        let _ = fs::write(&claude_cfg, out);
-                        if !silent {
-                            println!("  {} Entrée 'revit' retirée de Claude Desktop", "[OK]".green());
+    let ai_targets = get_ai_client_targets(&appdata, &localappdata, home_path);
+    for t in &ai_targets {
+        if t.path.exists() {
+            if let Ok(text) = fs::read_to_string(&t.path) {
+                if let Ok(mut val) = serde_json::from_str::<Value>(&text) {
+                    if let Some(obj) = val.get_mut("mcpServers").and_then(|s| s.as_object_mut()) {
+                        if obj.remove("revit").is_some() {
+                            if let Ok(out) = serde_json::to_string_pretty(&val) {
+                                let _ = fs::write(&t.path, out);
+                                if !silent {
+                                    println!("  {} Entrée 'revit' retirée de {}", "[OK]".green(), t.name);
+                                }
+                            }
                         }
                     }
                 }
