@@ -59,11 +59,16 @@ public static class DocumentResolver
 
         foreach (Document d in app.Application.Documents)
         {
+            var isCurrentActive = activeDoc != null && (
+                d.Equals(activeDoc) ||
+                (!string.IsNullOrEmpty(d.PathName) && string.Equals(d.PathName, activeDoc.PathName, StringComparison.OrdinalIgnoreCase)) ||
+                string.Equals(d.Title, activeDoc.Title, StringComparison.OrdinalIgnoreCase));
+
             list.Add(new JObject
             {
                 ["title"] = d.Title,
                 ["path"] = d.PathName ?? "",
-                ["isActive"] = activeDoc != null && d.Equals(activeDoc),
+                ["isActive"] = isCurrentActive,
                 ["isModified"] = d.IsModified,
                 ["isFamilyDocument"] = d.IsFamilyDocument,
                 ["isReadOnly"] = d.IsReadOnly

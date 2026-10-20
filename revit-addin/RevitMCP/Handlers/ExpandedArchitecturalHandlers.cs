@@ -547,77 +547,131 @@ public partial class RevitEventHandler
             var wall = doc.GetElement(new ElementId(wallIdVal)) as Wall
                 ?? throw new RevitMcpException("NOT_FOUND", $"Mur ID {wallIdVal} introuvable.");
 
-            var viewIdVal = p["viewId"]?.Value<long>() ?? doc.ActiveView.Id.Value;
-            var view = doc.GetElement(new ElementId(viewIdVal)) as View
-                ?? throw new RevitMcpException("NOT_FOUND", $"Vue ID {viewIdVal} introuvable.");
-
             if (wall.Location is not LocationCurve lc || lc.Curve is not Line l)
                 throw new RevitMcpException("INVALID_GEOMETRY", "Le mur doit être linéaire.");
+
+            // Resolve 2D floor plan view (dimensions on 3D views are disallowed)
+            View? planView = null;
+            if (p["viewId"] != null)
+            {
+                var candidate = doc.GetElement(new ElementId(p["viewId"]!.Value<long>())) as View;
+                if (candidate != null && candidate.ViewType != ViewType.ThreeD && !candidate.IsTemplate)
+                {
+                    planView = candidate;
+                }
+            }
+
+            if (planView == null)
+            {
+                var wallLevelId = wall.LevelId;
+                planView = new FilteredElementCollector(doc)
+                    .OfClass(typeof(ViewPlan))
+                    .Cast<ViewPlan>()
+                    .FirstOrDefault(vp => !vp.IsTemplate && vp.ViewType == ViewType.FloorPlan && vp.GenLevel != null && vp.GenLevel.Id == wallLevelId);
+
+                planView ??= new FilteredElementCollector(doc)
+                    .OfClass(typeof(ViewPlan))
+                    .Cast<ViewPlan>()
+                    .FirstOrDefault(vp => !vp.IsTemplate && vp.ViewType == ViewType.FloorPlan);
+            }
+
+            if (planView == null)
+                throw new RevitMcpException("NO_SUITABLE_VIEW", "Aucune vue en plan d'étage 2D disponible pour placer les cotes.");
 
             var inserts = new FilteredElementCollector(doc)
                 .OfClass(typeof(FamilyInstance))
                 .Cast<FamilyInstance>()
-                .Where(fi => fi.Host != null && fi.Host.Id == wall.Id)
+                .Where(fi => fi.Host != null && fi.Host.Id.Value == wall.Id.Value)
+                .OrderBy(fi => (fi.Location as LocationPoint)?.Point.DistanceTo(l.GetEndPoint(0)) ?? 0)
                 .ToList();
 
             var refs = new ReferenceArray();
-            var opt = new Options { ComputeReferences = true, View = view };
-            var geom = wall.get_Geometry(opt);
-            if (geom != null)
+            var opt = new Options { ComputeReferences = true, View = planView, IncludeNonVisibleObjects = true };
+
+            Reference? wallStartRef = null;
+            Reference? wallEndRef = null;
+
+            var wallGeom = wall.get_Geometry(opt);
+            if (wallGeom != null)
             {
-                foreach (var obj in geom)
+                foreach (var obj in wallGeom)
                 {
                     if (obj is Solid solid)
                     {
                         foreach (Face f in solid.Faces)
                         {
-                            if (f.Reference != null)
+                            if (f is PlanarFace pf && f.Reference != null)
                             {
-                                refs.Append(f.Reference);
-                                if (refs.Size >= 1) break;
+                                var dot = pf.FaceNormal.DotProduct(l.Direction);
+                                if (dot < -0.8 && wallStartRef == null)
+                                    wallStartRef = f.Reference;
+                                else if (dot > 0.8 && wallEndRef == null)
+                                    wallEndRef = f.Reference;
                             }
                         }
                     }
-                    if (refs.Size >= 1) break;
                 }
             }
+
+            if (wallStartRef != null)
+                refs.Append(wallStartRef);
 
             foreach (var inst in inserts)
             {
-                var ig = inst.get_Geometry(opt);
-                if (ig != null)
+                var leftRefs = inst.GetReferences(FamilyInstanceReferenceType.Left);
+                var rightRefs = inst.GetReferences(FamilyInstanceReferenceType.Right);
+
+                if (leftRefs.Count > 0)
+                    refs.Append(leftRefs[0]);
+                else
                 {
-                    foreach (var obj in ig)
-                    {
-                        if (obj is Solid s)
-                        {
-                            foreach (Face f in s.Faces)
-                            {
-                                if (f.Reference != null)
-                                {
-                                    refs.Append(f.Reference);
-                                    break;
-                                }
-                            }
-                        }
-                    }
+                    var centerRefs = inst.GetReferences(FamilyInstanceReferenceType.CenterLeftRight);
+                    if (centerRefs.Count > 0)
+                        refs.Append(centerRefs[0]);
                 }
+
+                if (rightRefs.Count > 0)
+                    refs.Append(rightRefs[0]);
             }
 
-            long dimId = -1;
-            if (refs.Size >= 2)
+            if (wallEndRef != null)
+                refs.Append(wallEndRef);
+
+            if (refs.Size < 2)
             {
-                var offset = XYZ.BasisZ.CrossProduct(l.Direction).Normalize() * 2.0;
-                var dimLine = Line.CreateBound(l.GetEndPoint(0) + offset, l.GetEndPoint(1) + offset);
-                var dim = doc.Create.NewDimension(view, dimLine, refs);
-                dimId = dim.Id.Value;
+                throw new RevitMcpException("INSUFFICIENT_REFERENCES",
+                    $"Références insuffisantes ({refs.Size} trouvées, minimum 2 requises). Vérifiez la géométrie du mur et des baies.");
+            }
+
+            var wallDir = l.Direction.Normalize();
+            var normal2D = new XYZ(-wallDir.Y, wallDir.X, 0).Normalize();
+            var offsetDistFeet = UnitConversions.MmToFeet(600.0);
+            var dimLine = Line.CreateBound(l.GetEndPoint(0) + normal2D * offsetDistFeet, l.GetEndPoint(1) + normal2D * offsetDistFeet);
+
+            Dimension dim;
+            try
+            {
+                dim = doc.Create.NewDimension(planView, dimLine, refs);
+            }
+            catch (Exception ex)
+            {
+                throw new RevitMcpException("DIMENSION_CREATION_FAILED", $"Échec de création de la cote : {ex.Message}");
+            }
+
+            if (dim == null || dim.Id.Value < 0)
+            {
+                throw new RevitMcpException("DIMENSION_CREATION_FAILED", "Revit a échoué à générer l'objet Dimension.");
             }
 
             return new JObject
             {
+                ["success"] = true,
                 ["wallId"] = wall.Id.Value,
-                ["dimensionId"] = dimId,
-                ["openingsCount"] = inserts.Count
+                ["dimensionId"] = dim.Id.Value,
+                ["viewId"] = planView.Id.Value,
+                ["viewName"] = planView.Name,
+                ["openingsCount"] = inserts.Count,
+                ["referencesCount"] = refs.Size
             };
         });
     }

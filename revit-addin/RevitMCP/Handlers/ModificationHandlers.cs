@@ -617,16 +617,24 @@ public partial class RevitEventHandler
 
             // Apply parameters if provided
             var parametersObj = p["parameters"] as JObject;
-            if (parametersObj != null)
+            var (applied, unknown, readOnlyList) = parametersObj != null && parametersObj.Count > 0
+                ? ApplyParameters(doc, duplicated, parametersObj)
+                : (new List<string>(), new List<string>(), new List<string>());
+
+            if (parametersObj != null && parametersObj.Count > 0 && applied.Count == 0)
             {
-                ApplyParameters(doc, duplicated, parametersObj);
+                throw new RevitMcpException("PARAMETERS_NOT_APPLIED",
+                    $"Aucun paramètre n'a pu être appliqué sur le type dupliqué '{duplicated.Name}'. Inexistants : [{string.Join(", ", unknown)}], Lecture seule : [{string.Join(", ", readOnlyList)}]");
             }
 
             return new JObject
             {
                 ["success"] = true,
                 ["typeId"] = duplicated.Id.Value,
-                ["typeName"] = duplicated.Name
+                ["typeName"] = duplicated.Name,
+                ["appliedParameters"] = new JArray(applied),
+                ["unknownParameters"] = new JArray(unknown),
+                ["readOnlyParameters"] = new JArray(readOnlyList)
             };
         });
     }
@@ -641,13 +649,22 @@ public partial class RevitEventHandler
             var type = doc.GetElement(new ElementId(typeIdVal)) as ElementType
                 ?? throw new RevitMcpException("TYPE_NOT_FOUND", $"Type {typeIdVal} not found.");
 
-            ApplyParameters(doc, type, parametersObj);
+            var (applied, unknown, readOnlyList) = ApplyParameters(doc, type, parametersObj);
+
+            if (parametersObj.Count > 0 && applied.Count == 0)
+            {
+                throw new RevitMcpException("PARAMETERS_NOT_APPLIED",
+                    $"Aucun paramètre n'a pu être appliqué sur le type '{type.Name}'. Inexistants : [{string.Join(", ", unknown)}], Lecture seule : [{string.Join(", ", readOnlyList)}]");
+            }
 
             return new JObject
             {
                 ["success"] = true,
                 ["typeId"] = type.Id.Value,
-                ["typeName"] = type.Name
+                ["typeName"] = type.Name,
+                ["appliedParameters"] = new JArray(applied),
+                ["unknownParameters"] = new JArray(unknown),
+                ["readOnlyParameters"] = new JArray(readOnlyList)
             };
         });
     }
@@ -978,32 +995,67 @@ public partial class RevitEventHandler
         });
     }
 
-    private static void ApplyParameters(Document doc, Element el, JObject parametersObj)
+    private static (List<string> applied, List<string> unknown, List<string> readOnly) ApplyParameters(Document doc, Element el, JObject parametersObj)
     {
+        var applied = new List<string>();
+        var unknown = new List<string>();
+        var readOnlyList = new List<string>();
+
         foreach (var prop in parametersObj.Properties())
         {
             var pName = prop.Name;
             var param = el.LookupParameter(pName);
-            if (param == null || param.IsReadOnly) continue;
-
-            if (prop.Value.Type == JTokenType.Float || prop.Value.Type == JTokenType.Integer)
+            if (param == null)
             {
-                var num = prop.Value.Value<double>();
-                // Distinguish length vs integer vs double
-                if (param.StorageType == StorageType.Double)
+                unknown.Add(pName);
+                continue;
+            }
+            if (param.IsReadOnly)
+            {
+                readOnlyList.Add(pName);
+                continue;
+            }
+
+            try
+            {
+                if (prop.Value.Type == JTokenType.Float || prop.Value.Type == JTokenType.Integer)
                 {
-                    // Convert assuming mm if length parameter
-                    param.Set(UnitConversions.MmToFeet(num));
+                    var num = prop.Value.Value<double>();
+                    if (param.StorageType == StorageType.Double)
+                    {
+                        param.Set(UnitConversions.MmToFeet(num));
+                    }
+                    else if (param.StorageType == StorageType.Integer)
+                    {
+                        param.Set((int)num);
+                    }
+                    applied.Add(pName);
                 }
-                else if (param.StorageType == StorageType.Integer)
+                else if (prop.Value.Type == JTokenType.Boolean)
                 {
-                    param.Set((int)num);
+                    param.Set(prop.Value.Value<bool>() ? 1 : 0);
+                    applied.Add(pName);
+                }
+                else if (prop.Value.Type == JTokenType.String)
+                {
+                    var text = prop.Value.Value<string>() ?? "";
+                    if (param.StorageType == StorageType.Double && double.TryParse(text, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsedDbl))
+                    {
+                        param.Set(UnitConversions.MmToFeet(parsedDbl));
+                    }
+                    else
+                    {
+                        param.Set(text);
+                    }
+                    applied.Add(pName);
                 }
             }
-            else if (prop.Value.Type == JTokenType.String)
+            catch
             {
-                param.Set(prop.Value.Value<string>());
+                readOnlyList.Add(pName);
             }
         }
+
+        return (applied, unknown, readOnlyList);
     }
 }

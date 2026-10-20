@@ -27,11 +27,16 @@ foreach ($year in $revitYears) {
         if (-not (Test-Path $addinDir)) {
             New-Item -ItemType Directory -Path $addinDir -Force | Out-Null
         }
-        $srcDll = Join-Path $root 'revit-addin\RevitMCP\bin\Release\net10.0-windows\RevitMCP.dll'
+        $binDir = Join-Path $root 'revit-addin\RevitMCP\bin\Release\net10.0-windows'
         $srcAddin = Join-Path $root 'revit-addin\RevitMCP\RevitMCP.addin'
+        $srcConfig = Join-Path $root 'revit-addin\RevitMCP\RevitMCP.config.json'
         
-        Copy-Item -Path $srcDll -Destination $addinDir -Force
+        Copy-Item -Path "$binDir\*.dll" -Destination $addinDir -Force
+        Copy-Item -Path "$binDir\*.pdb" -Destination $addinDir -Force -ErrorAction SilentlyContinue
         Copy-Item -Path $srcAddin -Destination $addinDir -Force
+        if (Test-Path $srcConfig) {
+            Copy-Item -Path $srcConfig -Destination $addinDir -Force
+        }
 
         # Whitelist in Revit CodeSigning registry so Revit never prompts
         $codeSigningKey = "HKCU:\SOFTWARE\Autodesk\Revit\Autodesk Revit $year\CodeSigning"
@@ -50,8 +55,13 @@ foreach ($year in $revitYears) {
 if (-not $deployed) {
     $addinDir = Join-Path $env:APPDATA 'Autodesk\Revit\Addins\2027'
     New-Item -ItemType Directory -Path $addinDir -Force | Out-Null
-    Copy-Item -Path "$root\revit-addin\RevitMCP\bin\Release\net10.0-windows\RevitMCP.dll" -Destination $addinDir -Force
+    $binDir = Join-Path $root 'revit-addin\RevitMCP\bin\Release\net10.0-windows'
+    Copy-Item -Path "$binDir\*.dll" -Destination $addinDir -Force
+    Copy-Item -Path "$binDir\*.pdb" -Destination $addinDir -Force -ErrorAction SilentlyContinue
     Copy-Item -Path "$root\revit-addin\RevitMCP\RevitMCP.addin" -Destination $addinDir -Force
+    if (Test-Path "$root\revit-addin\RevitMCP\RevitMCP.config.json") {
+        Copy-Item -Path "$root\revit-addin\RevitMCP\RevitMCP.config.json" -Destination $addinDir -Force
+    }
     
     $codeSigningKey = 'HKCU:\SOFTWARE\Autodesk\Revit\Autodesk Revit 2027\CodeSigning'
     if (-not (Test-Path $codeSigningKey)) {

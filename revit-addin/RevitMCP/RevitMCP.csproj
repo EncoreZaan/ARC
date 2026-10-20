@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <UseWPF>true</UseWPF>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277</MSBuildWarningsAsMessages>
     <RevitVersion Condition="'$(RevitVersion)' == ''">2027</RevitVersion>
     <RevitInstallDir Condition="Exists('C:\Program Files\Autodesk\Revit 2027')">C:\Program Files\Autodesk\Revit 2027</RevitInstallDir>
@@ -37,7 +38,12 @@
     </PropertyGroup>
     <Message Importance="High" Text="Deploying addin to $(RevitAddinsDir)" />
     <MakeDir Directories="$(RevitAddinsDir)" />
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(RevitAddinsDir)" SkipUnchangedFiles="true" ContinueOnError="true" />
+    <ItemGroup>
+      <OutputAssemblies Include="$(TargetDir)*.dll" />
+      <OutputPdbs Include="$(TargetDir)*.pdb" />
+    </ItemGroup>
+    <Copy SourceFiles="@(OutputAssemblies)" DestinationFolder="$(RevitAddinsDir)" SkipUnchangedFiles="true" ContinueOnError="true" />
+    <Copy SourceFiles="@(OutputPdbs)" DestinationFolder="$(RevitAddinsDir)" SkipUnchangedFiles="true" ContinueOnError="true" />
     <Copy SourceFiles="$(ProjectDir)RevitMCP.addin" DestinationFolder="$(RevitAddinsDir)" SkipUnchangedFiles="true" ContinueOnError="true" />
   </Target>
 

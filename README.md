@@ -2,7 +2,7 @@
 
 Pont natif et haute performance entre **Claude (Claude Desktop / Claude Code)** et **Autodesk Revit 2027** (compatible 2026, 2025 et 2024) via le **Model Context Protocol (MCP)**.
 
-Revit Claude MCP lets Claude read, modify, export, audit, and coordinate Revit models through 189 local tools.
+Revit Claude MCP lets Claude read, modify, export, audit, and coordinate Revit models through 191 local tools.
 
 ---
 
@@ -38,7 +38,7 @@ Autodesk Revit 2027 API (Document BIM ouvert)
 
 ---
 
-## 2. Inventaire des 189 Outils MCP
+## 2. Inventaire des 191 outils MCP
 
 ### A. Diagnostic, Connexion & Santé (6 outils)
 `revit_health_check`, `revit_get_model_info`, `revit_get_ui_state`, `revit_bring_to_front`, `revit_dismiss_dialogs`, `revit_get_log`.

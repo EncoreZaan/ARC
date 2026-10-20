@@ -2,6 +2,7 @@ import os
 import sys
 import math
 import json
+from pathlib import Path
 from typing import Optional, List, Dict, Any
 
 from mcp.server.mcpserver import MCPServer
@@ -13,14 +14,25 @@ from matplotlib.backends.backend_pdf import PdfPages
 
 mcp = MCPServer("cad-mcp")
 
-def _check_file_locked(path: str) -> None:
-    if not os.path.exists(path):
-        return
+def _resolve_path(path_str: str) -> Path:
+    if not path_str:
+        raise ValueError("Chemin de fichier vide.")
+    clean = str(path_str).strip().strip("'\"")
+    return Path(clean).expanduser().resolve()
+
+def _check_file_locked(p: Path) -> None:
+    if not p.is_file():
+        raise FileNotFoundError(
+            f"Fichier DXF introuvable au chemin résolu : '{p.as_posix()}'. "
+            f"Système hôte : {sys.platform} ({os.name})."
+        )
     try:
-        with open(path, "r+"):
+        with open(p, "r+"):
             pass
-    except IOError:
-        raise PermissionError(f"Le fichier DXF '{path}' est actuellement verrouillé ou ouvert dans AutoCAD/Revit.")
+    except PermissionError:
+        raise PermissionError(f"Le fichier DXF '{p.as_posix()}' est actuellement verrouillé ou ouvert dans AutoCAD/Revit.")
+    except Exception:
+        pass
 
 
 @mcp.tool()
@@ -30,9 +42,10 @@ def dxf_info(path: str) -> str:
     calques (avec couleur et statut gelé/masqué), limites spatiales extmin/extmax et compteurs d'entités.
     Exemple : dxf_info("C:/Dessins/MicroHabitat.dxf")
     """
-    _check_file_locked(path)
     try:
-        doc = ezdxf.readfile(path)
+        p = _resolve_path(path)
+        _check_file_locked(p)
+        doc = ezdxf.readfile(str(p))
         msp = doc.modelspace()
         
         layers = []
@@ -60,7 +73,7 @@ def dxf_info(path: str) -> str:
             
         return json.dumps({
             "success": True,
-            "path": path,
+            "path": p.as_posix(),
             "dxfversion": doc.dxfversion,
             "acadRelease": doc.acad_release,
             "units": units_map.get(units_code, f"Code {units_code}"),
@@ -71,7 +84,20 @@ def dxf_info(path: str) -> str:
             "entityCounts": entity_counts
         }, indent=2)
     except Exception as ex:
-        return json.dumps({"success": False, "error": {"code": "DXF_READ_ERROR", "message": str(ex)}}, indent=2)
+        p_res = ""
+        try:
+            p_res = _resolve_path(path).as_posix()
+        except Exception:
+            p_res = str(path)
+        return json.dumps({
+            "success": False,
+            "error": {
+                "code": "DXF_READ_ERROR",
+                "message": str(ex),
+                "resolvedPath": p_res,
+                "platform": sys.platform
+            }
+        }, indent=2)
 
 
 @mcp.tool()
@@ -81,9 +107,10 @@ def dxf_list_entities(path: str, layer: Optional[str] = None, layout: Optional[s
     avec leurs coordonnées en millimètres.
     Exemple : dxf_list_entities("C:/Dessins/MicroHabitat.dxf", layer="MURS")
     """
-    _check_file_locked(path)
     try:
-        doc = ezdxf.readfile(path)
+        p = _resolve_path(path)
+        _check_file_locked(p)
+        doc = ezdxf.readfile(str(p))
         space = doc.layout(layout) if layout and layout != "Model" else doc.modelspace()
         
         entities = []
@@ -110,7 +137,7 @@ def dxf_list_entities(path: str, layer: Optional[str] = None, layout: Optional[s
                 ent_info["radius"] = round(e.dxf.radius, 2)
             elif e.dxftype() in ("LWPOLYLINE", "POLYLINE"):
                 ent_info["is_closed"] = e.is_closed
-                ent_info["points"] = [{"x": round(p[0], 2), "y": round(p[1], 2)} for p in e.get_points()[:20]]
+                ent_info["points"] = [{"x": round(pt[0], 2), "y": round(pt[1], 2)} for pt in e.get_points()[:20]]
                 
             entities.append(ent_info)
             if len(entities) >= 500:
@@ -118,11 +145,25 @@ def dxf_list_entities(path: str, layer: Optional[str] = None, layout: Optional[s
                 
         return json.dumps({
             "success": True,
+            "path": p.as_posix(),
             "entityCount": len(entities),
             "entities": entities
         }, indent=2)
     except Exception as ex:
-        return json.dumps({"success": False, "error": {"code": "DXF_READ_ERROR", "message": str(ex)}}, indent=2)
+        p_res = ""
+        try:
+            p_res = _resolve_path(path).as_posix()
+        except Exception:
+            p_res = str(path)
+        return json.dumps({
+            "success": False,
+            "error": {
+                "code": "DXF_READ_ERROR",
+                "message": str(ex),
+                "resolvedPath": p_res,
+                "platform": sys.platform
+            }
+        }, indent=2)
 
 
 @mcp.tool()
@@ -131,13 +172,16 @@ def dxf_render(path: str, outputPath: str, layout: Optional[str] = "Model", dpi:
     Rend fidèlement un fichier DXF à l'échelle sous forme d'image PNG ou document PDF vectoriel avec tirets réels.
     Exemple : dxf_render("C:/Dessins/Planche.dxf", "C:/Rendus/Planche.pdf", format="pdf", dpi=300)
     """
-    _check_file_locked(path)
     try:
-        doc = ezdxf.readfile(path)
+        p = _resolve_path(path)
+        _check_file_locked(p)
+        out_p = _resolve_path(outputPath)
+        out_p.parent.mkdir(parents=True, exist_ok=True)
+
+        doc = ezdxf.readfile(str(p))
         space = doc.layout(layout) if layout and layout != "Model" else doc.modelspace()
         
-        # Determine output format from extension or parameter
-        ext = os.path.splitext(outputPath)[1].lower().replace(".", "")
+        ext = out_p.suffix.lower().replace(".", "")
         fmt = format or (ext if ext in ("png", "pdf") else "png")
         
         fig = plt.figure(dpi=dpi or 150)
@@ -147,23 +191,35 @@ def dxf_render(path: str, outputPath: str, layout: Optional[str] = "Model", dpi:
         Frontend(ctx, out).draw_layout(space, finalize=True)
         
         if scale and scale > 0:
-            # Scale adjustment: aspect ratio equal and scaling annotation
             ax.set_aspect("equal")
             
-        os.makedirs(os.path.dirname(os.path.abspath(outputPath)), exist_ok=True)
-        fig.savefig(outputPath, dpi=dpi or 150, format=fmt)
+        fig.savefig(str(out_p), dpi=dpi or 150, format=fmt)
         plt.close(fig)
         
         return json.dumps({
             "success": True,
-            "outputPath": outputPath,
+            "path": p.as_posix(),
+            "outputPath": out_p.as_posix(),
             "layout": layout or "Model",
             "format": fmt,
             "scale": scale,
             "dpi": dpi or 150
         }, indent=2)
     except Exception as ex:
-        return json.dumps({"success": False, "error": {"code": "RENDER_ERROR", "message": str(ex)}}, indent=2)
+        p_res = ""
+        try:
+            p_res = _resolve_path(path).as_posix()
+        except Exception:
+            p_res = str(path)
+        return json.dumps({
+            "success": False,
+            "error": {
+                "code": "RENDER_ERROR",
+                "message": str(ex),
+                "resolvedPath": p_res,
+                "platform": sys.platform
+            }
+        }, indent=2)
 
 
 @mcp.tool()
@@ -172,13 +228,16 @@ def dxf_render_all_layouts_pdf(path: str, outputPath: str, dpi: Optional[int] = 
     Rend l'ensemble des présentations (Model et Paper Space Layouts) d'un fichier DXF dans un unique document PDF multi-pages.
     Exemple : dxf_render_all_layouts_pdf("C:/Dessins/DossierComplet.dxf", "C:/Rendus/Dossier.pdf")
     """
-    _check_file_locked(path)
     try:
-        doc = ezdxf.readfile(path)
-        os.makedirs(os.path.dirname(os.path.abspath(outputPath)), exist_ok=True)
+        p = _resolve_path(path)
+        _check_file_locked(p)
+        out_p = _resolve_path(outputPath)
+        out_p.parent.mkdir(parents=True, exist_ok=True)
+
+        doc = ezdxf.readfile(str(p))
         
         rendered_layouts = []
-        with PdfPages(outputPath) as pdf:
+        with PdfPages(str(out_p)) as pdf:
             for lyt_name in doc.layout_names():
                 space = doc.layout(lyt_name)
                 fig = plt.figure(dpi=dpi or 150)
@@ -192,12 +251,26 @@ def dxf_render_all_layouts_pdf(path: str, outputPath: str, dpi: Optional[int] = 
                 
         return json.dumps({
             "success": True,
-            "outputPath": outputPath,
+            "path": p.as_posix(),
+            "outputPath": out_p.as_posix(),
             "layoutsRendered": rendered_layouts,
             "pageCount": len(rendered_layouts)
         }, indent=2)
     except Exception as ex:
-        return json.dumps({"success": False, "error": {"code": "RENDER_PDF_ERROR", "message": str(ex)}}, indent=2)
+        p_res = ""
+        try:
+            p_res = _resolve_path(path).as_posix()
+        except Exception:
+            p_res = str(path)
+        return json.dumps({
+            "success": False,
+            "error": {
+                "code": "RENDER_PDF_ERROR",
+                "message": str(ex),
+                "resolvedPath": p_res,
+                "platform": sys.platform
+            }
+        }, indent=2)
 
 
 @mcp.tool()
@@ -206,9 +279,10 @@ def dxf_audit(path: str) -> str:
     Analyse l'intégrité d'un fichier DXF avec le moteur d'audit ezdxf.audit et renvoie les erreurs ou corrections automatiques.
     Exemple : dxf_audit("C:/Dessins/Planche.dxf")
     """
-    _check_file_locked(path)
     try:
-        doc = ezdxf.readfile(path)
+        p = _resolve_path(path)
+        _check_file_locked(p)
+        doc = ezdxf.readfile(str(p))
         auditor = doc.audit()
         
         errors = [f"[{e.code}] {e.message}" for e in auditor.errors]
@@ -216,7 +290,7 @@ def dxf_audit(path: str) -> str:
         
         return json.dumps({
             "success": True,
-            "path": path,
+            "path": p.as_posix(),
             "isValid": len(errors) == 0,
             "errorCount": len(errors),
             "errors": errors,
@@ -224,7 +298,20 @@ def dxf_audit(path: str) -> str:
             "fixes": fixes
         }, indent=2)
     except Exception as ex:
-        return json.dumps({"success": False, "error": {"code": "AUDIT_ERROR", "message": str(ex)}}, indent=2)
+        p_res = ""
+        try:
+            p_res = _resolve_path(path).as_posix()
+        except Exception:
+            p_res = str(path)
+        return json.dumps({
+            "success": False,
+            "error": {
+                "code": "AUDIT_ERROR",
+                "message": str(ex),
+                "resolvedPath": p_res,
+                "platform": sys.platform
+            }
+        }, indent=2)
 
 
 @mcp.tool()
@@ -233,9 +320,13 @@ def dxf_edit(path: str, operations: List[Dict[str, Any]], outputPath: str) -> st
     Applique une suite d'opérations géométriques sur un DXF (ajout de lignes, textes, suppression, création de calques).
     Exemple : dxf_edit("C:/In.dxf", [{"action": "add_line", "start": [0,0], "end": [6400,0], "layer": "MURS"}], "C:/Out.dxf")
     """
-    _check_file_locked(path)
     try:
-        doc = ezdxf.readfile(path)
+        p = _resolve_path(path)
+        _check_file_locked(p)
+        out_p = _resolve_path(outputPath)
+        out_p.parent.mkdir(parents=True, exist_ok=True)
+
+        doc = ezdxf.readfile(str(p))
         msp = doc.modelspace()
         
         applied = 0
@@ -264,16 +355,29 @@ def dxf_edit(path: str, operations: List[Dict[str, Any]], outputPath: str) -> st
                         msp.delete_entity(entity)
                         applied += 1
 
-        os.makedirs(os.path.dirname(os.path.abspath(outputPath)), exist_ok=True)
-        doc.saveas(outputPath)
+        doc.saveas(str(out_p))
         
         return json.dumps({
             "success": True,
-            "outputPath": outputPath,
+            "path": p.as_posix(),
+            "outputPath": out_p.as_posix(),
             "appliedOperations": applied
         }, indent=2)
     except Exception as ex:
-        return json.dumps({"success": False, "error": {"code": "EDIT_ERROR", "message": str(ex)}}, indent=2)
+        p_res = ""
+        try:
+            p_res = _resolve_path(path).as_posix()
+        except Exception:
+            p_res = str(path)
+        return json.dumps({
+            "success": False,
+            "error": {
+                "code": "EDIT_ERROR",
+                "message": str(ex),
+                "resolvedPath": p_res,
+                "platform": sys.platform
+            }
+        }, indent=2)
 
 
 @mcp.tool()
@@ -283,11 +387,14 @@ def dxf_diff(pathA: str, pathB: str, toleranceMm: Optional[float] = 1.0) -> str:
     Identifie les entités ajoutées, supprimées ou modifiées avec tolérance en millimètres.
     Exemple : dxf_diff("C:/Plans/IndiceA.dxf", "C:/Plans/IndiceB.dxf", toleranceMm=2.0)
     """
-    _check_file_locked(pathA)
-    _check_file_locked(pathB)
     try:
-        docA = ezdxf.readfile(pathA)
-        docB = ezdxf.readfile(pathB)
+        pA = _resolve_path(pathA)
+        pB = _resolve_path(pathB)
+        _check_file_locked(pA)
+        _check_file_locked(pB)
+
+        docA = ezdxf.readfile(str(pA))
+        docB = ezdxf.readfile(str(pB))
         mspA = docA.modelspace()
         mspB = docB.modelspace()
         
@@ -338,8 +445,8 @@ def dxf_diff(pathA: str, pathB: str, toleranceMm: Optional[float] = 1.0) -> str:
                 
         return json.dumps({
             "success": True,
-            "pathA": pathA,
-            "pathB": pathB,
+            "pathA": pA.as_posix(),
+            "pathB": pB.as_posix(),
             "toleranceMm": tol,
             "summary": {
                 "totalA": len(itemsA),
@@ -353,7 +460,20 @@ def dxf_diff(pathA: str, pathB: str, toleranceMm: Optional[float] = 1.0) -> str:
             "modified": modified[:50]
         }, indent=2)
     except Exception as ex:
-        return json.dumps({"success": False, "error": {"code": "DIFF_ERROR", "message": str(ex)}}, indent=2)
+        p_res = ""
+        try:
+            p_res = f"{_resolve_path(pathA).as_posix()} vs {_resolve_path(pathB).as_posix()}"
+        except Exception:
+            p_res = f"{pathA} vs {pathB}"
+        return json.dumps({
+            "success": False,
+            "error": {
+                "code": "DIFF_ERROR",
+                "message": str(ex),
+                "resolvedPath": p_res,
+                "platform": sys.platform
+            }
+        }, indent=2)
 
 
 @mcp.tool()
@@ -363,9 +483,10 @@ def dxf_compare_with_revit(dxfPath: str, revitElements: List[Dict[str, Any]], to
     Détecte les écarts de position > toleranceMm (ex: portes décalées, fenêtres manquantes).
     Exemple : dxf_compare_with_revit("C:/Planche.dxf", revitElements=[...], toleranceMm=20.0)
     """
-    _check_file_locked(dxfPath)
     try:
-        doc = ezdxf.readfile(dxfPath)
+        p = _resolve_path(dxfPath)
+        _check_file_locked(p)
+        doc = ezdxf.readfile(str(p))
         msp = doc.modelspace()
         
         tol = toleranceMm or 20.0
@@ -412,14 +533,27 @@ def dxf_compare_with_revit(dxfPath: str, revitElements: List[Dict[str, Any]], to
 
         return json.dumps({
             "success": True,
-            "dxfPath": dxfPath,
+            "dxfPath": p.as_posix(),
             "elementsChecked": checked_count,
             "discrepancyCount": len(discrepancies),
             "toleranceMm": tol,
             "discrepancies": discrepancies
         }, indent=2)
     except Exception as ex:
-        return json.dumps({"success": False, "error": {"code": "COMPARE_ERROR", "message": str(ex)}}, indent=2)
+        p_res = ""
+        try:
+            p_res = _resolve_path(dxfPath).as_posix()
+        except Exception:
+            p_res = str(dxfPath)
+        return json.dumps({
+            "success": False,
+            "error": {
+                "code": "COMPARE_ERROR",
+                "message": str(ex),
+                "resolvedPath": p_res,
+                "platform": sys.platform
+            }
+        }, indent=2)
 
 
 if __name__ == "__main__":

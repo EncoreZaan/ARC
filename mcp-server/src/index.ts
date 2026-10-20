@@ -16,12 +16,15 @@ const server = new McpServer({
 // CONNECTION / DIAGNOSTIC TOOLS
 // ════════════════════════════════════════════════════════════════════════════
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_health_check",
   {
     description:
       "Vérifie l'état du pont local RevitMCP 2.1.0, la disponibilité de Revit et la liste des documents ouverts (titre, chemin, actif, modifié). Exemple : revit_health_check({}).",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -41,12 +44,15 @@ server.registerTool(
 // READ / QUERY TOOLS
 // ════════════════════════════════════════════════════════════════════════════
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_model_info",
   {
     description:
       "Returns basic information about the currently open Revit document: file path, project name, number, author, phases, and active view.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -88,7 +94,8 @@ server.registerTool(
     description: "Get all parameters (built-in and shared) for a specific element by its integer Element ID.",
     inputSchema: {
       elementId: z.number().int().describe("The Revit element ID (integer)"),
-    },
+    
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async ({ elementId }) => {
@@ -103,7 +110,8 @@ server.registerTool(
     description: "List all views in the model. Optionally filter by view type: FloorPlan, CeilingPlan, Elevation, Section, 3D, DraftingView, Schedule, etc.",
     inputSchema: {
       viewType: z.string().optional().describe("Filter by Revit ViewType enum name, e.g. 'FloorPlan', '3D', 'Section'"),
-    },
+    
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async ({ viewType }) => {
@@ -112,11 +120,14 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_sheets",
   {
     description: "List all sheets in the project with their sheet number, name, and which views are placed on each sheet.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -125,11 +136,14 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_levels",
   {
     description: "List all levels in the project with their name, elevation, and ID.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -507,7 +521,8 @@ server.registerTool(
       categories: z.array(z.string()).optional().describe("Categories to include, e.g. ['Walls','Floors','Roofs']. Omit for all."),
       levelName: z.string().optional().describe("Filter by level name"),
       includeLayerBreakdown: z.boolean().optional().default(true).describe("If true, break down compound walls/floors by their individual material layers"),
-    },
+    
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async (args) => {
@@ -575,7 +590,8 @@ server.registerTool(
       categoryB: z.string().describe("Second category to check against, e.g. 'Columns'"),
       levelName: z.string().optional().describe("Limit clash check to a specific level"),
       tolerance: z.number().optional().default(0).describe("Overlap tolerance in mm — clashes smaller than this are ignored"),
-    },
+    
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async (args) => {
@@ -636,11 +652,14 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_revision_history",
   {
     description: "List all revisions in the project with sequence, number, description, date, and which sheets carry each revision.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -660,7 +679,8 @@ server.registerTool(
       "Read the finish parameters (Floor Finish, Wall Finish, Ceiling Finish, Base Finish) for all rooms. Returns a complete room finish matrix grouped by level — ready to verify or export.",
     inputSchema: {
       levelName: z.string().optional().describe("Filter by level"),
-    },
+    
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async (args) => {
@@ -758,7 +778,8 @@ server.registerTool(
       "Audit all loaded families in the project. Reports: total family count, families not used in the model (candidates for purging), families with large instance counts, and non-standard families (not from the office library path). Helps reduce file bloat.",
     inputSchema: {
       libraryPath: z.string().optional().describe("Office library root path to identify in-house vs foreign families, e.g. 'C:\\\\RevitLibrary'"),
-    },
+    
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async (args) => {
@@ -893,12 +914,15 @@ server.registerTool(
 // SELECTION & INTERACTIVE TOOLS
 // ════════════════════════════════════════════════════════════════════════════
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_current_selection",
   {
     description:
       "Get currently selected elements in the active Revit document. Returns element IDs, unique IDs, names, and categories.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -951,23 +975,58 @@ server.registerTool(
       "Reset temporary hide/isolate mode in the active Revit view, restoring full element visibility.",
     inputSchema: {
       dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document"),
-    
       documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
   },
   async (args) => {
-    const data = await revit("elements/count", args);;
+    const data = await revit("views/reset-temporary-override", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
   }
 );
 
 server.registerTool(
+  "revit_list_categories",
+  {
+    description:
+      "List all available BIM categories in the active Revit project (model categories and bound categories).",
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
+    annotations: { readOnlyHint: true },
+  },
+  async (args) => {
+    const data = await revit("categories/list", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+
+server.registerTool(
+  "revit_count_elements",
+  {
+    description:
+      "Count elements in the active Revit document, optionally filtered by category (e.g. 'Walls', 'Doors', 'Windows').",
+    inputSchema: {
+      category: z.string().optional().describe("Category name in English, French, or BuiltInCategory, e.g. 'Walls', 'Murs', 'OST_Walls'"),
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
+    annotations: { readOnlyHint: true },
+  },
+  async (args) => {
+    const data = await revit("elements/count", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_model_warnings",
   {
     description:
       "Retrieve all active warnings and failure messages in the Revit project (e.g. overlapping walls, unclosed room boundaries).",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1026,12 +1085,15 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_validate_model_changes",
   {
     description:
       "Validate model state by checking for warnings, verifying critical elements, and reporting active document health.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1138,12 +1200,15 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_phases",
   {
     description:
       "List project phases (e.g. Existing, Demolition, New Construction).",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1152,12 +1217,15 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_links",
   {
     description:
       "List all linked Revit models (.rvt) and CAD links/imports (.dwg, .ifc) with their loaded state.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1194,7 +1262,8 @@ server.registerTool(
       viewId: z.number().int().optional().describe("Optional view ID, omit for active view"),
       filePath: z.string().optional().describe("Destination PNG file path on disk"),
       pixelSize: z.number().int().default(1920).describe("Image width in pixels"),
-    },
+    
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async (args) => {
@@ -1223,12 +1292,15 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_summary_report",
   {
     description:
       "Get a consolidated high-level summary of the entire Revit project (document info, levels, views count, sheets count, warnings, elements count).",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1258,12 +1330,15 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_worksets",
   {
     description:
       "List user worksets in workshared projects (or indicates that the project is not workshared).",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1272,12 +1347,15 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_revisions",
   {
     description:
       "List all revisions and drawing issue sequences defined in the Revit project.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1286,12 +1364,15 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_materials",
   {
     description:
       "List materials defined in the Revit project with class, RGB colors, transparency and surface properties.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1300,12 +1381,15 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_view_templates",
   {
     description:
       "List all View Templates available in the Revit project with view type and names.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1343,7 +1427,8 @@ server.registerTool(
       searchValue: z.string().describe("String value or substring to look for"),
       exactMatch: z.boolean().optional().describe("True for exact match, false for substring matching (default: false)"),
       limit: z.number().optional().describe("Maximum elements to return (default: 100)"),
-    },
+    
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async (args) => {
@@ -1396,12 +1481,15 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_unused_types",
   {
     description:
       "Model hygiene audit: identify family symbols and types that have 0 instances placed in the project.",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1553,12 +1641,15 @@ server.registerTool(
 // SECTION 4.B — GESTION DES DOCUMENTS (P0)
 // ════════════════════════════════════════════════════════════════════════════
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_list_open_documents",
   {
     description:
       "Renvoie la liste des documents ouverts dans la session Revit en cours (titre, chemin, statut actif, modifié). Exemple : revit_list_open_documents({}).",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -1575,7 +1666,8 @@ server.registerTool(
     inputSchema: {
       title: z.string().optional().describe("Titre du document"),
       path: z.string().optional().describe("Chemin du fichier")
-    },
+    ,
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: false, destructiveHint: false },
   },
   async (args) => {
@@ -1594,7 +1686,8 @@ server.registerTool(
       detachFromCentral: z.boolean().optional().describe("Détacher du fichier central"),
       audit: z.boolean().optional().describe("Effectuer un audit à l'ouverture"),
       dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
-    },
+    ,
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: false, destructiveHint: false },
   },
   async (args) => {
@@ -1612,7 +1705,8 @@ server.registerTool(
       title: z.string().describe("Titre du document à fermer"),
       save: z.boolean().optional().default(false).describe("Enregistrer les modifications avant de fermer"),
       dryRun: z.boolean().optional().describe("Mode simulation : exécute la transaction puis l'annule pour tester la validité sans modifier le document")
-    },
+    ,
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: false, destructiveHint: true },
   },
   async (args) => {
@@ -2117,7 +2211,8 @@ server.registerTool(
     inputSchema: {
       folder: z.string().optional().describe("Dossier racine à scanner (défaut : bibliothèque Revit FR)"),
       search: z.string().optional().describe("Mot clé de recherche (ex: 'Canapé', 'Table', 'Fenêtre')")
-    },
+    ,
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async (args) => {
@@ -3177,12 +3272,15 @@ server.registerTool(
 // SECTION 4.O — INTERFACE ET DIAGNOSTIC (P1)
 // ════════════════════════════════════════════════════════════════════════════
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_get_ui_state",
   {
     description:
       "Retourne l'état complet de l'interface Revit : document actif, vue active, onglets ouverts et handle de fenêtre. Exemple : revit_get_ui_state({}).",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: true },
   },
   async () => {
@@ -3191,12 +3289,15 @@ server.registerTool(
   }
 );
 
-server.registerTool(
+
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),server.registerTool(
   "revit_bring_to_front",
   {
     description:
       "Restaure et place la fenêtre Autodesk Revit au premier plan sur l'écran principal. Exemple : revit_bring_to_front({}).",
-    inputSchema: {},
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
+    },
     annotations: { readOnlyHint: false, destructiveHint: false },
   },
   async () => {
@@ -3212,7 +3313,8 @@ server.registerTool(
       "Réalise une capture d'écran fiable de la fenêtre Autodesk Revit par l'add-in (évite les écrans noirs de l'OS). Exemple : revit_capture_ui({ outputPath: 'C:\\Screenshots\\Revit.png' }).",
     inputSchema: {
       outputPath: z.string().optional().describe("Chemin du fichier PNG de destination")
-    },
+    ,
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: false, destructiveHint: false },
   },
   async (args) => {
@@ -3228,7 +3330,8 @@ server.registerTool(
       "Récupère les dernières lignes du journal d'audit de l'add-in RevitMCP. Exemple : revit_get_log({ lines: 50 }).",
     inputSchema: {
       lines: z.number().int().optional().default(50).describe("Nombre de lignes récentes à extraire")
-    },
+    ,
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async (args) => {
@@ -3244,7 +3347,8 @@ server.registerTool(
       "Vérifie et configure la suppression automatique des boîtes de dialogue modales bloquantes dans Revit. Exemple : revit_dismiss_dialogs({ policy: 'ok' }).",
     inputSchema: {
       policy: z.enum(["ok", "cancel", "report"]).optional().default("ok").describe("Politique de réponse")
-    },
+    ,
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: false, destructiveHint: false },
   },
   async (args) => {
@@ -3265,7 +3369,8 @@ server.registerTool(
     inputSchema: {
       folder: z.string().optional().describe("Dossier à explorer"),
       search: z.string().optional().describe("Filtre de recherche")
-    },
+    ,
+      documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),},
     annotations: { readOnlyHint: true },
   },
   async (args) => {

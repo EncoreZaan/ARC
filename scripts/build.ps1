@@ -18,7 +18,7 @@ if (-not (Test-Path $csproj)) {
     throw "Cannot find $csproj"
 }
 
-dotnet build $csproj -c $Configuration
+dotnet build $csproj -c $Configuration /p:DeployAddin=false
 if ($LASTEXITCODE -ne 0) {
     throw "C# Addin build failed with code $LASTEXITCODE"
 }

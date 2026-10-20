@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using Autodesk.Revit.UI;
 
 namespace RevitMCP;
@@ -11,6 +13,30 @@ public class App : IExternalApplication
 {
     private RevitHttpServer? _server;
     internal static UIControlledApplication? UiApp;
+
+    static App()
+    {
+        try
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+            {
+                try
+                {
+                    var asmName = new AssemblyName(args.Name).Name;
+                    var addinDir = Path.GetDirectoryName(typeof(App).Assembly.Location);
+                    if (!string.IsNullOrEmpty(addinDir))
+                    {
+                        var candidate = Path.Combine(addinDir, asmName + ".dll");
+                        if (File.Exists(candidate))
+                            return Assembly.LoadFrom(candidate);
+                    }
+                }
+                catch { }
+                return null;
+            };
+        }
+        catch { }
+    }
 
     public Result OnStartup(UIControlledApplication application)
     {

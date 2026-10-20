@@ -457,49 +457,90 @@ public partial class RevitEventHandler
 
         var startPtFeet = UnitConversions.MmToFeet(new XYZ(xMm, yMm, fromZMm));
 
-        // Filter elements above point (Roofs, Floors, Ceilings)
-        var categories = new[] { BuiltInCategory.OST_Roofs, BuiltInCategory.OST_Floors, BuiltInCategory.OST_Ceilings };
-        var multiFilter = new ElementMulticategoryFilter(categories);
+        // Find a non-template 3D view for raycasting
+        var view3D = new FilteredElementCollector(doc)
+            .OfClass(typeof(View3D))
+            .Cast<View3D>()
+            .FirstOrDefault(v => !v.IsTemplate && !v.IsPerspective);
 
-        var col = new FilteredElementCollector(doc)
-            .WherePasses(multiFilter)
-            .WhereElementIsNotElementType();
+        view3D ??= new FilteredElementCollector(doc)
+            .OfClass(typeof(View3D))
+            .Cast<View3D>()
+            .FirstOrDefault(v => !v.IsTemplate);
 
-        double minClearanceMm = double.MaxValue;
-        long targetElementId = -1;
-        string targetElementName = "";
-
-        // Check geometry intersection vertically at (x, y)
-        foreach (var el in col)
+        if (view3D == null)
         {
-            var bbox = el.get_BoundingBox(null);
-            if (bbox == null) continue;
+            var defaultType = new FilteredElementCollector(doc)
+                .OfClass(typeof(ViewFamilyType))
+                .Cast<ViewFamilyType>()
+                .FirstOrDefault(t => t.ViewFamily == ViewFamily.ThreeDimensional);
 
-            if (startPtFeet.X >= bbox.Min.X && startPtFeet.X <= bbox.Max.X &&
-                startPtFeet.Y >= bbox.Min.Y && startPtFeet.Y <= bbox.Max.Y)
+            if (defaultType != null)
             {
-                // Element is directly above or below
-                var clearanceFeet = bbox.Min.Z - startPtFeet.Z;
-                if (clearanceFeet > 0)
-                {
-                    var clearanceMm = UnitConversions.FeetToMm(clearanceFeet);
-                    if (clearanceMm < minClearanceMm)
-                    {
-                        minClearanceMm = clearanceMm;
-                        targetElementId = el.Id.Value;
-                        targetElementName = el.Name;
-                    }
-                }
+                using var tx = new Transaction(doc, "MCP: Create 3D View for Raycast");
+                tx.Start();
+                view3D = View3D.CreateIsometric(doc, defaultType.Id);
+                tx.Commit();
             }
+        }
+
+        if (view3D == null)
+            throw new RevitMcpException("VIEW_NOT_FOUND", "No 3D view available for raycasting.");
+
+        var categories = new List<BuiltInCategory>
+        {
+            BuiltInCategory.OST_Roofs,
+            BuiltInCategory.OST_Floors,
+            BuiltInCategory.OST_Ceilings
+        };
+
+        var multiFilter = new ElementMulticategoryFilter(categories);
+        var intersector = new ReferenceIntersector(multiFilter, FindReferenceTarget.Face, view3D);
+        intersector.FindReferencesInRevitLinks = false;
+
+        // Cast ray vertically up (+Z)
+        var rayDir = XYZ.BasisZ;
+        var hit = intersector.FindNearest(startPtFeet, rayDir);
+
+        if (hit != null)
+        {
+            var refHit = hit.GetReference();
+            var targetEl = doc.GetElement(refHit.ElementId);
+            var clearanceFeet = hit.Proximity;
+            var clearanceMm = Math.Round(UnitConversions.FeetToMm(clearanceFeet), 2);
+            var hitPtFeet = startPtFeet + rayDir * clearanceFeet;
+            var hitPtMm = UnitConversions.FeetToMm(hitPtFeet);
+
+            return new JObject
+            {
+                ["success"] = true,
+                ["point"] = new JObject { ["x"] = xMm, ["y"] = yMm, ["fromZ"] = fromZMm },
+                ["distanceMm"] = clearanceMm,
+                ["clearanceMm"] = clearanceMm,
+                ["heightAtPointMm"] = Math.Round(hitPtMm.Z, 2),
+                ["hitPoint"] = new JObject
+                {
+                    ["x"] = Math.Round(hitPtMm.X, 2),
+                    ["y"] = Math.Round(hitPtMm.Y, 2),
+                    ["z"] = Math.Round(hitPtMm.Z, 2)
+                },
+                ["targetElementId"] = targetEl?.Id.Value,
+                ["targetElementName"] = targetEl?.Name ?? "",
+                ["targetCategory"] = targetEl?.Category?.Name ?? ""
+            };
         }
 
         return new JObject
         {
             ["success"] = true,
             ["point"] = new JObject { ["x"] = xMm, ["y"] = yMm, ["fromZ"] = fromZMm },
-            ["clearanceMm"] = minClearanceMm < double.MaxValue ? Math.Round(minClearanceMm, 2) : (double?)null,
-            ["targetElementId"] = targetElementId >= 0 ? targetElementId : (long?)null,
-            ["targetElementName"] = targetElementName
+            ["distanceMm"] = (double?)null,
+            ["clearanceMm"] = (double?)null,
+            ["heightAtPointMm"] = (double?)null,
+            ["hitPoint"] = null,
+            ["targetElementId"] = (long?)null,
+            ["targetElementName"] = null,
+            ["targetCategory"] = null
         };
     }
 
@@ -594,18 +635,35 @@ public partial class RevitEventHandler
         var openings = hostedElements.Select(fi =>
         {
             var lp = fi.Location as LocationPoint;
-            var ptFeet = lp?.Point ?? curve.Project(fi.get_BoundingBox(null)?.Min ?? wallStart).XYZPoint;
-            var paramDistFeet = curve.Project(ptFeet).Parameter;
-            var distFromStartFeet = curve.Length * paramDistFeet;
+            var insertPt = lp?.Point ?? curve.Project(fi.get_BoundingBox(null)?.Min ?? wallStart).XYZPoint;
+            var proj = curve.Project(insertPt);
+            var normalizedParam = Math.Max(0.0, Math.Min(1.0, curve.ComputeNormalizedParameter(proj.Parameter)));
+            var distFromStartFeet = normalizedParam * curve.Length;
             var distFromEndFeet = curve.Length - distFromStartFeet;
+
+            var distFromStartMm = Math.Round(UnitConversions.FeetToMm(distFromStartFeet), 1);
+            var distFromEndMm = Math.Round(UnitConversions.FeetToMm(distFromEndFeet), 1);
 
             var widthParam = fi.Symbol.get_Parameter(BuiltInParameter.FAMILY_WIDTH_PARAM)
                           ?? fi.Symbol.get_Parameter(BuiltInParameter.WINDOW_WIDTH)
-                          ?? fi.Symbol.get_Parameter(BuiltInParameter.DOOR_WIDTH);
+                          ?? fi.Symbol.get_Parameter(BuiltInParameter.DOOR_WIDTH)
+                          ?? fi.get_Parameter(BuiltInParameter.FAMILY_WIDTH_PARAM)
+                          ?? fi.get_Parameter(BuiltInParameter.WINDOW_WIDTH)
+                          ?? fi.get_Parameter(BuiltInParameter.DOOR_WIDTH);
             var heightParam = fi.Symbol.get_Parameter(BuiltInParameter.FAMILY_HEIGHT_PARAM)
                            ?? fi.Symbol.get_Parameter(BuiltInParameter.WINDOW_HEIGHT)
-                           ?? fi.Symbol.get_Parameter(BuiltInParameter.DOOR_HEIGHT);
+                           ?? fi.Symbol.get_Parameter(BuiltInParameter.DOOR_HEIGHT)
+                           ?? fi.get_Parameter(BuiltInParameter.FAMILY_HEIGHT_PARAM)
+                           ?? fi.get_Parameter(BuiltInParameter.WINDOW_HEIGHT)
+                           ?? fi.get_Parameter(BuiltInParameter.DOOR_HEIGHT);
             var sillParam = fi.get_Parameter(BuiltInParameter.INSTANCE_SILL_HEIGHT_PARAM);
+
+            double? widthMm = widthParam != null ? Math.Round(UnitConversions.FeetToMm(widthParam.AsDouble()), 1) : null;
+            double? heightMm = heightParam != null ? Math.Round(UnitConversions.FeetToMm(heightParam.AsDouble()), 1) : null;
+            double? sillHeightMm = sillParam != null ? Math.Round(UnitConversions.FeetToMm(sillParam.AsDouble()), 1) : null;
+
+            double? leftEdgeFromStartMm = widthMm.HasValue ? Math.Round(distFromStartMm - (widthMm.Value / 2.0), 1) : null;
+            double? rightEdgeFromStartMm = widthMm.HasValue ? Math.Round(distFromStartMm + (widthMm.Value / 2.0), 1) : null;
 
             return new JObject
             {
@@ -613,16 +671,20 @@ public partial class RevitEventHandler
                 ["name"] = fi.Name,
                 ["category"] = fi.Category?.Name,
                 ["typeName"] = fi.Symbol.Name,
-                ["widthMm"] = widthParam != null ? Math.Round(UnitConversions.FeetToMm(widthParam.AsDouble()), 1) : (double?)null,
-                ["heightMm"] = heightParam != null ? Math.Round(UnitConversions.FeetToMm(heightParam.AsDouble()), 1) : (double?)null,
-                ["sillHeightMm"] = sillParam != null ? Math.Round(UnitConversions.FeetToMm(sillParam.AsDouble()), 1) : (double?)null,
-                ["distanceFromWallStartMm"] = Math.Round(UnitConversions.FeetToMm(distFromStartFeet), 1),
-                ["distanceFromWallEndMm"] = Math.Round(UnitConversions.FeetToMm(distFromEndFeet), 1),
+                ["typeId"] = fi.Symbol.Id.Value,
+                ["widthMm"] = widthMm,
+                ["heightMm"] = heightMm,
+                ["sillHeightMm"] = sillHeightMm,
+                ["distanceFromWallStartMm"] = distFromStartMm,
+                ["distanceFromWallEndMm"] = distFromEndMm,
+                ["leftEdgeFromStartMm"] = leftEdgeFromStartMm,
+                ["rightEdgeFromStartMm"] = rightEdgeFromStartMm,
+                ["normalizedParameter"] = Math.Round(normalizedParam, 4),
                 ["isFlipped"] = fi.FacingFlipped || fi.HandFlipped,
                 ["facingFlipped"] = fi.FacingFlipped,
                 ["handFlipped"] = fi.HandFlipped
             };
-        }).OrderBy(o => o["distanceFromWallStartMm"]?.Value<double>() ?? 0);
+        }).OrderBy(o => o["distanceFromWallStartMm"]?.Value<double>() ?? 0).ToList();
 
         return new JObject
         {

@@ -12,6 +12,7 @@ public partial class RevitEventHandler
 {
     private static JObject ListOpenDocuments(UIApplication app)
     {
+        OpenDocumentsCache.SyncFromRevit(app);
         return new JObject
         {
             ["success"] = true,
@@ -22,23 +23,18 @@ public partial class RevitEventHandler
     private static JObject ActivateDocument(UIApplication app, JObject p)
     {
         var targetDoc = DocumentResolver.ResolveDocument(app, p);
-        var uiDoc = new UIDocument(targetDoc);
-
-        // Open an active 3D or plan view if needed
-        var view = targetDoc.ActiveView ?? new FilteredElementCollector(targetDoc)
-            .OfClass(typeof(View))
-            .Cast<View>()
-            .FirstOrDefault(v => !v.IsTemplate && (v.ViewType == ViewType.FloorPlan || v.ViewType == ViewType.ThreeD));
-
-        if (view != null)
+        if (string.IsNullOrEmpty(targetDoc.PathName))
         {
-            uiDoc.ActiveView = view;
+            throw new RevitMcpException("CANNOT_ACTIVATE", "Document must be saved to disk before it can be activated via OpenAndActivateDocument.");
         }
+
+        var uiDoc = app.OpenAndActivateDocument(targetDoc.PathName);
+        OpenDocumentsCache.SyncFromRevit(app);
 
         return new JObject
         {
             ["success"] = true,
-            ["activatedDocument"] = targetDoc.Title,
+            ["activatedDocument"] = uiDoc.Document.Title,
             ["activeView"] = uiDoc.ActiveView?.Name
         };
     }
@@ -51,6 +47,7 @@ public partial class RevitEventHandler
 
         var detach = p["detachFromCentral"]?.Value<bool>() ?? false;
         var audit = p["audit"]?.Value<bool>() ?? false;
+        var activate = p["activate"]?.Value<bool>() ?? true;
 
         var openOpts = new OpenOptions
         {
@@ -62,7 +59,18 @@ public partial class RevitEventHandler
             openOpts.DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets;
         }
 
-        var doc = app.Application.OpenDocumentFile(ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath), openOpts);
+        var modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
+        Document doc;
+        if (activate)
+        {
+            var uiDoc = app.OpenAndActivateDocument(modelPath, openOpts, detach);
+            doc = uiDoc.Document;
+        }
+        else
+        {
+            doc = app.Application.OpenDocumentFile(modelPath, openOpts);
+        }
+
         OpenDocumentsCache.SyncFromRevit(app);
 
         return new JObject
@@ -70,7 +78,8 @@ public partial class RevitEventHandler
             ["success"] = true,
             ["title"] = doc.Title,
             ["path"] = doc.PathName,
-            ["isWorkshared"] = doc.IsWorkshared
+            ["isWorkshared"] = doc.IsWorkshared,
+            ["isActive"] = activate
         };
     }
 

@@ -60,16 +60,42 @@ namespace DynamicExecution
 }}";
 
         var syntaxTree = CSharpSyntaxTree.ParseText(fullSource);
-        var references = new List<MetadataReference>
+        var references = new List<MetadataReference>();
+        var addedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        void AddRef(string? path)
         {
-            MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-            MetadataReference.CreateFromFile(typeof(Console).Assembly.Location),
-            MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location),
-            MetadataReference.CreateFromFile(typeof(Document).Assembly.Location),
-            MetadataReference.CreateFromFile(typeof(UIApplication).Assembly.Location),
-            MetadataReference.CreateFromFile(typeof(JObject).Assembly.Location),
-            MetadataReference.CreateFromFile(Assembly.Load("System.Runtime").Location)
-        };
+            if (!string.IsNullOrEmpty(path) && File.Exists(path) && addedPaths.Add(path))
+            {
+                try { references.Add(MetadataReference.CreateFromFile(path)); } catch { }
+            }
+        }
+
+        AddRef(typeof(object).Assembly.Location);
+        AddRef(typeof(Console).Assembly.Location);
+        AddRef(typeof(Enumerable).Assembly.Location);
+        AddRef(typeof(Document).Assembly.Location);
+        AddRef(typeof(UIApplication).Assembly.Location);
+        AddRef(typeof(JObject).Assembly.Location);
+
+        foreach (var loadedAsm in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            try
+            {
+                if (!loadedAsm.IsDynamic && !string.IsNullOrEmpty(loadedAsm.Location))
+                    AddRef(loadedAsm.Location);
+            }
+            catch { }
+        }
+
+        var runtimeDir = Path.GetDirectoryName(typeof(object).Assembly.Location);
+        if (!string.IsNullOrEmpty(runtimeDir) && Directory.Exists(runtimeDir))
+        {
+            foreach (var coreLib in new[] { "System.Runtime.dll", "netstandard.dll", "System.Collections.dll", "System.Linq.dll" })
+            {
+                AddRef(Path.Combine(runtimeDir, coreLib));
+            }
+        }
 
         var compilation = CSharpCompilation.Create(
             $"DynamicAssembly_{Guid.NewGuid():N}",
