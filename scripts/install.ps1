@@ -34,8 +34,9 @@ foreach ($year in $revitYears) {
         Copy-Item -Path "$binDir\*.dll" -Destination $addinDir -Force
         Copy-Item -Path "$binDir\*.pdb" -Destination $addinDir -Force -ErrorAction SilentlyContinue
         Copy-Item -Path $srcAddin -Destination $addinDir -Force
-        if (Test-Path $srcConfig) {
-            Copy-Item -Path $srcConfig -Destination $addinDir -Force
+        $destConfig = Join-Path $addinDir 'RevitMCP.config.json'
+        if ((Test-Path $srcConfig) -and (-not (Test-Path $destConfig))) {
+            Copy-Item -Path $srcConfig -Destination $destConfig -Force
         }
 
         # Whitelist in Revit CodeSigning registry so Revit never prompts
@@ -59,8 +60,9 @@ if (-not $deployed) {
     Copy-Item -Path "$binDir\*.dll" -Destination $addinDir -Force
     Copy-Item -Path "$binDir\*.pdb" -Destination $addinDir -Force -ErrorAction SilentlyContinue
     Copy-Item -Path "$root\revit-addin\RevitMCP\RevitMCP.addin" -Destination $addinDir -Force
-    if (Test-Path "$root\revit-addin\RevitMCP\RevitMCP.config.json") {
-        Copy-Item -Path "$root\revit-addin\RevitMCP\RevitMCP.config.json" -Destination $addinDir -Force
+    $destConfig = Join-Path $addinDir 'RevitMCP.config.json'
+    if ((Test-Path "$root\revit-addin\RevitMCP\RevitMCP.config.json") -and (-not (Test-Path $destConfig))) {
+        Copy-Item -Path "$root\revit-addin\RevitMCP\RevitMCP.config.json" -Destination $destConfig -Force
     }
     
     $codeSigningKey = 'HKCU:\SOFTWARE\Autodesk\Revit\Autodesk Revit 2027\CodeSigning'
