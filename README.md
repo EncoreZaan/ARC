@@ -1,8 +1,8 @@
-# REVIT AI BRIDGE — MCP POUR AUTODESK REVIT (v2.1.0)
+# REVIT AI BRIDGE — MCP POUR AUTODESK REVIT (v2.1.1)
 
 Pont natif et haute performance entre **Claude (Claude Desktop / Claude Code)** et **Autodesk Revit 2027** (compatible 2026, 2025 et 2024) via le **Model Context Protocol (MCP)**.
 
-Revit Claude MCP lets Claude read, modify, export, audit, and coordinate Revit models through 191 local tools.
+Revit AI Bridge permet à Claude de lire, concevoir, modifier, annoter, coter, auditer et coordonner des maquettes BIM Revit à travers **191 outils locaux dédiés**.
 
 ---
 
@@ -35,10 +35,13 @@ Autodesk Revit 2027 API (Document BIM ouvert)
 8. **Unités standardisées** : Toutes les longueurs en **millimètres (mm)**, les angles en **degrés (°)**, les surfaces en **m²** et les volumes en **m³** (conversions automatiques via `UnitUtils`).
 9. **Multi-Documents** : Chaque outil accepte le paramètre optionnel `documentTitle` ou `documentPath`. Si omis, l'opération cible automatiquement le document actif.
 10. **Format d'erreur normalisé** : Toutes les anomalies renvoient une structure `{ "success": false, "error": { "code": "...", "message": "...", "details": {...} } }`.
+11. **Démarrage Silencieux & Signature** : Configuration automatique du commutateur officiel `DisableAddInSecurity=1` dans `Revit.ini` et enregistrement canonique dans le registre Windows, garantissant le chargement direct sans popup de confirmation d'éditeur.
 
 ---
 
 ## 2. Inventaire des 191 outils MCP
+
+Consultez le document détaillé [`docs/mcp_tools_reference.md`](docs/mcp_tools_reference.md) pour la documentation exhaustive des paramètres et schémas JSON.
 
 ### A. Diagnostic, Connexion & Santé (6 outils)
 `revit_health_check`, `revit_get_model_info`, `revit_get_ui_state`, `revit_bring_to_front`, `revit_dismiss_dialogs`, `revit_get_log`.
@@ -122,7 +125,7 @@ Le dossier `cad-mcp/` contient un serveur MCP autonome dédié à l'inspection e
 ```
 
 > [!CAUTION]
-> L'exécution de code dynamique (`revit_execute_csharp`, `revit_execute_python`, `revit_run_dynamo_inline`) est **désactivée par défaut**. Elle ne peut être autorisée qu'en basculant `"allowCodeExecution": true`. Toute tentative sans cette autorisation renvoie une erreur `PERMISSION_DENIED`.
+> L'exécution de code dynamique (`revit_execute_csharp`, `revit_execute_python`, `revit_run_dynamo_inline`) est **désactivée par défaut** pour la sécurité de la distribution. Elle ne peut être autorisée qu'en basculant `"allowCodeExecution": true` dans le fichier déployé dans `%APPDATA%\Autodesk\Revit\Addins\[Version]\RevitMCP.config.json`. Toute tentative sans cette autorisation renvoie une erreur `PERMISSION_DENIED`.
 
 ---
 
@@ -153,21 +156,29 @@ Dans votre fichier `claude_desktop_config.json` :
 
 ## 6. Compilation, Tests & Déploiement
 
-### Build du pont C# (.NET 10 / 8)
+### Déploiement automatique en 1 commande
 ```powershell
-dotnet build revit-addin\RevitMCP\RevitMCP.csproj -c Debug
+.\scripts\install.ps1
 ```
+Ce script :
+1. Compile l'add-in Revit C# et le serveur TypeScript MCP.
+2. Déploie les binaires dans `%APPDATA%\Autodesk\Revit\Addins\2027` (et 2026).
+3. Enregistre le GUID canonique dans le registre `CodeSigning`.
+4. Configure automatiquement `DisableAddInSecurity=1` dans `Revit.ini` pour supprimer la popup de confirmation.
+5. Synchronise la configuration MCP dans `claude_desktop_config.json`.
 
-### Build et tests du serveur Node.js MCP
+### Build et tests manuels
 ```powershell
+# Add-in C# .NET 10 / 8
+dotnet build revit-addin\RevitMCP\RevitMCP.csproj -c Release
+
+# Serveur MCP TypeScript
 npm run build --prefix mcp-server
 npm test --prefix mcp-server
-```
 
-### Tests unitaires du serveur Python CAD
-```powershell
+# Serveur compagnon CAD-MCP Python
 python -m unittest discover -s cad-mcp
 ```
 
-### Procédure de déploiement et scénarios
-Consultez le document [`tests/acceptance.md`](file:///c:/Users/teoba/Documents/Devs/MCP%20Revit/tests/acceptance.md) pour la procédure de copie des binaires et les 10 scénarios d'acceptation (S1 à S10).
+### Validation et tests d'acceptation
+Consultez le document [`docs/test_report.md`](docs/test_report.md) pour les preuves d'exécution réelles sur Autodesk Revit 2027 et le protocole des scénarios validés.

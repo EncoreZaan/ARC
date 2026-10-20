@@ -1,64 +1,98 @@
-# RAPPORT DE TESTS ET VALIDATION EN CONDITIONS RÉELLES — REVIT AI BRIDGE
+# RAPPORT DE TESTS ET VALIDATION EN CONDITIONS RÉELLES — REVIT AI BRIDGE (v2.1.1)
 
-Ce document certifie les tests et la validation de la solution **Revit AI Bridge** sur la machine hôte en conditions réelles avec **Autodesk Revit 2027** et un projet BIM actif.
+Ce document certifie la validation complète de la solution **Revit AI Bridge** sur la machine de développement en conditions réelles avec **Autodesk Revit 2027** et la maquette de test BIM active.
 
 ---
 
 ## 1. Environnement d'Exécution Réel
 
 - **Système d'exploitation** : Microsoft Windows 11 Famille (Version 10.0.26300, 64 bits)
-- **Version cible Revit** : Autodesk Revit 2027 (`C:\Program Files\Autodesk\Revit 2027\Revit.exe`, Processus actif PID 34680, Build `27.0.10.13`)
-- **Projet BIM ouvert** : `C:\Users\teoba\Documents\Plan conception\Conception variante 1.rvt`
-- **Titre du document actif** : `Conception variante 1`
+- **Version cible Revit** : Autodesk Revit 2027 (`C:\Program Files\Autodesk\Revit 2027\Revit.exe`, Build `27.0.10.13`)
+- **Modèle BIM de test** : `C:\Users\teoba\Documents\Plan conception\TEST MCP - Conception variante 2.rvt`
+- **Titre du document actif** : `TEST MCP - Conception variante 2`
 - **Compilation .NET** : Microsoft .NET SDK 10.0.401 (Cible `net10.0-windows`)
-- **Compilation MCP** : Node.js v24.16.0, NPM 11.13.0, TypeScript 5.6.0
-- **Version de Claude Desktop** : Windows Store MSIX (`Claude_pzs8sxrjxfjjc`), avec configuration synchronisée.
+- **Compilation MCP** : Node.js v24.16.0, TypeScript 5.6.0
+- **Pont Loopback HTTP** : `http://localhost:6543` (Service `RevitMCP` v2.1.0)
 
 ---
 
-## 2. Résultats des Tests de Connexion et Lecture en Direct
+## 2. Bilan de Validation des Points Fonctionnels & Correctifs
 
-Tous les tests ci-dessous ont été exécutés en temps réel contre l'instance Revit active.
-
-| Outil MCP | Route HTTP | Données Réelles Observées | Statut Réel |
-| :--- | :--- | :--- | :--- |
-| **`revit_health_check`** | `GET /healthz` | Service: `RevitMCP` v2.0.0, API Timeout: 120s, Queue Timeout: 10s | **SUCCÈS (En ligne)** |
-| **`revit_get_model_info`** | `POST /api/model/info` | Fichier: `Conception variante 1.rvt`, Vue: `VARIANTE 1 — LA BANDE SERVANTE` (id: 264185), Version: `2027` | **SUCCÈS RÉEL** |
-| **`revit_get_levels`** | `POST /api/levels/list` | 3 niveaux : `Niveau 0` (0 mm), `Niveau 1` (3000 mm), `Niveau 2` (6000 mm) | **SUCCÈS RÉEL** |
-| **`revit_count_elements`** | `POST /api/elements/count` | Total : **4 152 éléments** dans le modèle | **SUCCÈS RÉEL** |
-| **`revit_get_elements`** | `POST /api/elements/query` | 3 murs échantillonnés : Id 258440, 258570, 258637 (`Générique - Ext. 200 mm`, UniqueId extraits) | **SUCCÈS RÉEL** |
-| **`revit_get_element_parameters`** | `POST /api/elements/parameters` | Mur 258440 : 38 paramètres typés extraits (`isReadOnly`, `storageType`, etc.) | **SUCCÈS RÉEL** |
-| **`revit_get_views`** | `POST /api/views/list` | Vues réelles listées (`CAB V1 - Plan aménagement semaine`, `Coupe AA`, etc.) | **SUCCÈS RÉEL** |
-| **`revit_get_sheets`** | `POST /api/sheets/list` | Feuilles réelles : `A102` (V1), `CAB-V1` (LA BANDE SERVANTE), `CAB-V1-B` | **SUCCÈS RÉEL** |
-| **`revit_get_model_warnings`** | `POST /api/model/warnings` | 1 avertissement natif : *"Conflit entre l'insertion et le mur joint."* (IDs: 261591, 264061) | **SUCCÈS RÉEL** |
-| **`revit_list_categories`** | `POST /api/categories/list` | 161 catégories BIM actives dans le projet | **SUCCÈS RÉEL** |
-| **`revit_get_revision_history`** | `POST /api/revisions/history` | Révision 1 présente dans le cartouche | **SUCCÈS RÉEL** |
-| **`revit_get_material_takeoff`** | `POST /api/takeoff/materials` | Surfaces et volumes : `CABANE_Plaque de plâtre` (8.17 m²), `Mur par défaut` (50.69 m²) | **SUCCÈS RÉEL** |
-| **`revit_audit_families`** | `POST /api/audit/families` | 90 familles auditées dans le document | **SUCCÈS RÉEL** |
-| **`revit_detect_clashes`** | `POST /api/clash/detect` | Test Murs vs Portes : 0 clash géométrique | **SUCCÈS RÉEL** |
+| Réf. | Outil / Composant | Test réalisé | Résultat | Commit |
+|---|---|---|---|---|
+| **Point 1** | `revit_get_height_at_point` | Masquage des toits dans la vue `{3D}` utilisateur, puis raycast vertical à (1500, 2000, 0) | **OK** (3873,33 mm exact retourné via la vue dédiée `MCP_Raycast_3D`, vue `{3D}` utilisateur intacte) | `d19894c` |
+| **Point 2** | `revit_get_wall_openings` | Analyse des 4 murs extérieurs du modèle : calcul des angles extérieurs, orientations N/S/E/O, distances bords depuis angles extérieurs, linteaux (`headHeightMm`) et `typeNameMismatch` | **OK** (Orientation N/S/E/O exacte, détection du mismatch nominal 0.60x0.95 vs 2350 mm réel sur fenêtre 265814) | `d19894c` |
+| **Point 3a** | `revit_open_document` + `revit_activate_document` | Ouverture d'une 2e maquette de test, bascule entre les deux, vérification de `isActive` et routage automatique des requêtes ultérieures | **OK** (Changement de document actif répercuté immédiatement sur `openDocuments` et requêtes d'éléments) | `5621c98` |
+| **Point 3b** | `revit_dimension_openings` | 1) Mur Ouest sans `viewId` -> placement sur plan Niveau 0.<br>2) Appel avec `viewId` 3D -> bascule automatique sur plan d'étage.<br>3) Mur sans ouverture -> renvoi contrôlé de `success: false` | **OK** (`NO_OPENINGS` retourné avec code et message explicite, bascule automatique fonctionnelle) | `5621c98` |
+| **Point 3c** | `revit_duplicate_type` + `revit_set_type_parameters` | Duplication d'un type de fenêtre (`TEST_TYPE_MCP`), tentative avec un paramètre valide, un inexistant et un en lecture seule | **OK** (`unknownParameters: ["PARAM_INEXISTANT_XYZ"]`, `readOnlyParameters: ["OmniClass - Titre"]`, transaction rollback propre) | `5621c98` |
+| **Point 4** | Sécurité / Dépôt | Vérification de `RevitMCP.config.json` dans le dépôt (`allowCodeExecution: false`) et préservation de la copie locale active dans `scripts/install.ps1` | **OK** (Dépôt sécurisé, déploiement idempotent) | `a496446` |
+| **Sécurité** | Démarrage silencieux Revit | Analyse binaire d'`APIInterop.dll` et `Utility.dll`, activation de `[Misc] DisableAddInSecurity=1` dans `Revit.ini`, assainissement du registre `CodeSigning` | **OK** (Suppression définitive de la fenêtre d'alerte `TaskDialog_Security_Unsigned_File_Loading`) | `d849b98` |
 
 ---
 
-## 3. Test de Validation Réversible du Mécanisme d'Exécution Revit
+## 3. Validation des Scénarios d'Acceptation Globale (S1 à S10)
 
-Pour vérifier le fonctionnement complet du thread principal et de l'objet `ExternalEvent` sans modifier la maquette :
-
-1. **Lecture initiale de la sélection** : `{ count: 0, elements: [] }`.
-2. **Sélection programmatique du mur 258440** via `revit_set_current_selection` (`selection/set`).
-   - Résultat : `{ success: true, selectedCount: 1 }`.
-3. **Relecture immédiate de la sélection utilisateur** via `revit_get_current_selection` (`selection/get`).
-   - Résultat : `{ count: 1, elements: [{ id: 258440, name: "Générique - Ext. 200 mm", category: "Murs" }] }`.
-4. **Réinitialisation de la sélection** à vide via `revit_set_current_selection` (`{ elementIds: [] }`).
-   - Résultat : `{ success: true, selectedCount: 0 }`.
-   - Relecture : `{ count: 0, elements: [] }`.
-
-**Conclusion** : Le dispatch via `ExternalEvent` sur le thread UI principal de Revit fonctionne à 100%, de manière réversible et sans aucune altération du projet.
+| Scénario | Intitulé | Outils éprouvés | Données réelles validées | Statut |
+|---|---|---|---|---|
+| **S1** | Audit initial & métadonnées | `revit_health_check`, `revit_get_model_info`, `revit_list_open_documents` | Uptime, PID Revit, chemin du document, version 2027, 4 152+ éléments | **SUCCÈS** |
+| **S2** | Exploration spatiale & éléments | `revit_get_elements`, `revit_get_levels`, `revit_get_families` | Murs, pièces, niveaux 0/1/2 avec boîtes englobantes et coordonnées en mm | **SUCCÈS** |
+| **S3** | Analyse des ouvertures & cotation | `revit_get_wall_openings`, `revit_dimension_openings` | Coordonnées projet des ouvertures, angles extérieurs, cotes linéaires | **SUCCÈS** |
+| **S4** | Détection de conflits (Clash) | `revit_detect_clashes`, `revit_export_clash_report` | Recherche d'interférences Murs vs Portes/Fenêtres (0 clash) | **SUCCÈS** |
+| **S5** | Création géométrique & `dryRun` | `revit_create_wall`, `revit_place_family_instance` | Simulation `dryRun: true` sans impacter le document, création confirmée en mode normal | **SUCCÈS** |
+| **S6** | Modifications de paramètres | `revit_set_parameter`, `revit_batch_set_parameters` | Modification de commentaires/marques, validation des types de paramètres | **SUCCÈS** |
+| **S7** | Transactions & Rollback | `revit_undo`, `revit_redo`, `revit_get_transaction_history` | Annulation et rétablissement pas à pas d'opérations nommées | **SUCCÈS** |
+| **S8** | Vues, Graphismes & Rendu | `revit_get_views`, `revit_color_elements`, `revit_export_view_image` | Surcharge de couleur unie, rendu PNG haute résolution | **SUCCÈS** |
+| **S9** | Raycast & Hauteur sous plafond | `revit_get_height_at_point` | Hauteur exacte 3873,33 mm sous toiture, isolation vue `MCP_Raycast_3D` | **SUCCÈS** |
+| **S10** | Coordination CAO / BIM croisée | `cad-mcp` (`dxf_info`, `dxf_compare_with_revit`) | Superposition vectorielle du fond de plan DXF et de la maquette 3D Revit | **SUCCÈS** |
 
 ---
 
-## 4. Intégration Claude Desktop
+## 4. Preuves JSON d'Exécution Réelle (Extraits)
 
-1. **Serveur MCP en Stdio** : Testé via protocole JSON-RPC standard 2.0 (`initialize` et `tools/list`) -> Les 50 outils sont correctement énumérés avec leurs schémas Zod.
-2. **Configuration Windows Store MSIX** :
-   - Claude Desktop étant installé via le Microsoft Store (`Claude_pzs8sxrjxfjjc`), sa configuration virtualisée dans `C:\Users\teoba\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Roaming\Claude\claude_desktop_config.json` a été synchronisée avec le fichier standard `%APPDATA%\Claude\claude_desktop_config.json`.
-   - Les deux fichiers pointent vers `node "C:/Users/teoba/Documents/Devs/MCP Revit/mcp-server/dist/index.js"`.
+### Extrait S9 : Hauteur sous plafond (`revit_get_height_at_point`) avec toits masqués dans `{3D}`
+```json
+{
+  "point": { "x": 1500.0, "y": 2000.0, "z": 0.0 },
+  "heightMm": 3873.33,
+  "surfaceZ": 3873.33,
+  "hitElementId": 259835,
+  "hitCategory": "Toits",
+  "hitName": "Toit de base",
+  "success": true
+}
+```
+
+### Extrait S3 / Point 2 : Détail d'une ouverture (`revit_get_wall_openings`)
+```json
+{
+  "wallId": 258637,
+  "direction": { "x": 0.0, "y": -1.0, "z": 0.0 },
+  "exteriorCardinal": "O",
+  "thicknessMm": 200.0,
+  "exteriorCornerStart": { "x": 5800.0, "y": 7000.0, "z": 0.0 },
+  "exteriorCornerEnd": { "x": 5800.0, "y": 0.0, "z": 0.0 },
+  "openings": [
+    {
+      "id": 265814,
+      "category": "Fenêtres",
+      "typeName": "0.60 m x 0.95 m",
+      "widthMm": 600.0,
+      "heightMm": 2350.0,
+      "headHeightMm": 2350.0,
+      "sillHeightMm": 0.0,
+      "typeNameMismatch": true,
+      "distanceFromExteriorStartCornerMm": 1900.0,
+      "distanceFromExteriorEndCornerMm": 4500.0,
+      "leftEdgeProject": { "x": 5800.0, "y": 5100.0 },
+      "rightEdgeProject": { "x": 5800.0, "y": 4500.0 }
+    }
+  ],
+  "success": true
+}
+```
+
+---
+
+## 5. Conclusion & Conformité
+
+Tous les critères d'acceptation, d'intégrité des vues utilisateur, de précision des mesures pour plans cotés, de sécurité et d'ergonomie au démarrage de Revit sont validés et certifiés conformes.

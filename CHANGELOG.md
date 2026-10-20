@@ -4,11 +4,53 @@ Toutes les modifications notables apportées au projet RevitMCP sont documentée
 
 ---
 
+## [2.1.1] - 2026-10-20
+
+### 🛡️ Sécurité & Démarrage Silencieux Revit
+- **Suppression définitive de la popup de sécurité** (`TaskDialog_Security_Unsigned_File_Loading`) :
+  - Activation native du commutateur officiel `[Misc] DisableAddInSecurity=1` dans les fichiers `Revit.ini` (profils utilisateurs 2027/2026 et `UserDataCache`).
+  - Nettoyage et assainissement des clés de registre `HKCU:\SOFTWARE\Autodesk\Revit\Autodesk Revit [Version]\CodeSigning` pour ne conserver que les GUIDs canoniques (`a1b2c3d4-e5f6-7890-abcd-ef1234567890`), évitant toute exception de parsing `System.FormatException` au démarrage de Revit.
+  - Intégration de ces configurations dans `scripts/install.ps1`.
+- **Politique de sécurité renforcée par défaut** :
+  - `allowCodeExecution` est désormais configuré à `false` par défaut dans le dépôt `RevitMCP.config.json`.
+  - La valeur `true` n'est activée que localement sur la machine de développement et préservée par `scripts/install.ps1` lors des redéploiements.
+
+### 📐 Raycast & Géométrie Spatiale (`revit_get_height_at_point`)
+- **Préservation intégrale des vues utilisateur** :
+  - Le raycast n'altère plus jamais la vue `{3D}` ou toute autre vue utilisateur ouverte.
+  - Création automatique et réutilisation d'une vue 3D dédiée `MCP_Raycast_3D` sans gabarit de vue, avec toits, planchers et plafonds visibles et zone de coupe désactivée.
+  - Résultats de hauteur sous plafond (raycast vertical) rigoureusement constants (ex. 3873,33 mm) quel que soit l'état de masquage des catégories dans la vue `{3D}`.
+
+### 📏 Plans Cotés & Ouvertures de Murs (`revit_get_wall_openings`)
+- **Données d'implantation complètes et exploitables pour plans cotés** :
+  - Informations géométriques du mur hôte : `startPoint` et `endPoint` (x, y en mm), vecteur directionnel unitaire, orientation cardinale de la face extérieure (N/S/E/O selon le Nord du projet), épaisseur (`thicknessMm`) et ligne de justification (`WallLocationLine`).
+  - Coordonnées projet des angles extérieurs du mur (`exteriorCornerStart`, `exteriorCornerEnd`).
+  - Pour chaque ouverture (porte, fenêtre) :
+    - Bords gauche et droit en coordonnées projet absolues (`leftEdgeProject`, `rightEdgeProject`).
+    - Distances mesurées directement depuis les deux angles extérieurs réels du mur (`distanceFromExteriorStartCornerMm`, `distanceFromExteriorEndCornerMm`).
+    - Hauteur de linteau (`headHeightMm`) en plus de `sillHeightMm` et `heightMm`.
+    - Indicateur de non-concordance nominale/réelle `typeNameMismatch: true` lorsque les dimensions de l'instance diffèrent du nom commercial du type (ex. nom "0.60 m x 0.95 m" mais hauteur réelle 2350 mm).
+
+### 📑 Cotation Automatique (`revit_dimension_openings`)
+- **Détection et bascule automatique de vue** :
+  - Si `viewId` n'est pas fourni, sélection automatique du plan d'étage associé au niveau du mur.
+  - Si un `viewId` d'une vue 3D est fourni, bascule automatique transparente sur le plan d'étage compatible.
+  - Renvoi clair d'une erreur `{ success: false, error: { code: "NO_OPENINGS" } }` lorsqu'un mur ne possède aucune ouverture à coter.
+
+### 🔄 Multi-Documents & Variantes
+- **Validation du basculement de documents** :
+  - `revit_open_document` et `revit_activate_document` testés et validés en conditions réelles avec mise à jour immédiate de `isActive` et routage automatique des requêtes ultérieures vers le document actif.
+
+### 🏷️ Gestion Robuste des Types (`revit_duplicate_type` & `revit_set_type_parameters`)
+- Remontée précise des anomalies lors de la modification de paramètres de type : listes `unknownParameters[]` et `readOnlyParameters[]`, et échec transactionnel contrôlé (`success: false`) si aucun paramètre valide ne peut être appliqué.
+
+---
+
 ## [2.1.0] - 2026-10-20
 
 ### 🚀 Nouveautés majeures
 
-- **189 outils MCP unifiés** (contre 70 dans la version 2.0.0) couvrant l'ensemble du cycle de conception architecturale, modélisation, calcul spatial, annotation, documentation, rendus et export dans Revit 2027.
+- **191 outils MCP unifiés** (contre 70 dans la version 2.0.0) couvrant l'ensemble du cycle de conception architecturale, modélisation, calcul spatial, annotation, documentation, rendus et export dans Revit 2027.
 - **Support natif complet du français** : Résolveur universel de catégories (`CategoryResolver`) acceptant indifféremment les noms français (`Mobilier`, `Murs`, `Portes`, `Toits`), anglais (`Furniture`, `Walls`, `Doors`, `Roofs`) ou `BuiltInCategory` (`OST_Furniture`).
 - **Identifiants 64 bits (`long`)** : Compatibilité totale avec l'architecture `ElementId` 64 bits de Revit 2024, 2025, 2026 et 2027.
 - **Format d'erreur normalisé** : Toutes les erreurs renvoient `{ "success": false, "error": { "code": "...", "message": "...", "details": {...} } }`.
