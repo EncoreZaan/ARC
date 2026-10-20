@@ -1,6 +1,6 @@
-# RÉFÉRENCE COMPLÈTE DES OUTILS MCP — REVIT AI BRIDGE (v2.1.1)
+# RÉFÉRENCE COMPLÈTE DES OUTILS MCP — REVIT AI BRIDGE (v2.2.0)
 
-Ce document fournit la documentation de référence exhaustive de l'ensemble des **191 outils MCP** exposés par le serveur Revit AI Bridge à Claude (Claude Desktop, Claude Code et clients MCP).
+Ce document fournit la documentation de référence exhaustive de l'ensemble des **196 outils MCP** exposés par le serveur Revit AI Bridge à Claude (Claude Desktop, Claude Code et clients MCP).
 
 ---
 
@@ -1102,3 +1102,189 @@ Le serveur compagnon Python autonome (`cad-mcp/server.py`) expose 8 outils dédi
 ### `dxf_compare_with_revit`
 - **Description** : Comparaison spatiale croisée directe entre le fond de plan DXF et la maquette 3D Revit active via le pont loopback HTTP.
 - **Paramètres** : `dxfFilePath`, `levelName` (optionnel), `toleranceMm` (optionnel).
+
+
+---
+
+## 19. Outils Spécialisés v2.2.0 : Vision, Audits PMR, Macro-Conception & Copilote
+
+Cette catégorie introduit les 5 super-pouvoirs majeurs de la version 2.2.0, conçus pour transformer Claude / Cursor en un architecte augmenté autonome et réactif.
+
+### `revit_screenshot_active_view`
+- **Description** : Capture instantanément la vue active (vue 3D, plan d'étage, coupe ou élévation) ou la vue spécifiée par son identifiant. L'image est encodée en Base64 et retransmise nativement au client MCP via le format officiel multimodal (`type: "image", mimeType: "image/png"`), permettant à Claude 3.5 Sonnet ou GPT-4o de l'inspecter visuellement pour détecter des défauts de proportions ou s'auto-corriger.
+- **Paramètres** :
+  - `viewId` *(entier, optionnel)* : ID de la vue cible (par défaut : vue active du document).
+  - `widthPixels` *(entier, optionnel, défaut : 1920)* : Largeur de l'image capturée (entre 320 et 4096 pixels).
+  - `format` *(chaîne, optionnel, défaut : "png")* : Format de l'image (`"png"` ou `"jpeg"`).
+  - `includeBase64` *(booléen, optionnel, défaut : true)* : Inclure la chaîne Base64 dans la réponse.
+  - `saveFilePath` *(chaîne, optionnel)* : Chemin optionnel sur le disque local pour sauvegarder une copie permanente du fichier PNG/JPEG.
+  - `documentTitle` *(chaîne, optionnel)* : Titre ou chemin du document cible.
+- **Lecture seule** : Oui.
+- **Exemple de payload** :
+```json
+{
+  "widthPixels": 1920,
+  "format": "png",
+  "saveFilePath": "C:/Projets/RenduFaçade.png"
+}
+```
+- **Exemple de retour** :
+```json
+{
+  "success": true,
+  "viewId": 150126,
+  "viewName": "{3D}",
+  "viewType": "ThreeD",
+  "widthPixels": 1920,
+  "filePath": "C:/Projets/RenduFaçade.png",
+  "fileSizeBytes": 34515,
+  "mimeType": "image/png",
+  "imageBase64": "iVBORw0KGgoAAAANSUhEUg..."
+}
+```
+
+---
+
+### `revit_audit_pmr`
+- **Description** : Audit réglementaire automatisé en 1 clic de l'accessibilité aux personnes à mobilité réduite (PMR) conforme aux normes françaises (Arrêté du 24 décembre 2015) et européennes. L'outil scanne les portes (passage utile $\ge 83$ cm), les pièces clés (sanitaires, SdB, dégagements pour aire de giration libre de $\varnothing 1{,}50$ m) et les pentes de rampes ($< 5\%$). Il peut surligner instantanément les éléments dans la vue Revit (Vert = Conforme, Rouge = Non-conforme).
+- **Paramètres** :
+  - `minDoorClearWidthMm` *(nombre, optionnel, défaut : 830)* : Largeur de passage utile minimale en mm (défaut : 830 mm pour porte de 90 cm nominal).
+  - `minTurningCircleDiameterMm` *(nombre, optionnel, défaut : 1500)* : Diamètre minimal de l'aire de rotation libre en mm (défaut : 1500 mm).
+  - `maxRampSlopePercent` *(nombre, optionnel, défaut : 5)* : Pente maximale admissible pour les rampes en pourcentage.
+  - `applyColorOverrides` *(booléen, optionnel, défaut : true)* : Appliquer immédiatement la surbrillance graphique (vert / rouge) dans la vue Revit.
+  - `viewId` *(entier, optionnel)* : Vue cible pour les surcharges graphiques (défaut : vue active).
+  - `documentTitle` *(chaîne, optionnel)* : Document cible.
+- **Lecture seule** : Non (applique des surcharges graphiques réversibles dans la vue).
+- **Exemple de payload** :
+```json
+{
+  "minDoorClearWidthMm": 830,
+  "applyColorOverrides": true
+}
+```
+- **Exemple de retour** :
+```json
+{
+  "success": true,
+  "standard": "Accessibilité PMR (Arrêté du 24 décembre 2015)",
+  "summary": {
+    "complianceRatePercent": 50.0,
+    "totalDoors": 2,
+    "compliantDoors": 1,
+    "nonCompliantDoors": 1,
+    "colorOverridesApplied": true,
+    "targetViewName": "{3D}"
+  },
+  "doors": [
+    {
+      "id": 296771,
+      "name": "Porte 90x215",
+      "clearWidthMm": 830,
+      "isCompliant": true
+    },
+    {
+      "id": 305995,
+      "name": "Porte 73x204",
+      "clearWidthMm": 680,
+      "isCompliant": false,
+      "recommendation": "Remplacer par un bloc-porte ≥ 900 mm nominal (passage utile ≥ 830 mm)."
+    }
+  ]
+}
+```
+
+---
+
+### `revit_generate_spatial_layout`
+- **Description** : Moteur de macro-conception architecturale générative. Permet de concevoir en une seule commande un projet spatial cohérent : résolution de l'organigramme fonctionnel, modélisation de la dalle de sol (`Floor`), murs extérieurs thermiquement isolés, cloisons séparatrices intérieures, placement des pièces (`Room`) avec calcul de surface réelle, et insertion des baies vitrées (optimisation bioclimatique RE2020 plein Sud) et portes conformes PMR.
+- **Paramètres** :
+  - `template` *(chaîne, optionnel, défaut : "pavillon_t4_115m2")* : Gabarit architectural (`"pavillon_t4_115m2"`, etc.).
+  - `originX` *(nombre, optionnel, défaut : 0)* : Coordonnée X de l'angle Sud-Ouest en mm.
+  - `originY` *(nombre, optionnel, défaut : 0)* : Coordonnée Y de l'angle Sud-Ouest en mm.
+  - `widthMm` *(nombre, optionnel, défaut : 12500)* : Largeur de la façade en mm.
+  - `depthMm` *(nombre, optionnel, défaut : 9500)* : Profondeur du bâtiment en mm.
+  - `wallHeightMm` *(nombre, optionnel, défaut : 2800)* : Hauteur sous plafond en mm.
+  - `levelName` *(chaîne, optionnel)* : Nom du niveau d'implantation (défaut : rez-de-chaussée).
+  - `includeFloor` *(booléen, optionnel, défaut : true)* : Générer automatiquement la dalle de sol.
+  - `includeDoorsAndWindows` *(booléen, optionnel, défaut : true)* : Insérer les menuiseries et baies vitrées.
+  - `dryRun` *(booléen, optionnel, défaut : false)* : Mode simulation sans altérer la maquette.
+  - `documentTitle` *(chaîne, optionnel)* : Document cible.
+- **Lecture seule** : Non (outil de modélisation complet).
+- **Exemple de payload** :
+```json
+{
+  "template": "pavillon_t4_115m2",
+  "widthMm": 12500,
+  "depthMm": 9500,
+  "dryRun": false
+}
+```
+- **Exemple de retour** :
+```json
+{
+  "success": true,
+  "template": "pavillon_t4_115m2",
+  "levelName": "Niveau 0",
+  "floorId": 313211,
+  "createdWallsCount": 7,
+  "createdRoomsCount": 4,
+  "rooms": [
+    { "name": "Séjour / Cuisine traversant (Sud)", "areaM2": 40.71 },
+    { "name": "Garage / Cellier technique (Nord)", "areaM2": 21.5 },
+    { "name": "Suite Parentale (Est)", "areaM2": 22.73 },
+    { "name": "Espace Nuit / Chambres (Nord-Est)", "areaM2": 27.94 }
+  ],
+  "totalHabitableAreaM2": 91.38,
+  "openingsCount": 5,
+  "environmentalComplianceRE2020": {
+    "estimatedGlazedAreaM2": 14.5,
+    "glazedRatioPercent": 15.9,
+    "minRequiredRatioPercent": 16.7,
+    "isCompliant": true,
+    "solarOrientation": "Optimisée Sud / Traversant"
+  }
+}
+```
+
+---
+
+### `revit_get_proactive_alerts`
+- **Description** : Interroge le moteur de veille proactif (`ProactiveGuardian`) de Revit. Renvoie l'historique chronologique des alertes et anomalies détectées en temps réel pendant le travail de l'utilisateur (déplacement de mur provoquant la rupture de délimitation d'une pièce, suppression d'une pièce laissant des séparateurs orphelins, dépassement de linteau d'ouverture sous dalle, segments de murs trop courts).
+- **Paramètres** :
+  - `maxCount` *(entier, optionnel, défaut : 50)* : Nombre maximal d'alertes à récupérer.
+  - `clearAfterRead` *(booléen, optionnel, défaut : false)* : Vider la file d'alertes après lecture.
+  - `documentTitle` *(chaîne, optionnel)* : Document cible.
+- **Lecture seule** : Oui.
+- **Exemple de retour** :
+```json
+{
+  "success": true,
+  "totalAlerts": 1,
+  "alerts": [
+    {
+      "id": "e4f1a8c2",
+      "timestamp": "2026-10-20 19:46:12",
+      "severity": "WARNING",
+      "category": "OPENINGS",
+      "message": "L'ouverture 'Fenêtre 120x140' (#305120) a une hauteur de linteau inhabituelle (2950 mm).",
+      "recommendation": "Vérifiez l'altimétrie de la sous-face de dalle supérieure pour éviter un clash structurel.",
+      "elementId": 305120
+    }
+  ]
+}
+```
+
+---
+
+### `revit_clear_proactive_alerts`
+- **Description** : Purge l'intégralité du journal d'alertes du copilote proactif.
+- **Paramètres** :
+  - `documentTitle` *(chaîne, optionnel)* : Document cible.
+- **Lecture seule** : Non.
+- **Exemple de retour** :
+```json
+{
+  "success": true,
+  "message": "Journal des alertes proactives effacé avec succès."
+}
+```
