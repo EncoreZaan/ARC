@@ -24,16 +24,6 @@ if ($LASTEXITCODE -ne 0) {
 }
 Write-Host '  -> C# Addin built successfully.' -ForegroundColor Green
 
-# Sign binary if RevitMCP certificate is available
-$targetDll = Join-Path $root "revit-addin\RevitMCP\bin\$Configuration\net10.0-windows\RevitMCP.dll"
-if (Test-Path $targetDll) {
-    $cert = Get-ChildItem Cert:\CurrentUser\My | Where-Object { $_.Subject -match 'RevitMCP' } | Select-Object -First 1
-    if ($cert) {
-        Set-AuthenticodeSignature -FilePath $targetDll -Certificate $cert | Out-Null
-        Write-Host "  -> C# Addin digitally signed ($($cert.Thumbprint.Substring(0, 8))...)" -ForegroundColor Green
-    }
-}
-
 # 2. Build TypeScript MCP Server
 Write-Host "`n[2/2] Building TypeScript MCP Server..." -ForegroundColor Yellow
 $serverDir = Join-Path $root 'mcp-server'
