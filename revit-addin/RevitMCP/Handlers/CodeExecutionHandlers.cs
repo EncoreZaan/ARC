@@ -62,12 +62,17 @@ namespace DynamicExecution
         var syntaxTree = CSharpSyntaxTree.ParseText(fullSource);
         var references = new List<MetadataReference>();
         var addedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var addedSimpleNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         void AddRef(string? path)
         {
-            if (!string.IsNullOrEmpty(path) && File.Exists(path) && addedPaths.Add(path))
+            if (!string.IsNullOrEmpty(path) && File.Exists(path))
             {
-                try { references.Add(MetadataReference.CreateFromFile(path)); } catch { }
+                var simpleName = Path.GetFileNameWithoutExtension(path);
+                if (addedSimpleNames.Add(simpleName) && addedPaths.Add(path))
+                {
+                    try { references.Add(MetadataReference.CreateFromFile(path)); } catch { }
+                }
             }
         }
 

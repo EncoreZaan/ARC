@@ -457,16 +457,11 @@ public partial class RevitEventHandler
 
         var startPtFeet = UnitConversions.MmToFeet(new XYZ(xMm, yMm, fromZMm));
 
-        // Find a non-template 3D view for raycasting
+        // Find dedicated raycast view, or create a clean one where all elements are visible
         var view3D = new FilteredElementCollector(doc)
             .OfClass(typeof(View3D))
             .Cast<View3D>()
-            .FirstOrDefault(v => !v.IsTemplate && !v.IsPerspective);
-
-        view3D ??= new FilteredElementCollector(doc)
-            .OfClass(typeof(View3D))
-            .Cast<View3D>()
-            .FirstOrDefault(v => !v.IsTemplate);
+            .FirstOrDefault(v => !v.IsTemplate && !v.IsPerspective && (v.Name == "_MCP_Raycast_3D" || v.Name == "MCP_Raycast_3D"));
 
         if (view3D == null)
         {
@@ -480,9 +475,21 @@ public partial class RevitEventHandler
                 using var tx = new Transaction(doc, "MCP: Create 3D View for Raycast");
                 tx.Start();
                 view3D = View3D.CreateIsometric(doc, defaultType.Id);
+                try { view3D.Name = "_MCP_Raycast_3D"; } catch { }
+                view3D.IsSectionBoxActive = false;
                 tx.Commit();
             }
         }
+
+        view3D ??= new FilteredElementCollector(doc)
+            .OfClass(typeof(View3D))
+            .Cast<View3D>()
+            .FirstOrDefault(v => !v.IsTemplate && !v.IsPerspective && !v.IsSectionBoxActive);
+
+        view3D ??= new FilteredElementCollector(doc)
+            .OfClass(typeof(View3D))
+            .Cast<View3D>()
+            .FirstOrDefault(v => !v.IsTemplate && !v.IsPerspective);
 
         if (view3D == null)
             throw new RevitMcpException("VIEW_NOT_FOUND", "No 3D view available for raycasting.");
