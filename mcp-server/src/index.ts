@@ -9,7 +9,7 @@ const bridgeConfig = resolveRevitBridgeConfig();
 
 const server = new McpServer({
   name: "revit-claude-mcp",
-  version: "2.1.0",
+  version: "2.2.0",
 });
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -3990,6 +3990,135 @@ server.registerTool(
 );
 
 // ─── Start ───────────────────────────────────────────────────────────────────
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// NOUVEAUX OUTILS : FEEDBACK VISUEL, AUDIT PMR, MACRO-CONCEPTION & COPILOTE
+// ════════════════════════════════════════════════════════════════════════════
+
+server.registerTool(
+  "revit_screenshot_active_view",
+  {
+    description:
+      "Capture visuelle instantanée de la vue active ou spécifiée dans Revit. Renvoie l'image encodée en Base64 et son chemin disque pour analyse multimodale directe par l'IA (Claude 3.5 Sonnet, GPT-4o). Exemple : revit_screenshot_active_view({ widthPixels: 1920, format: 'png' }).",
+    inputSchema: {
+      viewId: z.number().int().optional().describe("ID de la vue à capturer (défaut : vue active)"),
+      widthPixels: z.number().int().optional().default(1920).describe("Largeur de l'image en pixels (320 à 4096, défaut : 1920)"),
+      format: z.enum(["png", "jpeg"]).optional().default("png").describe("Format d'image ('png' ou 'jpeg')"),
+      includeBase64: z.boolean().optional().default(true).describe("Inclure les données Base64 de l'image dans la réponse"),
+      saveFilePath: z.string().optional().describe("Chemin cible optionnel sur le disque pour enregistrer l'image"),
+      documentTitle: z.string().optional().describe("Document cible"),
+    },
+    annotations: { readOnlyHint: true },
+  },
+  async (args) => {
+    const data = (await revit("view/screenshot-active", args)) as any;
+    if (data && data.imageBase64) {
+      return {
+        content: [
+          {
+            type: "image" as const,
+            data: data.imageBase64 as string,
+            mimeType: (data.mimeType as string) || "image/png",
+          },
+          {
+            type: "text" as const,
+            text: JSON.stringify(data, null, 2),
+          },
+        ],
+      };
+    }
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: JSON.stringify(data, null, 2),
+        },
+      ],
+    };
+  }
+);
+
+server.registerTool(
+  "revit_audit_pmr",
+  {
+    description:
+      "Audit réglementaire automatisé d'accessibilité PMR (Handicap) en 1 clic. Vérifie la largeur utile de passage de toutes les portes (≥ 83 cm), l'aire de rotation libre de Ø1.50m dans les pièces d'eau et dégagements, et les pentes de rampes (< 5%). Surligne automatiquement en vert ce qui est conforme et en rouge les non-conformités directement dans la vue 3D ou plan de Revit. Exemple : revit_audit_pmr({ applyColorOverrides: true }).",
+    inputSchema: {
+      minDoorClearWidthMm: z.number().optional().default(830).describe("Largeur de passage libre minimale requise pour les portes en mm (défaut : 830)"),
+      minTurningCircleDiameterMm: z.number().optional().default(1500).describe("Diamètre de l'aire de giration libre en mm (défaut : 1500)"),
+      maxRampSlopePercent: z.number().optional().default(5).describe("Pente maximale autorisée pour les rampes en % (défaut : 5)"),
+      applyColorOverrides: z.boolean().optional().default(true).describe("Colorer automatiquement la vue Revit (Vert = Conforme, Rouge = Non-conforme)"),
+      viewId: z.number().int().optional().describe("ID de la vue où appliquer les couleurs (défaut : vue active)"),
+      documentTitle: z.string().optional().describe("Document cible"),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+  },
+  async (args) => {
+    const data = await revit("audit/pmr", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+
+server.registerTool(
+  "revit_generate_spatial_layout",
+  {
+    description:
+      "Macro-conception spatiale générative (Architecte Génératif). Conçoit un projet complet en 1 clic : résolution de l'organigramme fonctionnel, tracé de l'enveloppe thermique extérieure, dallage, cloisonnement intérieur, placement des pièces avec surfaces calculées, insertion des baies vitrées (optimisation RE2020 orientation Sud) et portes conformes PMR. Exemple : revit_generate_spatial_layout({ template: 'pavillon_t4_115m2', widthMm: 12500, depthMm: 9500 }).",
+    inputSchema: {
+      template: z.string().optional().default("pavillon_t4_115m2").describe("Gabarit architectural (ex: 'pavillon_t4_115m2')"),
+      originX: z.number().optional().default(0).describe("Origine X en mm"),
+      originY: z.number().optional().default(0).describe("Origine Y en mm"),
+      widthMm: z.number().optional().default(12500).describe("Largeur globale en mm"),
+      depthMm: z.number().optional().default(9500).describe("Profondeur globale en mm"),
+      wallHeightMm: z.number().optional().default(2800).describe("Hauteur sous plafond en mm (défaut : 2800)"),
+      levelName: z.string().optional().describe("Nom du niveau d'implantation"),
+      includeFloor: z.boolean().optional().default(true).describe("Générer la dalle de sol"),
+      includeDoorsAndWindows: z.boolean().optional().default(true).describe("Insérer automatiquement les menuiseries et baies vitrées"),
+      dryRun: z.boolean().optional().describe("Mode simulation sans impact sur le document"),
+      documentTitle: z.string().optional().describe("Document cible"),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+  },
+  async (args) => {
+    const data = await revit("generate/spatial-layout", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+
+server.registerTool(
+  "revit_get_proactive_alerts",
+  {
+    description:
+      "Interroge en direct le copilote proactif en arrière-plan Revit. Renvoie les anomalies et clashs détectés pendant la modélisation (murs déplacés rompant la délimitation de pièces, séparateurs orphelins, dépassements de linteaux). Exemple : revit_get_proactive_alerts({ maxCount: 20 }).",
+    inputSchema: {
+      maxCount: z.number().int().optional().default(50).describe("Nombre maximal d'alertes à récupérer"),
+      clearAfterRead: z.boolean().optional().default(false).describe("Purger les alertes après lecture"),
+      documentTitle: z.string().optional().describe("Document cible"),
+    },
+    annotations: { readOnlyHint: true },
+  },
+  async (args) => {
+    const data = await revit("proactive/alerts", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+
+server.registerTool(
+  "revit_clear_proactive_alerts",
+  {
+    description:
+      "Vide le journal des alertes proactives de Revit. Exemple : revit_clear_proactive_alerts({}).",
+    inputSchema: {
+      documentTitle: z.string().optional().describe("Document cible"),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+  },
+  async (args) => {
+    const data = await revit("proactive/clear", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);

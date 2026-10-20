@@ -18,7 +18,7 @@ public class RevitHttpServer
 {
     private const string Prefix = "http://localhost:6543/";
     private const string ServiceName = "RevitMCP";
-    private const string ServiceVersion = "2.1.0";
+    private const string ServiceVersion = "2.2.0";
     private static readonly DateTime StartedUtc = DateTime.UtcNow;
     private static readonly Regex SafeActionPattern = new("^[a-z0-9-]+(?:/[a-z0-9-]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
     private static readonly TimeSpan QueueTimeout = TimeSpan.FromSeconds(10);

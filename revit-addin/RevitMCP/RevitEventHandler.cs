@@ -583,7 +583,12 @@ public partial class RevitEventHandler : IExternalEventHandler
             "sheets/place-schedule" => PlaceScheduleOnSheet(doc!, payload),
             "viewports/align" => AlignViewports(doc!, payload),
             "views/render" => RenderView(doc!, payload),
-            "dynamo/run-inline" => RunDynamoInline(app, doc!, payload),
+            "dynamo/run-inline" => RunDynamoInline(app, doc!, payload),
+            "view/screenshot-active" => ScreenshotActiveView(doc!, payload),
+            "audit/pmr" => AuditPmrCompliance(doc!, payload),
+            "generate/spatial-layout" => GenerateSpatialLayout(doc!, payload),
+            "proactive/alerts" => GetProactiveAlerts(doc!, payload),
+            "proactive/clear" => ClearProactiveAlerts(doc!, payload),
 
 
 

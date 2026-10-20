@@ -145,10 +145,30 @@ async fn handle_tools_call(
                 let is_mcp_err = is_http_err
                     || body.get("success").and_then(|v| v.as_bool()).map(|s| !s).unwrap_or(false);
 
+                let mut content_items = Vec::new();
+
+                // Support multimodal natif MCP : transmission directe de l'image en Base64
+                if let Some(img_b64) = body.get("imageBase64").and_then(|v| v.as_str()) {
+                    let mime = body.get("mimeType")
+                        .and_then(|v| v.as_str())
+                        .unwrap_or("image/png");
+
+                    content_items.push(json!({
+                        "type": "image",
+                        "data": img_b64,
+                        "mimeType": mime
+                    }));
+                }
+
                 let text = serde_json::to_string_pretty(&body).unwrap_or_default();
+                content_items.push(json!({
+                    "type": "text",
+                    "text": text
+                }));
+
                 (
                     json!({
-                        "content": [{ "type": "text", "text": text }],
+                        "content": content_items,
                         "isError": is_mcp_err
                     }),
                     is_mcp_err,

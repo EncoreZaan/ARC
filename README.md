@@ -1,8 +1,8 @@
-# REVIT AI BRIDGE — MCP POUR AUTODESK REVIT (v2.1.1)
+# REVIT AI BRIDGE — MCP POUR AUTODESK REVIT (v2.2.0)
 
 Pont natif et haute performance entre **Claude (Claude Desktop / Claude Code)** et **Autodesk Revit 2027** (compatible 2026, 2025 et 2024) via le **Model Context Protocol (MCP)**.
 
-Revit AI Bridge permet à Claude de lire, concevoir, modifier, annoter, coter, auditer et coordonner des maquettes BIM Revit à travers **191 outils locaux dédiés**.
+Revit AI Bridge permet à Claude de lire, concevoir, modifier, annoter, coter, auditer et coordonner des maquettes BIM Revit à travers **196 outils locaux dédiés**.
 
 ---
 
@@ -39,7 +39,17 @@ Autodesk Revit 2027 API (Document BIM ouvert)
 
 ---
 
-## 2. Inventaire des 191 outils MCP
+## 2. Nouveautés Majeures v2.2.0
+
+1. **Feedback Visuel Multimodal (`revit_screenshot_active_view`)** : L'IA a désormais des yeux dans Revit. Capture instantanée transmise nativement en Base64 via le serveur Rust MCP pour auto-correction visuelle, contrôle d'alignement ou lecture de croquis scannés.
+2. **Panneau Latéral Ancrable DANS Revit (Dockable Panel WPF)** : Onglet dédié dans le ruban Revit ("Revit AI Copilot") et panneau ancré interactif. Mode "Sélection active" avec diagnostic immédiat et actions rapides au clic.
+3. **Audits Réglementaires Automatisés en 1 Clic (`revit_audit_pmr`)** : Vérification des largeurs de portes ($\ge 83$ cm), aires de rotation libre ($\varnothing 1{,}50$ m) et pentes de rampes, avec surbrillance automatique vert/rouge dans Revit.
+4. **Génération Spatiale & Macro-Conception (`revit_generate_spatial_layout`)** : Conception intégrale d'un projet en 1 clic (dalle, enveloppe thermique, cloisons, pièces, baies vitrées RE2020 et portes).
+5. **Copilote Proactif en Temps Réel (`ProactiveGuardian`)** : Écoute continue de `DocumentChanged` pour alerter immédiatement sur les clashs, cloisons rompues ou linteaux hors gabarit.
+
+---
+
+## 3. Inventaire des 196 outils MCP
 
 Consultez le document détaillé [`docs/mcp_tools_reference.md`](docs/mcp_tools_reference.md) pour la documentation exhaustive des paramètres et schémas JSON.
 

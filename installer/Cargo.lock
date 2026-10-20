@@ -130,7 +130,7 @@ dependencies = [
 
 [[package]]
 name = "revit-mcp-installer"
-version = "2.1.1"
+version = "2.2.0"
 dependencies = [
  "colored",
  "flate2",

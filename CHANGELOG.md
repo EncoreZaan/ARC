@@ -4,6 +4,45 @@ Toutes les modifications notables apportées au projet RevitMCP sont documentée
 
 ---
 
+## [2.2.0] - 2026-10-20
+
+### 👁️ 1. Feedback Visuel Multimodal (L'IA avec des yeux dans Revit)
+- **Nouvel outil `revit_screenshot_active_view`** : capture instantanée haute résolution (jusqu'à 4096 px) de la vue active 3D ou plan.
+- **Support multimodal natif dans le serveur Rust (`revit-mcp-server`)** : transmission directe de l'image encodée en Base64 via le protocole officiel MCP (`type: "image", mimeType: "image/png"`). Claude 3.5 Sonnet et GPT-4o peuvent désormais "voir" la maquette, inspecter visuellement les proportions, détecter les défauts d'alignement et s'auto-corriger.
+- **Export disque optionnel** pour archivage des croquis et captures du projet.
+
+### 💬 2. Panneau Latéral Ancrable DANS Revit (Dockable Panel WPF) & Ruban
+- **Dockable Panel natif Revit** : incrusté directement aux côtés de l'Arborescence du projet et de la palette Propriétés (`RevitAiDockablePanel`).
+- **Onglet Ruban dédié "Revit AI Copilot"** : avec commandes instantanées pour afficher/masquer le panneau, lancer un audit PMR et prendre une capture instantanée.
+- **Mode "Sélection Active" en temps réel** : détection réactive (`Idling`) de l'élément cliqué par l'architecte, affichage de son identifiant, catégorie, famille/type, niveau, et 4 boutons d'actions rapides ("Isoler", "Rétablir vue", "Audit PMR", "Demander à l'IA").
+
+### 📋 3. Audits Réglementaires Automatisés en 1 Clic (PMR & Normes)
+- **Nouvel outil `revit_audit_pmr`** : analyse automatisée de conformité accessibilité handicapée :
+  - Largeur de passage utile de toutes les portes (`clearWidthMm` $\ge$ 830 mm).
+  - Aire de rotation libre de $\varnothing$ 1,50 m dans les pièces d'eau, sanitaires et dégagements.
+  - Pentes de rampes et cheminements (< 5%).
+- **Surbrillance automatique en vue** : colorisation instantanée des éléments conformes en vert (`Color(46, 204, 113)`) et des non-conformités en rouge (`Color(231, 76, 60)`) directement dans la vue 3D ou 2D de Revit.
+- **Synthèse structurée & Recommandations** : renvoi du taux de conformité globale et de préconisations techniques ciblées pour chaque élément non conforme.
+
+### 🏗️ 4. Génération Spatiale & Macro-Conception (Architecte Génératif)
+- **Nouvel outil `revit_generate_spatial_layout`** : modélisation complète d'un projet architectural en un seul appel (macro-prompting) :
+  - Gabarit contemporain paramétrable (ex: Pavillon T4 115 m² de plain-pied, salon/cuisine traversant Sud 45 m², suite parentale Est, garage/cellier Nord, chambres secondaires).
+  - Résolution de l'organigramme fonctionnel et tracé automatique de la dalle de sol (`Floor`).
+  - Murs porteurs extérieurs thermiquement isolés et cloisons séparatrices intérieures.
+  - Création automatique des pièces (`Room`) avec étiquettes et calculs précis des surfaces Loi Carrez.
+  - Insertion intelligente des menuiseries : grandes baies vitrées au Sud pour respect du ratio bioclimatique RE2020 ($ge 1/6$ de surface vitrée) et portes d'accès conformes PMR.
+
+### ⚡ 5. Copilote Proactif en Temps Réel (`ProactiveGuardian`)
+- **Écoute continue des événements Revit** via `ControlledApplication.DocumentChanged` et `Idling`.
+- **Veille bienveillante en arrière-plan** :
+  - Détection des pièces rendues non délimitées après déplacement de mur.
+  - Alerte lors de la suppression de pièces laissant des lignes de séparation orphelines.
+  - Vérification de la hauteur de linteau des fenêtres/portes par rapport aux dalles supérieures pour prévenir les clashs structurels.
+  - Détection des segments de murs résiduels trop courts (< 150 mm).
+- **Affichage dynamique des alertes** dans le Dockable Panel WPF et interrogation distante via les nouveaux outils MCP `revit_get_proactive_alerts` et `revit_clear_proactive_alerts`.
+
+---
+
 ## [2.1.1] - 2026-10-20
 
 ### 🛡️ Sécurité & Démarrage Silencieux Revit
