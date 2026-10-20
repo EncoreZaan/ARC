@@ -92,6 +92,7 @@ if (-not $SkipClaudeConfig) {
     }
 
     $serverScript = (Join-Path $root 'mcp-server\dist\index.js').Replace('\', '/')
+    $cadScript = (Join-Path $root 'cad-mcp\server.py').Replace('\', '/')
     
     $configObj['mcpServers']['revit'] = @{
         'command' = 'node'
@@ -100,6 +101,10 @@ if (-not $SkipClaudeConfig) {
             'REVIT_HOST' = 'http://localhost:6543'
             'REVIT_TIMEOUT_MS' = '120000'
         }
+    }
+    $configObj['mcpServers']['cad-mcp'] = @{
+        'command' = 'python'
+        'args' = @($cadScript)
     }
 
     $finalJson = $configObj | ConvertTo-Json -Depth 10

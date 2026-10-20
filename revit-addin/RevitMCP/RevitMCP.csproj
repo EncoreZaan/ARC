@@ -31,10 +31,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
-  <Target Name="SignRevitAddin" AfterTargets="Build" BeforeTargets="CopyToRevitAddins">
-    <Exec Command="powershell -NoProfile -Command &quot;$cert = Get-ChildItem Cert:\CurrentUser\My | Where-Object { $_.Subject -match 'RevitMCP' } | Select-Object -First 1; if ($cert) { Set-AuthenticodeSignature -FilePath '$(TargetPath)' -Certificate $cert | Out-Null }&quot;" IgnoreExitCode="true" />
-  </Target>
-
   <Target Name="CopyToRevitAddins" AfterTargets="Build" Condition="'$(DeployAddin)' != 'false'">
     <PropertyGroup>
       <RevitAddinsDir>$(APPDATA)\Autodesk\Revit\Addins\$(RevitVersion)\</RevitAddinsDir>
