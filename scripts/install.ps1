@@ -44,8 +44,28 @@ foreach ($year in $revitYears) {
         if (-not (Test-Path $codeSigningKey)) {
             New-Item -Path $codeSigningKey -Force | Out-Null
         }
-        foreach ($id in @('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'A1B2C3D4-E5F6-7890-ABCD-EF1234567890', '{a1b2c3d4-e5f6-7890-abcd-ef1234567890}', '{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}', 'RevitMCP', 'RevitMCP.dll')) {
-            Set-ItemProperty -Path $codeSigningKey -Name $id -Value 1 -Type DWord -Force
+        if (Test-Path $codeSigningKey) {
+            $props = (Get-Item $codeSigningKey).Property
+            foreach ($p in $props) {
+                if ($p -match '^(RevitMCP|\{)' -or $p -eq 'RevitMCP.dll') {
+                    Remove-ItemProperty -Path $codeSigningKey -Name $p -Force -ErrorAction SilentlyContinue
+                }
+            }
+        }
+        Set-ItemProperty -Path $codeSigningKey -Name 'a1b2c3d4-e5f6-7890-abcd-ef1234567890' -Value 1 -Type DWord -Force
+
+        # Suppress unsigned addin prompt via Revit.ini [Misc] DisableAddInSecurity=1
+        $iniPath = Join-Path $env:APPDATA "Autodesk\Revit\Autodesk Revit $year\Revit.ini"
+        if (Test-Path $iniPath) {
+            $iniContent = Get-Content $iniPath -Raw
+            if ($iniContent -notmatch 'DisableAddInSecurity\s*=') {
+                if ($iniContent -match '\[Misc\]') {
+                    $iniContent = $iniContent -replace '\[Misc\]', "[Misc]`r`nDisableAddInSecurity=1"
+                } else {
+                    $iniContent += "`r`n[Misc]`r`nDisableAddInSecurity=1`r`n"
+                }
+                [System.IO.File]::WriteAllText($iniPath, $iniContent, [System.Text.Encoding]::Unicode)
+            }
         }
 
         Write-Host "  -> Successfully deployed addin for Revit $year in $addinDir (Registered & Whitelisted)" -ForegroundColor Green
