@@ -154,18 +154,46 @@ Dans votre fichier `claude_desktop_config.json` :
 
 ---
 
-## 6. Compilation, Tests & Déploiement
+## 6. Installation & Déploiement
 
-### Déploiement automatique en 1 commande
+### Option A : Installateur Universel 1-Clic en Rust (Recommandé)
+
+Téléchargez la dernière version de l'installateur dans les [Releases GitHub](https://github.com/EncoreZaan/Revit-MCP/releases) : **`RevitMCP-Setup-v2.1.1.exe`** (~4 Mo).
+
+Développé en **Rust natif** ultra-léger et autonome, cet installateur embarque l'intégralité du pont (Add-in C#, compilateurs Roslyn, serveur MCP autonome bundled sans dépendances `node_modules`).
+
 ```powershell
+# Installation interactive standard
+.\RevitMCP-Setup-v2.1.1.exe
+
+# Diagnostic du système et de l'installation
+.\RevitMCP-Setup-v2.1.1.exe --status
+
+# Installation silencieuse
+.\RevitMCP-Setup-v2.1.1.exe --silent
+
+# Désinstallation propre
+.\RevitMCP-Setup-v2.1.1.exe --uninstall
+```
+
+L'installateur effectue automatiquement :
+1. **Détection multi-versions** de Revit (2024, 2025, 2026, 2027) via Program Files, APPDATA et le Registre Windows.
+2. **Déploiement de l'add-in** `.NET` dans `%APPDATA%\Autodesk\Revit\Addins\<Année>\` sans jamais écraser vos réglages personnalisés de sécurité (`allowCodeExecution`).
+3. **Démarrage silencieux garanti** : injection automatique de `[Misc] DisableAddInSecurity=1` dans `Revit.ini` (compatible UTF-16 LE) et enregistrement du GUID canonique dans `HKCU:\SOFTWARE\Autodesk\Revit\Autodesk Revit <Année>\CodeSigning`. Zéro popup au lancement de Revit.
+4. **Déploiement du serveur MCP autonome** dans `%APPDATA%\RevitMCP\mcp-server\index.bundle.mjs`.
+5. **Configuration automatique de Claude Desktop** (supporte les profils standard APPDATA et Windows Store MSIX).
+
+---
+
+### Option B : Déploiement Développeur depuis les sources
+
+```powershell
+# Build complet de la release (C# + Bundle TS + Rust Setup)
+.\scripts\build-release.ps1
+
+# Déploiement rapide en développement local
 .\scripts\install.ps1
 ```
-Ce script :
-1. Compile l'add-in Revit C# et le serveur TypeScript MCP.
-2. Déploie les binaires dans `%APPDATA%\Autodesk\Revit\Addins\2027` (et 2026).
-3. Enregistre le GUID canonique dans le registre `CodeSigning`.
-4. Configure automatiquement `DisableAddInSecurity=1` dans `Revit.ini` pour supprimer la popup de confirmation.
-5. Synchronise la configuration MCP dans `claude_desktop_config.json`.
 
 ### Build et tests manuels
 ```powershell

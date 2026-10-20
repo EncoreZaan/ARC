@@ -32,3 +32,11 @@ _audit/
 *.rte
 *.000*.rvt
 Exports/
+
+# Rust build output
+target/
+installer/target/
+installer/payload.tar.gz
+
+# Release distribution output
+/dist/
