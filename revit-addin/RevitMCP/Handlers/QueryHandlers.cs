@@ -3,7 +3,9 @@ using Autodesk.Revit.DB.Architecture;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace RevitMCP;
 
@@ -457,51 +459,83 @@ public partial class RevitEventHandler
 
         var startPtFeet = UnitConversions.MmToFeet(new XYZ(xMm, yMm, fromZMm));
 
-        // Find dedicated raycast view, or create a clean one where all elements are visible
+        const string raycastViewName = "MCP_Raycast_3D";
+
+        // Find or create dedicated raycast 3D view (never touches user's {3D} view)
         var view3D = new FilteredElementCollector(doc)
             .OfClass(typeof(View3D))
             .Cast<View3D>()
-            .FirstOrDefault(v => !v.IsTemplate && !v.IsPerspective && (v.Name == "_MCP_Raycast_3D" || v.Name == "MCP_Raycast_3D"));
+            .FirstOrDefault(v => !v.IsTemplate && !v.IsPerspective && (v.Name == raycastViewName || v.Name == "_" + raycastViewName));
 
-        if (view3D == null)
-        {
-            var defaultType = new FilteredElementCollector(doc)
-                .OfClass(typeof(ViewFamilyType))
-                .Cast<ViewFamilyType>()
-                .FirstOrDefault(t => t.ViewFamily == ViewFamily.ThreeDimensional);
-
-            if (defaultType != null)
-            {
-                using var tx = new Transaction(doc, "MCP: Create 3D View for Raycast");
-                tx.Start();
-                view3D = View3D.CreateIsometric(doc, defaultType.Id);
-                try { view3D.Name = "_MCP_Raycast_3D"; } catch { }
-                view3D.IsSectionBoxActive = false;
-                tx.Commit();
-            }
-        }
-
-        view3D ??= new FilteredElementCollector(doc)
-            .OfClass(typeof(View3D))
-            .Cast<View3D>()
-            .FirstOrDefault(v => !v.IsTemplate && !v.IsPerspective && !v.IsSectionBoxActive);
-
-        view3D ??= new FilteredElementCollector(doc)
-            .OfClass(typeof(View3D))
-            .Cast<View3D>()
-            .FirstOrDefault(v => !v.IsTemplate && !v.IsPerspective);
-
-        if (view3D == null)
-            throw new RevitMcpException("VIEW_NOT_FOUND", "No 3D view available for raycasting.");
-
-        var categories = new List<BuiltInCategory>
+        var categoriesToUnhide = new[]
         {
             BuiltInCategory.OST_Roofs,
             BuiltInCategory.OST_Floors,
             BuiltInCategory.OST_Ceilings
         };
 
-        var multiFilter = new ElementMulticategoryFilter(categories);
+        if (view3D == null)
+        {
+            var defaultType = new FilteredElementCollector(doc)
+                .OfClass(typeof(ViewFamilyType))
+                .Cast<ViewFamilyType>()
+                .FirstOrDefault(t => t.ViewFamily == ViewFamily.ThreeDimensional)
+                ?? throw new RevitMcpException("VIEW_NOT_FOUND", "No 3D ViewFamilyType available to create MCP_Raycast_3D.");
+
+            using var tx = new Transaction(doc, "MCP: Create Dedicated Raycast View");
+            tx.Start();
+            view3D = View3D.CreateIsometric(doc, defaultType.Id);
+            try { view3D.Name = raycastViewName; } catch { }
+            view3D.ViewTemplateId = ElementId.InvalidElementId;
+            view3D.IsSectionBoxActive = false;
+            foreach (var catBic in categoriesToUnhide)
+            {
+                var catId = new ElementId((long)catBic);
+                if (view3D.CanCategoryBeHidden(catId) && view3D.GetCategoryHidden(catId))
+                {
+                    view3D.SetCategoryHidden(catId, false);
+                }
+            }
+            tx.Commit();
+        }
+        else
+        {
+            // Verify view settings: no template, no section box, categories unhidden
+            bool needsFix = view3D.ViewTemplateId != ElementId.InvalidElementId || view3D.IsSectionBoxActive;
+            if (!needsFix)
+            {
+                foreach (var catBic in categoriesToUnhide)
+                {
+                    var catId = new ElementId((long)catBic);
+                    if (view3D.CanCategoryBeHidden(catId) && view3D.GetCategoryHidden(catId))
+                    {
+                        needsFix = true;
+                        break;
+                    }
+                }
+            }
+
+            if (needsFix)
+            {
+                using var tx = new Transaction(doc, "MCP: Configure Dedicated Raycast View");
+                tx.Start();
+                if (view3D.ViewTemplateId != ElementId.InvalidElementId)
+                    view3D.ViewTemplateId = ElementId.InvalidElementId;
+                if (view3D.IsSectionBoxActive)
+                    view3D.IsSectionBoxActive = false;
+                foreach (var catBic in categoriesToUnhide)
+                {
+                    var catId = new ElementId((long)catBic);
+                    if (view3D.CanCategoryBeHidden(catId) && view3D.GetCategoryHidden(catId))
+                    {
+                        view3D.SetCategoryHidden(catId, false);
+                    }
+                }
+                tx.Commit();
+            }
+        }
+
+        var multiFilter = new ElementMulticategoryFilter(categoriesToUnhide);
         var intersector = new ReferenceIntersector(multiFilter, FindReferenceTarget.Face, view3D);
         intersector.FindReferencesInRevitLinks = false;
 
@@ -609,6 +643,37 @@ public partial class RevitEventHandler
         };
     }
 
+    private static bool CheckTypeNameMismatch(string typeName, double? widthMm, double? heightMm)
+    {
+        if (string.IsNullOrWhiteSpace(typeName) || !widthMm.HasValue || !heightMm.HasValue)
+            return false;
+
+        var match = Regex.Match(typeName, @"(?<w>\d+(?:[\.,]\d+)?)\s*(?:m|cm|mm)?\s*[xX×]\s*(?<h>\d+(?:[\.,]\d+)?)\s*(?:m|cm|mm)?");
+        if (!match.Success)
+            return false;
+
+        double ParseDim(string raw)
+        {
+            var cleaned = raw.Replace(',', '.');
+            if (!double.TryParse(cleaned, NumberStyles.Float, CultureInfo.InvariantCulture, out var val))
+                return -1;
+            if (val < 10) return val * 1000.0;
+            if (val < 1000) return val * 10.0;
+            return val;
+        }
+
+        var expectedW = ParseDim(match.Groups["w"].Value);
+        var expectedH = ParseDim(match.Groups["h"].Value);
+
+        if (expectedW <= 0 || expectedH <= 0)
+            return false;
+
+        bool wMismatch = Math.Abs(expectedW - widthMm.Value) > 30.0;
+        bool hMismatch = Math.Abs(expectedH - heightMm.Value) > 30.0;
+
+        return wMismatch || hMismatch;
+    }
+
     private static JObject GetWallOpenings(Document doc, JObject p)
     {
         var wallId = p["wallId"]?.Value<long>()
@@ -625,6 +690,92 @@ public partial class RevitEventHandler
         var wallEnd = curve.GetEndPoint(1);
         var wallLengthFeet = curve.Length;
         var wallLengthMm = UnitConversions.FeetToMm(wallLengthFeet);
+        var wallDir = (wallEnd - wallStart).Normalize();
+
+        var wallStartMm = UnitConversions.FeetToMm(wallStart);
+        var wallEndMm = UnitConversions.FeetToMm(wallEnd);
+
+        var thicknessMm = Math.Round(UnitConversions.FeetToMm(wall.Width), 1);
+
+        // Justification parameter
+        var justParam = wall.get_Parameter(BuiltInParameter.WALL_KEY_REF_PARAM);
+        var justification = justParam?.AsValueString() ?? (justParam?.AsInteger() switch
+        {
+            0 => "Axe du mur",
+            1 => "Axe du porteur",
+            2 => "Nu fini extérieur",
+            3 => "Nu fini intérieur",
+            4 => "Nu extérieur du porteur",
+            5 => "Nu intérieur du porteur",
+            _ => "Axe du mur"
+        });
+
+        // Cardinal orientation of exterior face according to Project North (+Y = Nord, +X = Est, -Y = Sud, -X = Ouest)
+        var normal = wall.Orientation.Normalize();
+        string exteriorOrientation;
+        if (Math.Abs(normal.X) > Math.Abs(normal.Y))
+            exteriorOrientation = normal.X > 0 ? "E" : "O";
+        else
+            exteriorOrientation = normal.Y > 0 ? "N" : "S";
+
+        // Calculate the two exterior physical corners of the wall
+        double extOffsetFeet = wall.Width / 2.0;
+        var extSideRefs = HostObjectUtils.GetSideFaces(wall, ShellLayerType.Exterior);
+        if (extSideRefs.Count > 0)
+        {
+            var extFace = wall.GetGeometryObjectFromReference(extSideRefs[0]) as PlanarFace;
+            if (extFace != null)
+            {
+                extOffsetFeet = (extFace.Origin - wallStart).DotProduct(normal);
+            }
+        }
+
+        XYZ FindExteriorCorner(int endIdx)
+        {
+            var pt = endIdx == 0 ? wallStart : wallEnd;
+            var joined = wallLocCurve.get_ElementsAtJoin(endIdx);
+            foreach (Element elem in joined)
+            {
+                if (elem.Id.Value == wall.Id.Value) continue;
+                if (elem is Wall adjWall && adjWall.Location is LocationCurve adjLc)
+                {
+                    var adjP0 = adjLc.Curve.GetEndPoint(0);
+                    var adjP1 = adjLc.Curve.GetEndPoint(1);
+                    var adjU = (adjP1 - adjP0).Normalize();
+                    var adjN = adjWall.Orientation.Normalize();
+
+                    double adjOffsetFeet = adjWall.Width / 2.0;
+                    var adjSideRefs = HostObjectUtils.GetSideFaces(adjWall, ShellLayerType.Exterior);
+                    if (adjSideRefs.Count > 0)
+                    {
+                        var adjExtFace = adjWall.GetGeometryObjectFromReference(adjSideRefs[0]) as PlanarFace;
+                        if (adjExtFace != null)
+                        {
+                            adjOffsetFeet = (adjExtFace.Origin - adjP0).DotProduct(adjN);
+                        }
+                    }
+
+                    var pExt1 = pt + normal * extOffsetFeet;
+                    var pExt2 = adjP0 + adjN * adjOffsetFeet;
+
+                    double cross = wallDir.X * adjU.Y - wallDir.Y * adjU.X;
+                    if (Math.Abs(cross) > 1e-5)
+                    {
+                        double dx = pExt2.X - pExt1.X;
+                        double dy = pExt2.Y - pExt1.Y;
+                        double t = (dx * adjU.Y - dy * adjU.X) / cross;
+                        return new XYZ(pExt1.X + t * wallDir.X, pExt1.Y + t * wallDir.Y, pt.Z);
+                    }
+                }
+            }
+            return pt + normal * extOffsetFeet;
+        }
+
+        var extCornerStart = FindExteriorCorner(0);
+        var extCornerEnd = FindExteriorCorner(1);
+        var extCornerStartMm = UnitConversions.FeetToMm(extCornerStart);
+        var extCornerEndMm = UnitConversions.FeetToMm(extCornerEnd);
+        var exteriorLengthMm = Math.Round(UnitConversions.FeetToMm((extCornerEnd - extCornerStart).GetLength()), 1);
 
         // Find hosted instances (Doors, Windows, Openings)
         var hostedFilter = new ElementMulticategoryFilter(new[]
@@ -664,13 +815,36 @@ public partial class RevitEventHandler
                            ?? fi.get_Parameter(BuiltInParameter.WINDOW_HEIGHT)
                            ?? fi.get_Parameter(BuiltInParameter.DOOR_HEIGHT);
             var sillParam = fi.get_Parameter(BuiltInParameter.INSTANCE_SILL_HEIGHT_PARAM);
+            var headParam = fi.get_Parameter(BuiltInParameter.INSTANCE_HEAD_HEIGHT_PARAM);
 
             double? widthMm = widthParam != null ? Math.Round(UnitConversions.FeetToMm(widthParam.AsDouble()), 1) : null;
             double? heightMm = heightParam != null ? Math.Round(UnitConversions.FeetToMm(heightParam.AsDouble()), 1) : null;
             double? sillHeightMm = sillParam != null ? Math.Round(UnitConversions.FeetToMm(sillParam.AsDouble()), 1) : null;
+            double? headHeightMm = headParam != null
+                ? Math.Round(UnitConversions.FeetToMm(headParam.AsDouble()), 1)
+                : ((sillHeightMm.HasValue && heightMm.HasValue) ? Math.Round(sillHeightMm.Value + heightMm.Value, 1) : (double?)null);
 
             double? leftEdgeFromStartMm = widthMm.HasValue ? Math.Round(distFromStartMm - (widthMm.Value / 2.0), 1) : null;
             double? rightEdgeFromStartMm = widthMm.HasValue ? Math.Round(distFromStartMm + (widthMm.Value / 2.0), 1) : null;
+
+            // Compute edges in project coordinates
+            var widthVal = widthMm ?? 0.0;
+            var halfWidthFeet = UnitConversions.MmToFeet(widthVal / 2.0);
+            var leftPtFeet = insertPt - wallDir * halfWidthFeet;
+            var rightPtFeet = insertPt + wallDir * halfWidthFeet;
+            var leftPtMm = UnitConversions.FeetToMm(leftPtFeet);
+            var rightPtMm = UnitConversions.FeetToMm(rightPtFeet);
+
+            // Distances from exterior corners along wallDir
+            var distLeftFromExtStartMm = Math.Round(UnitConversions.FeetToMm((leftPtFeet - extCornerStart).DotProduct(wallDir)), 1);
+            var distRightFromExtStartMm = Math.Round(UnitConversions.FeetToMm((rightPtFeet - extCornerStart).DotProduct(wallDir)), 1);
+            var distLeftFromExtEndMm = Math.Round(UnitConversions.FeetToMm((extCornerEnd - leftPtFeet).DotProduct(wallDir)), 1);
+            var distRightFromExtEndMm = Math.Round(UnitConversions.FeetToMm((extCornerEnd - rightPtFeet).DotProduct(wallDir)), 1);
+
+            var distFromExtCornerStartMm = Math.Min(distLeftFromExtStartMm, distRightFromExtStartMm);
+            var distFromExtCornerEndMm = Math.Min(distLeftFromExtEndMm, distRightFromExtEndMm);
+
+            bool mismatch = CheckTypeNameMismatch(fi.Symbol.Name, widthMm, heightMm);
 
             return new JObject
             {
@@ -682,6 +856,12 @@ public partial class RevitEventHandler
                 ["widthMm"] = widthMm,
                 ["heightMm"] = heightMm,
                 ["sillHeightMm"] = sillHeightMm,
+                ["headHeightMm"] = headHeightMm,
+                ["typeNameMismatch"] = mismatch,
+                ["leftEdge"] = new JObject { ["x"] = Math.Round(leftPtMm.X, 2), ["y"] = Math.Round(leftPtMm.Y, 2) },
+                ["rightEdge"] = new JObject { ["x"] = Math.Round(rightPtMm.X, 2), ["y"] = Math.Round(rightPtMm.Y, 2) },
+                ["distanceFromExteriorCornerStartMm"] = distFromExtCornerStartMm,
+                ["distanceFromExteriorCornerEndMm"] = distFromExtCornerEndMm,
                 ["distanceFromWallStartMm"] = distFromStartMm,
                 ["distanceFromWallEndMm"] = distFromEndMm,
                 ["leftEdgeFromStartMm"] = leftEdgeFromStartMm,
@@ -698,6 +878,18 @@ public partial class RevitEventHandler
             ["success"] = true,
             ["wallId"] = wall.Id.Value,
             ["wallLengthMm"] = Math.Round(wallLengthMm, 1),
+            ["thicknessMm"] = thicknessMm,
+            ["justification"] = justification,
+            ["exteriorOrientation"] = exteriorOrientation,
+            ["startPoint"] = new JObject { ["x"] = Math.Round(wallStartMm.X, 2), ["y"] = Math.Round(wallStartMm.Y, 2) },
+            ["endPoint"] = new JObject { ["x"] = Math.Round(wallEndMm.X, 2), ["y"] = Math.Round(wallEndMm.Y, 2) },
+            ["direction"] = new JObject { ["x"] = Math.Round(wallDir.X, 4), ["y"] = Math.Round(wallDir.Y, 4), ["z"] = Math.Round(wallDir.Z, 4) },
+            ["exteriorCorners"] = new JObject
+            {
+                ["start"] = new JObject { ["x"] = Math.Round(extCornerStartMm.X, 2), ["y"] = Math.Round(extCornerStartMm.Y, 2) },
+                ["end"] = new JObject { ["x"] = Math.Round(extCornerEndMm.X, 2), ["y"] = Math.Round(extCornerEndMm.Y, 2) }
+            },
+            ["exteriorLengthMm"] = exteriorLengthMm,
             ["openings"] = new JArray(openings)
         };
     }
