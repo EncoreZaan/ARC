@@ -1,6 +1,6 @@
 [package]
 name = "revit-mcp-server"
-version = "2.3.0"
+version = "2.4.0"
 edition = "2021"
 authors = ["EncoreZaan"]
 description = "Native standalone Rust MCP server for Autodesk Revit"
@@ -13,6 +13,7 @@ reqwest = { version = "0.12", default-features = false, features = ["json"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 url = "2.5"
+rayon = "1.10"
 
 [profile.release]
 opt-level = 3

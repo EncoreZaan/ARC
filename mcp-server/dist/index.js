@@ -3058,6 +3058,59 @@ server.registerTool("revit_get_diagnostics", {
     const data = await revit("diagnostics/info", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
+server.registerTool("revit_fast_clash_detection", {
+    description: "Détection de clashs géométriques ultra-rapide accélérée par le moteur multithreadé natif en Rust (Rayon).",
+    inputSchema: {
+        clearanceMm: z.number().optional().default(0).describe("Distance d'évitement ou tolérance en millimètres"),
+        category: z.string().optional().describe("Filtrer par catégorie"),
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("geometry/clash", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_analyze_room_metrics", {
+    description: "Analyse spatiale et bioclimatique haute performance calculée en Rust : surface Shoelace, compacité, ratio RE2020.",
+    inputSchema: {
+        vertices: z.array(z.array(z.number())).describe("Polygone 2D [X, Y] en millimètres"),
+        glazedAreasM2: z.array(z.number()).optional().describe("Surfaces vitrées en m²"),
+        windowOrientations: z.array(z.string()).optional().describe("Orientations cardinales"),
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("geometry/room-metrics", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_branch_create", {
+    description: "Crée une branche d'exploration architecturale (Le Git du BIM) dans _outils/.snapshots/branches/ avec calcul immédiat des indicateurs clés.",
+    inputSchema: {
+        name: z.string().describe("Nom unique de la variante"),
+        description: z.string().optional().describe("Description architecturale"),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("branch/create", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_branch_list", {
+    description: "Liste l'ensemble des branches d'alternatives architecturales (variantes IA) créées pour le projet en cours.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("branch/list", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_branch_compare", {
+    description: "Compare deux branches d'alternatives architecturales (branchA et branchB) : deltas surfaces Loi Carrez, linéaires cloisons, PMR, coût et recommandation.",
+    inputSchema: {
+        branchA: z.string().describe("Nom de la première variante"),
+        branchB: z.string().describe("Nom de la seconde variante"),
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("branch/compare", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
 const transport = new StdioServerTransport();
 await server.connect(transport);
 //# sourceMappingURL=index.js.map

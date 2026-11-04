@@ -1,6 +1,6 @@
 {
   "name": "revit-claude-mcp-server",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Local MCP server for controlling Autodesk Revit 2027/2026/2025 from Claude through Revit AI Bridge.",
   "type": "module",
   "main": "dist/index.js",

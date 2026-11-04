@@ -134,6 +134,7 @@ public partial class RevitEventHandler : IExternalEventHandler
 
 
 
+    public static readonly SemaphoreSlim RequestGate = new(1, 1);
     private readonly object _sync = new();
 
 
@@ -676,6 +677,9 @@ public partial class RevitEventHandler : IExternalEventHandler
             "diagnostics/info" => GetDiagnostics(app, doc!),
             "snapshots/create" => CreateSnapshot(doc!, payload),
             "snapshots/list" => ListSnapshots(doc!),
+            "branch/create" => BranchCreate(doc!, payload),
+            "branch/list" => BranchList(doc!),
+            "branch/compare" => BranchCompare(doc!, payload),
             "security/get" => GetSecurityMode(),
             "security/set" => SetSecurityMode(payload),
             "bim/classification" => GetBimClassification(doc!, payload),

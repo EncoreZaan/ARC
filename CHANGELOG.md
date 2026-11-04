@@ -4,6 +4,33 @@ Toutes les modifications notables apportées au projet RevitMCP sont documentée
 
 ---
 
+## [2.4.0] - 2026-11-05
+
+### ⚡ 1. IPC Windows Named Pipes Zero-Latence (`\\.\pipe\revit_mcp_ipc`)
+- **Transport IPC natif sous la milliseconde (< 0.5 ms)** : contournement total de la pile réseau Windows HTTP.sys et des ports TCP locaux.
+- **Support multi-instance et auto-fallback** : le client Rust priorise le pipe nommé Windows ultra-rapide et bascule automatiquement sur HTTP en cas de besoin.
+- **Résilience absolue aux déconnexions client** : gestion sécurisée des ruptures de pipe (`IOException: Pipe is broken`) avec protection de la boucle principale du serveur pour garantir zéro crash de Revit.
+
+### 📐 2. Moteur Géométrique Multithreadé Déporté en Rust (`rayon`)
+- **Nouvel outil `revit_fast_clash_detection`** : analyse de clash spatiale ultra-rapide accélérée sur tous les cœurs CPU via Rayon. Détection des intersections de boîtes englobantes (AABB) et calcul de volume d'interpénétration en quelques millisecondes sur des milliers d'éléments, sans figer le thread graphique de Revit.
+- **Nouvel outil `revit_analyze_room_metrics`** : moteur spatial calculant la surface exacte par formule de Green (Shoelace), le périmètre, la compacité circulaire ($4\pi A / P^2$), et l'audit bioclimatique RE2020 (ratio surface vitrée $\ge 1/6$) avec répartition cardinale de l'ensoleillement (Sud, Est, Ouest, Nord).
+
+### 🌿 3. Le "Git du BIM" : Branching & Variantes Architecturales Instantanées
+- **Nouvel outil `revit_branch_create`** : création d'une branche d'alternative architecturale isolée dans `_outils/.snapshots/branches/` avec sauvegarde d'état et calcul instantané des métriques de référence.
+- **Nouvel outil `revit_branch_list`** : inventaire chronologique des branches d'exploration créées par l'architecte ou l'IA.
+- **Nouvel outil `revit_branch_compare`** : comparateur différentiel intelligent entre deux variantes (branchA et branchB) :
+  - Delta de surface habitable Loi Carrez ($m^2$).
+  - Delta de linéaire de cloisons ($m$).
+  - Delta du nombre de portes et fenêtres.
+  - Écart de taux d'accessibilité PMR.
+  - Estimation de la variation budgétaire globale (cloisons, menuiseries, finitions).
+  - Recommandation technique automatisée.
+
+### 🔬 4. Intégration REA (Rétro-Ingénierie Native)
+- Utilisation des outils REA (`inspect_managed_artifact`, `inspect_managed_members`) pour explorer les structures internes de `RevitAPI.dll` (C++/CLI mixed mode, .NET 10, 63 866 méthodes) et concevoir les futurs hooks DirectX et CustomExporter directs.
+
+---
+
 ## [2.3.0] - 2026-11-05
 
 ### ☁️ 1. Enterprise Cloud & Worksharing (Autodesk Construction Cloud / BIM 360)

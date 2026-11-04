@@ -34817,5 +34817,78 @@ server.registerTool(
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
   }
 );
+server.registerTool(
+  "revit_fast_clash_detection",
+  {
+    description: "D\xE9tection de clashs g\xE9om\xE9triques ultra-rapide acc\xE9l\xE9r\xE9e par le moteur multithread\xE9 natif en Rust (Rayon).",
+    inputSchema: {
+      clearanceMm: external_exports.number().optional().default(0).describe("Distance d'\xE9vitement ou tol\xE9rance en millim\xE8tres"),
+      category: external_exports.string().optional().describe("Filtrer par cat\xE9gorie")
+    },
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("geometry/clash", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_analyze_room_metrics",
+  {
+    description: "Analyse spatiale et bioclimatique haute performance calcul\xE9e en Rust : surface Shoelace, compacit\xE9, ratio RE2020.",
+    inputSchema: {
+      vertices: external_exports.array(external_exports.array(external_exports.number())).describe("Polygone 2D [X, Y] en millim\xE8tres"),
+      glazedAreasM2: external_exports.array(external_exports.number()).optional().describe("Surfaces vitr\xE9es en m\xB2"),
+      windowOrientations: external_exports.array(external_exports.string()).optional().describe("Orientations cardinales")
+    },
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("geometry/room-metrics", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_branch_create",
+  {
+    description: "Cr\xE9e une branche d'exploration architecturale (Le Git du BIM) dans _outils/.snapshots/branches/ avec calcul imm\xE9diat des indicateurs cl\xE9s.",
+    inputSchema: {
+      name: external_exports.string().describe("Nom unique de la variante"),
+      description: external_exports.string().optional().describe("Description architecturale")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false }
+  },
+  async (args) => {
+    const data = await revit("branch/create", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_branch_list",
+  {
+    description: "Liste l'ensemble des branches d'alternatives architecturales (variantes IA) cr\xE9\xE9es pour le projet en cours.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("branch/list", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_branch_compare",
+  {
+    description: "Compare deux branches d'alternatives architecturales (branchA et branchB) : deltas surfaces Loi Carrez, lin\xE9aires cloisons, PMR, co\xFBt et recommandation.",
+    inputSchema: {
+      branchA: external_exports.string().describe("Nom de la premi\xE8re variante"),
+      branchB: external_exports.string().describe("Nom de la seconde variante")
+    },
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("branch/compare", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
 var transport = new StdioServerTransport();
 await server.connect(transport);

@@ -18,7 +18,7 @@ public class RevitHttpServer
 {
     private const string Prefix = "http://localhost:6543/";
     private const string ServiceName = "RevitMCP";
-    private const string ServiceVersion = "2.3.0";
+    private const string ServiceVersion = "2.4.0";
     private static readonly DateTime StartedUtc = DateTime.UtcNow;
     private static readonly Regex SafeActionPattern = new("^[a-z0-9-]+(?:/[a-z0-9-]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
     private static readonly TimeSpan QueueTimeout = TimeSpan.FromSeconds(10);
@@ -32,16 +32,27 @@ public class RevitHttpServer
     // The ExternalEvent mechanism lets us marshal calls onto Revit's main thread.
     private readonly RevitEventHandler _eventHandler;
     private readonly ExternalEvent _externalEvent;
-    private readonly SemaphoreSlim _requestGate = new(1, 1);
+    // RevitEventHandler.RequestGate moved to RevitEventHandler.RequestGate
+    private readonly RevitNamedPipeServer _pipeServer;
 
     public RevitHttpServer(UIControlledApplication uiApp)
     {
         _eventHandler = new RevitEventHandler();
         _externalEvent = ExternalEvent.Create(_eventHandler);
+        _pipeServer = new RevitNamedPipeServer(uiApp, _eventHandler, _externalEvent);
     }
 
     public bool Start()
     {
+        try
+        {
+            _pipeServer.Start();
+        }
+        catch (Exception ex)
+        {
+            ConfigManager.LogAudit("PIPE_SERVER_ERROR", $"Failed to start Named Pipe server: {ex.Message}");
+        }
+
         try
         {
             if (!_listener.Prefixes.Contains(Prefix))
@@ -71,6 +82,7 @@ public class RevitHttpServer
     public void Stop()
     {
         _running = false;
+        try { _pipeServer.Stop(); } catch { }
         try
         {
             if (_listener.IsListening)
@@ -167,7 +179,7 @@ public class RevitHttpServer
                 return;
             }
 
-            if (!_requestGate.Wait(QueueTimeout))
+            if (!RevitEventHandler.RequestGate.Wait(QueueTimeout))
             {
                 WriteJson(res, 429, RevitMcpException.CreateErrorResponse("TIMEOUT", "RevitMCP is busy. Try again in a few seconds."));
                 return;
@@ -201,7 +213,7 @@ public class RevitHttpServer
             }
             finally
             {
-                _requestGate.Release();
+                RevitEventHandler.RequestGate.Release();
             }
         }
         catch (Exception ex)

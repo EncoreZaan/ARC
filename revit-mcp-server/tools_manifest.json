@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-10-20T17:54:55.979Z",
-  "totalTools": 205,
+  "totalTools": 210,
   "tools": [
     {
       "name": "revit_health_check",
@@ -7770,6 +7770,123 @@
         "properties": {}
       },
       "action": "diagnostics/info",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_fast_clash_detection",
+      "description": "Détection de clashs géométriques ultra-rapide accélérée par le moteur multithreadé natif en Rust (Rayon). Analyse les boîtes englobantes spatiales (AABB) de milliers d'éléments en quelques millisecondes sans figer l'interface Revit.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "clearanceMm": {
+            "type": "number",
+            "description": "Tolérance ou distance d'évitement en millimètres (défaut: 0 pour clash direct, >0 pour clearance)"
+          },
+          "category": {
+            "type": "string",
+            "description": "Filtrer sur une catégorie spécifique (ex: 'Walls', 'Murs', 'Poutres', 'Conduits')"
+          }
+        }
+      },
+      "action": "geometry/clash",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_analyze_room_metrics",
+      "description": "Analyse spatiale et bioclimatique haute performance calculée en Rust natif : surface habitable exacte par formule de Green (Shoelace), périmètre, compacité circulaire, ratio de surface vitrée RE2020 (>= 1/6) et répartition solaire (Sud, Est, Ouest, Nord).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "vertices": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "description": "Coordonnées [X, Y] en millimètres des sommets du polygone délimitant la pièce"
+          },
+          "glazedAreasM2": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "Surfaces vitrées associées en m²"
+          },
+          "windowOrientations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Orientations cardinales des baies vitrées (ex: ['Sud', 'Est'])"
+          }
+        },
+        "required": [
+          "vertices"
+        ]
+      },
+      "action": "geometry/room-metrics",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_branch_create",
+      "description": "Crée une branche d'exploration architecturale (Le Git du BIM) dans _outils/.snapshots/branches/ avec métadonnées complètes et calcul immédiat des indicateurs clés (surface Loi Carrez, linéaire de cloisons, score PMR, menuiseries).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom unique de la variante d'exploration (ex: 'OptionA_CuisineOuverte', 'OptionB_SuiteParentale')"
+          },
+          "description": {
+            "type": "string",
+            "description": "Explication architecturale du parti pris de la variante"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "action": "branch/create",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_branch_list",
+      "description": "Liste l'ensemble des branches d'alternatives architecturales (variantes IA) créées pour le projet en cours.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "branch/list",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_branch_compare",
+      "description": "Compare deux branches d'alternatives architecturales (branchA et branchB). Calcule le delta de surface habitable Loi Carrez, delta de linéaire de murs, delta portes/fenêtres, écart de conformité PMR, estimation de la variation budgétaire et recommandation comparative.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "branchA": {
+            "type": "string",
+            "description": "Nom de la première variante"
+          },
+          "branchB": {
+            "type": "string",
+            "description": "Nom de la seconde variante"
+          }
+        },
+        "required": [
+          "branchA",
+          "branchB"
+        ]
+      },
+      "action": "branch/compare",
       "isHealthCheck": false
     }
   ]
