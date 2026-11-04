@@ -18,7 +18,7 @@ public class RevitHttpServer
 {
     private const string Prefix = "http://localhost:6543/";
     private const string ServiceName = "RevitMCP";
-    private const string ServiceVersion = "2.2.0";
+    private const string ServiceVersion = "2.3.0";
     private static readonly DateTime StartedUtc = DateTime.UtcNow;
     private static readonly Regex SafeActionPattern = new("^[a-z0-9-]+(?:/[a-z0-9-]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
     private static readonly TimeSpan QueueTimeout = TimeSpan.FromSeconds(10);
@@ -40,20 +40,43 @@ public class RevitHttpServer
         _externalEvent = ExternalEvent.Create(_eventHandler);
     }
 
-    public void Start()
+    public bool Start()
     {
-        _listener.Prefixes.Add(Prefix);
-        _listener.Start();
-        _running = true;
-        _thread = new Thread(Listen) { IsBackground = true };
-        _thread.Start();
+        try
+        {
+            if (!_listener.Prefixes.Contains(Prefix))
+                _listener.Prefixes.Add(Prefix);
+
+            _listener.Start();
+            _running = true;
+            _thread = new Thread(Listen) { IsBackground = true };
+            _thread.Start();
+            ConfigManager.LogAudit("HTTP_SERVER", $"Revit AI Copilot bridge started on {Prefix}");
+            return true;
+        }
+        catch (HttpListenerException hle)
+        {
+            _running = false;
+            ConfigManager.LogAudit("HTTP_SERVER_PORT_CONFLICT", $"Could not bind to {Prefix}: {hle.Message} (Error code: {hle.ErrorCode}). Another Revit instance or process is already listening.");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _running = false;
+            ConfigManager.LogAudit("HTTP_SERVER_START_ERROR", $"Failed to start HTTP server on {Prefix}: {ex.Message}");
+            return false;
+        }
     }
 
     public void Stop()
     {
         _running = false;
-        if (_listener.IsListening)
-            _listener.Stop();
+        try
+        {
+            if (_listener.IsListening)
+                _listener.Stop();
+        }
+        catch { }
     }
 
     private void Listen()

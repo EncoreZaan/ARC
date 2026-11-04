@@ -72,7 +72,11 @@ public class App : IExternalApplication
             // 5. Initialisation du cache des documents et Démarrage du serveur HTTP
             OpenDocumentsCache.Initialize(application);
             _server = new RevitHttpServer(application);
-            _server.Start();
+            var serverStarted = _server.Start();
+            if (!serverStarted)
+            {
+                ConfigManager.LogAudit("STARTUP", "Serveur HTTP non démarré (le port 6543 est déjà utilisé par une autre instance Revit ou un processus tiers).");
+            }
 
             if (Environment.GetEnvironmentVariable("REVIT_MCP_SHOW_STARTUP_DIALOG") == "1")
                 TaskDialog.Show("RevitMCP", "Revit AI Copilot bridge started on http://localhost:6543");
@@ -81,8 +85,12 @@ public class App : IExternalApplication
         }
         catch (Exception ex)
         {
-            TaskDialog.Show("RevitMCP", $"Échec du démarrage de Revit AI Bridge sur http://localhost:6543\n\n{ex.Message}");
-            return Result.Failed;
+            ConfigManager.LogAudit("STARTUP_ERROR", $"Erreur lors de l'initialisation de RevitMCP : {ex}");
+            if (Environment.GetEnvironmentVariable("REVIT_MCP_SHOW_ERROR_DIALOG") == "1")
+            {
+                TaskDialog.Show("RevitMCP", $"Échec du démarrage de Revit AI Bridge sur http://localhost:6543\n\n{ex.Message}");
+            }
+            return Result.Succeeded;
         }
     }
 

@@ -95,5 +95,18 @@ class TestCadMcp(unittest.TestCase):
         self.assertTrue(res["success"])
         self.assertEqual(res["discrepancyCount"], 0)
 
+    def test_dxf_compare_with_bimcraft(self):
+        bimcraft_elements = [
+            {
+                "id": 100003,
+                "type": "Single Door 900 x 2100",
+                "category": "door",
+                "at": [860.0, 0.0]
+            }
+        ]
+        res = json.loads(dxf_compare_with_revit(self.dxf_path, bimcraft_elements, toleranceMm=20.0))
+        self.assertTrue(res["success"])
+        self.assertEqual(res["discrepancyCount"], 0)
+
 if __name__ == "__main__":
     unittest.main()

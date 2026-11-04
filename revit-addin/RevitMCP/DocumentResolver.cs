@@ -15,7 +15,7 @@ public static class DocumentResolver
     public static Document ResolveDocument(UIApplication app, JObject? payload)
     {
         var docTitle = payload?["documentTitle"]?.Value<string>() ?? payload?["title"]?.Value<string>();
-        var docPath = payload?["documentPath"]?.Value<string>() ?? payload?["path"]?.Value<string>();
+        var docPath = payload?["documentPath"]?.Value<string>();
         var target = !string.IsNullOrWhiteSpace(docTitle) ? docTitle : docPath;
 
         if (string.IsNullOrWhiteSpace(target))

@@ -13,7 +13,10 @@ public static class ConfigManager
     private static readonly string ConfigFileName = "RevitMCP.config.json";
     private static readonly string LogFileName = "RevitMCP.audit.log";
 
-    public static bool AllowCodeExecution { get; private set; } = false;
+    public static bool AllowCodeExecution { get; private set; } = true;
+    public static string SecurityMode { get; private set; } = "full"; // "read-only", "write", "full"
+
+    public static bool IsReadOnly => string.Equals(SecurityMode, "read-only", StringComparison.OrdinalIgnoreCase);
 
     static ConfigManager()
     {
@@ -39,18 +42,44 @@ public static class ConfigManager
                 {
                     var text = File.ReadAllText(path);
                     var json = JObject.Parse(text);
-                    AllowCodeExecution = json["allowCodeExecution"]?.Value<bool>() ?? false;
+                    AllowCodeExecution = json["allowCodeExecution"]?.Value<bool>() ?? true;
+                    SecurityMode = json["securityMode"]?.Value<string>()?.ToLowerInvariant() ?? "full";
                     return;
                 }
             }
 
-            // Default: false
-            AllowCodeExecution = false;
+            AllowCodeExecution = true;
+            SecurityMode = "full";
         }
         catch
         {
+            AllowCodeExecution = true;
+            SecurityMode = "full";
+        }
+    }
+
+    public static void SetSecurityMode(string mode)
+    {
+        SecurityMode = mode.ToLowerInvariant();
+        if (SecurityMode == "read-only")
+        {
             AllowCodeExecution = false;
         }
+        else if (SecurityMode == "full")
+        {
+            AllowCodeExecution = true;
+        }
+
+        try
+        {
+            var appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Autodesk", "Revit", "Addins", "2027");
+            var configPath = Path.Combine(appDataDir, ConfigFileName);
+            var json = File.Exists(configPath) ? JObject.Parse(File.ReadAllText(configPath)) : new JObject();
+            json["securityMode"] = SecurityMode;
+            json["allowCodeExecution"] = AllowCodeExecution;
+            File.WriteAllText(configPath, json.ToString());
+        }
+        catch { }
     }
 
     public static void LogAudit(string action, string details)

@@ -1,6 +1,6 @@
 # ⚡ REVIT AI BRIDGE — LE PONT MCP INTELLIGENT POUR AUTODESK REVIT
 
-[![Release](https://img.shields.io/github/v/release/EncoreZaan/Revit-MCP?color=00d2ff&label=Version)](https://github.com/EncoreZaan/Revit-MCP/releases/tag/v2.2.0)
+[![Release](https://img.shields.io/github/v/release/EncoreZaan/Revit-MCP?color=00d2ff&label=Version)](https://github.com/EncoreZaan/Revit-MCP/releases/tag/v2.3.0)
 [![Revit](https://img.shields.io/badge/Autodesk%20Revit-2024%20%7C%202025%20%7C%202026%20%7C%202027-blue.svg)](https://www.autodesk.fr/products/revit/overview)
 [![Rust](https://img.shields.io/badge/Server-Rust%20100%25%20Natif-orange.svg)](https://www.rust-lang.org/)
 [![MCP](https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-green.svg)](https://modelcontextprotocol.io/)
@@ -8,7 +8,7 @@
 
 > **Revit AI Bridge** connecte **Claude (Claude Desktop, Cursor, Claude Code)** directement à **Autodesk Revit** via le protocole ouvert **Model Context Protocol (MCP)**.
 >
-> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **196 outils locaux ultra-rapides**, un **panneau latéral WPF incrusté dans Revit**, des **audits PMR en 1 clic** et une **vision multimodale instantanée** propulsée par un serveur autonome en **Rust**.
+> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **205 outils locaux ultra-rapides**, un **panneau latéral WPF incrusté dans Revit**, des **audits PMR en 1 clic** et une **vision multimodale instantanée** propulsée par un serveur autonome en **Rust**.
 
 ---
 
@@ -18,8 +18,8 @@ Pas besoin de compiler du code ou de configurer des variables d'environnement. T
 
 ### Option A : L'installateur universel (Recommandé) ⚡
 
-1. Téléchargez la dernière version : **[📥 Télécharger RevitMCP-Setup-v2.2.0.exe](https://github.com/EncoreZaan/Revit-MCP/releases/download/v2.2.0/RevitMCP-Setup-v2.2.0.exe)**
-2. Double-cliquez sur **`RevitMCP-Setup-v2.2.0.exe`**.
+1. Téléchargez la dernière version : **[📥 Télécharger RevitMCP-Setup-v2.3.0.exe](https://github.com/EncoreZaan/Revit-MCP/releases/download/v2.2.0/RevitMCP-Setup-v2.3.0.exe)**
+2. Double-cliquez sur **`RevitMCP-Setup-v2.3.0.exe`**.
 3. **C'est tout !** L'installateur :
    - Déploie automatiquement l'add-in Revit pour vos versions installées (2027, 2026, 2025 ou 2024).
    - Configure automatiquement le commutateur silencieux `DisableAddInSecurity=1` (zéro popup d'éditeur non vérifié au démarrage).
@@ -40,6 +40,31 @@ cd "Revit-MCP"
 # 2. Exécuter le script d'installation automatique
 powershell -ExecutionPolicy Bypass -File "scripts/install.ps1"
 ```
+
+---
+
+## ☁️ Nouveautés Majeures v2.3.0 (Enterprise Cloud & Sécurité)
+
+### 🛡️ Niveaux de Sécurité Stricts & Garde-fous IA
+- **Modes `read-only`, `write` et `full`** (`revit_get_security_mode`, `revit_set_security_mode`) :
+  - Empêche toute corruption accidentelle par l'IA en verrouillant le modèle en lecture seule lors des phases d'audit ou de métré.
+  - Le moteur de transactions `TransactionRunner` bloque proactivement toute tentative de modification si le mode de sécurité est actif.
+
+### ☁️ Détection Cloud ACC / BIM 360 & Fichiers Centraux
+- **Outils Cloud dédiés** (`revit_get_cloud_info`, `revit_sync_with_central`) :
+  - Détection native des maquettes hébergées sur **Autodesk Construction Cloud (ACC)** ou **BIM 360** (Cloud Project GUID, Model GUID).
+  - Gestion sécurisée de la synchronisation avec le fichier central (Synchronize with Central) et des sous-projets (Worksharing).
+
+### 📸 Points de Restauration & Instantanés Automatisés (.snapshots)
+- **Instantanés avec métadonnées** (`revit_create_snapshot`, `revit_list_snapshots`) :
+  - Crée une copie de sauvegarde horodatée dans `_outils/.snapshots/` avec métadonnées JSON complètes avant d'exécuter des modifications structurelles lourdes.
+
+### 🔍 Diagnostics Session & Empreinte Mémoire Revit
+- **Outil de diagnostic en direct** (`revit_get_diagnostics`) :
+  - Rapport complet sur la version/build exacte de Revit, l'empreinte mémoire vive (Working Set MB, Private Memory MB, Heap managé), le regroupement des avertissements (warnings) et l'intégrité des liens CAO/Revit.
+
+### 📐 Rendu Vectoriel DXF / DWG Haute Fidélité (`cad-mcp`)
+- Moteur de rendu vectoriel **PyMuPDF** à l'échelle réelle 1:1 basé sur les dimensions exactes du papier (`paper_width`/`paper_height`), fond blanc et traits noirs.
 
 ---
 

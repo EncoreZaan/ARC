@@ -4,6 +4,56 @@ Toutes les modifications notables apportées au projet RevitMCP sont documentée
 
 ---
 
+## [2.3.0] - 2026-11-05
+
+### ☁️ 1. Enterprise Cloud & Worksharing (Autodesk Construction Cloud / BIM 360)
+- **Nouvel outil `revit_get_cloud_info`** : détection native des modèles hébergés sur le Cloud Autodesk (ACC / BIM 360). Extraction automatique du Cloud Project GUID, Model GUID, chemin central et inventaire des sous-projets (Worksharing).
+- **Nouvel outil `revit_sync_with_central`** : synchronisation directe avec le fichier central (Synchronize with Central) avec gestion du compactage, libération des éléments empruntés et commentaire de commit.
+
+### 🛡️ 2. Niveaux de Sécurité Avancés & Garde-fous IA
+- **Nouveaux outils `revit_get_security_mode` & `revit_set_security_mode`** :
+  - `read-only` : mode sécurité stricte interdisant formellement toute transaction ou écriture dans le modèle (audit, métrés, extraction sans risque).
+  - `write` : mode standard contrôlé autorisant les commandes de modélisation architecturales sans exécution de code dynamique.
+  - `full` : mode complet avec exécution dynamique C#/Python.
+- **Blocage proactif dans le moteur de transactions (`TransactionRunner`)** : rejet automatique de toute modification demandée en mode lecture seule.
+
+### 📸 3. Système d'Instantanés & Points de Restauration (Snapshots)
+- **Nouvel outil `revit_create_snapshot`** : création automatisée d'instantanés du document dans `_outils/.snapshots/` avec horodatage UTC, ID unique, taille et métadonnées JSON avant d'effectuer des modifications lourdes sur le projet.
+- **Nouvel outil `revit_list_snapshots`** : inventaire chronologique des points de restauration disponibles pour le projet actif.
+
+### 🔍 4. Diagnostics Système & Session Revit
+- **Nouvel outil `revit_get_diagnostics`** : inspection complète de la session Revit en temps réel :
+  - Version, numéro de build officiel (`27.0.10.13`) et langue.
+  - Consommation mémoire vive exacte du processus Revit (Working Set MB, Private Memory MB, Heap managé).
+  - Statistique globale des avertissements Revit (warnings groupés par gravité et nature).
+  - État de chargement des liens CAO (DWG/DXF) et modèles Revit liés.
+
+### 🏷️ 5. Classifications BIM Sémantiques
+- **Nouvel outil `revit_get_bim_classification`** : extraction instantanée des classifications sémantiques normalisées :
+  - Code et libellé OmniClass (Table 21/23).
+  - Code d'assemblage UniFormat (`BuiltInParameter.ASSEMBLY_CODE` et description).
+  - Keynotes (notes clés).
+  - Correspondance IFC normalisée (fallback automatique `IfcWall`, `IfcDoor`, `IfcWindow`, etc.).
+
+### 🏗️ 6. Instanciation de Projet à Froid
+- **Nouvel outil `revit_new_project`** : instanciation d'un nouveau projet Revit (`.rvt`) à partir d'un gabarit (`.rte`), enregistrement sur disque et ouverture/activation immédiate dans l'interface, fonctionnant même si aucun document n'est ouvert au départ.
+
+### 🔧 7. Fiabilisation du Moteur de Transactions & Résilience
+- **Résolution du bug de Rollback masqué** : suppression de l'erreur générique `The transaction has not been started yet` causée par une tentative de rollback sur une transaction déjà avortée par l'API Revit ; renvoi direct du texte réel des `FailureMessage`.
+- **Préprocesseur d'avertissements bienveillant (`SafeFailurePreprocessor`)** : les avertissements géométriques simples (`FailureSeverity.Warning`) sont supprimés et continués sans jamais faire échouer la transaction. Seules les erreurs bloquantes (`FailureSeverity.Error`) annulent la transaction.
+- **Désactivation des dialogues (`revit_dismiss_dialogs`)** : acceptation du paramètre `policy: "off"` pour retirer le préprocesseur.
+- **Démarrage multi-instance silencieux** : suppression définitive de la popup modale bloquante au démarrage de Revit en cas de conflit sur le port 6543 ; journalisation transparente dans `RevitMCP.audit.log`.
+- **Unwrapping d'exceptions C# (`revit_execute_csharp`)** : déballage récursif de `TargetInvocationException` pour renvoyer le type exact, message et pile d'exécution de l'`InnerException`.
+- **Gestion des chemins (`revit_open_document` & `revit_save_as`)** : séparation stricte de `path` et `documentTitle`.
+- **Allègement des captures d'écran (`revit_screenshot_active_view`)** : `includeBase64 = false` par défaut pour préserver la mémoire et le contexte LLM, renvoi systématique du chemin PNG sur disque.
+
+### 📐 8. Moteur CAD MCP Vectoriel Haute Fidélité (`cad-mcp`)
+- **Rendu vectoriel PyMuPDF** : migration vers `ezdxf.addons.drawing.pymupdf.PyMuPdfBackend`.
+- **Échelle 1:1 exacte** : cadrage automatique sur les dimensions réelles du papier de mise en page (`paper_width`/`paper_height`), fond blanc et traits noirs.
+- **Catalogue total** : le serveur MCP dispose désormais de **205 outils professionnels**.
+
+---
+
 ## [2.2.0] - 2026-10-20
 
 ### 👁️ 1. Feedback Visuel Multimodal (L'IA avec des yeux dans Revit)

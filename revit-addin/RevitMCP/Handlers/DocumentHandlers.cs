@@ -10,6 +10,62 @@ namespace RevitMCP;
 
 public partial class RevitEventHandler
 {
+        private static JObject NewProject(UIApplication app, JObject p)
+    {
+        var templatePath = p["templatePath"]?.Value<string>() ?? p["template"]?.Value<string>();
+        var savePath = p["savePath"]?.Value<string>() ?? p["path"]?.Value<string>()
+            ?? throw new RevitMcpException("INVALID_ARGUMENT", "Missing savePath.");
+
+        if (!string.IsNullOrWhiteSpace(templatePath) && !File.Exists(templatePath))
+        {
+            throw new RevitMcpException("FILE_NOT_FOUND", $"Template file '{templatePath}' does not exist.");
+        }
+
+        var saveDir = Path.GetDirectoryName(savePath);
+        if (!string.IsNullOrEmpty(saveDir))
+        {
+            Directory.CreateDirectory(saveDir);
+        }
+
+        Document newDoc;
+        if (!string.IsNullOrWhiteSpace(templatePath))
+        {
+            newDoc = app.Application.NewProjectDocument(templatePath);
+        }
+        else
+        {
+            newDoc = app.Application.NewProjectDocument(UnitSystem.Metric);
+        }
+
+        var saveOpts = new SaveAsOptions
+        {
+            OverwriteExistingFile = p["overwrite"]?.Value<bool>() ?? true,
+            MaximumBackups = p["maxBackups"]?.Value<int>() ?? 3
+        };
+
+        newDoc.SaveAs(savePath, saveOpts);
+
+        UIDocument uiDoc;
+        try
+        {
+            uiDoc = app.OpenAndActivateDocument(savePath);
+        }
+        catch
+        {
+            newDoc.Close(false);
+            uiDoc = app.OpenAndActivateDocument(savePath);
+        }
+
+        OpenDocumentsCache.SyncFromRevit(app);
+
+        return new JObject
+        {
+            ["success"] = true,
+            ["title"] = uiDoc.Document.Title,
+            ["path"] = uiDoc.Document.PathName
+        };
+    }
+
     private static JObject ListOpenDocuments(UIApplication app)
     {
         OpenDocumentsCache.SyncFromRevit(app);

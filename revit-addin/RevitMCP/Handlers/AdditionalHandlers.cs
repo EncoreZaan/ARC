@@ -513,11 +513,15 @@ public partial class RevitEventHandler
 
     private static JObject DismissDialogs(JObject p)
     {
+        var policy = p["policy"]?.Value<string>()?.ToLowerInvariant() ?? "ok";
+        TransactionRunner.DialogPolicy = policy;
         return new JObject
         {
             ["success"] = true,
-            ["policy"] = p["policy"]?.Value<string>() ?? "ok",
-            ["message"] = "Dialog suppression active through SafeFailurePreprocessor."
+            ["policy"] = policy,
+            ["message"] = policy == "off"
+                ? "Dialog suppression disabled (FailurePreprocessor removed)."
+                : $"Dialog suppression active with policy '{policy}'."
         };
     }
 

@@ -90,7 +90,7 @@ public partial class RevitEventHandler
         }
 
         var fileBytes = File.ReadAllBytes(foundFile);
-        var includeBase64 = p["includeBase64"]?.Value<bool>() ?? true;
+        var includeBase64 = p["includeBase64"]?.Value<bool>() ?? false;
         string? base64Data = includeBase64 ? Convert.ToBase64String(fileBytes) : null;
 
         var result = new JObject

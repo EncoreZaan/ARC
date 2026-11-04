@@ -41,3 +41,8 @@ revit-mcp-server/target/
 
 # Release distribution output
 /dist/
+
+# Backups and Python bytecode
+*.bak
+__pycache__/
+*.pyc

@@ -1162,6 +1162,18 @@ server.registerTool("revit_activate_document", {
     const data = await revit("documents/activate", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
+server.registerTool("revit_new_project", {
+    description: "Crée un nouveau document projet Revit à partir d'un gabarit (.rte), l'enregistre sur le disque et l'ouvre dans l'interface active. Exemple : revit_new_project({ templatePath: 'C:\\Gabarits\\DOUBLE-BAY_gabarit.rte', savePath: 'C:\\Projets\\Nouveau.rvt' }).",
+    inputSchema: {
+        templatePath: z.string().optional().describe("Chemin absolu du gabarit de projet .rte"),
+        savePath: z.string().describe("Chemin absolu où enregistrer le nouveau projet .rvt"),
+        overwrite: z.boolean().optional().default(true).describe("Écraser si le fichier existe"),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async ({ templatePath, savePath, overwrite }) => {
+    const data = await revit("documents/new", { templatePath, savePath, overwrite });
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
 server.registerTool("revit_open_document", {
     description: "Ouvre un document Revit dans la session active sans lancer une nouvelle instance Revit. Exemple : revit_open_document({ path: 'C:\\Projets\\Maison.rvt' }).",
     inputSchema: {
@@ -2390,7 +2402,7 @@ server.registerTool("revit_get_log", {
 server.registerTool("revit_dismiss_dialogs", {
     description: "Vérifie et configure la suppression automatique des boîtes de dialogue modales bloquantes dans Revit. Exemple : revit_dismiss_dialogs({ policy: 'ok' }).",
     inputSchema: {
-        policy: z.enum(["ok", "cancel", "report"]).optional().default("ok").describe("Politique de réponse"),
+        policy: z.enum(["ok", "cancel", "report", "off"]).optional().default("ok").describe("Politique de réponse"),
         documentTitle: z.string().optional().describe("Titre ou chemin du document cible (défaut : document actif)"),
     },
     annotations: { readOnlyHint: false, destructiveHint: false },
@@ -2880,7 +2892,7 @@ server.registerTool("revit_screenshot_active_view", {
         viewId: z.number().int().optional().describe("ID de la vue à capturer (défaut : vue active)"),
         widthPixels: z.number().int().optional().default(1920).describe("Largeur de l'image en pixels (320 à 4096, défaut : 1920)"),
         format: z.enum(["png", "jpeg"]).optional().default("png").describe("Format d'image ('png' ou 'jpeg')"),
-        includeBase64: z.boolean().optional().default(true).describe("Inclure les données Base64 de l'image dans la réponse"),
+        includeBase64: z.boolean().optional().default(false).describe("Inclure les données Base64 de l'image dans la réponse"),
         saveFilePath: z.string().optional().describe("Chemin cible optionnel sur le disque pour enregistrer l'image"),
         documentTitle: z.string().optional().describe("Document cible"),
     },
@@ -2966,6 +2978,84 @@ server.registerTool("revit_clear_proactive_alerts", {
     annotations: { readOnlyHint: false, destructiveHint: false },
 }, async (args) => {
     const data = await revit("proactive/clear", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_security_mode", {
+    description: "Obtient le mode de sécurité actif de RevitMCP ('read-only', 'write', 'full') et les permissions d'accès au modèle.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("security/get", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_set_security_mode", {
+    description: "Définit le mode de sécurité de RevitMCP : 'read-only' (bloque toute transaction modifiante), 'write' (standard), 'full' (étendu).",
+    inputSchema: {
+        mode: z.enum(["read-only", "write", "full"]).describe("Mode de sécurité désiré"),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("security/set", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_cloud_info", {
+    description: "Détecte si le document actif est hébergé sur Autodesk Construction Cloud (ACC) ou BIM 360, et extrait le Cloud Project GUID, Model GUID, chemin central et informations de sous-projets.",
+    inputSchema: {
+        documentTitle: z.string().optional().describe("Document cible"),
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("cloud/info", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_sync_with_central", {
+    description: "Synchronise le modèle partagé (local ou cloud ACC/BIM 360) avec le fichier central (Synchronize with Central).",
+    inputSchema: {
+        comment: z.string().optional().describe("Commentaire de synchronisation"),
+        compact: z.boolean().optional().default(false).describe("Compacter le fichier central"),
+        saveLocalAfter: z.boolean().optional().default(true).describe("Enregistrer la copie locale après synchronisation"),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("cloud/sync", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_create_snapshot", {
+    description: "Crée un instantané (snapshot de sauvegarde / point de restauration) du document actif dans _outils/.snapshots/ avec horodatage et métadonnées avant d'effectuer des modifications lourdes.",
+    inputSchema: {
+        name: z.string().optional().describe("Nom ou étiquette de l'instantané"),
+        description: z.string().optional().describe("Description de l'état ou raison de l'instantané"),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("snapshots/create", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_list_snapshots", {
+    description: "Liste l'ensemble des instantanés (snapshots de sauvegarde) créés pour le projet en cours.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("snapshots/list", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_bim_classification", {
+    description: "Récupère les classifications BIM d'éléments Revit : code et description OmniClass, code d'assemblage Uniformat, Keynote et correspondance IFC fallback.",
+    inputSchema: {
+        elementId: z.number().int().optional().describe("Identifiant d'un élément Revit"),
+        elementIds: z.array(z.number().int()).optional().describe("Liste d'identifiants d'éléments"),
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("bim/classification", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_diagnostics", {
+    description: "Diagnostic complet de la session Revit : version/build exacte, utilisation mémoire du processus Revit (Mo), statistiques des avertissements (warnings groupés), état des liens CAO/Revit.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("diagnostics/info", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 const transport = new StdioServerTransport();

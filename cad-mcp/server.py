@@ -7,8 +7,10 @@ from typing import Optional, List, Dict, Any
 
 from mcp.server.mcpserver import MCPServer
 import ezdxf
-from ezdxf.addons.drawing import Frontend, RenderContext
+from ezdxf.addons.drawing import Frontend, RenderContext, layout as drawing_layout, config as drawing_config
+from ezdxf.addons.drawing.pymupdf import PyMuPdfBackend
 from ezdxf.addons.drawing.matplotlib import MatplotlibBackend
+import pymupdf
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
@@ -166,6 +168,23 @@ def dxf_list_entities(path: str, layer: Optional[str] = None, layout: Optional[s
         }, indent=2)
 
 
+def _get_layout_paper_size_mm(space) -> tuple[float, float]:
+    pw, ph = None, None
+    if hasattr(space, "dxf") and hasattr(space.dxf, "paper_width") and space.dxf.paper_width > 0:
+        pw = float(space.dxf.paper_width)
+        ph = float(space.dxf.paper_height)
+    elif hasattr(space, "get_paper_limits"):
+        try:
+            lim_min, lim_max = space.get_paper_limits()
+            pw = float(abs(lim_max.x - lim_min.x))
+            ph = float(abs(lim_max.y - lim_min.y))
+        except Exception:
+            pass
+    if not pw or not ph or pw <= 0 or ph <= 0:
+        pw, ph = 420.0, 297.0
+    return pw, ph
+
+
 @mcp.tool()
 def dxf_render(path: str, outputPath: str, layout: Optional[str] = "Model", dpi: Optional[int] = 150, format: Optional[str] = "png", scale: Optional[float] = None) -> str:
     """
@@ -182,19 +201,33 @@ def dxf_render(path: str, outputPath: str, layout: Optional[str] = "Model", dpi:
         space = doc.layout(layout) if layout and layout != "Model" else doc.modelspace()
         
         ext = out_p.suffix.lower().replace(".", "")
-        fmt = format or (ext if ext in ("png", "pdf") else "png")
+        fmt = (format or (ext if ext in ("png", "pdf") else "png")).lower()
         
-        fig = plt.figure(dpi=dpi or 150)
-        ax = fig.add_axes([0, 0, 1, 1])
-        ctx = RenderContext(doc)
-        out = MatplotlibBackend(ax)
-        Frontend(ctx, out).draw_layout(space, finalize=True)
-        
-        if scale and scale > 0:
-            ax.set_aspect("equal")
-            
-        fig.savefig(str(out_p), dpi=dpi or 150, format=fmt)
-        plt.close(fig)
+        if fmt == "pdf":
+            be = PyMuPdfBackend()
+            cfg = drawing_config.Configuration(
+                background_policy=drawing_config.BackgroundPolicy.WHITE,
+                color_policy=drawing_config.ColorPolicy.BLACK,
+                lineweight_scaling=1.0,
+                min_lineweight=0.09
+            )
+            Frontend(RenderContext(doc), be, config=cfg).draw_layout(space, finalize=True)
+            pw, ph = _get_layout_paper_size_mm(space)
+            page = drawing_layout.Page(pw, ph, drawing_layout.Units.mm, margins=drawing_layout.Margins.all(0))
+            settings = drawing_layout.Settings(scale=scale or 1, fit_page=False)
+            pdf_bytes = be.get_pdf_bytes(page, settings=settings)
+            with open(str(out_p), "wb") as f:
+                f.write(pdf_bytes)
+        else:
+            fig = plt.figure(dpi=dpi or 150)
+            ax = fig.add_axes([0, 0, 1, 1])
+            ctx = RenderContext(doc)
+            out = MatplotlibBackend(ax)
+            Frontend(ctx, out).draw_layout(space, finalize=True)
+            if scale and scale > 0:
+                ax.set_aspect("equal")
+            fig.savefig(str(out_p), dpi=dpi or 150, format=fmt)
+            plt.close(fig)
         
         return json.dumps({
             "success": True,
@@ -202,7 +235,7 @@ def dxf_render(path: str, outputPath: str, layout: Optional[str] = "Model", dpi:
             "outputPath": out_p.as_posix(),
             "layout": layout or "Model",
             "format": fmt,
-            "scale": scale,
+            "scale": scale or 1,
             "dpi": dpi or 150
         }, indent=2)
     except Exception as ex:
@@ -237,17 +270,29 @@ def dxf_render_all_layouts_pdf(path: str, outputPath: str, dpi: Optional[int] = 
         doc = ezdxf.readfile(str(p))
         
         rendered_layouts = []
-        with PdfPages(str(out_p)) as pdf:
-            for lyt_name in doc.layout_names():
-                space = doc.layout(lyt_name)
-                fig = plt.figure(dpi=dpi or 150)
-                ax = fig.add_axes([0, 0, 1, 1])
-                ctx = RenderContext(doc)
-                out = MatplotlibBackend(ax)
-                Frontend(ctx, out).draw_layout(space, finalize=True)
-                pdf.savefig(fig, dpi=dpi or 150)
-                plt.close(fig)
-                rendered_layouts.append(lyt_name)
+        merged_pdf = pymupdf.open()
+        
+        for lyt_name in doc.layout_names():
+            space = doc.layout(lyt_name)
+            be = PyMuPdfBackend()
+            cfg = drawing_config.Configuration(
+                background_policy=drawing_config.BackgroundPolicy.WHITE,
+                color_policy=drawing_config.ColorPolicy.BLACK,
+                lineweight_scaling=1.0,
+                min_lineweight=0.09
+            )
+            Frontend(RenderContext(doc), be, config=cfg).draw_layout(space, finalize=True)
+            pw, ph = _get_layout_paper_size_mm(space)
+            page = drawing_layout.Page(pw, ph, drawing_layout.Units.mm, margins=drawing_layout.Margins.all(0))
+            settings = drawing_layout.Settings(scale=1, fit_page=False)
+            page_pdf_bytes = be.get_pdf_bytes(page, settings=settings)
+            page_doc = pymupdf.open(stream=page_pdf_bytes, filetype="pdf")
+            merged_pdf.insert_pdf(page_doc)
+            page_doc.close()
+            rendered_layouts.append(lyt_name)
+            
+        merged_pdf.save(str(out_p))
+        merged_pdf.close()
                 
         return json.dumps({
             "success": True,
@@ -479,8 +524,9 @@ def dxf_diff(pathA: str, pathB: str, toleranceMm: Optional[float] = 1.0) -> str:
 @mcp.tool()
 def dxf_compare_with_revit(dxfPath: str, revitElements: List[Dict[str, Any]], toleranceMm: Optional[float] = 20.0) -> str:
     """
-    Compare les éléments d'un plan DXF validé et les éléments correspondants d'un modèle Revit.
+    Compare les éléments d'un plan DXF validé et les éléments correspondants d'un modèle Revit ou BIMCraft.
     Détecte les écarts de position > toleranceMm (ex: portes décalées, fenêtres manquantes).
+    Prend en charge la structure de points native Revit ou BIMCraft (`at`: [x, y], `point`: [x, y], ou `location`: {type: point}).
     Exemple : dxf_compare_with_revit("C:/Planche.dxf", revitElements=[...], toleranceMm=20.0)
     """
     try:
@@ -500,36 +546,49 @@ def dxf_compare_with_revit(dxfPath: str, revitElements: List[Dict[str, Any]], to
         checked_count = 0
         for el in revitElements:
             checked_count += 1
-            loc = el.get("location")
-            if not loc:
+            px, py = None, None
+
+            # Support natif BIMCraft & formats variés
+            if "at" in el and isinstance(el["at"], (list, tuple)) and len(el["at"]) >= 2:
+                px, py = float(el["at"][0]), float(el["at"][1])
+            elif "point" in el:
+                pt = el["point"]
+                if isinstance(pt, (list, tuple)) and len(pt) >= 2:
+                    px, py = float(pt[0]), float(pt[1])
+                elif isinstance(pt, dict):
+                    px, py = float(pt.get("x", 0)), float(pt.get("y", 0))
+            else:
+                loc = el.get("location")
+                if loc and loc.get("type") == "point":
+                    pt = loc.get("point", {})
+                    px, py = float(pt.get("x", 0)), float(pt.get("y", 0))
+
+            if px is None or py is None:
                 continue
-            
-            if loc.get("type") == "point":
-                pt = loc.get("point", {})
-                px, py = pt.get("x", 0), pt.get("y", 0)
-                min_dist = float("inf")
-                for (x1, y1, x2, y2) in dxf_lines:
-                    dx = x2 - x1
-                    dy = y2 - y1
-                    if dx == 0 and dy == 0:
-                        dist = math.hypot(px - x1, py - y1)
-                    else:
-                        t = max(0, min(1, ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)))
-                        proj_x = x1 + t * dx
-                        proj_y = y1 + t * dy
-                        dist = math.hypot(px - proj_x, py - proj_y)
-                    if dist < min_dist:
-                        min_dist = dist
-                        
-                if min_dist > tol and min_dist < 2000:
-                    discrepancies.append({
-                        "elementId": el.get("id"),
-                        "name": el.get("name"),
-                        "category": el.get("category"),
-                        "revitPosition": {"x": px, "y": py},
-                        "deviationMm": round(min_dist, 1),
-                        "status": "DISCREPANCY"
-                    })
+
+            min_dist = float("inf")
+            for (x1, y1, x2, y2) in dxf_lines:
+                dx = x2 - x1
+                dy = y2 - y1
+                if dx == 0 and dy == 0:
+                    dist = math.hypot(px - x1, py - y1)
+                else:
+                    t = max(0, min(1, ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)))
+                    proj_x = x1 + t * dx
+                    proj_y = y1 + t * dy
+                    dist = math.hypot(px - proj_x, py - proj_y)
+                if dist < min_dist:
+                    min_dist = dist
+                    
+            if min_dist > tol and min_dist < 2000:
+                discrepancies.append({
+                    "elementId": el.get("id"),
+                    "name": el.get("name") or el.get("type"),
+                    "category": el.get("category"),
+                    "revitPosition": {"x": px, "y": py},
+                    "deviationMm": round(min_dist, 1),
+                    "status": "DISCREPANCY"
+                })
 
         return json.dumps({
             "success": True,

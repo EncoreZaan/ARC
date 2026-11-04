@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-10-20T17:54:55.979Z",
-  "totalTools": 196,
+  "totalTools": 205,
   "tools": [
     {
       "name": "revit_health_check",
@@ -2649,6 +2649,34 @@
         }
       },
       "action": "documents/activate",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_new_project",
+      "description": "Crée un nouveau document projet Revit à partir d'un gabarit (.rte), l'enregistre sur le disque et l'ouvre dans l'interface active. Exemple : revit_new_project({ templatePath: 'C:\\\\Gabarits\\\\DOUBLE-BAY_gabarit.rte', savePath: 'C:\\\\Projets\\\\Nouveau.rvt' }).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "templatePath": {
+            "type": "string",
+            "description": "Chemin absolu du gabarit de projet .rte"
+          },
+          "savePath": {
+            "type": "string",
+            "description": "Chemin absolu où enregistrer le nouveau projet .rvt"
+          },
+          "overwrite": {
+            "type": "boolean",
+            "default": true,
+            "description": "Écraser si le fichier existe déjà"
+          }
+        },
+        "required": [
+          "savePath"
+        ]
+      },
+      "action": "documents/new",
       "isHealthCheck": false
     },
     {
@@ -6226,7 +6254,8 @@
             "enum": [
               "ok",
               "cancel",
-              "report"
+              "report",
+              "off"
             ]
           },
           "documentTitle": {
@@ -7436,7 +7465,7 @@
             ]
           },
           "includeBase64": {
-            "default": true,
+            "default": false,
             "description": "Inclure les données Base64 de l'image dans la réponse",
             "type": "boolean"
           },
@@ -7601,6 +7630,146 @@
         }
       },
       "action": "proactive/clear",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_get_security_mode",
+      "description": "Obtient le mode de sécurité actif de RevitMCP ('read-only', 'write', 'full') et les permissions d'accès au modèle.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "security/get",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_set_security_mode",
+      "description": "Définit le mode de sécurité de RevitMCP : 'read-only' (bloque toute modification/transaction du modèle), 'write' (mode standard contrôlé), 'full' (accès étendu).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "read-only",
+              "write",
+              "full"
+            ],
+            "description": "Niveau de sécurité désiré ('read-only', 'write' ou 'full')"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "action": "security/set",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_get_cloud_info",
+      "description": "Détecte si le document actif est hébergé sur Autodesk Construction Cloud (ACC) ou BIM 360, et extrait le Cloud Project GUID, Model GUID, chemin central et informations de sous-projets (worksharing).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "documentTitle": {
+            "type": "string",
+            "description": "Titre ou chemin du document cible (défaut : document actif)"
+          }
+        }
+      },
+      "action": "cloud/info",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_sync_with_central",
+      "description": "Synchronise le modèle partagé (local ou cloud ACC/BIM 360) avec le fichier central (Synchronize with Central).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "string",
+            "description": "Commentaire de synchronisation"
+          },
+          "compact": {
+            "type": "boolean",
+            "description": "Compacter le fichier central lors de la synchronisation (défaut: false)"
+          },
+          "saveLocalAfter": {
+            "type": "boolean",
+            "description": "Enregistrer la copie locale après synchronisation (défaut: true)"
+          }
+        }
+      },
+      "action": "cloud/sync",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_create_snapshot",
+      "description": "Crée un instantané (snapshot de sauvegarde / point de restauration) du document actif dans _outils/.snapshots/ avec horodatage et métadonnées avant d'effectuer des modifications lourdes.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom ou étiquette de l'instantané (ex: 'avant-suppression-cloisons')"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description de l'état ou raison de l'instantané"
+          }
+        }
+      },
+      "action": "snapshots/create",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_list_snapshots",
+      "description": "Liste l'ensemble des instantanés (snapshots de sauvegarde) créés pour le projet en cours.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "snapshots/list",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_get_bim_classification",
+      "description": "Récupère les classifications BIM d'éléments Revit : code et description OmniClass, code d'assemblage Uniformat, Keynote et correspondance IFC fallback.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "elementId": {
+            "type": "integer",
+            "description": "Identifiant d'un élément Revit"
+          },
+          "elementIds": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "Liste d'identifiants d'éléments"
+          }
+        }
+      },
+      "action": "bim/classification",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_get_diagnostics",
+      "description": "Diagnostic complet de la session Revit : version/build exacte, utilisation mémoire du processus Revit (Mo), statistiques des avertissements (warnings groupés), état des liens CAO/Revit.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "diagnostics/info",
       "isHealthCheck": false
     }
   ]

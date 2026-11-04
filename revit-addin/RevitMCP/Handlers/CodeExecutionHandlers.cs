@@ -131,17 +131,47 @@ namespace DynamicExecution
         var uidoc = app.ActiveUIDocument;
 
         object? resultValue = null;
-        if (runTx)
+        try
         {
-            TransactionRunner.Run(doc, "Dynamic C# Script", p, () =>
+            if (runTx)
             {
-                resultValue = runMethod.Invoke(null, new object[] { doc, uidoc, app, sw });
-                return new JObject { ["ran"] = true };
-            });
+                TransactionRunner.Run(doc, "Dynamic C# Script", p, () =>
+                {
+                    try
+                    {
+                        resultValue = runMethod.Invoke(null, new object[] { doc, uidoc, app, sw });
+                    }
+                    catch (TargetInvocationException tie) when (tie.InnerException != null)
+                    {
+                        var inner = tie.InnerException;
+                        while (inner.InnerException != null && inner is TargetInvocationException)
+                            inner = inner.InnerException;
+                        throw new RevitMcpException("EXECUTION_ERROR", $"{inner.GetType().Name}: {inner.Message}\n{inner.StackTrace}", innerException: inner);
+                    }
+                    return new JObject { ["ran"] = true };
+                });
+            }
+            else
+            {
+                try
+                {
+                    resultValue = runMethod.Invoke(null, new object[] { doc, uidoc, app, sw });
+                }
+                catch (TargetInvocationException tie) when (tie.InnerException != null)
+                {
+                    var inner = tie.InnerException;
+                    while (inner.InnerException != null && inner is TargetInvocationException)
+                        inner = inner.InnerException;
+                    throw new RevitMcpException("EXECUTION_ERROR", $"{inner.GetType().Name}: {inner.Message}\n{inner.StackTrace}", innerException: inner);
+                }
+            }
         }
-        else
+        catch (TargetInvocationException tie) when (tie.InnerException != null)
         {
-            resultValue = runMethod.Invoke(null, new object[] { doc, uidoc, app, sw });
+            var inner = tie.InnerException;
+            while (inner.InnerException != null && inner is TargetInvocationException)
+                inner = inner.InnerException;
+            throw new RevitMcpException("EXECUTION_ERROR", $"{inner.GetType().Name}: {inner.Message}\n{inner.StackTrace}", innerException: inner);
         }
 
         return new JObject
