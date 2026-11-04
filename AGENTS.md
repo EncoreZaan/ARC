@@ -15,9 +15,7 @@ Le fichier [`PROJECT_STATE.md`](./PROJECT_STATE.md) est la **Bible d'Architectur
 
 ## 🔒 2. Règles de Sécurité & Intégrité
 1. **Sauvegarde `.bak` obligatoire :** Créez systématiquement un fichier `<nom>.bak` à côté de tout fichier de code ou de configuration avant de le modifier.
-2. **Sanctuaire Projet Utilisateur :** Ne supprimez, ne renommez et n'altérez **JAMAIS** les fichiers situés dans `C:\Users\teoba\Documents\Projet Appart Londonien` sans ordre explicite de l'utilisateur.
-3. **Identifiants & Secrets :** Ne sollicitez ni ne stockez aucun mot de passe ou jeton Autodesk SSO privé.
-4. **Préservation des serveurs existants :** Veillez à ne jamais casser les configurations des trois serveurs MCP actifs (`revit`, `cad-mcp`, `revit-officiel`).
+2. **Préservation des serveurs existants :** Veillez à ne jamais casser les configurations des trois serveurs MCP actifs (`revit`, `cad-mcp`, `revit-officiel`).
 
 ---
 

@@ -11,9 +11,7 @@
 > **CONTRAT D'EXÉCUTION AGENTIQUE :**  
 > 1. **Lecture préalable obligatoire :** Avant d'analyser, modifier ou générer la moindre ligne de code ou de configuration dans ce projet, l'IA **DOIT LIRE CE DOCUMENT DANS SON INTÉGRALITÉ**.  
 > 2. **Sauvegarde `.bak` systématique :** Avant de toucher à n'importe quel fichier de configuration (JSON, INI, Addin) ou code source (C#, Rust, Python, TS), créer impérativement une copie conforme nommée `<nom_du_fichier>.bak` dans le même dossier.  
-> 3. **Règle absolue sur les données métier :** Il est **STRICTEMENT INTERDIT** de supprimer, renommer ou écraser sans validation explicite les fichiers du projet architectural utilisateur situé dans `C:\Users\teoba\Documents\Projet Appart Londonien`.  
-> 4. **Sécurité & Identifiants :** Ne jamais demander, manipuler ni stocker les identifiants ou tokens privés Autodesk / SSO de l'utilisateur.  
-> 5. **Mise à jour obligatoire de ce document :** Dès qu'une modification, un nouvel outil, une correction de bug ou une montée de version est réalisée, l'IA **DOIT METTRE À JOUR CE FICHIER (`PROJECT_STATE.md`) AINSI QUE `CHANGELOG.md`** avant de valider son travail.
+> 3. **Mise à jour obligatoire de ce document :** Dès qu'une modification, un nouvel outil, une correction de bug ou une montée de version est réalisée, l'IA **DOIT METTRE À JOUR CE FICHIER (`PROJECT_STATE.md`) AINSI QUE `CHANGELOG.md`** avant de valider son travail.
 
 ---
 
@@ -79,9 +77,8 @@
 - **Avantage :** Élimination totale de la latence de la pile TCP/IP HTTP locale (~0.05 ms vs 2-10 ms). Aucune allocation de port réseau, aucun conflit de port si plusieurs sessions s'exécutent.
 - **Résilience :** Le pont Rust bascule automatiquement et de manière transparente sur HTTP (`http://localhost:6543`) si le pipe est momentanément indisponible.
 
-### 🛡️ 2. Zéro Boîte de Dialogue Bloquante (Zero Startup Modal)
-- **Problème résolu :** Le pop-up *"Échec du démarrage de Revit AI Bridge sur http://localhost:6543 - Failed to listen on prefix..."* ne s'affiche plus JAMAIS.
-- **Implémentation :** Interception de l'erreur Win32/HttpListenerException (code 183), journalisation discrète dans `RevitMCP.audit.log`, et fallback automatique sur le Named Pipe. Aucune interruption de l'interface Revit.
+### 🛡️ 2. Démarrage Silencieux & Multi-Instance (Silent Startup Engine)
+- **Gestion des conflits :** Interception gracieuse de l'erreur Win32/HttpListenerException (code 183), journalisation dans `RevitMCP.audit.log`, et transition automatique et silencieuse sur le Named Pipe en cas de sessions concurrentes.
 
 ### ⚡ 3. Moteur Géométrique Parallélisé en Rust (`rayon`)
 - Décharge le thread principal Revit des calculs lourds de clash-detection et d'analyse géométrique.
