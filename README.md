@@ -1,6 +1,6 @@
 # ⚡ REVIT AI BRIDGE — LE PONT MCP INTELLIGENT POUR AUTODESK REVIT
 
-[![Release](https://img.shields.io/github/v/release/EncoreZaan/Revit-MCP?color=00d2ff&label=Version)](https://github.com/EncoreZaan/Revit-MCP/releases/tag/v2.6.0)
+[![Release](https://img.shields.io/github/v/release/EncoreZaan/ARC?color=00d2ff&label=Version)](https://github.com/EncoreZaan/ARC/releases/tag/v2.6.0)
 [![Revit](https://img.shields.io/badge/Autodesk%20Revit-2024%20%7C%202025%20%7C%202026%20%7C%202027-blue.svg)](https://www.autodesk.fr/products/revit/overview)
 [![Rust](https://img.shields.io/badge/Server-Rust%20100%25%20Natif-orange.svg)](https://www.rust-lang.org/)
 [![MCP](https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-green.svg)](https://modelcontextprotocol.io/)
@@ -18,7 +18,7 @@ Pas besoin de compiler du code ou de configurer des variables d'environnement. T
 
 ### Option A : L'installateur universel (Recommandé) ⚡
 
-1. Téléchargez la dernière version : **[📥 Télécharger RevitMCP-Setup-v2.6.0.exe](https://github.com/EncoreZaan/Revit-MCP/releases/download/v2.6.0/RevitMCP-Setup-v2.6.0.exe)**
+1. Téléchargez la dernière version : **[📥 Télécharger RevitMCP-Setup-v2.6.0.exe](https://github.com/EncoreZaan/ARC/releases/download/v2.6.0/RevitMCP-Setup-v2.6.0.exe)**
 2. Double-cliquez sur **`RevitMCP-Setup-v2.6.0.exe`**.
 3. **C'est tout !** L'installateur :
    - Déploie automatiquement l'add-in Revit pour vos versions installées (2027, 2026, 2025 ou 2024).
@@ -34,7 +34,7 @@ Si vous souhaitez contribuer ou modifier le code source :
 
 ```powershell
 # 1. Cloner le dépôt
-git clone https://github.com/EncoreZaan/Revit-MCP.git
+git clone https://github.com/EncoreZaan/ARC.git
 cd "Revit-MCP"
 
 # 2. Exécuter le script d'installation automatique
@@ -251,7 +251,7 @@ Si vous utilisez Claude Desktop, l'installateur configure automatiquement ce fic
 
 Les contributions, signalements de bugs et propositions d'outils sont les bienvenus !
 
-1. Forkez le dépôt : `https://github.com/EncoreZaan/Revit-MCP`
+1. Forkez le dépôt : `https://github.com/EncoreZaan/ARC`
 2. Créez votre branche : `git checkout -b feature/nouvel-outil`
 3. Vérifiez les builds complets :
    ```powershell
