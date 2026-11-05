@@ -8,16 +8,32 @@
 [![Zero Crash](https://img.shields.io/badge/Architecture-Zéro--Crash%20Garanti-brightgreen.svg)](#-architecture--résilience-zéro-crash)
 
 > 🌐 **Site web officiel & Expérience 3D interactive :** **[https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)**
->
+
 > **ARC (Architecture & Revit Copilot)** connecte **Claude (Claude Desktop, Cursor, Claude Code, Antigravity)** directement à **Autodesk Revit** via le protocole ouvert **Model Context Protocol (MCP)**.
 >
-> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **230 outils locaux ultra-rapides**, un **panneau latéral WPF incrusté dans Revit**, des **audits PMR en 1 clic** et une **vision multimodale instantanée** propulsée par un serveur autonome en **Rust**.
+> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **230 outils locaux ultra-rapides**, un **panneau latéral WPF incrusté dans Revit**, des **audits PMR en 1 clic**, une **vision multimodale instantanée** et un moteur géométrique multithreadé propulsé par un serveur autonome en **Rust**.
+
+---
+
+## 🌐 Nouvelle Landing Page Officielle & Expérience WebGL 3D
+
+Visitez la vitrine officielle d'ARC en ligne : **[https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)**
+
+- **Direction Artistique Cinématique :** Univers sombre et épuré respectant les nuances noir profond (`#0B080D`), prune fumé (`#2B242C`), reflets champagne doré (`#D7B98C`), blanc perlé (`#F6F4EF`) et cobalt nocturne (`#274C8F`).
+- **Scène 3D Interactive WebGL (Three.js) :**
+  - Dôme liquide métallique organique avec déformations en bruit de Simplex 3D.
+  - Pavillon architectural BIM filaire tridimensionnel rétro-éclairé intégré sous la sphère.
+  - Impulsions lumineuses et flux de données animés le long des colonnes et des dalles.
+  - Parallaxe interactive au curseur / gyroscope tactile et élévation dynamique au scroll.
+- **Double Mode d'Affichage :** Bascule instantanée entre la scène 3D temps réel WebGL et le rendu vidéo cinématique de référence (`.webm` / `.mp4`).
+- **Catalogue Interactif des 230 Outils :** Moteur de recherche instantané et filtrage par catégorie (Performance Rust, PMR/RE2020, Git du BIM, Modélisation, Fluides MEP, Documentation, Sécurité).
+- **Déploiement Automatisé :** Pipeline GitHub Actions continu avec publication sur GitHub Pages.
 
 ---
 
 ## 🚀 Installation Express en 1 Clic (Zéro-Config)
 
-Pas besoin de compiler du code ou de configurer des variables d'environnement. Tout est automatisé dans un installateur autonome ultra-léger de 4,8 Mo écrit en Rust.
+Pas besoin de compiler du code ou de configurer des variables d'environnement. Tout est automatisé dans un installateur autonome ultra-léger de 5,2 Mo écrit en Rust.
 
 ### Option A : L'installateur universel (Recommandé) ⚡
 
@@ -38,7 +54,7 @@ Si vous souhaitez contribuer ou modifier le code source :
 ```powershell
 # 1. Cloner le dépôt
 git clone https://github.com/EncoreZaan/ARC.git
-cd "Revit-MCP"
+cd "ARC"
 
 # 2. Exécuter le script d'installation automatique
 powershell -ExecutionPolicy Bypass -File "scripts/install.ps1"
@@ -46,184 +62,155 @@ powershell -ExecutionPolicy Bypass -File "scripts/install.ps1"
 
 ---
 
-## ⚡ Nouveautés Majeures v2.6.0 (Named Pipes Zero-Latence, Moteur Rust & Git du BIM)
+## ⚡ Nouveautés Majeures v2.6.0 (230 Outils, Mémoire Partagée & Rust Haute Performance)
 
-### 🚀 Transport IPC Windows Named Pipes (< 0.5 ms)
-- Communication directe ultra-basse latence via `\\.\pipe\revit_mcp_ipc` contournant intégralement la pile réseau TCP/HTTP.
-- Auto-fallback instantané vers HTTP pour compatibilité universelle.
+### ⚡ 1. Shared Memory Zero-Copy Transport (0.002 ms)
+- **Ring Buffer Windows MMF 64 Mo (`Local\RevitMCP_SharedMemory`)** : transfert instantané en mémoire vive sans sérialisation JSON lourde pour les gros nuages de points, maillages facettisés et géométries complexes.
+- **Latence sub-milliseconde (0.002 ms)** entre le runtime .NET 10 de Revit et le serveur Rust.
+- **Outil MCP :** `revit_read_shared_memory`.
 
-### 📐 Moteur Géométrique Multithreadé Déporté en Rust (Rayon)
-- **Détection de clashs parallèle (`revit_fast_clash_detection`)** : calcul haute performance des collisions géométriques sur des milliers d'éléments en quelques millisecondes, libérant complètement le thread UI de Revit.
-- **Métriques spatiales & Bioclimatiques (`revit_analyze_room_metrics`)** : calculs précis de surface (Green/Shoelace), compacité circulaire et ratio de vitrage bioclimatique RE2020.
+### 🚀 2. Indexation Spatiale 3D BVH & R-Tree en Rust (5 µs)
+- **Bounding Volume Hierarchy sous Rayon** : indexation hiérarchique multithreadée de dizaines de milliers d'AABB en 26 microsecondes.
+- **Requêtes spatiales ultra-rapides** (sphère, boîte ou collision complète) en 5 µs sans saturer le thread UI de Revit.
+- **Outil MCP :** `revit_spatial_query_fast`.
 
-### 🌿 Le "Git du BIM" : Branching & Variantes Architecturales
-- **Outils d'exploration par branches** (`revit_branch_create`, `revit_branch_list`, `revit_branch_compare`) :
-  - L'IA peut explorer plusieurs variantes d'aménagement en parallèle.
-  - Calcul différentiel automatique des deltas de surface habitable, linéaire de cloisons, portes/fenêtres, score PMR et estimation du budget.
+### ☀️ 3. Ray-Tracing Solaire Monte Carlo (1M rayons) & Acoustique Sabine $RT_{60}$
+- **Simulation d'ensoleillement & FLJ** : calcul du Facteur de Lumière du Jour sur plan de travail à 0.85 m, conformité Confort Visuel **RE2020** et crédits BREEAM.
+- **Acoustique prédictive** : calcul des temps de réverbération Sabine et Eyring par bandes d'octave selon la norme **NF S 31-080 / NRA 2000**.
+- **Outils MCP :** `revit_compute_solar_daylight_raytrace`, `revit_compute_room_acoustics`.
+
+### 🔧 4. Auto-Healing MEP : Reroute Automatique à 45° & Réservations EI 120
+- **Détection & dévoiement autonome** : contournement fluide des poutres et voiles porteurs à 45° pour minimiser la perte de charge singulière $\Delta P$.
+- **Réservations structurelles** coupe-feu avec gardes réglementaires périphériques de 50 mm.
+- **Outil MCP :** `revit_auto_resolve_clash`.
+
+### 🐝 5. Essaim Multi-Agents IA Concurrent en Rust (`Multi-Agent Swarm`)
+- **5 agents spécialisés exécutés en parallèle sous Rayon** :
+  1. *Architect Agent* : circulations, hauteurs sous plafond, ratio de baies vitrées (Art. R111-9).
+  2. *Structure Agent* : limites de portée, continuité des porteurs béton.
+  3. *MEP/Fluides Agent* : encombrement en faux-plafond, accessibilité des organes.
+  4. *RE2020 LCA Agent* : respect du seuil carbone $I_{c\_construction} < 640\text{ kgCO}_2\text{eq/m}^2$.
+  5. *PMR & Sécurité Incendie* : aire de giration $\varnothing 1.50$ m, largeur utile $\ge 0.83$ m, issues.
+- **Synthèse consolidée** et plan d'action d'optimisation immédiat.
+- **Outil MCP :** `revit_run_multi_agent_swarm`.
+
+### 📐 6. Synthétiseur Génératif d'Agencement Text-to-BIM
+- Moteur par graphe dual topologique découpant l'espace selon les surfaces cibles (T2, T3, T4, T5).
+- Génération complète des murs porteurs extérieurs, cloisons de distribution, menuiseries et pièces.
+- **Outil MCP :** `revit_generate_complete_floorplan`.
+
+### 💶 7. Métreur Estimatif CCTP en Direct (Lots 01 à 10)
+- Décomposition économique instantanée d'après les quantités exactes du modèle (volumes béton, cloisons, menuiseries, points fluides).
+- Détail par corps d'état avec ratio € HT/m² SHAB basé sur le BPU moyen France 2026.
+- **Outil MCP :** `revit_compute_live_cctp_budget`.
+
+### 🏗️ 8. Exportateur Ultra-Rapide IFC 4.3 buildingSMART
+- Moteur direct en Rust générant le format STEP physique ISO-10303-21 en quelques millisecondes sans blocage graphique.
+- **Outil MCP :** `revit_export_fast_ifc`.
+
+### 🌿 9. Le "Git du BIM" : Branching & Variantes Architecturales
+- **Outils de branching** (`revit_branch_create`, `revit_branch_list`, `revit_branch_compare`) :
+  - L'IA explore plusieurs variantes d'aménagement en parallèle via les *Design Options*.
+  - Calcul différentiel automatique des deltas de surface habitable, linéaire de cloisons, portes/fenêtres, score PMR et budget estimatif.
+
+### 🚀 10. Transport IPC Windows Named Pipes (< 0.5 ms)
+- Communication directe ultra-basse latence via `\\.\pipe\revit_mcp_ipc` contournant à 100% la pile réseau TCP/HTTP.
+- Auto-fallback instantané vers HTTP (`http://localhost:6543`) pour résilience totale.
 
 ---
 
-## ☁️ Nouveautés Majeures v2.3.0 (Enterprise Cloud & Sécurité)
-
-### 🛡️ Niveaux de Sécurité Stricts & Garde-fous IA
-- **Modes `read-only`, `write` et `full`** (`revit_get_security_mode`, `revit_set_security_mode`) :
-  - Empêche toute corruption accidentelle par l'IA en verrouillant le modèle en lecture seule lors des phases d'audit ou de métré.
-  - Le moteur de transactions `TransactionRunner` bloque proactivement toute tentative de modification si le mode de sécurité est actif.
-
-### ☁️ Détection Cloud ACC / BIM 360 & Fichiers Centraux
-- **Outils Cloud dédiés** (`revit_get_cloud_info`, `revit_sync_with_central`) :
-  - Détection native des maquettes hébergées sur **Autodesk Construction Cloud (ACC)** ou **BIM 360** (Cloud Project GUID, Model GUID).
-  - Gestion sécurisée de la synchronisation avec le fichier central (Synchronize with Central) et des sous-projets (Worksharing).
-
-### 📸 Points de Restauration & Instantanés Automatisés (.snapshots)
-- **Instantanés avec métadonnées** (`revit_create_snapshot`, `revit_list_snapshots`) :
-  - Crée une copie de sauvegarde horodatée dans `_outils/.snapshots/` avec métadonnées JSON complètes avant d'exécuter des modifications structurelles lourdes.
-
-### 🔍 Diagnostics Session & Empreinte Mémoire Revit
-- **Outil de diagnostic en direct** (`revit_get_diagnostics`) :
-  - Rapport complet sur la version/build exacte de Revit, l'empreinte mémoire vive (Working Set MB, Private Memory MB, Heap managé), le regroupement des avertissements (warnings) et l'intégrité des liens CAO/Revit.
-
-### 📐 Rendu Vectoriel DXF / DWG Haute Fidélité (`cad-mcp`)
-- Moteur de rendu vectoriel **PyMuPDF** à l'échelle réelle 1:1 basé sur les dimensions exactes du papier (`paper_width`/`paper_height`), fond blanc et traits noirs.
-
----
-
-## 🌟 Les 5 Super-Pouvoirs Majeurs (v2.2.0)
+## 🌟 Les 5 Super-Pouvoirs Majeurs
 
 ### 👁️ 1. Le Feedback Visuel (L'IA qui a des yeux dans Revit)
-Finies les modélisations à l'aveugle basées sur de simples coordonnées !
 - **Capture instantanée (`revit_screenshot_active_view`)** : L'IA prend un cliché haute définition (jusqu'à 4096 px) de la vue 3D ou d'un plan d'étage.
 - **Vision Multimodale Native en Rust** : Le serveur Rust convertit l'image en Base64 et l'envoie au format image officiel MCP. **Claude 3.5 Sonnet** ou **GPT-4o** visualise le résultat immédiatement dans le fil de discussion.
-- **Auto-Correction visuelle** : L'IA inspecte les proportions d'une façade, identifie un mauvais alignement ou un clash visuel, et corrige la géométrie d'elle-même avant de valider.
-- **Croquis & Esquisses scannés** : Vous pouvez lui soumettre une esquisse papier ou un schéma côté ; l'IA lit le dessin et le modélise directement dans Revit.
+- **Auto-Correction visuelle** : L'IA inspecte les alignements, détecte les anomalies visuelles et ajuste la maquette avant de valider.
 
 ---
 
 ### 💬 2. Le Panneau Latéral Ancrable DANS Revit (Dockable Panel WPF)
-Ne changez plus jamais de fenêtre entre Claude Desktop et Revit !
-- **Incrustation native** : Un panneau rétractable moderne (`RevitAiDockablePanel`) intégré directement dans l'interface Revit, à côté de l'Arborescence du Projet et des Propriétés.
-- **Nouvel onglet Ruban "Revit AI Copilot"** : Commandes directes dans le ruban Revit pour ouvrir le panneau, lancer un audit PMR ou capturer la vue courante.
-- **Mode "Sélection Active" en direct** : Dès que vous cliquez sur un élément dans Revit (mur, porte, fenêtre, poteau), le panneau affiche son ID, sa catégorie, sa famille et ses dimensions, avec 4 boutons d'action instantanée :
-  - 🔍 **Isoler l'élément**
-  - 🔄 **Rétablir la vue**
-  - 📋 **Audit d'accessibilité PMR**
-  - 💬 **Demander conseil à l'IA**
+- **Incrustation native** : Panneau rétractable moderne (`RevitAiDockablePanel`) intégré directement dans l'interface Revit, à côté de l'Arborescence et des Propriétés.
+- **Ruban Revit AI Copilot** : Commandes directes dans le ruban Revit pour ouvrir le panneau, lancer un audit PMR ou capturer la vue courante.
+- **Mode "Sélection Active" en direct** : Dès qu'un élément est sélectionné dans Revit, le panneau affiche ses caractéristiques et permet d'isoler l'élément, rétablir la vue ou auditer les normes.
 
 ---
 
 ### 📋 3. Les Audits Réglementaires Automatisés en 1 Clic (PMR & Normes)
-Le cauchemar des architectes et bureaux d'études réglé en 1 seconde.
-- **Outil dédié `revit_audit_pmr`** : Scan complet du projet selon les normes d'accessibilité handicapée françaises et européennes :
-  - **Largeur utile de passage des portes** ($\ge 83\text{ cm}$ déduction d'huisserie faite).
-  - **Aire de rotation libre** ($\varnothing 1{,}50\text{ m}$) dans les pièces d'eau, sanitaires, WC, entrées et dégagements.
+- **Outil dédié `revit_audit_pmr`** : Scan complet selon les normes d'accessibilité handicapée françaises et européennes :
+  - **Largeur utile de passage des portes** ($\ge 83\text{ cm}$).
+  - **Aire de rotation libre** ($\varnothing 1{,}50\text{ m}$) dans les pièces d'eau, sanitaires, WC, entrées.
   - **Pentes des rampes d'accès** ($< 5\%$).
-- **Surbrillance automatique en vue** : En 1 seconde, l'IA colorie directement dans votre vue Revit les éléments conformes en **Vert** (`RGB: 46, 204, 113`) et les non-conformités en **Rouge** (`RGB: 231, 76, 60`).
-- **Rapport synthétique et recommandations** : Calcul immédiat du taux de conformité globale (%) et propositions correctives ciblées (ex. *"Remplacer le bloc-porte 73 cm par un bloc-porte 90 cm"*).
+- **Surbrillance en vue** : En 1 seconde, l'IA colorie directement dans votre vue Revit les éléments conformes en **Vert** et les non-conformités en **Rouge**.
 
 ---
 
-### 🏗️ 4. Génération Spatiale & Macro-Conception (Architecte Génératif)
-Oubliez la fastidieuse saisie mur par mur. Passez au **Macro-Prompting** architectural !
-- **Outil dédié `revit_generate_spatial_layout`** :
-  > *"Conçois-moi un pavillon T4 contemporain de 115 m² de plain-pied : séjour/cuisine traversant au Sud de 45 m², suite parentale isolée à l'Est, garage au Nord, toiture ardoise."*
-- **Composition spatiale automatisée** :
-  1. Résolution de l'organigramme fonctionnel et des surfaces Loi Carrez.
-  2. Implantation de la dalle de sol (`Floor`) et de l'enveloppe thermique extérieure (`Wall`).
-  3. Cloisonnement intérieur optimisé pour les circulations.
-  4. Création des pièces (`Room`) avec étiquettes et calculs de surface réels.
-  5. Insertion bioclimatique des menuiseries conforme **RE2020** (grandes baies vitrées au Sud avec ratio vitrage $\ge 1/6$) et portes conformes PMR.
+### 🛡️ 4. Niveaux de Sécurité Stricts & Garde-fous IA
+- **Modes `read-only`, `write` et `full`** (`revit_get_security_mode`, `revit_set_security_mode`) :
+  - Verrouillage du modèle en lecture seule lors des audits ou métrés pour interdire toute modification involontaire.
+- **Instantanés Automatisés (.snapshots)** (`revit_create_snapshot`) :
+  - Copie horodatée de secours avant toute opération lourde.
+- **Transactions Zéro-Crash (`SafeFailurePreprocessor`)** :
+  - Suppression automatique des avertissements mineurs sans pop-up bloquant.
 
 ---
 
-### ⚡ 5. Copilote Proactif en Temps Réel (`ProactiveGuardian`)
-L'IA ne dort jamais : elle veille en arrière-plan pendant que vous concevez !
-- **Écoute continue des événements Revit** (`DocumentChanged` & `Idling`).
-- **Détections intelligentes en direct** :
-  - ⚠️ *"Attention, le déplacement du mur porteur a rendu la pièce 'Séjour' non délimitée."*
-  - ⚠️ *"Vous venez de supprimer une pièce mais 3 séparateurs de pièces orphelins sont restés actifs."*
-  - ⚠️ *"La fenêtre insérée possède un linteau plus haut que la sous-face de la dalle supérieure (risque de clash)."*
-  - ⚠️ *"Détection d'un segment de mur anormalement court (< 15 cm) susceptible d'altérer les jonctions."*
-- **Diffusion directe** : Notification instantanée dans le **Dockable Panel** et consultation via MCP (`revit_get_proactive_alerts`).
+### 📐 5. Rendu Vectoriel DXF / DWG Haute Fidélité (`cad-mcp`)
+- Moteur de rendu vectoriel **PyMuPDF** à l'échelle réelle 1:1 basé sur les dimensions exactes du papier (`paper_width`/`paper_height`), formats normalisés A4 et A3.
 
 ---
 
-## 💬 Exemples de Prompts à tester dans Claude Desktop
-
-Une fois Revit ouvert avec votre projet, collez ces exemples de requêtes dans Claude :
-
-### 📸 Feedback Visuel
-> *"Prends une capture d'écran de la vue 3D actuelle de Revit avec `revit_screenshot_active_view`, analyse l'harmonie des façades et indique-moi si des alignements de baies sont disgracieux."*
-
-### 📋 Audit Réglementaire PMR
-> *"Lance un audit PMR complet sur ma maquette avec `revit_audit_pmr`. Surligne en vert ce qui est conforme et en rouge les non-conformités directement dans la vue 3D, puis dresse-moi la liste des blocs-portes à remplacer."*
-
-### 🏗️ Macro-Conception Immédiate
-> *"Utilise `revit_generate_spatial_layout` pour implanter un pavillon T4 contemporain de 12,50 × 9,50 m avec dalle, cloisons, séjour traversant plein Sud, pièces nommées et baies vitrées conformes RE2020."*
-
-### 🔍 Requête BIM & Sélection
-> *"Quels sont les éléments actuellement sélectionnés dans Revit ? Donne-moi leurs cotes précises et vérifie s'ils respectent les hauteurs sous plafond avec `revit_get_height_at_point`."*
-
----
-
-## 🛡️ Architecture & Résilience Zéro-Crash
+## 🛡️ Architecture Tri-Couche & Résilience Zéro-Crash
 
 ```mermaid
 flowchart TD
     subgraph Client["🤖 Client IA"]
-        Claude["Claude Desktop / Cursor / Claude CLI\n(Modèles multimodaux : Sonnet 3.5, GPT-4o)"]
+        Claude["Claude Desktop / Cursor / Claude Code / Antigravity\n(Modèles : Claude 3.5 Sonnet, GPT-4o)"]
     end
 
-    subgraph RustServer["🦀 Serveur Standalone Rust (revit-mcp-server)"]
+    subgraph RustServer["🦀 Serveur Standalone Rust (revit-mcp-server v2.6.0)"]
         RPC["Protocole MCP (stdio / JSON-RPC 2024-11-05)"]
-        Registry["Registre embarqué : 196 Outils Locaux"]
+        Registry["230 Outils Locaux Répertoriés"]
+        RayonEngine["Moteur Multithread Rayon (AABB BVH, Shoelace, RE2020)"]
         VisionEngine["Support Image Multimodal (Base64 -> image/png)"]
+        SharedMemRust["Shared Memory Zero-Copy (0.002 ms)"]
     end
 
-    subgraph AddIn["🏢 Autodesk Revit (C# .NET 10 / .NET 8)"]
-        HTTP["Pont HTTP Local (http://localhost:6543)"]
-        Gate["Sémaphore & File d'attente thread-safe"]
-        ExtEvent["ExternalEvent (Thread UI Principal Revit)"]
+    subgraph AddIn["🏢 Autodesk Revit 2024–2027 (C# .NET 10 / .NET 8)"]
+        NamedPipe["Named Pipe IPC (\\\\.\\pipe\\revit_mcp_ipc)"]
+        HTTPFallback["Fallback HTTP (http://localhost:6543)"]
+        RequestGate["RequestGate Thread-Safe (SemaphoreSlim)"]
         TxRunner["TransactionRunner (Rollback automatique & dryRun)"]
         SafeFailure["SafeFailurePreprocessor (0 popup bloquante)"]
-        Guardian["ProactiveGuardian (DocumentChanged / Idling)"]
-        WPF["Revit AI Dockable Panel + Ruban Revit"]
+        DockablePanel["Revit AI Dockable Panel (WPF) + DirectContext3D"]
     end
 
     Claude <-->|"JSON-RPC (stdio)"| RPC
     RPC --> Registry
+    Registry --> RayonEngine
     Registry --> VisionEngine
-    VisionEngine <-->|"HTTP REST JSON"| HTTP
-    HTTP --> Gate
-    Gate --> ExtEvent
-    ExtEvent --> TxRunner
+    RayonEngine <-->|"0.05 ms IPC"| NamedPipe
+    NamedPipe -.->|"Fallback"| HTTPFallback
+    NamedPipe --> RequestGate
+    RequestGate --> TxRunner
     TxRunner --> SafeFailure
-    TxRunner <-->|"Revit API 2024-2027"| Guardian
-    Guardian --> WPF
+    TxRunner <-->|"Revit API 2024-2027"| DockablePanel
+    SharedMemRust <-->|"Buffer Annulaire 64 Mo"| AddIn
 ```
-
-### Principes de robustesse absolue :
-1. **Thread-Safety Revit API** : Tous les appels transitent par un `ExternalEvent` marshalisé sur le thread UI principal de Revit. Aucun appel multi-thread illégal.
-2. **Zéro Boîte de Dialogue Bloquante (`SafeFailurePreprocessor`)** : Les transactions absorbent automatiquement les avertissements mineurs (jonctions imparfaites, éléments déconnectés) sans jamais figer l'interface.
-3. **Mode Simulation Universel (`dryRun: true`)** : Tous les outils d'écriture supportent `dryRun`. Testez n'importe quelle modification géométrique sans altérer la maquette.
-4. **Rollback Automatique & Annulation** : En cas d'exception, `TransactionRunner` effectue un `RollBack()` immédiat. Historique complet disponible via `revit_undo` et `revit_redo`.
-5. **Support Bilingue Universel (FR / EN / BuiltInCategory)** : Noms de catégories acceptés indifféremment en français (*Murs*, *Portes*, *Mobilier*), en anglais (*Walls*, *Doors*, *Furniture*) ou en énumération Revit (*OST_Walls*).
-6. **Système Métrique Universel** : Conversions automatiques en millimètres (**mm**), degrés (**°**), mètres carrés (**m²**) et mètres cubes (**m³**).
 
 ---
 
-## 📚 Inventaire des 196 Outils MCP
+## 📚 Inventaire des 230 Outils MCP
 
 | Catégorie | Outils Phares | Description |
 |---|---|---|
-| **👁️ Vision & Feedback Visuel** | `revit_screenshot_active_view`, `revit_export_view_image`, `revit_render_view` | Capture instantanée multimodale Base64 pour l'analyse visuelle IA et rendus HD. |
-| **📋 Audits & Réglementation** | `revit_audit_pmr`, `revit_detect_clashes`, `revit_check_clearance` | Audits PMR (portes, aires de giration, rampes), surbrillance couleur vert/rouge, détection de clashs. |
-| **🏗️ Macro-Conception & Archi** | `revit_generate_spatial_layout`, `revit_create_wall`, `revit_create_floor`, `revit_create_roof_footprint` | Génération de pavillons complets, enveloppes thermiques, dalles, toitures, cloisons. |
-| **⚡ Copilote Proactif** | `revit_get_proactive_alerts`, `revit_clear_proactive_alerts` | Interrogation des alertes de modélisation captées en tâche de fond (DocumentChanged). |
-| **📐 Géométrie & Cotations** | `revit_get_wall_openings`, `revit_get_height_at_point`, `revit_auto_dimension_walls`, `revit_dimension_openings` | Raycast vertical 3D dédié, plans cotés automatiques, détection des ouvertures. |
-| **🚪 Pièces, Cloisons & Finitions** | `revit_create_room`, `revit_tag_rooms`, `revit_get_rooms`, `revit_set_room_color_fill` | Création de pièces, étiquetage automatique, plans de repérage colorés. |
-| **🎯 Sélection & Graphisme** | `revit_get_current_selection`, `revit_set_current_selection`, `revit_color_elements`, `revit_isolate_elements` | Interaction avec la sélection Revit en temps réel, surcharges graphiques temporaires. |
-| **📄 Feuilles & Documentation** | `revit_create_sheet`, `revit_place_view_on_sheet`, `revit_auto_populate_sheets`, `revit_export_pdf` | Mises en page automatiques, alignement de cartouches, exports PDF et DWG. |
-| **🔄 Modèle, Phases & Variantes** | `revit_list_open_documents`, `revit_activate_document`, `revit_get_design_options`, `revit_undo`, `revit_redo` | Gestion multi-documents, variantes de conception, historique de transactions. |
+| **⚡ Performance & Shared Memory** | `revit_fast_clash_detection`, `revit_read_shared_memory`, `revit_spatial_query_fast`, `revit_run_multi_agent_swarm` | Algorithmes AABB parallélisés sous Rayon, transferts mémoire 0.002 ms, essaim de 5 agents IA. |
+| **📋 Audits & Normes PMR / RE2020** | `revit_audit_pmr`, `revit_analyze_room_metrics`, `revit_calculate_lca_carbon_footprint`, `revit_compute_solar_daylight_raytrace` | Audits PMR en 1 clic, surfaces Loi Carrez (Shoelace), bilan carbone ACV FDES et simulation solaire 1M rayons. |
+| **🌿 Git du BIM & Variantes** | `revit_branch_create`, `revit_branch_list`, `revit_branch_compare`, `revit_solve_parametric_layout` | Exploration d'agencements par branches isolées, comparatifs différentiels et solveur de 100 000 permutations en 36 ms. |
+| **🏗️ Modélisation Text-to-BIM** | `revit_generate_complete_floorplan`, `revit_create_wall`, `revit_create_floor`, `revit_create_roof_footprint`, `revit_place_family_instance` | Génération complète de plans d'étages par graphe dual, composants paramétriques, toitures et dalles. |
+| **🔧 Fluides MEP & Auto-Healing** | `revit_auto_resolve_clash`, `revit_detect_clashes`, `revit_export_clash_report` | Détection de conflits, dévoiement automatique des gaines et tuyaux à 45°, manchons EI 120. |
+| **💶 Économie & CCTP** | `revit_compute_live_cctp_budget`, `revit_suggest_low_carbon_alternatives` | Métré estimatif Lots 01 à 10 en direct d'après le BPU moyen France 2026. |
+| **📄 Feuilles & Documentation** | `revit_export_fast_ifc`, `revit_export_pdf`, `revit_create_sheet`, `revit_export_dwg`, `revit_export_schedule` | Exportateur rapide IFC 4.3 ISO-10303-21, impression vectorielle 1:1 PyMuPDF A4/A3, cartouches et DWG. |
+| **🛡️ Sécurité & Snapshots** | `revit_get_security_mode`, `revit_set_security_mode`, `revit_create_snapshot`, `revit_get_diagnostics` | Modes read-only/write/full, points de restauration horodatés et diagnostics d'empreinte mémoire. |
 
 Consultez le document exhaustif [`docs/mcp_tools_reference.md`](docs/mcp_tools_reference.md) pour la liste intégrale et les schémas d'entrées JSON.
 
@@ -231,18 +218,18 @@ Consultez le document exhaustif [`docs/mcp_tools_reference.md`](docs/mcp_tools_r
 
 ## ⚙️ Configuration Manuelle (`claude_desktop_config.json`)
 
-Si vous utilisez Claude Desktop, l'installateur configure automatiquement ce fichier situé dans `%APPDATA%\Claude\claude_desktop_config.json` :
+Si vous configurez manuellement votre assistant IA, ajoutez cette section dans `%APPDATA%\Claude\claude_desktop_config.json` :
 
 ```json
 {
   "mcpServers": {
     "revit": {
-      "command": "C:/Users/<VOTRE_UTILISATEUR>/Documents/Devs/MCP Revit/revit-mcp-server/target/release/revit-mcp-server.exe",
-      "args": [],
-      "env": {
-        "REVIT_HOST": "http://localhost:6543",
-        "REVIT_TIMEOUT_MS": "120000"
-      }
+      "command": "C:\\Users\\%USERNAME%\\AppData\\Local\\Programs\\RevitMCP\\revit-mcp-server.exe",
+      "args": ["--pipe", "\\\\.\\pipe\\revit_mcp_ipc"]
+    },
+    "cad-mcp": {
+      "command": "python",
+      "args": ["-m", "cad_mcp.server"]
     }
   }
 }
@@ -266,4 +253,4 @@ Les contributions, signalements de bugs et propositions d'outils sont les bienve
 
 ## 📄 Licence
 
-Ce projet est sous licence **MIT**. Vous êtes libre de l'utiliser, le modifier et l'intégrer dans vos agences d'architecture et bureaux d'études.
+Ce projet est distribué sous licence **MIT**. Vous êtes libre de l'utiliser, le modifier et l'intégrer dans vos agences d'architecture et bureaux d'études.
