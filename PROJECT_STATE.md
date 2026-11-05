@@ -244,6 +244,9 @@
 ## 4. Historique Chronologique des Versions
 
 ### [v2.9.1] - 2026-11-05
+- **Bouton Direct BIMcraft dans le Hero (v2.9.4) :**
+  - Téléchargement 1-clic de BIMcraft disponible immédiatement en haut de page dans le Hero CTA et sur la carte macOS/Linux.
+  - Liaison dynamique automatique avec l'asset officiel (DMG/MSI/AppImage) issu de `IPedrax/BIMCraft`.
 - **Correction Critique Visibilité Landing Page (v2.9.3) :**
   - Correction de syntaxe dans `docs/app.js` et neutralisation défensive de `opacity: 0` sur `[data-animate]` : affichage instantané et garanti de l'ensemble des textes et présentations, même hors exécution JS.
 - **Hub de Téléchargement Dual-Engine & Écouteur Live GitHub Releases (IPedrax/BIMCraft) :**

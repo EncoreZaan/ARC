@@ -1764,3 +1764,38 @@ img, svg, video {
   border-color: #38BDF8 !important;
   transform: translateY(-2px) scale(1.02);
 }
+
+.btn-hero-bimcraft {
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  color: #38BDF8 !important;
+  background: rgba(15, 23, 42, 0.75) !important;
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.2) !important;
+  transition: all var(--duration-med) var(--ease-cinematic) !important;
+}
+
+.btn-hero-bimcraft:hover {
+  background: rgba(56, 189, 248, 0.2) !important;
+  border-color: #38BDF8 !important;
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.5) !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.badge-card-interactive {
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.badge-action-pill {
+  display: inline-block;
+  font-size: 0.68rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  color: var(--accent-cyan);
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}

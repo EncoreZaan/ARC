@@ -7,6 +7,10 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 ## [2.9.1] - 2026-11-05
 
 ### 🚀 5 Outils Poids-Plume Haute Performance en Rust Pur, Format Colonnaire & Sync Live BIMcraft
+- **Installation Directe 1-Clic BIMcraft dans le Hero (v2.9.4) :**
+  - Ajout du bouton d'action `Installer BIMcraft Live` directement dans le Hero principal de la landing page (accessible immédiatement sans scroller jusqu'en bas).
+  - Transformation de la 3e carte héro (`macOS & Linux Natifs`) en carte interactive déclenchant le téléchargement immédiat du paquet officiel selon l'OS détecté.
+  - Écoute active de l'API GitHub (`IPedrax/BIMCraft`) alimentant instantanément le bouton Hero avec le tag de version et l'asset correspondant.
 - **Correction Critique Visibilité du Texte & Résilience Landing Page (v2.9.3) :**
   - Élimination d'une accolade résiduelle dans `docs/app.js` qui bloquait l'exécution de l'observateur d'animation sur certains navigateurs.
   - Définition d'une règle de visibilité absolue (`[data-animate] { opacity: 1 !important; }`) dans le CSS critique inliné : le texte et la présentation sont garantis visibles immédiatement à 100% sans jamais dépendre du moteur d'intersection JavaScript.

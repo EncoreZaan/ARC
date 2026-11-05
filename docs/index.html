@@ -33,7 +33,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Stylesheet (with cache-buster) -->
-  <link rel="stylesheet" href="./styles.css?v=2.9.3">
+  <link rel="stylesheet" href="./styles.css?v=2.9.4">
 
   <!-- Defensive Hero Layout Overrides (Guaranteed Zero Overlap across all browsers & caches) -->
   <style>
@@ -222,13 +222,22 @@
               <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
           </a>
-          <a href="#download" class="btn-pill btn-glass">
+          <a href="#download" class="btn-pill btn-glass" title="Télécharger l'installateur ARC pour Revit">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="7 10 12 15 17 10"></polyline>
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
-            Télécharger v2.9.1
+            Télécharger ARC v2.9.1
+          </a>
+          <!-- BIMcraft Direct 1-Click Installer (GitHub Live Sync) -->
+          <a id="hero-btn-bimcraft" href="https://github.com/IPedrax/BIMCraft/releases/download/v0.10.0/bimcraft-0.10.0-macos-universal.dmg" class="btn-pill btn-glass btn-hero-bimcraft" title="Télécharger directement la dernière version officielle de BIMcraft pour votre OS">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span id="hero-bimcraft-btn-text">Installer BIMcraft Live (v0.10.0)</span>
           </a>
           <a href="https://github.com/EncoreZaan/ARC" target="_blank" rel="noopener noreferrer" class="btn-pill btn-glass">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -266,8 +275,8 @@
             </div>
           </div>
 
-          <!-- Badge 3: macOS & Linux Native -->
-          <div class="badge-card">
+          <!-- Badge 3: macOS & Linux Native (Direct Download Trigger) -->
+          <a id="hero-badge-bimcraft-dl" href="https://github.com/IPedrax/BIMCraft/releases/download/v0.10.0/bimcraft-0.10.0-macos-universal.dmg" class="badge-card badge-card-interactive" title="Cliquer pour télécharger directement BIMcraft pour votre OS">
             <div class="badge-icon" style="color: var(--accent-cyan); background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.35);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -276,10 +285,10 @@
               </svg>
             </div>
             <div class="badge-content">
-              <h4>macOS & Linux Natifs</h4>
+              <h4>macOS & Linux Natifs <span class="badge-action-pill">Installer ➔</span></h4>
               <p>BIMcraft Metal (M1–M4) & conversion .rvt sans Windows.</p>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -990,9 +999,9 @@
   </script>
 
   <!-- 3D WebGL Sphere & Central Experience -->
-  <script src="./three-scene.js?v=2.9.3"></script>
+  <script src="./three-scene.js?v=2.9.4"></script>
 
   <!-- UI Interactivity, Tools & Accordion -->
-  <script src="./app.js?v=2.9.3"></script>
+  <script src="./app.js?v=2.9.4"></script>
 </body>
 </html>

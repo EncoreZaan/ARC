@@ -1981,6 +1981,27 @@ curl http://localhost:6543/health`
           if (label) label.textContent = `Linux .AppImage (${sizeMb} Mo)`;
           linBtn.setAttribute('title', `Télécharger BIMcraft ${tag} pour Linux (${linAsset.name})`);
         }
+
+        // Update Hero direct installer button & Badge 3 link
+        const heroBtn = document.getElementById('hero-btn-bimcraft');
+        const heroBtnText = document.getElementById('hero-bimcraft-btn-text');
+        const heroBadgeDl = document.getElementById('hero-badge-bimcraft-dl');
+
+        let targetAssetUrl = '';
+        if (os === 'win' && winAsset) targetAssetUrl = winAsset.browser_download_url;
+        else if (os === 'linux' && linAsset) targetAssetUrl = linAsset.browser_download_url;
+        else if (macAsset) targetAssetUrl = macAsset.browser_download_url;
+        else targetAssetUrl = data.html_url;
+
+        if (heroBtn && targetAssetUrl) {
+          heroBtn.href = targetAssetUrl;
+          if (heroBtnText) heroBtnText.textContent = `Installer BIMcraft Live (${tag})`;
+          heroBtn.setAttribute('title', `Télécharger BIMcraft ${tag} directement pour votre système`);
+        }
+        if (heroBadgeDl && targetAssetUrl) {
+          heroBadgeDl.href = targetAssetUrl;
+          heroBadgeDl.setAttribute('title', `Cliquer pour télécharger directement BIMcraft ${tag}`);
+        }
       }
     } catch (err) {
       console.warn('[BIMcraft Sync] GitHub API listener fallback active:', err);
