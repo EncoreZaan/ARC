@@ -1,4 +1,5 @@
 mod geometry;
+mod solver;
 
 use geometry::{ClashElement, Polygon2D};
 use reqwest::Client;
@@ -273,6 +274,23 @@ async fn handle_tools_call(
         return (json!({ "content": [{ "type": "text", "text": text }] }), false);
     }
 
+    if tool_name == "revit_solve_parametric_layout" {
+        let solution = solver::solve_parametric_layout(&post_body);
+
+        // Si l'utilisateur demande d'appliquer automatiquement la prévisualisation fantôme dans Revit
+        if post_body.get("autoGhostPreview").and_then(|v| v.as_bool()).unwrap_or(true) {
+            if let Some(ghost_items) = solution.get("ghost_preview_items") {
+                let _ = try_pipe_call("overlay/ghost-preview", json!({
+                    "clearExisting": true,
+                    "items": ghost_items
+                })).await;
+            }
+        }
+
+        let text = serde_json::to_string_pretty(&solution).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
     // ── HEALTH CHECK ─────────────────────────────────────────────────────────
     if tool.is_health_check {
         // Try pipe health first
@@ -352,7 +370,7 @@ async fn handle_tools_call(
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    eprintln!("[INFO] Revit MCP Server in Rust (v2.3.0) starting with Named Pipe IPC & Multithreaded Geometry Engine...");
+    eprintln!("[INFO] Revit MCP Server in Rust (v2.5.0) starting with Named Pipe IPC & Multithreaded Geometry Engine...");
 
     let config = resolve_config();
     eprintln!("[INFO] Target bridge: {} (Timeout: {} ms)", config.host, config.timeout.as_millis());
@@ -420,7 +438,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         },
                         "serverInfo": {
                             "name": "revit-claude-mcp",
-                            "version": "2.3.0"
+                            "version": "2.5.0"
                         }
                     }
                 });

@@ -572,7 +572,7 @@ dependencies = [
 
 [[package]]
 name = "revit-mcp-server"
-version = "2.4.0"
+version = "2.5.0"
 dependencies = [
  "rayon",
  "reqwest",

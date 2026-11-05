@@ -1,6 +1,6 @@
 [package]
 name = "revit-mcp-installer"
-version = "2.2.0"
+version = "2.5.0"
 edition = "2021"
 authors = ["UV Techs"]
 description = "Universal standalone installer for Revit AI Bridge"

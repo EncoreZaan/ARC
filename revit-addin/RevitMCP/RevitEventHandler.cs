@@ -327,7 +327,7 @@ public partial class RevitEventHandler : IExternalEventHandler
 
 
 
-        if (doc == null && action != "documents/list" && action != "documents/open" && action != "documents/new" && action != "documents/new-project" && action != "ui/state" && action != "ui/bring-to-front" && action != "dynamo/list-scripts" && action != "security/get" && action != "security/set")
+        if (doc == null && action != "documents/list" && action != "documents/open" && action != "documents/new" && action != "documents/new-project" && action != "ui/state" && action != "ui/bring-to-front" && action != "dynamo/list-scripts" && action != "security/get" && action != "security/set" && action != "lca/inies-lookup")
 
 
 
@@ -1187,7 +1187,24 @@ public partial class RevitEventHandler : IExternalEventHandler
             "audit/pmr" => AuditPmrCompliance(doc!, payload),
             "generate/spatial-layout" => GenerateSpatialLayout(doc!, payload),
             "proactive/alerts" => GetProactiveAlerts(doc!, payload),
-            "proactive/clear" => ClearProactiveAlerts(doc!, payload),
+                        "proactive/clear" => ClearProactiveAlerts(doc!, payload),
+
+            // ── Holographic DirectContext3D HUD & Ghosting ──
+            "overlay/ghost-preview" => PreviewGhostGeometry(app, doc!, payload),
+            "overlay/clash-heatmap" => OverlayClashHeatmap(app, doc!, payload),
+            "overlay/clear" => ClearHolographicOverlay(app, doc!, payload),
+            "overlay/status" => GetHolographicStatus(app, doc!, payload),
+
+            // ── Interactive 3D Web Viewer Three.js ──
+            "view/export-interactive-3d" => ExportInteractive3DViewer(doc!, payload),
+
+            // ── Real-time Voice Control Speech-to-BIM ──
+            "voice/execute-command" => ExecuteVoiceCommand(app, doc!, payload),
+
+            // ── Bilan Carbone ACV & RE2020 INIES ──
+            "lca/carbon-footprint" => CalculateLcaCarbonFootprint(doc!, payload),
+            "lca/low-carbon-alternatives" => SuggestLowCarbonAlternatives(doc!, payload),
+            "lca/inies-lookup" => LookupIniesDatabase(payload),
 
 
 

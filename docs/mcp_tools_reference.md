@@ -1,6 +1,6 @@
-# RÉFÉRENCE COMPLÈTE DES OUTILS MCP — REVIT AI BRIDGE (v2.2.0)
+# RÉFÉRENCE COMPLÈTE DES OUTILS MCP — REVIT AI BRIDGE (v2.5.0)
 
-Ce document fournit la documentation de référence exhaustive de l'ensemble des **196 outils MCP** exposés par le serveur Revit AI Bridge à Claude (Claude Desktop, Claude Code et clients MCP).
+Ce document fournit la documentation de référence exhaustive de l'ensemble des **220 outils MCP** exposés par le serveur Revit AI Bridge à Claude (Claude Desktop, Claude Code et clients MCP).
 
 ---
 
@@ -24,6 +24,7 @@ Ce document fournit la documentation de référence exhaustive de l'ensemble des
 16. [Imports, Exports & Formats Vectoriels (11 outils)](#16-imports-exports--formats-vectoriels)
 17. [Graphismes, Révisions, Sous-projets & Variantes (13 outils)](#17-graphismes-révisions-sous-projets--variantes)
 18. [Serveur Compagnon CAD-MCP — Outils DXF / DWG (8 outils)](#18-serveur-compagnon-cad-mcp--outils-dxf--dwg)
+19. [Super-Pouvoirs v2.5.0 : Hologrammes 3D, Solveur Rust, Three.js, Speech-to-BIM & ACV RE2020 (10 outils)](#19-super-pouvoirs-v250--hologrammes-3d-solveur-rust-threejs-speech-to-bim--acv-re2020)
 
 ---
 
@@ -1288,3 +1289,76 @@ Cette catégorie introduit les 5 super-pouvoirs majeurs de la version 2.2.0, con
   "message": "Journal des alertes proactives effacé avec succès."
 }
 ```
+
+---
+
+## 19. Super-Pouvoirs v2.5.0 : Hologrammes 3D, Solveur Rust, Three.js, Speech-to-BIM & ACV RE2020
+
+### `revit_overlay_ghost_preview`
+- **Description** : Projette des géométries fantômes 3D semi-transparentes colorées (murs, cloisons, cubes d'agencement, volumes de mobilier) directement dans la fenêtre DirectX 3D de Revit via l'API native `IDirectContext3DServer`, sans modifier le modèle Revit ni créer de transaction.
+- **Paramètres** :
+  - `clearExisting` (booléen, optionnel) : efface les projections fantômes précédentes.
+  - `items` (tableau d'objets, optionnel) : `{ label, type, xMm, yMm, zMm, widthMm, depthMm, heightMm, rotationDeg, r, g, b, alpha }`.
+  - `wallStart` / `wallEnd` (objets `{x, y, z}`, optionnels) : trace un mur fantôme direct.
+  - `wallHeightMm` / `wallThicknessMm` (nombres, optionnels).
+- **Exemple** : `revit_overlay_ghost_preview({ wallStart: {x: 0, y: 0}, wallEnd: {x: 5000, y: 0}, wallHeightMm: 2800, r: 0, g: 220, b: 255, alpha: 130 })`.
+
+### `revit_overlay_clash_heatmap`
+- **Description** : Projette une heatmap volumétrique 3D en surimpression directe sur les faces ou boîtes englobantes des éléments (rouge = clash dur, jaune/orange = dégagement insuffisant, vert = sécurisé) sans altérer les matériaux Revit.
+- **Paramètres** :
+  - `clearExisting` (booléen, optionnel, défaut `true`).
+  - `clashes` (tableau, optionnel) : résultats issus de `revit_fast_clash_detection`.
+  - `elementIds` (tableau d'entiers, optionnel) : liste d'IDs d'éléments Revit à mettre en surbrillance.
+- **Exemple** : `revit_overlay_clash_heatmap({ elementIds: [10234, 10235], r: 255, g: 30, b: 30, alpha: 160 })`.
+
+### `revit_overlay_clear`
+- **Description** : Efface instantanément toutes les projections holographiques DirectContext3D et heatmaps 3D du viewport Revit.
+- **Paramètres** : Aucun.
+
+### `revit_overlay_get_status`
+- **Description** : Retourne l'état du serveur DirectContext3D, le nombre d'hologrammes actifs et leur inventaire géométrique.
+- **Paramètres** : Aucun.
+
+### `revit_solve_parametric_layout`
+- **Description** : Moteur d'optimisation mathématique multithreadé en Rust (`rayon`). Évalue 100 000 permutations spatiales d'aménagement en 36 ms pour implanter postes de travail, tables de réunion et rangements en maximisant la lumière naturelle et garantissant 1,50 m de passage PMR.
+- **Paramètres** :
+  - `roomWidthMm` (nombre, défaut `8000`).
+  - `roomLengthMm` (nombre, défaut `6000`).
+  - `minClearanceMm` (nombre, défaut `1500`).
+  - `workstations` (entier, défaut `6`).
+  - `meetingTables` (entier, défaut `1`).
+  - `storageUnits` (entier, défaut `2`).
+  - `iterations` (entier, défaut `100000`).
+  - `autoGhostPreview` (booléen, défaut `true`) : projette immédiatement la solution en hologramme 3D dans Revit.
+- **Exemple** : `revit_solve_parametric_layout({ roomWidthMm: 9000, roomLengthMm: 7000, workstations: 6, meetingTables: 1, autoGhostPreview: true })`.
+
+### `revit_export_interactive_3d_viewer`
+- **Description** : Exporte la vue ou la maquette 3D Revit sous forme d'un visualiseur Web interactif autonome Three.js (Generative UI) avec OrbitControls (rotation, zoom, panoramique), modes fil de fer / fantôme et inspection des paramètres au clic.
+- **Paramètres** :
+  - `viewId` (entier, optionnel) : ID de la vue Revit.
+  - `maxElements` (entier, optionnel, défaut `500`).
+  - `outputDir` (chaîne, optionnelle).
+- **Exemple** : `revit_export_interactive_3d_viewer({})`.
+
+### `revit_execute_voice_command`
+- **Description** : Contrôle vocal temps réel (Speech-to-BIM). Interprète des instructions orales en français ou anglais et les exécute sur Revit en moins de 300 ms via Windows Named Pipes (< 0.5 ms de latence IPC).
+- **Paramètres** :
+  - `command` (chaîne, obligatoire) : phrase orale transcrite (ex: *"Isole les gaines de ventilation du R+1 et masque le mobilier"*, *"Réinitialise la vue"*, *"Passe en 3D"*, *"Efface les hologrammes"*).
+- **Exemple** : `revit_execute_voice_command({ command: "Isole les gaines de ventilation et masque le mobilier" })`.
+
+### `revit_calculate_lca_carbon_footprint`
+- **Description** : Calcule le bilan carbone ACV complet du projet Revit selon la méthodologie RE2020 ($IC_{construction}$ en $kgCO_2eq/m^2$ SDP) et la base de données officielle française FDES/INIES.
+- **Paramètres** : Aucun.
+- **Exemple** : `revit_calculate_lca_carbon_footprint({})`.
+
+### `revit_suggest_low_carbon_alternatives`
+- **Description** : Analyse les points chauds d'émissions carbone du projet (cloisons BA13 standard, menuiseries alu, bétons traditionnels) et calcule le gain chiffré exact en tonnes de $CO_2$ économisées et en stockage de carbone biogénique pour des alternatives biosourcées (ossature bois, menuiserie bois PEFC, béton CEM III).
+- **Paramètres** : Aucun.
+- **Exemple** : `revit_suggest_low_carbon_alternatives({})`.
+
+### `revit_inies_database_lookup`
+- **Description** : Recherche et consulte les données environnementales officielles FDES de la base française INIES (facteurs d'émissions, stockage biogénique, durée de vie typique).
+- **Paramètres** :
+  - `query` (chaîne, optionnelle) : matériau ou mot-clé (ex: *"bois"*, *"plâtre"*, *"isolant"*, *"béton"*).
+  - `category` (chaîne, optionnelle) : *"Structure"*, *"Cloisonnement"*, *"Isolation"*, *"Menuiserie"*, *"Finitions"*.
+- **Exemple** : `revit_inies_database_lookup({ query: "ossature bois" })`.

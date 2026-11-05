@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-10-20T17:54:55.979Z",
-  "totalTools": 210,
+  "totalTools": 220,
   "tools": [
     {
       "name": "revit_health_check",
@@ -7887,6 +7887,303 @@
         ]
       },
       "action": "branch/compare",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_overlay_ghost_preview",
+      "description": "🔮 Affichage holographique 3D temps réel (DirectContext3D). Projette des murs et volumes fantômes semi-transparents colorés directement dans la fenêtre DirectX 3D de Revit sans modifier le modèle Revit.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "clearExisting": {
+            "type": "boolean",
+            "description": "Effacer les projections fantômes précédentes avant d'afficher la nouvelle (défaut: false)"
+          },
+          "items": {
+            "type": "array",
+            "description": "Liste d'objets fantômes (boîtes, cloisons, agencements)",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "box",
+                    "wall"
+                  ]
+                },
+                "xMm": {
+                  "type": "number"
+                },
+                "yMm": {
+                  "type": "number"
+                },
+                "zMm": {
+                  "type": "number"
+                },
+                "widthMm": {
+                  "type": "number"
+                },
+                "depthMm": {
+                  "type": "number"
+                },
+                "heightMm": {
+                  "type": "number"
+                },
+                "rotationDeg": {
+                  "type": "number"
+                },
+                "r": {
+                  "type": "integer"
+                },
+                "g": {
+                  "type": "integer"
+                },
+                "b": {
+                  "type": "integer"
+                },
+                "alpha": {
+                  "type": "integer",
+                  "description": "0-255 (défaut 130 pour semi-transparence)"
+                }
+              }
+            }
+          },
+          "wallStart": {
+            "type": "object",
+            "description": "Point de départ mm ({x, y, z}) pour tracer un mur fantôme direct",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            }
+          },
+          "wallEnd": {
+            "type": "object",
+            "description": "Point d'arrivée mm ({x, y, z}) pour tracer un mur fantôme direct",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            }
+          },
+          "wallHeightMm": {
+            "type": "number",
+            "description": "Hauteur du mur fantôme en mm (défaut: 2800)"
+          },
+          "wallThicknessMm": {
+            "type": "number",
+            "description": "Épaisseur du mur fantôme en mm (défaut: 200)"
+          }
+        }
+      },
+      "action": "overlay/ghost-preview",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_overlay_clash_heatmap",
+      "description": "🔴 Heatmap 3D en surimpression holographique (HUD Augmenté). Projette des volumes colorés (rouge = clash dur, jaune = dégagement, vert = sécurisé) directement sur les faces ou boîtes englobantes des éléments en collision sans altérer les matériaux.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "clearExisting": {
+            "type": "boolean",
+            "description": "Effacer les heatmaps précédentes (défaut: true)"
+          },
+          "clashes": {
+            "type": "array",
+            "description": "Liste de résultats de clashs issus de revit_fast_clash_detection"
+          },
+          "elementIds": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "Liste d'IDs Revit à colorer en heatmap 3D"
+          },
+          "r": {
+            "type": "integer"
+          },
+          "g": {
+            "type": "integer"
+          },
+          "b": {
+            "type": "integer"
+          },
+          "alpha": {
+            "type": "integer"
+          }
+        }
+      },
+      "action": "overlay/clash-heatmap",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_overlay_clear",
+      "description": "🧹 Efface instantanément toutes les projections holographiques DirectContext3D et heatmaps 3D de la vue Revit.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "overlay/clear",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_overlay_get_status",
+      "description": "Inspecte l'état du serveur d'hologrammes DirectContext3D et l'inventaire des objets fantômes actifs.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "overlay/status",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_solve_parametric_layout",
+      "description": "🧠 Moteur d'optimisation mathématique en Rust (Auto-Layout Solver). Évalue 100 000 agencements spatiaux en moins de 50 ms pour disposer postes de travail, tables de réunion et rangements en maximisant la lumière naturelle et garantissant 1,50 m de passage PMR.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "roomWidthMm": {
+            "type": "number",
+            "description": "Largeur de la pièce en mm (défaut: 8000)"
+          },
+          "roomLengthMm": {
+            "type": "number",
+            "description": "Longueur de la pièce en mm (défaut: 6000)"
+          },
+          "minClearanceMm": {
+            "type": "number",
+            "description": "Dégagement minimal de circulation PMR en mm (défaut: 1500)"
+          },
+          "workstations": {
+            "type": "integer",
+            "description": "Nombre de postes de travail à implanter (défaut: 6)"
+          },
+          "meetingTables": {
+            "type": "integer",
+            "description": "Nombre de tables de réunion (défaut: 1)"
+          },
+          "storageUnits": {
+            "type": "integer",
+            "description": "Nombre d'armoires de rangement (défaut: 2)"
+          },
+          "iterations": {
+            "type": "integer",
+            "description": "Nombre de combinaisons testées en parallèle (défaut: 100000)"
+          },
+          "autoGhostPreview": {
+            "type": "boolean",
+            "description": "Projeter automatiquement le meilleur agencement dans Revit en hologramme 3D (défaut: true)"
+          }
+        }
+      },
+      "action": "layout/solve-parametric",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_export_interactive_3d_viewer",
+      "description": "🌐 Exporte la vue ou maquette 3D sous forme d'un visualiseur Web interactif Three.js autonome (Generative UI) avec rotation, zoom, fil de fer, mode fantôme et inspection des paramètres Revit au clic.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "viewId": {
+            "type": "integer",
+            "description": "ID de la vue Revit (défaut: vue active)"
+          },
+          "maxElements": {
+            "type": "integer",
+            "description": "Nombre maximal d'éléments exportés (défaut: 500)"
+          },
+          "outputDir": {
+            "type": "string",
+            "description": "Dossier de destination personnalisé pour le fichier HTML"
+          }
+        }
+      },
+      "action": "view/export-interactive-3d",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_execute_voice_command",
+      "description": "🎙️ Contrôle vocal temps réel (Speech-to-BIM). Exécute instantanément sur Revit des instructions orales en français ou anglais en moins de 300 ms sans toucher au clavier (ex: 'Isole les gaines de ventilation du R+1 et masque le mobilier', 'Réinitialise la vue', 'Passe en 3D').",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "required": [
+          "command"
+        ],
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "Phrase orale transcrite (français ou anglais)"
+          }
+        }
+      },
+      "action": "voice/execute-command",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_calculate_lca_carbon_footprint",
+      "description": "🍃 Bilan carbone ACV & Analyse de Cycle de Vie en direct (RE2020 / Base INIES). Calcule l'indice carbone IC_construction du projet en kgCO2eq/m2 SDP, le stockage biogénique et vérifie la conformité avec les seuils RE2020 (2022, 2025, 2028).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "lca/carbon-footprint",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_suggest_low_carbon_alternatives",
+      "description": "🌱 Détecte les points chauds d'émissions carbone du projet et calcule les gains réels en tonnes de CO2 économisées (-40% à -75%) et en stockage carbone biogénique en substituant par des alternatives biosourcées INIES.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "lca/low-carbon-alternatives",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_inies_database_lookup",
+      "description": "🔍 Recherche et consulte les données environnementales officielles FDES de la base française INIES (facteurs d'émissions kgCO2eq, stockage carbone, isolants, bétons, ossatures bois).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Nom du matériau ou composant recherché (ex: 'bois', 'platre', 'béton', 'isolant')"
+          },
+          "category": {
+            "type": "string",
+            "description": "Catégorie ('Structure', 'Cloisonnement', 'Isolation', 'Menuiserie', 'Finitions')"
+          }
+        }
+      },
+      "action": "lca/inies-lookup",
       "isHealthCheck": false
     }
   ]

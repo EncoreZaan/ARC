@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};

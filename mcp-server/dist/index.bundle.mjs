@@ -31048,7 +31048,7 @@ async function revitHealth(config2 = resolveRevitBridgeConfig()) {
 var bridgeConfig = resolveRevitBridgeConfig();
 var server = new McpServer({
   name: "revit-claude-mcp",
-  version: "2.2.0"
+  version: "2.5.0"
 });
 documentTitle: external_exports.string().optional().describe("Titre ou chemin du document cible (d\xE9faut : document actif)"), server.registerTool(
   "revit_health_check",
@@ -34887,6 +34887,159 @@ server.registerTool(
   },
   async (args) => {
     const data = await revit("branch/compare", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_overlay_ghost_preview",
+  {
+    description: "\u{1F52E} Affichage holographique 3D temps r\xE9el (DirectContext3D). Projette des murs et volumes fant\xF4mes semi-transparents color\xE9s directement dans la fen\xEAtre DirectX 3D de Revit sans modifier le mod\xE8le Revit.",
+    inputSchema: {
+      clearExisting: external_exports.boolean().optional().describe("Effacer les projections fant\xF4mes pr\xE9c\xE9dentes (d\xE9faut: false)"),
+      items: external_exports.array(external_exports.any()).optional().describe("Liste d'objets fant\xF4mes (bo\xEEtes, cloisons, agencements)"),
+      wallStart: external_exports.object({ x: external_exports.number(), y: external_exports.number(), z: external_exports.number().optional() }).optional().describe("D\xE9part mur mm"),
+      wallEnd: external_exports.object({ x: external_exports.number(), y: external_exports.number(), z: external_exports.number().optional() }).optional().describe("Arriv\xE9e mur mm"),
+      wallHeightMm: external_exports.number().optional().describe("Hauteur mur mm (d\xE9faut 2800)"),
+      wallThicknessMm: external_exports.number().optional().describe("\xC9paisseur mur mm (d\xE9faut 200)")
+    },
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("overlay/ghost-preview", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_overlay_clash_heatmap",
+  {
+    description: "\u{1F534} Heatmap 3D en surimpression holographique (HUD Augment\xE9). Projette des volumes color\xE9s directement sur les \xE9l\xE9ments en collision sans alt\xE9rer les mat\xE9riaux.",
+    inputSchema: {
+      clearExisting: external_exports.boolean().optional().describe("Effacer les heatmaps pr\xE9c\xE9dentes"),
+      clashes: external_exports.array(external_exports.any()).optional().describe("R\xE9sultats de clashs"),
+      elementIds: external_exports.array(external_exports.number()).optional().describe("IDs Revit \xE0 colorer"),
+      r: external_exports.number().optional(),
+      g: external_exports.number().optional(),
+      b: external_exports.number().optional(),
+      alpha: external_exports.number().optional()
+    },
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("overlay/clash-heatmap", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_overlay_clear",
+  {
+    description: "\u{1F9F9} Efface instantan\xE9ment toutes les projections holographiques DirectContext3D et heatmaps 3D de la vue Revit.",
+    inputSchema: {},
+    annotations: { readOnlyHint: false, destructiveHint: false }
+  },
+  async (args) => {
+    const data = await revit("overlay/clear", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_overlay_get_status",
+  {
+    description: "Inspecte l'\xE9tat du serveur d'hologrammes DirectContext3D et l'inventaire des objets fant\xF4mes actifs.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("overlay/status", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_solve_parametric_layout",
+  {
+    description: "\u{1F9E0} Moteur d'optimisation math\xE9matique en Rust (Auto-Layout Solver). \xC9value 100 000 agencements spatiaux en moins de 50 ms pour disposer postes de travail, tables et rangements en maximisant la lumi\xE8re naturelle et garantissant 1,50 m de passage PMR.",
+    inputSchema: {
+      roomWidthMm: external_exports.number().optional().describe("Largeur de pi\xE8ce mm"),
+      roomLengthMm: external_exports.number().optional().describe("Longueur de pi\xE8ce mm"),
+      minClearanceMm: external_exports.number().optional().describe("D\xE9gagement PMR mm (d\xE9faut 1500)"),
+      workstations: external_exports.number().optional().describe("Postes de travail (d\xE9faut 6)"),
+      meetingTables: external_exports.number().optional().describe("Tables de r\xE9union (d\xE9faut 1)"),
+      storageUnits: external_exports.number().optional().describe("Armoires (d\xE9faut 2)"),
+      iterations: external_exports.number().optional().describe("Nombre d'it\xE9rations (d\xE9faut 100000)"),
+      autoGhostPreview: external_exports.boolean().optional().describe("Projeter en hologramme Revit (d\xE9faut true)")
+    },
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("layout/solve-parametric", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_export_interactive_3d_viewer",
+  {
+    description: "\u{1F310} Exporte la vue sous forme d'un visualiseur Web interactif Three.js autonome (Generative UI) avec OrbitControls et inspection des param\xE8tres au clic.",
+    inputSchema: {
+      viewId: external_exports.number().optional().describe("ID de la vue"),
+      maxElements: external_exports.number().optional().describe("Nombre maximal d'\xE9l\xE9ments"),
+      outputDir: external_exports.string().optional().describe("Dossier personnalis\xE9")
+    },
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("view/export-interactive-3d", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_execute_voice_command",
+  {
+    description: "\u{1F399}\uFE0F Contr\xF4le vocal temps r\xE9el (Speech-to-BIM). Ex\xE9cute instantan\xE9ment des ordres oraux sur Revit en moins de 300 ms sans toucher au clavier.",
+    inputSchema: {
+      command: external_exports.string().describe("Phrase orale en fran\xE7ais ou anglais")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false }
+  },
+  async (args) => {
+    const data = await revit("voice/execute-command", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_calculate_lca_carbon_footprint",
+  {
+    description: "\u{1F343} Bilan carbone ACV & Analyse de Cycle de Vie en direct (RE2020 / Base INIES). Calcule l'indice carbone IC_construction du projet en kgCO2eq/m2 SDP et le stockage biog\xE9nique.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("lca/carbon-footprint", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_suggest_low_carbon_alternatives",
+  {
+    description: "\u{1F331} D\xE9tecte les points chauds d'\xE9missions carbone et calcule les gains r\xE9els en tonnes de CO2 \xE9conomis\xE9es (-40% \xE0 -75%) pour des alternatives biosourc\xE9es INIES.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("lca/low-carbon-alternatives", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+);
+server.registerTool(
+  "revit_inies_database_lookup",
+  {
+    description: "\u{1F50D} Recherche et consulte les donn\xE9es environnementales officielles FDES de la base fran\xE7aise INIES.",
+    inputSchema: {
+      query: external_exports.string().optional().describe("Mat\xE9riau recherch\xE9"),
+      category: external_exports.string().optional().describe("Cat\xE9gorie")
+    },
+    annotations: { readOnlyHint: true }
+  },
+  async (args) => {
+    const data = await revit("lca/inies-lookup", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
   }
 );

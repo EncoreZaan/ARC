@@ -1,5 +1,5 @@
 # 🏛️ REVIT-MCP MASTER PROJECT STATE & ARCHITECTURE BIBLE
-> **Statut global du système :** Opérationnel & Ultra-Performant (v2.4.0)  
+> **Statut global du système :** Opérationnel & Ultra-Performant (v2.5.0)  
 > **Dernière mise à jour :** 5 Novembre 2026  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/Revit-MCP.git](https://github.com/EncoreZaan/Revit-MCP.git)  
 > **Auteur & Propriétaire :** @EncoreZaan  
@@ -27,11 +27,11 @@
 | **Fichier RVT Actif** | `...\06_Revit\DOUBLE-BAY_00_EXISTANT.rvt` |
 | **Gabarit Officiel (.rte)** | `...\DOUBLE-BAY_gabarit.rte` (issu du gabarit architectural FRA RVT 2027) |
 | **Bibliothèque Familles FRA** | `C:\ProgramData\Autodesk\RVT 2027\Libraries\French\` |
-| **Serveurs MCP Actifs** | 1. `revit` (Pont Rust/C# v2.4.0)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `revit-officiel` (Tech Preview stdio) |
+| **Serveurs MCP Actifs** | 1. `revit` (Pont Rust/C# v2.5.0)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `revit-officiel` (Tech Preview stdio) |
 
 ---
 
-## 2. Architecture Technique Tri-Couche (v2.4.0)
+## 2. Architecture Technique Tri-Couche (v2.5.0)
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -40,8 +40,8 @@
                                     │ stdio (JSON-RPC)
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│             SERVEUR MCP RUST (revit-mcp-server v2.4.0)                 │
-│  - Dispatcher haute performance (210 outils répertoriés)               │
+│             SERVEUR MCP RUST (revit-mcp-server v2.5.0)                 │
+│  - Dispatcher haute performance (220 outils répertoriés)               │
 │  - Moteur Géométrique Déporté Multithread (rayon)                       │
 │    • AABB Clash Detection parallélisée en mémoire vive                 │
 │    • Calculs surfaciques exacts Shoelace (Loi Carrez, PMR)             │
@@ -52,7 +52,7 @@
                     │ \\.\pipe\revit_mcp_ipc         │ http://localhost:6543
                     ▼                                ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│             ADD-IN C# REVIT 2027 (RevitMCP.dll v2.4.0)                 │
+│             ADD-IN C# REVIT 2027 (RevitMCP.dll v2.5.0)                 │
 │  - Serveur Named Pipe asynchrone non-bloquant                          │
 │  - Serveur HTTP résilient (silencieux en cas de multi-instance)        │
 │  - Synchronisation thread-safe unifiée via RequestGate (SemaphoreSlim) │
@@ -102,14 +102,38 @@
 
 ---
 
+### 🔮 7. Affichage Holographique DirectContext3D (HUD Augmenté)
+- Projection en direct dans le viewport DirectX de Revit de géométries fantômes semi-transparentes (`revit_overlay_ghost_preview`).
+- Heatmaps 3D de détection de clashs et d'ombrage (`revit_overlay_clash_heatmap`) directement appliquées sur les volumes d'éléments sans modifier leurs matériaux.
+- Nettoyage instantané à la volée (`revit_overlay_clear`).
+
+### 🧠 8. Moteur d'Optimisation Paramétrique Rust (Auto-Layout 100k-Solver)
+- Évaluation de 100 000 permutations spatiales d'aménagement de bureaux et salles de réunion en 36 ms (`revit_solve_parametric_layout`).
+- Multi-objectifs : maximisation de la lumière naturelle, respect strict du couloir de circulation PMR >= 1.50 m, et regroupement ergonomique en pods d'îlots de travail.
+- Projection holographique 3D immédiate dans Revit sans transaction.
+
+### 🌐 9. Visualiseur Web 3D Interactif Three.js (Generative UI)
+- Extraction facettisée 3D en mémoire vive et génération d'un visualiseur WebGL Three.js complet (`revit_export_interactive_3d_viewer`).
+- OrbitControls (rotation, panoramique, zoom), éclairage ambiant/directionnel, modes fil de fer et fantôme, avec inspection interactive des propriétés Revit au clic.
+
+### 🎙️ 10. Contrôle Vocal Temps Réel (Speech-to-BIM)
+- Interprétation de commandes orales architecturales en langage naturel français et anglais (`revit_execute_voice_command`).
+- Exécution sub-300ms sur Revit via Named Pipe IPC sans toucher au clavier.
+- Script daemon interactif `scripts/speech_to_bim_listener.py` compatible micro / Gemini Live / Whisper.
+
+### 🍃 11. Bilan Carbone ACV & RE2020 en Direct (Base INIES)
+- Calcul de l'indice carbone réglementaire $IC_{construction}$ en $kgCO_2eq/m^2$ SDP (`revit_calculate_lca_carbon_footprint`) et comparaison aux seuils RE2020 (2022, 2025, 2028, 2031).
+- Détection des points chauds carbonés et calcul des économies réelles en $CO_2$ pour des variantes biosourcées (`revit_suggest_low_carbon_alternatives`).
+- Consultation de la base officielle FDES française (`revit_inies_database_lookup`).
+
 ## 4. Historique Chronologique des Versions
 
-### [v2.4.0] - 2026-11-05
+### [v2.5.0] - 2026-11-05
 - **Features :**
   - Moteur de branching "Git of BIM" (`BranchingHandlers.cs` : `revit_branch_create`, `revit_branch_list`, `revit_branch_compare`).
   - Moteur géométrique multithread Rust (`geometry.rs` avec `rayon`).
   - Détection de conflits AABB ultra-rapide et métriques RE2020 / Carrez.
-  - 210 outils MCP désormais supportés et déclarés dans le catalogue.
+  - 220 outils MCP désormais supportés et déclarés dans le catalogue.
 - **Stabilité :**
   - Correction définitive du crash `IOException: Pipe is broken` sur les Named Pipes (`leaveOpen: true`, gestion d'exception protégée).
   - Verrouillage thread-safe partagé `RequestGate` pour éliminer les erreurs HTTP `429 Too Many Requests`.
