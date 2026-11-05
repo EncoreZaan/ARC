@@ -70,6 +70,9 @@ public class App : IExternalApplication
             // 4. Initialisation du Tracker de Sélection Active (Idling)
             ActiveSelectionTracker.Initialize(application, DockablePanel);
 
+            // 4b. Anti-Freeze SafeModalInterceptor (Auto-Dismissal des Popups Bloquants)
+            application.DialogBoxShowing += OnDialogBoxShowing;
+
             // 5. Initialisation du cache des documents et Démarrage du serveur HTTP
             OpenDocumentsCache.Initialize(application);
             _server = new RevitHttpServer(application);
@@ -95,12 +98,31 @@ public class App : IExternalApplication
 
     public Result OnShutdown(UIControlledApplication application)
     {
+        try { application.DialogBoxShowing -= OnDialogBoxShowing; } catch { }
         if (_server?.EventHandler != null)
         {
             try { application.Idling -= _server.EventHandler.OnIdling; } catch { }
         }
         _server?.Stop();
         return Result.Succeeded;
+    }
+
+    private static void OnDialogBoxShowing(object? sender, Autodesk.Revit.UI.Events.DialogBoxShowingEventArgs e)
+    {
+        try
+        {
+            if (e is Autodesk.Revit.UI.Events.TaskDialogShowingEventArgs taskArgs)
+            {
+                ConfigManager.LogAudit("MODAL_AUTO_DISMISS", $"Auto-handled TaskDialog: {taskArgs.DialogId} ({taskArgs.Message})");
+                taskArgs.OverrideResult((int)Autodesk.Revit.UI.TaskDialogResult.Ok);
+            }
+            else
+            {
+                ConfigManager.LogAudit("MODAL_AUTO_DISMISS", $"Auto-dismissed modal DialogBox: {e.DialogId}");
+                e.OverrideResult(1); // IDOK
+            }
+        }
+        catch { }
     }
 
     private static void CreateRibbonTabAndPanel(UIControlledApplication application)

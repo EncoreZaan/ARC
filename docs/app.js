@@ -1,7 +1,7 @@
 /**
  * ARC (Architectural Intelligence Bridge) — UI Application Script (v2.9.0)
  * - Navigation Scroll & Mobile Drawer
- * - Interactive 254-Tools Showcase with Category & Search Filtering
+ * - Interactive 264-Tools Showcase with Category & Search Filtering
  * - Configuration Code Snippet Switcher & 1-Click Clipboard Copy
  * - FAQ Accordion Controller
  * - Vibrant Canvas Starfield Generator (Cyan & Gold Twinkle)
@@ -67,7 +67,7 @@
   });
 
   // ---------------------------------------------------------------------------
-  // 2. Interactive 254-Tools Explorer
+  // 2. Interactive 264-Tools Explorer
   // ---------------------------------------------------------------------------
   const toolsData = [
   {
@@ -104,7 +104,7 @@
     "name": "revit_dispatch",
     "cat": "performance",
     "latency": "0.001 ms",
-    "desc": "Méta-dispatcher universel : exécute n'importe quel outil ou action spécialisée parmi les 254 du catalogue Dual-Engine en mode compact."
+    "desc": "Méta-dispatcher universel : exécute n'importe quel outil ou action spécialisée parmi les 264 du catalogue Dual-Engine en mode compact."
   },
   {
     "name": "revit_auto_dimension_plan",

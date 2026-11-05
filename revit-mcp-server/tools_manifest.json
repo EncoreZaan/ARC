@@ -9090,6 +9090,260 @@
       },
       "action": "batch/transform-vectorized",
       "isHealthCheck": false
+    },
+    {
+      "name": "arc_batch_macro",
+      "description": "Multi-Step Atomic Macro Batch Execution Engine. Executes sequential Revit and BIMcraft operations in a single roundtrip to eliminate token overhead and guarantee transactional integrity.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "operations": {
+            "type": "array",
+            "description": "List of operations to execute in order: [{ tool: 'revit_create_wall', args: {...} }, ...]",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tool": {
+                  "type": "string"
+                },
+                "args": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "tool"
+              ]
+            }
+          },
+          "atomic": {
+            "type": "boolean",
+            "description": "If true, rolls back all operations if any single step fails. Default true."
+          },
+          "executeInRevit": {
+            "type": "boolean",
+            "description": "If true and Revit is active, executes directly in Revit TransactionGroup."
+          }
+        },
+        "required": [
+          "operations"
+        ]
+      },
+      "action": "batch/macro",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_clean_and_purge_model",
+      "description": "Intelligent Model Purger & Optimizer. Audits and purges unused family types, orphan line styles, and unplaced views to reduce .RVT and .bimcraft file size by up to 50%.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "dryRun": {
+            "type": "boolean",
+            "description": "If true, only returns purge candidates and estimated KB saved without deleting. Default false."
+          },
+          "purgeUnusedTypes": {
+            "type": "boolean",
+            "description": "Purge family symbols and types with 0 instances. Default true."
+          },
+          "purgeUnplacedViews": {
+            "type": "boolean",
+            "description": "Purge drafting or working views not assigned to any sheet. Default false."
+          }
+        }
+      },
+      "action": "model/clean-and-purge",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_snapshot_diff",
+      "description": "In-Memory Time-Travel & Snapshot Differential Engine. Takes instant model snapshots and computes element/category deltas in sub-microseconds without reloading models.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "Operation: 'take' (capture new snapshot), 'list' (list session snapshots), or 'compare' (diff two snapshots).",
+            "enum": [
+              "take",
+              "list",
+              "compare"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "description": "Descriptive label for snapshot (e.g. 'Before wall removal')"
+          },
+          "snapshotIdA": {
+            "type": "string",
+            "description": "Base snapshot ID for comparison"
+          },
+          "snapshotIdB": {
+            "type": "string",
+            "description": "Target snapshot ID for comparison (defaults to latest)"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "action": "snapshot/diff",
+      "isHealthCheck": false
+    },
+    {
+      "name": "arc_smart_guide",
+      "description": "Dynamic AI Progressive Tool Discovery & Guidance. Searches tool signatures, parameter schemas, and best-practice examples on demand to eliminate LLM context saturation (-97% tokens).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search keyword (e.g. 'wall', 'plu', 'clash', 'dxf', 'dimension', 'render')"
+          },
+          "category": {
+            "type": "string",
+            "description": "Filter category: 'Macro / Workflow', 'Optimisation / Purge', 'CAD / DXF', 'Analyse Géométrique', 'Réglementation / RE2020', etc."
+          }
+        }
+      },
+      "action": "arc/smart-guide",
+      "isHealthCheck": false
+    },
+    {
+      "name": "dxf_info",
+      "description": "Native Rust DXF Metadata Inspector. Extracts AutoCAD version, measurement units ($INSUNITS), spatial boundaries (extmin/extmax), layer definitions, and entity counts in sub-milliseconds without Python.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path to AutoCAD .dxf file"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "action": "cad/dxf-info",
+      "isHealthCheck": false
+    },
+    {
+      "name": "dxf_list_entities",
+      "description": "Native Rust DXF Entity Query Engine. Filters and extracts geometric entities (LINE, LWPOLYLINE, CIRCLE, ARC, TEXT) by layer or type with exact floating-point coordinates.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path to .dxf file"
+          },
+          "layer": {
+            "type": "string",
+            "description": "Optional layer name filter"
+          },
+          "entityType": {
+            "type": "string",
+            "description": "Optional entity type (e.g. 'LINE', 'LWPOLYLINE')"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Max entities to return (default 200)"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "action": "cad/dxf-list-entities",
+      "isHealthCheck": false
+    },
+    {
+      "name": "dxf_render",
+      "description": "Native Rust 1:1 Vector SVG/PDF Renderer for DXF. Generates crisp, mathematically exact drawings with layer colors and paper sheet viewports with zero Python/Matplotlib overhead.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path to .dxf file"
+          },
+          "outputPath": {
+            "type": "string",
+            "description": "Output SVG file path (default: <filename>.svg)"
+          },
+          "backgroundColor": {
+            "type": "string",
+            "description": "Background hex color (default: '#0B080D')"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "action": "cad/dxf-render",
+      "isHealthCheck": false
+    },
+    {
+      "name": "dxf_audit",
+      "description": "Native Rust DXF Topological Integrity Auditor. Detects zero-length lines, unclosed boundary polylines, orphan layers, and corrupt coordinate groups.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path to .dxf file"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "action": "cad/dxf-audit",
+      "isHealthCheck": false
+    },
+    {
+      "name": "dxf_diff",
+      "description": "Native Rust CAD Differential Engine. Compares two DXF revisions and outputs added/removed layers, entity count deltas, and dimensional shifts.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pathA": {
+            "type": "string",
+            "description": "Original DXF file path"
+          },
+          "pathB": {
+            "type": "string",
+            "description": "Modified DXF file path"
+          }
+        },
+        "required": [
+          "pathA",
+          "pathB"
+        ]
+      },
+      "action": "cad/dxf-diff",
+      "isHealthCheck": false
+    },
+    {
+      "name": "bimcraft_export_dxf",
+      "description": "Exports BIMcraft model elements or walls/doors/windows into an AutoCAD ASCII DXF (R12/2000) file with structured layers for CAD collaboration.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "type": "array",
+            "description": "List of BIMcraft or Revit elements with start/end coordinates"
+          },
+          "outputPath": {
+            "type": "string",
+            "description": "Destination .dxf file path"
+          }
+        },
+        "required": [
+          "outputPath"
+        ]
+      },
+      "action": "cad/bimcraft-export-dxf",
+      "isHealthCheck": false
     }
   ]
 }

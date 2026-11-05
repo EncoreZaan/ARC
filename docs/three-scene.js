@@ -1,11 +1,12 @@
 /**
  * ARC (Architectural Intelligence Bridge) — 3D Centerpiece
- * High-Precision WebGL / Three.js Interactive Scene
- * - Liquid Metallic Obsidian Dome with 3D Simplex noise deformation
- * - Champagne Gold & Midnight Cobalt Fresnel & Dynamic Specular Caustics
- * - Interior 3D Architectural BIM Wireframe Pavilion with real-time data pulses
- * - Fluid Molten Ribbon & Ambient Particle Field
- * - Cursor & Gyroscope Parallax, Scroll Elevation & Viewport Throttling
+ * Apple Pro Minimalist Aesthetic — The Holographic Parametric Glass Pavilion
+ * - Clean Dielectric Crystal Glass Floor Plates (RDC, R+1, R+2, Rooftop)
+ * - Precision Titanium Structural Grid & Glowing Parametric Node Connectors
+ * - Responsive Kinetic Architectural Louvers & Facade Mullions
+ * - Circular Laser Azimuth Dial & Polar Coordinate Ground Grid
+ * - Ascending & Descending Lidar Scan Plane with Additive Light Slice
+ * - Silky Inertial Parallax with Damped Mouse Follow & Zero-Spike Viewport Pausing
  */
 
 (function () {
@@ -26,16 +27,16 @@
   if (!container || !canvas || !isWebGLAvailable() || typeof THREE === 'undefined') return;
 
   // ---------------------------------------------------------------------------
-  // Scene, Camera, Renderer Setup
+  // 1. Scene, Camera, Renderer Setup
   // ---------------------------------------------------------------------------
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x080B16, 0.045);
+  scene.fog = new THREE.FogExp2(0x070709, 0.045);
 
   let width = container.clientWidth || window.innerWidth;
   let height = container.clientHeight || 640;
 
   const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
-  camera.position.set(0, 0.25, 5.5);
+  camera.position.set(0, 0.45, 5.2);
 
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
@@ -46,559 +47,403 @@
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.45;
+  renderer.toneMappingExposure = 1.35;
 
   // ---------------------------------------------------------------------------
-  // Lighting Setup (Radiant Indigo, Sunburst Gold & Cyber Sapphire)
+  // 2. Apple Pro Lighting Setup (Titanium White, Electric Azure, Platinum Titanium)
   // ---------------------------------------------------------------------------
-  const ambientLight = new THREE.AmbientLight(0x1E293B, 1.3);
+  const ambientLight = new THREE.AmbientLight(0x181822, 1.4);
   scene.add(ambientLight);
 
-  // Key Rim Light (Sunburst Gold)
-  const keyLight = new THREE.DirectionalLight(0xFFFBEB, 4.4);
-  keyLight.position.set(-2.5, 4.2, 3.0);
+  // Key Rim Light (Cool Titanium White)
+  const keyLight = new THREE.DirectionalLight(0xF5F5F7, 3.8);
+  keyLight.position.set(-3.0, 4.5, 3.5);
   scene.add(keyLight);
 
-  // Fill Light (Cyber Sapphire / Azure)
-  const fillLight = new THREE.DirectionalLight(0x38BDF8, 3.6);
-  fillLight.position.set(3.5, -2.0, 2.0);
-  scene.add(fillLight);
+  // Fill Light (Iconic Apple Azure Blue)
+  const azureFillLight = new THREE.DirectionalLight(0x2997FF, 2.8);
+  azureFillLight.position.set(3.5, -1.5, 2.0);
+  scene.add(azureFillLight);
 
-  // Base Floor Accent Light (Deep Amethyst / Neon Violet)
-  const baseLight = new THREE.DirectionalLight(0x818CF8, 2.2);
-  baseLight.position.set(0, -4.0, -1.0);
-  scene.add(baseLight);
+  // Soft Warm Titanium Ground Accent (Very subtle luxury glint)
+  const floorGlint = new THREE.DirectionalLight(0xE5E5EA, 1.1);
+  floorGlint.position.set(0, -3.5, -1.0);
+  scene.add(floorGlint);
 
-  // Orbiting Specular Point Light (Dynamic continuous reflection sweep)
-  const orbitLight = new THREE.PointLight(0xFFEAA7, 4.6, 14, 1.5);
-  orbitLight.position.set(0, 1.5, 2.6);
-  scene.add(orbitLight);
-
-  // ---------------------------------------------------------------------------
-  // Root 3D Object Group (For Entrance Animation & Parallax Tilt)
-  // ---------------------------------------------------------------------------
-  const orbRoot = new THREE.Group();
-  orbRoot.position.set(0, -0.65, 0); // Emerge from bottom of hero
-  scene.add(orbRoot);
+  // Orbiting Specular Point Light (Precision Highlight Sweep)
+  const specLight = new THREE.PointLight(0x64D2FF, 2.8, 12, 1.6);
+  specLight.position.set(0, 1.2, 2.5);
+  scene.add(specLight);
 
   // ---------------------------------------------------------------------------
-  // 1. The Liquid Metallic Obsidian Dome (Outer Shell)
+  // 3. Root 3D Pavilion Hierarchy
   // ---------------------------------------------------------------------------
-  const domeGeometry = new THREE.SphereGeometry(1.68, 96, 96, 0, Math.PI * 2, 0, Math.PI * 0.76);
+  const pavilionRoot = new THREE.Group();
+  pavilionRoot.position.set(0, -0.25, 0);
+  scene.add(pavilionRoot);
 
-  const liquidShader = {
-    uniforms: {
-      uTime: { value: 0.0 },
-      uLightPos: { value: new THREE.Vector3(-2.2, 3.8, 3.0) },
-      uOrbitLightPos: { value: new THREE.Vector3(0, 1.5, 2.6) },
-      uColorBase: { value: new THREE.Color(0x0A0E1A) },
-      uColorPlum: { value: new THREE.Color(0x1E1B4B) },
-      uColorGold: { value: new THREE.Color(0xF59E0B) },
-      uColorGoldBright: { value: new THREE.Color(0xFFFBEB) },
-      uColorCobalt: { value: new THREE.Color(0x38BDF8) },
-      uColorNavy: { value: new THREE.Color(0x0F172A) },
-      uRoughness: { value: 0.10 },
-      uMetalness: { value: 0.96 },
-      uOpacity: { value: 0.92 }
-    },
-    vertexShader: `
-      uniform float uTime;
-      varying vec3 vNormal;
-      varying vec3 vViewPosition;
-      varying vec3 vWorldPosition;
-      varying vec2 vUv;
-      varying float vDisp;
+  // ---------------------------------------------------------------------------
+  // 4. Floating Architectural Floor Slabs (Dielectric Glass & Laser Edges)
+  // ---------------------------------------------------------------------------
+  const slabLevels = [-0.9, -0.3, 0.3, 0.9];
+  const slabWidth = 2.4;
+  const slabDepth = 1.6;
+  const slabThickness = 0.04;
 
-      vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-      vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-      vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
-      vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
-
-      float snoise(vec3 v) {
-        const vec2 C = vec2(1.0/6.0, 1.0/3.0);
-        const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
-        vec3 i  = floor(v + dot(v, C.yyy));
-        vec3 x0 = v - i + dot(i, C.xxx);
-        vec3 g = step(x0.yzx, x0.xyz);
-        vec3 l = 1.0 - g;
-        vec3 i1 = min(g.xyz, l.zxy);
-        vec3 i2 = max(g.xyz, l.zxy);
-        vec3 x1 = x0 - i1 + C.xxx;
-        vec3 x2 = x0 - i2 + C.yyy;
-        vec3 x3 = x0 - D.yyy;
-        i = mod289(i);
-        vec4 p = permute(permute(permute(
-                  i.z + vec4(0.0, i1.z, i2.z, 1.0))
-                + i.y + vec4(0.0, i1.y, i2.y, 1.0))
-                + i.x + vec4(0.0, i1.x, i2.x, 1.0));
-        float n_ = 0.142857142857;
-        vec3 ns = n_ * D.wyz - D.xzx;
-        vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
-        vec4 x_ = floor(j * ns.z);
-        vec4 y_ = floor(j - 7.0 * x_);
-        vec4 x = x_ *ns.x + ns.yyyy;
-        vec4 y = y_ *ns.x + ns.yyyy;
-        vec4 h = 1.0 - abs(x) - abs(y);
-        vec4 b0 = vec4(x.xy, y.xy);
-        vec4 b1 = vec4(x.zw, y.zw);
-        vec4 s0 = floor(b0)*2.0 + 1.0;
-        vec4 s1 = floor(b1)*2.0 + 1.0;
-        vec4 sh = -step(h, vec4(0.0));
-        vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
-        vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
-        vec3 p0 = vec3(a0.xy, h.x);
-        vec3 p1 = vec3(a0.zw, h.y);
-        vec3 p2 = vec3(a1.xy, h.z);
-        vec3 p3 = vec3(a1.zw, h.w);
-        vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
-        p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
-        vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
-        m = m * m;
-        return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
-      }
-
-      void main() {
-        vUv = uv;
-        vec3 pos = position;
-
-        float slowTime = uTime * 0.40;
-        float n1 = snoise(pos * 0.85 + vec3(slowTime * 0.35, slowTime * 0.25, 0.0));
-        float n2 = snoise(pos * 1.6 - vec3(0.0, slowTime * 0.5, slowTime * 0.3));
-        float disp = (n1 * 0.065 + n2 * 0.025);
-        vDisp = disp;
-
-        pos += normal * disp;
-
-        vec4 worldPos = modelMatrix * vec4(pos, 1.0);
-        vWorldPosition = worldPos.xyz;
-
-        vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-        vViewPosition = -mvPosition.xyz;
-
-        vNormal = normalize(normalMatrix * (normal + vec3(n1 * 0.15, n2 * 0.15, 0.0)));
-        gl_Position = projectionMatrix * mvPosition;
-      }
-    `,
-    fragmentShader: `
-      uniform float uTime;
-      uniform vec3 uLightPos;
-      uniform vec3 uOrbitLightPos;
-      uniform vec3 uColorBase;
-      uniform vec3 uColorPlum;
-      uniform vec3 uColorGold;
-      uniform vec3 uColorGoldBright;
-      uniform vec3 uColorCobalt;
-      uniform vec3 uColorNavy;
-      uniform float uRoughness;
-      uniform float uOpacity;
-
-      varying vec3 vNormal;
-      varying vec3 vViewPosition;
-      varying vec3 vWorldPosition;
-      varying vec2 vUv;
-      varying float vDisp;
-
-      void main() {
-        vec3 N = normalize(vNormal);
-        vec3 V = normalize(vViewPosition);
-
-        vec3 L1 = normalize(uLightPos - vWorldPosition);
-        vec3 L_orbit = normalize(uOrbitLightPos - vWorldPosition);
-
-        vec3 H1 = normalize(L1 + V);
-        vec3 H_orbit = normalize(L_orbit + V);
-
-        float NdotV = max(dot(N, V), 0.0);
-        float fresnel = pow(1.0 - NdotV, 2.8);
-        float rimTop = pow(1.0 - NdotV, 2.2) * max(N.y * 0.6 + 0.4, 0.0);
-        float rimBottom = pow(1.0 - NdotV, 3.2) * max(-N.y * 0.7 + 0.3, 0.0);
-
-        float NdotH1 = max(dot(N, H1), 0.0);
-        float spec1 = pow(NdotH1, 40.0);
-
-        float NdotH_orbit = max(dot(N, H_orbit), 0.0);
-        float spec_orbit = pow(NdotH_orbit, 68.0);
-
-        float causticSweep = smoothstep(0.82, 0.98, dot(N, L_orbit)) * 0.95;
-        float ribbonWave = sin(vWorldPosition.x * 2.5 + vWorldPosition.y * 3.0 + uTime * 1.2);
-        float ribbonGlint = smoothstep(0.65, 0.98, ribbonWave * fresnel) * 0.65;
-
-        vec3 baseColor = mix(uColorBase, uColorPlum, max(dot(N, L1) * 0.4, 0.0) + vDisp * 0.5);
-        vec3 cobaltReflection = mix(uColorNavy, uColorCobalt, rimBottom + max(dot(N, vec3(0.8, -0.4, 0.2)), 0.0) * 0.7);
-        vec3 goldReflection = mix(uColorGold, uColorGoldBright, spec1 + spec_orbit * 0.8 + causticSweep);
-
-        vec3 finalColor = baseColor;
-        finalColor += cobaltReflection * (rimBottom * 1.8 + 0.15);
-        finalColor += goldReflection * (rimTop * 2.4 + spec1 * 1.6 + spec_orbit * 2.6 + ribbonGlint * 1.3);
-        finalColor += uColorGold * 0.08 * (1.0 - NdotV);
-
-        float bottomFade = smoothstep(0.0, 0.25, vUv.y);
-
-        gl_FragColor = vec4(finalColor, uOpacity * bottomFade);
-      }
-    `,
+  const glassMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xF0F5FF,
+    metalness: 0.05,
+    roughness: 0.06,
+    transmission: 0.88,
+    thickness: 0.25,
+    ior: 1.52,
     transparent: true,
-    depthWrite: false,
-    side: THREE.DoubleSide
-  };
-
-  const liquidMaterial = new THREE.ShaderMaterial(liquidShader);
-  const liquidDome = new THREE.Mesh(domeGeometry, liquidMaterial);
-  orbRoot.add(liquidDome);
-
-  // ---------------------------------------------------------------------------
-  // 2. The Liquid Metallic Orbital Ribbon
-  // ---------------------------------------------------------------------------
-  const ribbonCurve = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(-1.9, 0.2, 0.3),
-    new THREE.Vector3(-1.2, 1.2, 0.8),
-    new THREE.Vector3(0.3, 1.55, 0.9),
-    new THREE.Vector3(1.5, 0.8, 0.4),
-    new THREE.Vector3(1.8, -0.4, -0.2),
-    new THREE.Vector3(0.5, -0.9, -0.8),
-    new THREE.Vector3(-1.1, -0.6, -0.6),
-    new THREE.Vector3(-1.9, 0.2, 0.3)
-  ]);
-  ribbonCurve.closed = true;
-
-  const ribbonGeo = new THREE.TubeGeometry(ribbonCurve, 128, 0.045, 16, true);
-  const ribbonMat = new THREE.MeshPhysicalMaterial({
-    color: 0x1E1B4B,
-    emissive: 0xF59E0B,
-    emissiveIntensity: 0.65,
-    metalness: 0.98,
-    roughness: 0.08,
+    opacity: 0.85,
+    reflectivity: 0.95,
     clearcoat: 1.0,
-    clearcoatRoughness: 0.03,
-    transparent: true,
-    opacity: 0.92
-  });
-  const ribbonMesh = new THREE.Mesh(ribbonGeo, ribbonMat);
-  orbRoot.add(ribbonMesh);
-
-  // ---------------------------------------------------------------------------
-  // 3. Embedded Architectural BIM Wireframe Pavilion
-  // ---------------------------------------------------------------------------
-  const archiGroup = new THREE.Group();
-  archiGroup.position.set(0, -0.15, 0);
-  archiGroup.scale.set(0.72, 0.72, 0.72);
-  orbRoot.add(archiGroup);
-
-  const colorGoldWire = 0xFCD34D;
-  const colorGoldDim = 0xD97706;
-
-  const plateMat = new THREE.LineBasicMaterial({
-    color: colorGoldWire,
-    transparent: true,
-    opacity: 0.88,
-    linewidth: 1
+    clearcoatRoughness: 0.04
   });
 
-  const plateDimMat = new THREE.LineBasicMaterial({
-    color: 0x38BDF8,
+  const laserEdgeMaterial = new THREE.LineBasicMaterial({
+    color: 0x64D2FF,
     transparent: true,
     opacity: 0.65,
-    linewidth: 1
+    linewidth: 1.5
   });
 
-  const glassFloorMat = new THREE.MeshBasicMaterial({
-    color: 0x1E293B,
+  const titaniumEdgeMaterial = new THREE.LineBasicMaterial({
+    color: 0xF5F5F7,
     transparent: true,
-    opacity: 0.35,
-    side: THREE.DoubleSide
+    opacity: 0.45
   });
 
-  function createFloorPlate(y, w, d) {
-    const group = new THREE.Group();
+  const slabsGroup = new THREE.Group();
+  pavilionRoot.add(slabsGroup);
 
-    const planeGeo = new THREE.PlaneGeometry(w, d);
-    const plane = new THREE.Mesh(planeGeo, glassFloorMat);
-    plane.rotation.x = Math.PI / 2;
-    plane.position.y = y;
-    group.add(plane);
+  slabLevels.forEach((yPos, idx) => {
+    // Slabs with varied cantilever modernism
+    const scaleFactor = idx === 3 ? 0.82 : (idx === 1 ? 1.05 : 1.0);
+    const curW = slabWidth * scaleFactor;
+    const curD = slabDepth * scaleFactor;
 
-    const boxGeo = new THREE.BoxGeometry(w, 0.03, d);
-    const edges = new THREE.EdgesGeometry(boxGeo);
-    const line = new THREE.LineSegments(edges, plateMat);
-    line.position.y = y;
-    group.add(line);
+    const slabGeo = new THREE.BoxGeometry(curW, slabThickness, curD);
+    const slabMesh = new THREE.Mesh(slabGeo, glassMaterial);
+    slabMesh.position.set(idx === 1 ? 0.08 : (idx === 3 ? -0.06 : 0), yPos, 0);
+    slabsGroup.add(slabMesh);
 
-    const gridCols = 4;
-    const gridRows = 3;
-    const gridGeo = new THREE.BufferGeometry();
-    const gridPoints = [];
-
-    for (let i = 1; i < gridCols; i++) {
-      const gx = -w / 2 + (w / gridCols) * i;
-      gridPoints.push(new THREE.Vector3(gx, y + 0.01, -d / 2));
-      gridPoints.push(new THREE.Vector3(gx, y + 0.01, d / 2));
-    }
-    for (let j = 1; j < gridRows; j++) {
-      const gz = -d / 2 + (d / gridRows) * j;
-      gridPoints.push(new THREE.Vector3(-w / 2, y + 0.01, gz));
-      gridPoints.push(new THREE.Vector3(w / 2, y + 0.01, gz));
-    }
-
-    gridGeo.setFromPoints(gridPoints);
-    const gridLines = new THREE.LineSegments(gridGeo, plateDimMat);
-    group.add(gridLines);
-
-    return group;
-  }
-
-  // 3 Architectural Levels
-  archiGroup.add(createFloorPlate(-0.6, 2.2, 1.8));   // Ground Level
-  archiGroup.add(createFloorPlate(0.05, 1.9, 1.5));   // Level 1
-  archiGroup.add(createFloorPlate(0.7, 1.5, 1.2));    // Level 2 (Roof Terrace)
-
-  // Structural Column Grid
-  const columnMat = new THREE.LineBasicMaterial({
-    color: colorGoldWire,
-    transparent: true,
-    opacity: 0.68
+    // Laser edge definition
+    const edgesGeo = new THREE.EdgesGeometry(slabGeo);
+    const edgesLine = new THREE.LineSegments(edgesGeo, idx === 3 ? laserEdgeMaterial : titaniumEdgeMaterial);
+    edgesLine.position.copy(slabMesh.position);
+    slabsGroup.add(edgesLine);
   });
 
-  const columnCoords = [
-    [-0.9, -0.7], [0.9, -0.7], [-0.9, 0.7], [0.9, 0.7],
-    [-0.3, -0.7], [0.3, -0.7], [-0.3, 0.7], [0.3, 0.7],
-    [-0.9, 0.0], [0.9, 0.0]
+  // ---------------------------------------------------------------------------
+  // 5. Structural Slender Columns & Central Titanium Core
+  // ---------------------------------------------------------------------------
+  const colMaterial = new THREE.MeshStandardMaterial({
+    color: 0x1E222D,
+    metalness: 0.85,
+    roughness: 0.22
+  });
+
+  const colGeo = new THREE.CylinderGeometry(0.016, 0.016, 1.84, 16);
+  const colPositions = [
+    [-1.0, 0, -0.65],
+    [1.0, 0, -0.65],
+    [-1.0, 0, 0.65],
+    [1.0, 0, 0.65],
+    [0.0, 0, -0.65],
+    [0.0, 0, 0.65],
+    [-1.0, 0, 0.0],
+    [1.0, 0, 0.0]
   ];
 
-  const columnLinesGeo = new THREE.BufferGeometry();
-  const columnPoints = [];
+  colPositions.forEach(([cx, cy, cz]) => {
+    const colMesh = new THREE.Mesh(colGeo, colMaterial);
+    colMesh.position.set(cx, 0, cz);
+    pavilionRoot.add(colMesh);
 
-  columnCoords.forEach(([cx, cz]) => {
-    const topY = (Math.abs(cx) > 0.8 || Math.abs(cz) > 0.6) ? 0.05 : 0.7;
-    columnPoints.push(new THREE.Vector3(cx, -0.6, cz));
-    columnPoints.push(new THREE.Vector3(cx, topY, cz));
+    // Column accent lines
+    const colEdges = new THREE.LineSegments(new THREE.EdgesGeometry(colGeo), titaniumEdgeMaterial);
+    colEdges.position.copy(colMesh.position);
+    pavilionRoot.add(colEdges);
   });
 
-  columnLinesGeo.setFromPoints(columnPoints);
-  const columnMesh = new THREE.LineSegments(columnLinesGeo, columnMat);
-  archiGroup.add(columnMesh);
+  // Central Elevator / Service Core (Dark Titanium Vertical Tower)
+  const coreGeo = new THREE.BoxGeometry(0.52, 1.9, 0.45);
+  const coreMaterial = new THREE.MeshStandardMaterial({
+    color: 0x0D0F16,
+    metalness: 0.9,
+    roughness: 0.15
+  });
+  const coreMesh = new THREE.Mesh(coreGeo, coreMaterial);
+  coreMesh.position.set(-0.25, 0.02, -0.15);
+  pavilionRoot.add(coreMesh);
 
-  // Roof Pergola Louvers (RE2020 Architectural Shading)
-  const louverGeo = new THREE.BufferGeometry();
-  const louverPoints = [];
-  const louverCount = 9;
-  for (let k = 0; k < louverCount; k++) {
-    const lz = -0.55 + (1.1 / (louverCount - 1)) * k;
-    louverPoints.push(new THREE.Vector3(-0.72, 0.78, lz));
-    louverPoints.push(new THREE.Vector3(0.72, 0.78, lz));
+  const coreEdges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(coreGeo),
+    new THREE.LineBasicMaterial({ color: 0x2997FF, transparent: true, opacity: 0.4 })
+  );
+  coreEdges.position.copy(coreMesh.position);
+  pavilionRoot.add(coreEdges);
+
+  // ---------------------------------------------------------------------------
+  // 6. Kinetic Parametric Facade Louvers / Mullions
+  // ---------------------------------------------------------------------------
+  const louverGroup = new THREE.Group();
+  pavilionRoot.add(louverGroup);
+
+  const louverCount = 18;
+  const louverGeo = new THREE.BoxGeometry(0.012, 1.76, 0.08);
+  const louverMat = new THREE.MeshPhysicalMaterial({
+    color: 0xCBD5E1,
+    metalness: 0.4,
+    roughness: 0.1,
+    transmission: 0.6,
+    transparent: true,
+    opacity: 0.7
+  });
+
+  const louvers = [];
+  const spanX = 2.2;
+  const stepX = spanX / (louverCount - 1);
+
+  for (let i = 0; i < louverCount; i++) {
+    const lx = -spanX / 2 + i * stepX;
+    const louverMesh = new THREE.Mesh(louverGeo, louverMat);
+    louverMesh.position.set(lx, 0, 0.78);
+    louverGroup.add(louverMesh);
+    louvers.push({ mesh: louverMesh, phase: i * 0.28 });
   }
-  louverGeo.setFromPoints(louverPoints);
-  const louversMesh = new THREE.LineSegments(louverGeo, plateDimMat);
-  archiGroup.add(louversMesh);
-
-  // Glowing Nodes at Structural Joints
-  const nodeGeo = new THREE.SphereGeometry(0.028, 12, 12);
-  const nodeMat = new THREE.MeshBasicMaterial({
-    color: 0xFFFFFF,
-    transparent: true,
-    opacity: 1.0
-  });
-
-  const nodesGroup = new THREE.Group();
-  columnCoords.forEach(([cx, cz]) => {
-    const n1 = new THREE.Mesh(nodeGeo, nodeMat);
-    n1.position.set(cx, -0.6, cz);
-    nodesGroup.add(n1);
-
-    const n2 = new THREE.Mesh(nodeGeo, nodeMat);
-    n2.position.set(cx, 0.05, cz);
-    nodesGroup.add(n2);
-  });
-  archiGroup.add(nodesGroup);
-
-  // Interior Volumetric Core Glow
-  const coreGeo = new THREE.BoxGeometry(0.4, 1.2, 0.4);
-  const coreMat = new THREE.MeshBasicMaterial({
-    color: 0xF59E0B,
-    transparent: true,
-    opacity: 0.22
-  });
-  const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-  coreMesh.position.set(0, 0.0, 0);
-  archiGroup.add(coreMesh);
 
   // ---------------------------------------------------------------------------
-  // 4. Data Pulse Flow (Real-time BIM telemetry)
+  // 7. Holographic Polar Ground Grid & Azimuth Compass Dial
   // ---------------------------------------------------------------------------
-  const pulseCount = 24;
-  const pulseGeometry = new THREE.BufferGeometry();
-  const pulsePositions = new Float32Array(pulseCount * 3);
-  const pulseProgress = [];
-  const pulseTracks = [];
+  const polarGridGroup = new THREE.Group();
+  polarGridGroup.position.set(0, -1.02, 0);
+  pavilionRoot.add(polarGridGroup);
 
-  for (let p = 0; p < pulseCount; p++) {
-    const colIdx = p % columnCoords.length;
-    const [px, pz] = columnCoords[colIdx];
-    pulseTracks.push({
-      start: new THREE.Vector3(px, -0.6, pz),
-      end: new THREE.Vector3(px, 0.7, pz),
-      speed: 0.005 + Math.random() * 0.008
+  // Polar rings
+  [0.8, 1.4, 2.0, 2.6].forEach((radius, i) => {
+    const ringGeo = new THREE.RingGeometry(radius - 0.003, radius + 0.003, 64);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: i === 3 ? 0x2997FF : 0x86868B,
+      transparent: true,
+      opacity: i === 3 ? 0.45 : 0.15,
+      side: THREE.DoubleSide
     });
-    pulseProgress.push(Math.random());
+    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+    ringMesh.rotation.x = Math.PI / 2;
+    polarGridGroup.add(ringMesh);
+  });
+
+  // Cross axes
+  const crossMat = new THREE.LineBasicMaterial({ color: 0x86868B, transparent: true, opacity: 0.2 });
+  const axisGeoX = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(-2.8, 0, 0),
+    new THREE.Vector3(2.8, 0, 0)
+  ]);
+  const axisGeoZ = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(0, 0, -2.8),
+    new THREE.Vector3(0, 0, 2.8)
+  ]);
+  polarGridGroup.add(new THREE.Line(axisGeoX, crossMat));
+  polarGridGroup.add(new THREE.Line(axisGeoZ, crossMat));
+
+  // Compass tick markers (Cardinal axes N, E, S, W)
+  const compassGroup = new THREE.Group();
+  polarGridGroup.add(compassGroup);
+  for (let a = 0; a < 360; a += 15) {
+    const rad = (a * Math.PI) / 180;
+    const r1 = 2.58;
+    const r2 = a % 90 === 0 ? 2.68 : (a % 45 === 0 ? 2.64 : 2.61);
+    const tickGeo = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(Math.cos(rad) * r1, 0, Math.sin(rad) * r1),
+      new THREE.Vector3(Math.cos(rad) * r2, 0, Math.sin(rad) * r2)
+    ]);
+    const tickMat = new THREE.LineBasicMaterial({
+      color: a % 90 === 0 ? 0x2997FF : 0x64748B,
+      transparent: true,
+      opacity: a % 90 === 0 ? 0.8 : 0.35
+    });
+    compassGroup.add(new THREE.Line(tickGeo, tickMat));
   }
 
-  pulseGeometry.setAttribute('position', new THREE.BufferAttribute(pulsePositions, 3));
-
-  const pulseMaterial = new THREE.PointsMaterial({
-    color: 0x38BDF8,
-    size: 0.085,
+  // ---------------------------------------------------------------------------
+  // 8. Laser Lidar Scanning Plane (Ascending / Descending Spatial Slice)
+  // ---------------------------------------------------------------------------
+  const scanPlaneGeo = new THREE.PlaneGeometry(2.6, 1.8);
+  const scanPlaneMat = new THREE.MeshBasicMaterial({
+    color: 0x2997FF,
     transparent: true,
-    opacity: 0.95,
+    opacity: 0.12,
+    side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+  const scanPlane = new THREE.Mesh(scanPlaneGeo, scanPlaneMat);
+  scanPlane.rotation.x = Math.PI / 2;
+  scanPlane.position.y = -0.8;
+  pavilionRoot.add(scanPlane);
+
+  // Glowing laser slice boundary
+  const scanEdgeGeo = new THREE.EdgesGeometry(scanPlaneGeo);
+  const scanEdgeMat = new THREE.LineBasicMaterial({
+    color: 0x64D2FF,
+    transparent: true,
+    opacity: 0.85,
     blending: THREE.AdditiveBlending
   });
-  const pulsePointsMesh = new THREE.Points(pulseGeometry, pulseMaterial);
-  archiGroup.add(pulsePointsMesh);
+  const scanEdge = new THREE.LineSegments(scanEdgeGeo, scanEdgeMat);
+  scanEdge.rotation.x = Math.PI / 2;
+  scanEdge.position.y = -0.8;
+  pavilionRoot.add(scanEdge);
 
   // ---------------------------------------------------------------------------
-  // 5. Ambient 3D Particle Field
+  // 9. Floating BIM Parametric Node Sparks (Subtle ambient constellation)
   // ---------------------------------------------------------------------------
-  const starCount = 280;
-  const starGeo = new THREE.BufferGeometry();
-  const starPositions = new Float32Array(starCount * 3);
+  const sparkCount = 64;
+  const sparkGeo = new THREE.BufferGeometry();
+  const sparkPositions = new Float32Array(sparkCount * 3);
+  const sparkColors = new Float32Array(sparkCount * 3);
 
-  for (let s = 0; s < starCount; s++) {
-    starPositions[s * 3] = (Math.random() - 0.5) * 12;
-    starPositions[s * 3 + 1] = (Math.random() - 0.5) * 8;
-    starPositions[s * 3 + 2] = (Math.random() - 0.5) * 8 - 1;
+  for (let i = 0; i < sparkCount; i++) {
+    const theta = Math.random() * Math.PI * 2;
+    const r = 0.5 + Math.random() * 1.8;
+    sparkPositions[i * 3] = Math.cos(theta) * r;
+    sparkPositions[i * 3 + 1] = -0.8 + Math.random() * 1.8;
+    sparkPositions[i * 3 + 2] = Math.sin(theta) * r;
+
+    // Alternating Apple Azure & Liquid White
+    if (i % 3 === 0) {
+      sparkColors[i * 3] = 0.16; // R (0x29)
+      sparkColors[i * 3 + 1] = 0.59; // G (0x97)
+      sparkColors[i * 3 + 2] = 1.0;  // B (0xFF)
+    } else {
+      sparkColors[i * 3] = 0.95;
+      sparkColors[i * 3 + 1] = 0.95;
+      sparkColors[i * 3 + 2] = 0.98;
+    }
   }
 
-  starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+  sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPositions, 3));
+  sparkGeo.setAttribute('color', new THREE.BufferAttribute(sparkColors, 3));
 
-  const starMat = new THREE.PointsMaterial({
-    color: 0x38BDF8,
-    size: 0.045,
+  const sparkMat = new THREE.PointsMaterial({
+    size: 0.035,
+    vertexColors: true,
     transparent: true,
-    opacity: 0.70,
-    blending: THREE.AdditiveBlending
+    opacity: 0.75,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
   });
-  const starPoints = new THREE.Points(starGeo, starMat);
-  scene.add(starPoints);
+  const sparks = new THREE.Points(sparkGeo, sparkMat);
+  pavilionRoot.add(sparks);
 
   // ---------------------------------------------------------------------------
-  // 6. Smooth Parallax & Elevation
+  // 10. Inertial Parallax & Smooth Damping
   // ---------------------------------------------------------------------------
+  let targetRotationY = -0.35;
+  let targetRotationX = 0.12;
+  let currentRotationY = -0.35;
+  let currentRotationX = 0.12;
+
   let mouseX = 0;
   let mouseY = 0;
-  let targetRotationX = 0;
-  let targetRotationY = 0;
-  let currentRotationX = 0;
-  let currentRotationY = 0;
-  let scrollProgress = 0;
-  let isVisible = true;
 
   function onPointerMove(e) {
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-    const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
     mouseX = (clientX / window.innerWidth) * 2 - 1;
     mouseY = -(clientY / window.innerHeight) * 2 + 1;
 
-    targetRotationY = mouseX * 0.28;
-    targetRotationX = -mouseY * 0.18;
+    targetRotationY = -0.35 + mouseX * 0.42;
+    targetRotationX = 0.12 - mouseY * 0.22;
   }
 
   window.addEventListener('mousemove', onPointerMove, { passive: true });
   window.addEventListener('touchmove', onPointerMove, { passive: true });
 
-  function onScroll() {
-    const scrollY = window.scrollY || window.pageYOffset;
-    scrollProgress = Math.min(scrollY / window.innerHeight, 1.5);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  function onResize() {
-    if (!container) return;
-    width = container.clientWidth || window.innerWidth;
-    height = container.clientHeight || 640;
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
-  }
-  window.addEventListener('resize', onResize);
-
+  // ---------------------------------------------------------------------------
+  // 11. Viewport Visibility Observer (Zero CPU/GPU when out of view)
+  // ---------------------------------------------------------------------------
+  let isVisible = true;
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        isVisible = entry.isIntersecting;
-      });
+      isVisible = entries[0].isIntersecting;
     }, { threshold: 0.05 });
     observer.observe(container);
   }
 
   // ---------------------------------------------------------------------------
-  // 7. Animation Loop
+  // 12. Main Animation Render Loop
   // ---------------------------------------------------------------------------
   const clock = new THREE.Clock();
-  let entranceTime = 0;
 
   function animate() {
     requestAnimationFrame(animate);
 
     if (!isVisible) return;
 
-    const delta = clock.getDelta();
     const elapsedTime = clock.getElapsedTime();
 
-    if (entranceTime < 2.0) {
-      entranceTime += delta;
-      const t = Math.min(entranceTime / 2.0, 1.0);
-      const ease = 1 - Math.pow(1 - t, 3);
-      orbRoot.position.y = -1.6 + 0.95 * ease;
-      liquidMaterial.uniforms.uOpacity.value = 0.90 * ease;
-    }
-
-    const scrollLift = scrollProgress * 0.45;
-    const scrollRot = scrollProgress * 0.35;
-    orbRoot.position.y = (-0.65 + scrollLift);
-
-    currentRotationX += (targetRotationX - currentRotationX) * 0.045;
+    // Smooth inertial lerp
     currentRotationY += (targetRotationY - currentRotationY) * 0.045;
+    currentRotationX += (targetRotationX - currentRotationX) * 0.045;
 
-    orbRoot.rotation.x = currentRotationX + scrollRot * 0.2;
-    orbRoot.rotation.y = currentRotationY + elapsedTime * 0.08;
+    // Continuous subtle architectural rotation
+    pavilionRoot.rotation.y = currentRotationY + Math.sin(elapsedTime * 0.15) * 0.08;
+    pavilionRoot.rotation.x = currentRotationX + Math.cos(elapsedTime * 0.18) * 0.03;
 
-    archiGroup.rotation.y = -elapsedTime * 0.04;
+    // Gentle vertical elevation breathing (2 cm)
+    pavilionRoot.position.y = -0.25 + Math.sin(elapsedTime * 0.8) * 0.035;
 
-    ribbonMesh.rotation.y = elapsedTime * 0.12;
-    ribbonMesh.rotation.z = Math.sin(elapsedTime * 0.4) * 0.1;
+    // Kinetic Louvers: subtle wave modulation
+    louvers.forEach(({ mesh, phase }) => {
+      mesh.rotation.y = Math.sin(elapsedTime * 1.2 + phase) * 0.35;
+    });
 
-    liquidMaterial.uniforms.uTime.value = elapsedTime;
+    // Lidar scan plane: smooth vertical harmonic sweep between -0.85 and +0.85
+    const scanY = Math.sin(elapsedTime * 1.1) * 0.82;
+    scanPlane.position.y = scanY;
+    scanEdge.position.y = scanY;
 
-    const orbitAngle = elapsedTime * 0.65;
-    const orbitRadius = 2.4;
-    orbitLight.position.x = Math.cos(orbitAngle) * orbitRadius;
-    orbitLight.position.z = Math.sin(orbitAngle) * orbitRadius + 1.2;
-    orbitLight.position.y = 1.0 + Math.sin(elapsedTime * 0.8) * 0.5;
-    liquidMaterial.uniforms.uOrbitLightPos.value.copy(orbitLight.position);
+    // Slow continuous azimuth compass dial rotation
+    compassGroup.rotation.y = elapsedTime * 0.06;
 
-    const posAttr = pulseGeometry.attributes.position;
-    for (let p = 0; p < pulseCount; p++) {
-      const track = pulseTracks[p];
-      pulseProgress[p] += track.speed;
-      if (pulseProgress[p] > 1.0) pulseProgress[p] = 0;
+    // Dynamic specular light orbit
+    specLight.position.x = Math.cos(elapsedTime * 0.8) * 2.6;
+    specLight.position.z = Math.sin(elapsedTime * 0.8) * 2.6;
 
-      const prog = pulseProgress[p];
-      const curX = track.start.x + (track.end.x - track.start.x) * prog;
-      const curY = track.start.y + (track.end.y - track.start.y) * prog;
-      const curZ = track.start.z + (track.end.z - track.start.z) * prog;
-
-      posAttr.setXYZ(p, curX, curY, curZ);
+    // Sparks slow ascent
+    const positions = sparkGeo.attributes.position.array;
+    for (let i = 0; i < sparkCount; i++) {
+      positions[i * 3 + 1] += 0.0025;
+      if (positions[i * 3 + 1] > 1.2) {
+        positions[i * 3 + 1] = -0.9;
+      }
     }
-    posAttr.needsUpdate = true;
-
-    const starPos = starGeo.attributes.position;
-    for (let s = 0; s < starCount; s++) {
-      let curY = starPos.getY(s) - 0.003;
-      if (curY < -4) curY = 4;
-      starPos.setY(s, curY);
-    }
-    starPos.needsUpdate = true;
+    sparkGeo.attributes.position.needsUpdate = true;
 
     renderer.render(scene, camera);
   }
 
   animate();
+
+  // ---------------------------------------------------------------------------
+  // 13. Responsive Resize Handler
+  // ---------------------------------------------------------------------------
+  window.addEventListener('resize', () => {
+    width = container.clientWidth || window.innerWidth;
+    height = container.clientHeight || 640;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  }, { passive: true });
+
 })();

@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARC v2.9.1 — Architectural Intelligence Bridge | Autodesk Revit & BIMcraft (macOS • Linux • Windows)</title>
+  <title>ARC v3.0.0 — Architectural Intelligence Bridge | Autodesk Revit & BIMcraft (macOS • Linux • Windows)</title>
   
   <!-- SEO & Social Meta -->
-  <meta name="description" content="ARC v2.9.1 (Dual-Engine macOS, Linux & Windows) connecte vos assistants IA (Claude, Cursor, ChatGPT, Antigravity) à Autodesk Revit 2024–2027 et BIMcraft via MCP. 254 outils BIM natifs, serveur Rust ultra-rapide et latence sub-milliseconde.">
+  <meta name="description" content="ARC v3.0.0 (Dual-Engine macOS, Linux & Windows) connecte vos assistants IA (Claude, Cursor, ChatGPT, Antigravity) à Autodesk Revit 2024–2027 et BIMcraft via MCP. 264 outils BIM natifs, serveur Rust ultra-rapide et latence sub-milliseconde.">
   <meta name="keywords" content="Revit, MCP, Model Context Protocol, BIM, Architecture, Intelligence Artificielle, Claude Desktop, Cursor, Rust, C#, Autodesk Revit 2027">
   <meta name="author" content="@EncoreZaan">
   <link rel="canonical" href="https://encorezaan.github.io/ARC/">
@@ -14,14 +14,14 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://encorezaan.github.io/ARC/">
-  <meta property="og:title" content="ARC v2.9.1 — Pont MCP Architectural (macOS • Linux • Windows | Dual-Engine BIM)">
-  <meta property="og:description" content="Connectez vos assistants IA à votre environnement BIM Autodesk Revit & BIMcraft. 254 outils locaux ultra-rapides propulsés par un serveur 100% Rust.">
+  <meta property="og:title" content="ARC v3.0.0 — Pont MCP Architectural (macOS • Linux • Windows | Dual-Engine BIM)">
+  <meta property="og:description" content="Connectez vos assistants IA à votre environnement BIM Autodesk Revit & BIMcraft. 264 outils locaux ultra-rapides propulsés par un serveur 100% Rust.">
   <meta property="og:image" content="./assets/arc-hero-poster.jpg">
 
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://encorezaan.github.io/ARC/">
-  <meta name="twitter:title" content="ARC v2.9.1 — Pont MCP Architectural (macOS • Linux • Windows | Dual-Engine BIM)">
+  <meta name="twitter:title" content="ARC v3.0.0 — Pont MCP Architectural (macOS • Linux • Windows | Dual-Engine BIM)">
   <meta name="twitter:description" content="Connectez vos assistants IA à votre environnement BIM Autodesk Revit & BIMcraft.">
   <meta name="twitter:image" content="./assets/arc-hero-poster.jpg">
 
@@ -33,19 +33,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Stylesheet (with cache-buster) -->
-  <link rel="stylesheet" href="./styles.css?v=2.9.4">
+  <link rel="stylesheet" href="./styles.css?v=3.0.2">
 
-  <!-- Defensive Hero Layout Overrides (Guaranteed Zero Overlap across all browsers & caches) -->
+  <!-- Bulletproof Grid & Responsive Architecture (100% Zero-Overlap Guaranteed) -->
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    section[id], [id].section {
+      scroll-margin-top: calc(var(--nav-height, 74px) + 2.5rem);
+    }
+    [data-animate] {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+    }
     .hero {
       position: relative !important;
       min-height: auto !important;
-      padding-top: calc(var(--nav-height, 80px) + 2.5rem) !important;
+      padding-top: calc(var(--nav-height, 74px) + 2.5rem) !important;
       padding-bottom: 2rem !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
-      justify-content: flex-start !important;
       overflow: visible !important;
     }
     .hero-content {
@@ -59,64 +69,125 @@
       align-items: center !important;
       pointer-events: auto !important;
     }
-    .hero-capsule {
-      margin-bottom: 1.5rem !important;
+    /* iPad / Tablet Navbar Protection (< 1080px) */
+    @media (max-width: 1080px) {
+      .brand-meta {
+        display: none !important;
+      }
+      .nav-version-badge {
+        display: none !important;
+      }
+      .nav-menu {
+        position: fixed !important;
+        top: var(--nav-height, 74px) !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: rgba(7, 7, 9, 0.96) !important;
+        backdrop-filter: blur(30px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 1.5rem 2rem 2rem !important;
+        gap: 1.25rem !important;
+        display: none !important;
+        z-index: 999 !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85) !important;
+      }
+      .nav-menu.open {
+        display: flex !important;
+      }
+      .nav-menu .nav-link {
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        padding: 0.75rem 0 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        color: #F5F5F7 !important;
+      }
+      .nav-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+      }
+      .mobile-toggle {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 8px !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      }
+      .hero-actions {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.85rem !important;
+        max-width: 620px !important;
+        width: 100% !important;
+        margin: 0 auto 2.25rem !important;
+      }
+      .hero-actions .btn-pill {
+        width: 100% !important;
+        padding: 0.85rem 1.1rem !important;
+        font-size: 0.88rem !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+      }
+      .hero-floating-badges {
+        grid-template-columns: repeat(2, 1fr) !important;
+        max-width: 720px !important;
+        gap: 1rem !important;
+      }
     }
-    .hero-title {
-      margin-bottom: 1.25rem !important;
+    @media (max-width: 540px) {
+      .hero-actions {
+        grid-template-columns: 1fr !important;
+        max-width: 340px !important;
+      }
+      .hero-floating-badges {
+        grid-template-columns: 1fr !important;
+      }
     }
-    .hero-subtitle {
-      position: relative !important;
-      margin: 0 auto 2.25rem !important;
-      max-width: 660px !important;
-      line-height: 1.6 !important;
-    }
-    .hero-actions {
-      position: relative !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 1.25rem !important;
-      margin: 0 auto 2.5rem !important;
-      flex-wrap: wrap !important;
-      z-index: 25 !important;
-    }
+    /* Deterministic Hero Grid */
     .hero-floating-badges {
-      position: static !important;
-      top: auto !important;
-      left: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      transform: none !important;
-      display: flex !important;
-      justify-content: center !important;
-      align-items: stretch !important;
-      gap: 1.35rem !important;
-      margin: 0 auto 2.5rem !important;
+      position: relative !important;
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 1.15rem !important;
       width: 100% !important;
-      max-width: 960px !important;
-      flex-wrap: wrap !important;
+      max-width: 1200px !important;
+      margin: 1.5rem auto 2.5rem !important;
       z-index: 25 !important;
     }
     .badge-card {
       position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      flex: 1 1 260px !important;
-      max-width: 300px !important;
+      width: 100% !important;
+      max-width: none !important;
+      flex: none !important;
+      box-sizing: border-box !important;
       margin: 0 !important;
     }
-    .hero-stage {
-      position: relative !important;
-      margin-top: 1rem !important;
+    /* Deterministic Download Hub Grids */
+    #revit-download-row {
+      display: grid !important;
+      grid-template-columns: 2fr 1fr !important;
+      gap: 0.85rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
     }
-    /* Bulletproof Text Visibility: Content is ALWAYS visible immediately */
-    [data-animate] {
-      opacity: 1 !important;
-      transform: none !important;
-      visibility: visible !important;
+    #bimcraft-download-row {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 0.85rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    @media (max-width: 540px) {
+      #revit-download-row,
+      #bimcraft-download-row {
+        grid-template-columns: 1fr !important;
+      }
     }
   </style>
 
@@ -146,9 +217,9 @@
             <path d="M50 12 L88 84 L68 84 L50 48 L32 84 L12 84 Z" fill="url(#brandGrad)" />
             <defs>
               <linearGradient id="brandGrad" x1="50" y1="12" x2="50" y2="84" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFF5E5" />
-                <stop offset="0.6" stop-color="#D7B98C" />
-                <stop offset="1" stop-color="#8C7048" />
+                <stop stop-color="#FFFFFF" />
+                <stop offset="0.5" stop-color="#2997FF" />
+                <stop offset="1" stop-color="#0071E3" />
               </linearGradient>
             </defs>
           </svg>
@@ -161,7 +232,7 @@
       <nav aria-label="Navigation principale">
         <ul class="nav-menu">
           <li><a href="#capacites" class="nav-link">Capacités</a></li>
-          <li><a href="#outils" class="nav-link">Outils (254)</a></li>
+          <li><a href="#outils" class="nav-link">Outils (264)</a></li>
           <li><a href="#architecture" class="nav-link">Architecture</a></li>
           <li><a href="#installation" class="nav-link">Installation</a></li>
           <li><a href="#documentation" class="nav-link">Documentation</a></li>
@@ -173,7 +244,7 @@
       <div class="nav-actions">
         <div class="nav-version-badge" title="Dernière version officielle en production">
           <span class="pulse-dot"></span>
-          v2.9.1
+          v3.0.0
         </div>
         <a href="#download" class="btn-pill btn-primary">
           Télécharger
@@ -206,11 +277,11 @@
         </div>
 
         <!-- Headline -->
-        <h1 class="hero-title">L'Intelligence BIM. Partout.</h1>
+        <h1 class="hero-title">L'intelligence architecturale. Redéfinie.</h1>
 
         <!-- Subtitle -->
         <p class="hero-subtitle">
-          L'infrastructure d'intelligence architecturale universelle pour Autodesk Revit et BIMcraft. Enfin disponible en natif sur <strong>macOS (Apple Silicon M1–M4 & Intel)</strong>, Linux et Windows avec 254 outils et zéro latence.
+          Le pont natif haute performance reliant vos modèles d'IA à Autodesk Revit 2027 et BIMcraft. 264 outils locaux, moteur CAD 100% Rust, zéro latence — certifié macOS, Linux et Windows.
         </p>
 
         <!-- CTA Buttons -->
@@ -228,7 +299,7 @@
               <polyline points="7 10 12 15 17 10"></polyline>
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
-            Télécharger ARC v2.9.1
+            Télécharger ARC v3.0.0
           </a>
           <!-- BIMcraft Direct 1-Click Installer (GitHub Live Sync) -->
           <a id="hero-btn-bimcraft" href="https://github.com/IPedrax/BIMCraft/releases/download/v0.10.0/bimcraft-0.10.0-macos-universal.dmg" class="btn-pill btn-glass btn-hero-bimcraft" title="Télécharger directement la dernière version officielle de BIMcraft pour votre OS">
@@ -249,44 +320,59 @@
 
         <!-- Floating Badges in Natural Flow (Zero Overlap Guaranteed) -->
         <div class="hero-floating-badges" aria-hidden="true">
-          <!-- Badge 1: MCP Bridge -->
+          <!-- Card 1: 264 Outils -->
           <div class="badge-card">
-            <div class="badge-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="badge-icon" style="color: var(--apple-azure); background: rgba(41, 151, 255, 0.1); border-color: rgba(41, 151, 255, 0.25);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
                 <polyline points="2 17 12 22 22 17"></polyline>
                 <polyline points="2 12 12 17 22 12"></polyline>
               </svg>
             </div>
             <div class="badge-content">
-              <h4>MCP Bridge</h4>
-              <p>Pont standardisé haute performance pour maquettes BIM Autodesk Revit & BIMcraft.</p>
+              <h4>264 Outils Locaux</h4>
+              <p>Catalogue complet Dual-Engine Revit 2027 & BIMcraft 0.9.0.</p>
             </div>
           </div>
 
-          <!-- Badge 2: Revit 2024–2027 -->
+          <!-- Card 2: Zero Latency -->
           <div class="badge-card">
-            <div class="badge-icon revit-icon">
-              R
+            <div class="badge-icon" style="color: var(--accent-emerald); background: rgba(48, 209, 88, 0.1); border-color: rgba(48, 209, 88, 0.25);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
             </div>
             <div class="badge-content">
-              <h4>Revit 2024 – 2027</h4>
-              <p>Pont C# .NET 10 zéro-latence Named Pipe & HTTP résilient.</p>
+              <h4>0.002 ms IPC</h4>
+              <p>Windows Named Pipe & Unix Domain Socket sans latence réseau.</p>
             </div>
           </div>
 
-          <!-- Badge 3: macOS & Linux Native (Direct Download Trigger) -->
-          <a id="hero-badge-bimcraft-dl" href="https://github.com/IPedrax/BIMCraft/releases/download/v0.10.0/bimcraft-0.10.0-macos-universal.dmg" class="badge-card badge-card-interactive" title="Cliquer pour télécharger directement BIMcraft pour votre OS">
-            <div class="badge-icon" style="color: var(--accent-cyan); background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.35);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Card 3: -97% Tokens -->
+          <div class="badge-card">
+            <div class="badge-icon" style="color: #64D2FF; background: rgba(41, 151, 255, 0.1); border-color: rgba(41, 151, 255, 0.25);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <div class="badge-content">
+              <h4>-97% Tokens IA</h4>
+              <p>Découverte progressive & micro-payloads compacts réflexifs.</p>
+            </div>
+          </div>
+
+          <!-- Card 4: macOS & Linux Native -->
+          <a id="hero-badge-bimcraft-dl" href="https://github.com/IPedrax/BIMCraft/releases/download/v0.10.0/bimcraft-0.10.0-macos-universal.dmg" class="badge-card badge-card-interactive" title="Télécharger directement BIMcraft">
+            <div class="badge-icon" style="color: var(--apple-azure); background: rgba(41, 151, 255, 0.1); border-color: rgba(41, 151, 255, 0.25);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                 <line x1="8" y1="21" x2="16" y2="21"></line>
                 <line x1="12" y1="17" x2="12" y2="21"></line>
               </svg>
             </div>
             <div class="badge-content">
-              <h4>macOS & Linux Natifs <span class="badge-action-pill">Installer ➔</span></h4>
-              <p>BIMcraft Metal (M1–M4) & conversion .rvt sans Windows.</p>
+              <h4>macOS & Linux <span class="badge-action-pill">Installer ➔</span></h4>
+              <p>BIMcraft Metal (M1–M4) natif & conversion .rvt sans Windows.</p>
             </div>
           </a>
         </div>
@@ -425,7 +511,7 @@
         <div class="tools-explorer" id="outils" data-animate>
           <div class="tools-explorer-header">
             <div class="tools-stats">
-              <div class="tools-count-badge" id="active-tool-count">254</div>
+              <div class="tools-count-badge" id="active-tool-count">264</div>
               <div class="tools-count-label">
                 <strong>Outils MCP natifs</strong><br>
                 Répertoriés & Prêts à l'emploi
@@ -434,7 +520,7 @@
 
             <!-- Category Filter Pills -->
             <div class="tools-filter-pills" role="tablist" aria-label="Filtrer les outils par catégorie">
-              <button class="tool-pill active" data-cat="all">Tous (254)</button>
+              <button class="tool-pill active" data-cat="all">Tous (264)</button>
               <button class="tool-pill" data-cat="performance">Performance Rust</button>
               <button class="tool-pill" data-cat="normes">PMR & RE2020</button>
               <button class="tool-pill" data-cat="branching">Git du BIM</button>
@@ -452,7 +538,7 @@
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="text" id="tool-search" class="tool-search-input" placeholder="Rechercher parmi les 254 outils MCP (ex: cotation, mur, clash, carrez, ifc, bimcraft, fdes)..." aria-label="Rechercher un outil MCP">
+            <input type="text" id="tool-search" class="tool-search-input" placeholder="Rechercher parmi les 264 outils MCP (ex: cotation, mur, clash, carrez, ifc, bimcraft, fdes)..." aria-label="Rechercher un outil MCP">
           </div>
 
           <!-- Tool Cards Grid -->
@@ -505,7 +591,7 @@
               </svg>
             </div>
             <h3 class="node-title">ARC MCP Server</h3>
-            <div class="node-tech">Rust 100% Natif (v2.9.1)</div>
+            <div class="node-tech">Rust 100% Natif (v3.0.0)</div>
             <p class="node-desc">Dispatcher multithreadé Rayon, indexation spatiale 3D BVH, calculs géométriques et IPC Named Pipes.</p>
           </div>
 
@@ -593,7 +679,7 @@
               </div>
             </div>
             <h3 class="step-title">Télécharger</h3>
-            <p class="step-desc">Récupérez l'installateur autonome <code>RevitMCP-Setup-v2.9.1.exe</code> (5.2 Mo) depuis les Releases officielles GitHub.</p>
+            <p class="step-desc">Récupérez l'installateur autonome <code>RevitMCP-Setup-v3.0.0.exe</code> (5.2 Mo) depuis les Releases officielles GitHub.</p>
           </div>
 
           <!-- Step 2 -->
@@ -678,29 +764,29 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
               </svg>
-              ARC v2.9.1 • Validé
+              ARC v3.0.0 • Validé
             </div>
             <h3 class="download-title" style="font-size: 1.85rem;">ARC Copilot pour Revit</h3>
             <p class="download-subtitle" style="font-size: 0.95rem; margin-bottom: 2rem;">
-              Pour <strong>Autodesk Revit 2024–2027</strong> (.NET 10). Add-in C# avec serveur Rust autonome (Claude Desktop, Cursor, Antigravity) et 254 outils natifs zéro-latence.
+              Pour <strong>Autodesk Revit 2024–2027</strong> (.NET 10). Add-in C# avec serveur Rust autonome (Claude Desktop, Cursor, Antigravity) et 264 outils natifs zéro-latence.
             </p>
 
-            <div class="download-action-row">
-              <a href="https://github.com/EncoreZaan/ARC/releases/download/v2.9.1/RevitMCP-Setup-v2.9.1.exe" class="btn-dl-platform btn-dl-win" title="Installateur automatique Windows 11 / 10">
+            <div class="download-action-row" id="revit-download-row">
+              <a href="https://github.com/EncoreZaan/ARC/releases/download/v3.0.0/RevitMCP-Setup-v3.0.0.exe" class="btn-dl-platform btn-dl-primary" title="Installateur automatique Windows 11 / 10">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                <span>RevitMCP-Setup-v2.9.1.exe</span>
+                <span>RevitMCP-Setup-v3.0.0.exe</span>
               </a>
-              <a href="https://github.com/EncoreZaan/ARC/releases" target="_blank" rel="noopener noreferrer" class="btn-pill btn-glass btn-dl-sec">
+              <a href="https://github.com/EncoreZaan/ARC/releases" target="_blank" rel="noopener noreferrer" class="btn-dl-platform btn-dl-secondary">
                 Releases ARC
               </a>
             </div>
 
             <div class="download-meta-tags">
-              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 254 Outils MCP</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 264 outils MCP</span>
               <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Zero-Latency IPC</span>
               <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Licence MIT</span>
             </div>
@@ -740,13 +826,20 @@
 
               <!-- Linux AppImage -->
               <a id="bimcraft-btn-linux" href="https://github.com/IPedrax/BIMCraft/releases/download/v0.10.0/bimcraft-0.10.0-linux-x86_64.AppImage" class="btn-dl-platform btn-dl-lin" title="Télécharger BIMcraft AppImage Linux">
-                <span class="platform-icon">🐧</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                  <polyline points="9 9 12 12 9 15"></polyline>
+                  <line x1="13" y1="15" x2="15" y2="15"></line>
+                </svg>
                 <span id="bimcraft-label-linux">Linux .AppImage</span>
               </a>
 
               <!-- GitHub Repo Link -->
-              <a id="bimcraft-btn-github" href="https://github.com/IPedrax/BIMCraft/releases" target="_blank" rel="noopener noreferrer" class="btn-pill btn-glass btn-dl-sec">
-                Releases IPedrax/BIMCraft
+              <a id="bimcraft-btn-github" href="https://github.com/IPedrax/BIMCraft/releases" target="_blank" rel="noopener noreferrer" class="btn-dl-platform btn-dl-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                <span>Releases GitHub</span>
               </a>
             </div>
 
@@ -783,7 +876,7 @@
               <div class="doc-card-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
               </div>
-              <h4>Catalogue des 254 Outils</h4>
+              <h4>Catalogue des 264 outils</h4>
               <p>Documentation détaillée de chaque outil MCP avec arguments JSON, retours typés et exemples d'appels.</p>
             </div>
             <a href="./mcp_tools_reference.md" target="_blank" class="doc-card-link">
@@ -856,7 +949,7 @@
             </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                ARC est certifié pour <strong>Autodesk Revit 2027</strong> (.NET 10), ainsi que <strong>Revit 2026, 2025 et 2024</strong>. L'installateur autonome <code>RevitMCP-Setup-v2.9.1.exe</code> détecte automatiquement toutes les versions installées sur votre machine et configure l'add-in pour chacune d'elles.
+                ARC est certifié pour <strong>Autodesk Revit 2027</strong> (.NET 10), ainsi que <strong>Revit 2026, 2025 et 2024</strong>. L'installateur autonome <code>RevitMCP-Setup-v3.0.0.exe</code> détecte automatiquement toutes les versions installées sur votre machine et configure l'add-in pour chacune d'elles.
               </div>
             </div>
           </div>
@@ -929,8 +1022,8 @@
                 <defs>
                   <linearGradient id="brandGradFoot" x1="50" y1="12" x2="50" y2="84" gradientUnits="userSpaceOnUse">
                     <stop stop-color="#FFF5E5" />
-                    <stop offset="0.6" stop-color="#D7B98C" />
-                    <stop offset="1" stop-color="#8C7048" />
+                    <stop offset="0.5" stop-color="#2997FF" />
+                <stop offset="1" stop-color="#0071E3" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -948,8 +1041,8 @@
             <h5>Navigation</h5>
             <ul>
               <li><a href="#capacites">Capacités</a></li>
-              <li><a href="#outils">Catalogue 254 Outils</a></li>
-              <li><a href="./revit_architecture_guide.md" style="color: var(--accent-champagne); font-weight: 600;">Guide Complet d'Architecture Revit & BIMcraft</a></li>
+              <li><a href="#outils">Catalogue 264 outils</a></li>
+              <li><a href="./revit_architecture_guide.md" style="color: var(--accent-cyan); font-weight: 600;">Guide Complet d'Architecture Revit & BIMcraft</a></li>
               <li><a href="#architecture">Architecture</a></li>
               <li><a href="#installation">Installation</a></li>
               <li><a href="#faq">FAQ</a></li>
@@ -980,11 +1073,11 @@
 
       <div class="footer-bottom">
         <div>
-          &copy; 2026 ARC (Architecture & Revit Copilot) — Par <a href="https://github.com/EncoreZaan" target="_blank" rel="noopener noreferrer" style="color: var(--champagne-gold);">@EncoreZaan</a>. Distribué sous licence MIT.
+          &copy; 2026 ARC (Architecture & Revit Copilot) — Par <a href="https://github.com/EncoreZaan" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan);">@EncoreZaan</a>. Distribué sous licence MIT.
         </div>
         <div class="footer-status">
           <span class="status-dot"></span>
-          <span>Tous les systèmes opérationnels — v2.9.1</span>
+          <span>Tous les systèmes opérationnels — v3.0.0</span>
         </div>
       </div>
     </div>
@@ -999,9 +1092,9 @@
   </script>
 
   <!-- 3D WebGL Sphere & Central Experience -->
-  <script src="./three-scene.js?v=2.9.4"></script>
+  <script src="./three-scene.js?v=3.0.2"></script>
 
   <!-- UI Interactivity, Tools & Accordion -->
-  <script src="./app.js?v=2.9.4"></script>
+  <script src="./app.js?v=3.0.2"></script>
 </body>
 </html>

@@ -4,6 +4,29 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 
 ---
 
+## [3.0.0] - 2026-11-05
+
+### 💎 Refonte Visuelle "Apple Pro Architecture", Élimination Totale des Chevauchements & Moteur Rust CAD Pur
+- **Direction Artistique "Apple Pro Architecture" (Obsidian & Liquid Titanium) :**
+  - Refonte esthétique complète de la landing page (`docs/`) : transition du thème champagne/or vers une esthétique Apple Pro sobre, luxueuse et ultra-précise (Noir Spatial `#000000`, Obsidienne `#050507`, Titane Brossé `#F5F5F7`, accents Azur Électrique `#2997FF` et Vert Émeraude Apple `#30D158`).
+  - Remplacement de la sphère liquide par le **Pavillon Paramétrique en Verre Diélectrique & Titane** dans Three.js (`docs/three-scene.js`) avec dalles flottantes en cristal, grille structurelle en titane, brise-soleil cinétiques, cadran d'azimut polaire et plan de balayage lidar ascendant/descendant.
+  - Verre dépoli saphir haute réfraction (`backdrop-filter: blur(24px) saturate(160%)`) avec liserés laser ultra-fins (`1px solid rgba(255, 255, 255, 0.08)`).
+- **Élimination Définitive des Chevauchements & Conflits Visuels (Validé iPad / Tablette / Mobile) :**
+  - **Correction du Masquage par la Navbar Fixe :** Ajout de `scroll-margin-top: calc(var(--nav-height, 74px) + 2.5rem);` sur toutes les sections ancrées (`#download`, `#capacites`, etc.), garantissant que les en-têtes et sous-titres de section ne soient plus jamais masqués par la barre de navigation.
+  - **Grille BIMcraft 2x2 Rigide & Neutralisation du Débordement :** Restructuration complète de `#bimcraft-download-row` en grille CSS 2x2 symétrique (`grid-template-columns: repeat(2, 1fr)`).
+  - **Suppression du `transform: scale(1.02)` Actif :** La classe `.btn-highlighted-os` applique désormais un contour lumineux azur Apple sans altérer la boîte englobante géométrique, stoppant tout empiétement sur les boutons voisins (macOS vs Windows).
+  - **Grille Hero Symétrique 4 Colonnes / 2x2 Tablette :** Suppression de l'ancienne règle `flex-wrap` inlinée qui provoquait un empilement asymétrique 3-1 en pyramide sur iPad. Désormais, `.hero-floating-badges` adopte une grille CSS stricte à 4 colonnes sur desktop, 2x2 sur tablette/iPad, et 1x4 sur mobile, sans aucun bobbing vertical (`floatSlow` neutralisé).
+  - **Normalisation des CTA Hero (`.hero-actions`) :** Espacement calibré et bascule responsive en grille 2x2 sur écran tactile mobile et tablette.
+- **Moteur CAD 100% Rust Natif (`dxf_engine.rs`) — Zéro Dépendance Python :**
+  - Parseur DXF ASCII multithreadé autonome en Rust pur, calcul de boîtes englobantes, audit de géométrie et rendu vectoriel 1:1 SVG sans Matplotlib ni PyMuPDF.
+- **4 Nouveaux Outils Stratégiques de Continuité (Catalogue étendu à 264 outils) :**
+  - `arc_batch_macro` (`batch_macro.rs`) : Pipeline transactionnel atomique avec rollback automatique.
+  - `arc_model_purger` (`model_purger.rs`) : Nettoyage haute performance des familles et types non utilisés.
+  - `arc_snapshot_manager` (`snapshot_engine.rs`) : Prise d'empreintes instantanées en mémoire vive pour checkpoints et diffs express.
+  - `arc_smart_guide` (`smart_guide.rs`) : Recommandation intelligente d'outils et de workflows pour les agents IA.
+- **Blindage Anti-Crash Revit (`SafeModalInterceptor`) :**
+  - Auto-acquittement transparent des alertes et boîtes de dialogue modales non bloquantes dans `revit-addin/RevitMCP/App.cs` via `uiApp.DialogBoxShowing`.
+
 ## [2.9.1] - 2026-11-05
 
 ### 🚀 5 Outils Poids-Plume Haute Performance en Rust Pur, Format Colonnaire & Sync Live BIMcraft

@@ -27,6 +27,11 @@ mod regulatory_scorecard;
 mod clash_matrix;
 mod smart_diff;
 mod batch_transform;
+mod dxf_engine;
+mod batch_macro;
+mod model_purger;
+mod snapshot_engine;
+mod smart_guide;
 
 use geometry::{ClashElement, Polygon2D};
 use reqwest::Client;
@@ -80,6 +85,7 @@ struct AppState {
     tools_map: HashMap<String, ManifestTool>,
     tools_list_json: Value,
     read_cache: tokio::sync::RwLock<HashMap<String, ReadCacheEntry>>,
+    snapshot_store: tokio::sync::RwLock<snapshot_engine::SnapshotStore>,
 }
 
 impl AppState {
@@ -950,6 +956,128 @@ async fn handle_tools_call(
     if tool_name == "revit_batch_transform_vectorized" {
         let res = batch_transform::execute_batch_transform(&post_body);
         return format_tool_response(&res, &post_body);
+    }
+    // ── 4 STRATEGIC CONTINUITY TOOLS ─────────────────────────────────────────
+    if tool_name == "arc_batch_macro" {
+        let ops = match batch_macro::validate_macro_payload(&post_body) {
+            Ok(v) => v,
+            Err(e) => return (json!({ "content": [{ "type": "text", "text": e }], "isError": true }), true),
+        };
+        let execute_in_revit = post_body.get("executeInRevit").and_then(|v| v.as_bool()).unwrap_or(true);
+        let atomic = post_body.get("atomic").and_then(|v| v.as_bool()).unwrap_or(true);
+
+        if execute_in_revit {
+            if let Ok(revit_res) = dispatch_bridge_request(state, "batch/execute", json!({ "operations": ops, "atomic": atomic })).await {
+                return format_tool_response(&revit_res, &post_body);
+            }
+        }
+
+        let bimcraft_script = batch_macro::compile_bimcraft_script_from_macro(&ops);
+        if !bimcraft_script.is_empty() {
+            let script_payload = json!({ "script": bimcraft_script });
+            if let Ok(res) = bimcraft_bridge::execute_script(&script_payload) {
+                return format_tool_response(&json!({
+                    "success": true,
+                    "engine": "BIMcraft Native Macro Execution",
+                    "operationsCount": ops.len(),
+                    "result": res
+                }), &post_body);
+            }
+        }
+
+        return format_tool_response(&json!({ "success": false, "error": "Unable to execute macro in Revit or BIMcraft" }), &post_body);
+    }
+
+    if tool_name == "revit_clean_and_purge_model" {
+        let dry_run = post_body.get("dryRun").and_then(|v| v.as_bool()).unwrap_or(false);
+        if !dry_run {
+            if let Ok(revit_res) = dispatch_bridge_request(state, "model/purge-unused", post_body.clone()).await {
+                return format_tool_response(&revit_res, &post_body);
+            }
+        }
+        let candidates = model_purger::analyze_purge_candidates(&post_body, dry_run);
+        return format_tool_response(&candidates, &post_body);
+    }
+
+    if tool_name == "revit_snapshot_diff" {
+        let action = post_body.get("action").and_then(|v| v.as_str()).unwrap_or("compare");
+        if action == "take" {
+            let label = post_body.get("label").and_then(|v| v.as_str()).unwrap_or("Instantané");
+            let mut elements_list = Vec::new();
+            if let Ok(elements_resp) = dispatch_bridge_request(state, "elements/get", json!({ "limit": 2000 })).await {
+                if let Some(arr) = elements_resp.get("elements").and_then(|v| v.as_array()) {
+                    elements_list = arr.clone();
+                }
+            }
+            let mut store = state.snapshot_store.write().await;
+            let snap = store.take_snapshot(label, &elements_list);
+            return format_tool_response(&json!({ "success": true, "snapshot": snap }), &post_body);
+        } else if action == "list" {
+            let store = state.snapshot_store.read().await;
+            let list = store.list_snapshots();
+            return format_tool_response(&json!({ "success": true, "snapshots": list }), &post_body);
+        } else {
+            let snap_a = post_body.get("snapshotIdA").and_then(|v| v.as_str());
+            let snap_b = post_body.get("snapshotIdB").and_then(|v| v.as_str());
+            let store = state.snapshot_store.read().await;
+            let diff = store.compare(snap_a, snap_b);
+            return format_tool_response(&diff, &post_body);
+        }
+    }
+
+    if tool_name == "arc_smart_guide" {
+        let q = post_body.get("query").and_then(|v| v.as_str());
+        let cat = post_body.get("category").and_then(|v| v.as_str());
+        let guide = smart_guide::search_tool_guide(q, cat);
+        return format_tool_response(&guide, &post_body);
+    }
+
+    // ── NATIVE RUST CAD / DXF ENGINE TOOLS (100% Rust, Zero Python) ─────────
+    if tool_name == "dxf_info" {
+        let p = post_body.get("path").and_then(|v| v.as_str()).unwrap_or("");
+        let res = dxf_engine::get_dxf_info(p);
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "dxf_list_entities" {
+        let p = post_body.get("path").and_then(|v| v.as_str()).unwrap_or("");
+        let l = post_body.get("layer").and_then(|v| v.as_str());
+        let t = post_body.get("entityType").and_then(|v| v.as_str());
+        let lim = post_body.get("limit").and_then(|v| v.as_u64()).map(|u| u as usize);
+        let res = dxf_engine::list_dxf_entities(p, l, t, lim);
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "dxf_render" {
+        let p = post_body.get("path").and_then(|v| v.as_str()).unwrap_or("");
+        let out_p = post_body.get("outputPath").and_then(|v| v.as_str());
+        let bg = post_body.get("backgroundColor").and_then(|v| v.as_str());
+        let res = dxf_engine::render_dxf_to_svg(p, out_p, bg);
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "dxf_audit" {
+        let p = post_body.get("path").and_then(|v| v.as_str()).unwrap_or("");
+        let res = dxf_engine::audit_dxf_file(p);
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "dxf_diff" {
+        let p_a = post_body.get("pathA").and_then(|v| v.as_str()).unwrap_or("");
+        let p_b = post_body.get("pathB").and_then(|v| v.as_str()).unwrap_or("");
+        let res = dxf_engine::diff_dxf_files(p_a, p_b);
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "bimcraft_export_dxf" {
+        let empty_arr = Vec::new();
+        let els = post_body.get("elements").and_then(|v| v.as_array()).unwrap_or(&empty_arr);
+        let out_p = post_body.get("outputPath").and_then(|v| v.as_str()).unwrap_or("export.dxf");
+        let res = match dxf_engine::export_bimcraft_to_dxf(els, out_p) {
+            Ok(v) => v,
+            Err(e) => json!({ "success": false, "error": e }),
+        };
+        return format_tool_response(&res, &post_body);
     }
 
     if tool.is_health_check {
@@ -1049,7 +1177,50 @@ async fn handle_tools_call(
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    eprintln!("[INFO] Revit MCP Server in Rust (v2.5.0) starting with Named Pipe IPC & Multithreaded Geometry Engine...");
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 {
+        let cmd = args[1].as_str();
+        match cmd {
+            "doctor" => {
+                println!("ARC System Diagnostic Doctor (v3.0.0)");
+                println!("------------------------------------");
+                println!("OS: {} ({})", env::consts::OS, env::consts::ARCH);
+                #[cfg(windows)]
+                {
+                    let pipe_path = r"\\.\pipe\revit_mcp_ipc";
+                    let exists = std::path::Path::new(pipe_path).exists();
+                    println!(r"Revit Named Pipe (\\.\pipe\revit_mcp_ipc): {}", if exists { "ONLINE" } else { "STANDBY (Revit not started)" });
+                }
+                let bim_stat = bimcraft_bridge::get_bimcraft_status().unwrap_or_else(|_| json!({}));
+                println!("BIMcraft Status: {}", bim_stat);
+                return Ok(());
+            }
+            "audit" => {
+                let manifest: ManifestRoot = serde_json::from_str(TOOLS_MANIFEST_RAW).expect("Failed manifest parse");
+                println!("ARC Tools Registry Audit:");
+                println!("  Total manifest tools : {}", manifest.tools.len());
+                println!("  Pure Rust Native CAD : DXF parser, SVG renderer, DXF audit active");
+                println!("  Dual-Engine Support  : Revit 2027 + BIMcraft 0.9.0");
+                return Ok(());
+            }
+            "cad" => {
+                if args.len() >= 4 && args[2] == "render" {
+                    let dxf_path = &args[3];
+                    let res = dxf_engine::render_dxf_to_svg(dxf_path, None, None);
+                    println!("{}", serde_json::to_string_pretty(&res).unwrap());
+                    return Ok(());
+                } else if args.len() >= 4 && args[2] == "info" {
+                    let dxf_path = &args[3];
+                    let res = dxf_engine::get_dxf_info(dxf_path);
+                    println!("{}", serde_json::to_string_pretty(&res).unwrap());
+                    return Ok(());
+                }
+            }
+            _ => {}
+        }
+    }
+
+    eprintln!("[INFO] Revit MCP Server in Rust (v3.0.0) starting with Named Pipe IPC, Dual-Engine & Native CAD...");
 
     let config = resolve_config();
     eprintln!("[INFO] Target bridge: {} (Timeout: {} ms)", config.host, config.timeout.as_millis());
@@ -1129,6 +1300,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         tools_map,
         tools_list_json: json!(tools_list_vec),
         read_cache: tokio::sync::RwLock::new(HashMap::new()),
+        snapshot_store: tokio::sync::RwLock::new(snapshot_engine::SnapshotStore::new()),
     });
 
     let stdin = tokio::io::stdin();
