@@ -4,6 +4,17 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 
 ---
 
+## [2.8.1] - 2026-11-05
+
+### 🎯 Les 5 Outils Métier Indispensables de l'Architecte (248 Outils Totaux)
+- **Cotation Automatique des Plans (`revit_auto_dimension_plan` - `auto_dimension.rs`) :** Génération instantanée des 3 lignes de cotes orthogonales professionnelles (ouvertures/trumeaux, cotes intérieures nettes, hors-tout) sans aucun clic manuel répétitif.
+- **Comparateur Visuel de Démolition / Création (`revit_compare_variants_visual` - `variant_diff_visual.rs`) :** Superposition instantanée des variantes de projet avec l'existant. Sortie vectorielle SVG/PDF immédiate : **Rouge** (démoli), **Vert** (créé), **Gris** (conservé) et métré des démolitions pour artisans.
+- **Docteur Géométrique & Nettoyeur d'Avertissements (`revit_geometry_doctor` - `geometry_doctor.rs`) :** Recalage automatique des parois légèrement obliques (89.9° vers 90.0°), fusion des micro-écarts (< 25 mm) aux jonctions de murs, et purge des segments parasites invisibles.
+- **Calepinage Paramétrique d'Agencement Intérieur (`revit_layout_casework_millwork` - `casework_layout.rs`) :** Conception instantanée de dressings, placards, linéaires de cuisine et meubles vasque sur mesure avec caissons modulaires (600mm / 800mm) et nomenclature quincaillerie.
+- **Tableau de Métré Récapitulatif Clients & Artisans (`revit_extract_takeoff_artisan_table` - `artisan_takeoff.rs`) :** Extraction automatisée en Markdown et CSV des surfaces Loi Carrez pièce par pièce, linéaires réels de plinthes (déduction des portes), surfaces de murs à peindre et nomenclature ordonnée des menuiseries.
+
+---
+
 ## [2.8.0] - 2026-11-05
 
 ### ⚡ Résilience Multi-Instance Totale & Zéro-Conflit Réseau (Revit & BIMcraft)

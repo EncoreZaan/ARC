@@ -12,7 +12,7 @@
 
 > **ARC (Architecture & Revit Copilot)** connecte **Claude (Claude Desktop, Cursor, Claude Code, Antigravity)** et vos assistants IA directement à **Autodesk Revit** et **BIMcraft** via le protocole ouvert **Model Context Protocol (MCP)**.
 >
-> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **243 outils locaux ultra-rapides**, une architecture **Dual-Engine compatible macOS, Linux et Windows**, des **audits PMR en 1 clic**, une **vision multimodale instantanée** et un moteur géométrique multithreadé propulsé par un serveur autonome en **Rust**.
+> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **248 outils locaux ultra-rapides**, une architecture **Dual-Engine compatible macOS, Linux et Windows**, des **audits PMR en 1 clic**, une **vision multimodale instantanée** et un moteur géométrique multithreadé propulsé par un serveur autonome en **Rust**.
 
 ---
 
@@ -45,6 +45,14 @@ Fini les blocages et les messages d'erreurs au démarrage de plusieurs instances
 6. **Exportateur Spatial USD/USDZ & glTF 2.0 PBR (`revit_export_usd_visionpro`) :** Exportation native pour Apple Vision Pro (visionOS avec ancres spatiales) et Unreal Engine 5.5 (géométrie virtualisée Nanite et éclairage global Lumen).
 7. **Réalisateur IA de Visites Virtuelles & Compagnon Vocal (`revit_walkthrough_direct`) :** Génération de trajectoires cinématiques de caméra (splines Catmull-Rom à 1.65 m), course solaire dynamically synchronisée, bascules de finitions et narration vocale synchronisée.
 
+### 🎯 3. Les 5 Outils Métier Indispensables au Quotidien (v2.8.1)
+Conçus spécifiquement pour le travail réel de l'architecte, sans aucune "usine à gaz" :
+1. **Cotation Automatique Intelligente des Plans (`revit_auto_dimension_plan`) :** Génère instantanément les 3 lignes de cotes orthogonales professionnelles (Ligne 1 : baies et trumeaux, Ligne 2 : cotes intérieures nettes de pièce, Ligne 3 : cote hors-tout).
+2. **Comparateur Visuel Existant / Projet (`revit_compare_variants_visual`) :** Superpose instantanément deux maquettes et génère le plan de démolition/création couleur : **Rouge** (démoli), **Vert** (créé/neuf), **Gris** (conservé) avec métré linéaire exact pour les devis d'artisans.
+3. **Docteur Géométrique & Nettoyeur d'Avertissements (`revit_geometry_doctor`) :** Recale automatiquement les murs légèrement hors-axe (89.9° vers 90.0° net), fusionne les micro-espacements (< 25 mm) et supprime les segments microscopiques parasites qui déclenchent les alertes Revit.
+4. **Calepinage Rapide d'Agencement Intérieur (`revit_layout_casework_millwork`) :** Dessine en un clic un linéaire de dressing, placard, cuisine ou meuble vasque sur mesure avec division modulaire propre et nomenclature quincaillerie/panneaux.
+5. **Tableau Récapitulatif Artisans & Clients (`revit_extract_takeoff_artisan_table`) :** Extrait un tableau propre prêt pour devis (surfaces Loi Carrez, linéaires réels de plinthes déduction faite des portes, surfaces de murs à peindre, et nomenclature ordonnée des menuiseries).
+
 ## 🏛️ Architecture Dual-Engine
 
 1. **Engine A — Autodesk Revit 2027 (.NET 10 / C#) :** Pilotez l'API native officielle d'Autodesk avec zéro latence, file de requêtes thread-safe active même sans document ouvert, et suppression automatique des avertissements (`SafeFailurePreprocessor`).
@@ -59,7 +67,7 @@ Visitez la vitrine officielle d'ARC en ligne : **[https://encorezaan.github.io/A
 
 - **Direction Artistique Cinématique :** Univers sombre et épuré respectant les nuances noir profond (`#0B080D`), prune fumé (`#2B242C`), reflets champagne doré (`#D7B98C`), blanc perlé (`#F6F4EF`) et cobalt nocturne (`#274C8F`).
 - **Scène 3D Interactive WebGL (Three.js) :** Dôme liquide métallique organique, pavillon BIM filaire tridimensionnel rétro-éclairé et flux de particules de données actives.
-- **Catalogue Interactif des 243 Outils :** Moteur de recherche instantané et filtrage par catégorie (Performance Rust, PMR/RE2020, Git du BIM, Modélisation, Fluides MEP, Documentation, Sécurité, BIMcraft Rust).
+- **Catalogue Interactif des 248 Outils :** Moteur de recherche instantané et filtrage par catégorie (Performance Rust, PMR/RE2020, Git du BIM, Modélisation, Fluides MEP, Documentation, Sécurité, BIMcraft Rust).
 
 ---
 

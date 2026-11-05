@@ -266,3 +266,15 @@ La version 2.8.0 intègre 7 nouveaux moteurs algorithmiques codés à 100% en Ru
 - Animation solaire dynamique synchronisée (aube dorée, plein midi zénithal, crépuscule d'ambiance).
 - Bascule interactive de variantes de finitions et génération du script de narration audio synchronisé pour intégration avec Gemini Live API ou moteurs TTS.
 - Outil MCP : `revit_walkthrough_direct`.
+
+---
+
+## 9. Les 5 Outils Métier Indispensables au Quotidien (v2.8.1)
+
+Pour répondre aux besoins concrets de l'architecte sur les projets réels (rénovation d'appartements, permis de construire, consultations des entreprises) et éviter tout écueil d'usine à gaz, la version 2.8.1 enrichit le catalogue de 5 outils directement exploitables :
+
+1. **Cotation Automatique des Plans (`auto_dimension.rs`) :** Trace automatiquement les 3 lignes de cotes normées : Ligne 1 (détails de baies et trumeaux), Ligne 2 (cotes intérieures nettes), Ligne 3 (cote générale hors-tout).
+2. **Comparateur Visuel Démolition / Création (`variant_diff_visual.rs`) :** Produit le plan bicolore indispensable pour les artisans et le permis : Rouge pour les cloisons à abattre, Vert pour les parois neuves à monter, Gris pour les éléments conservés, avec calcul du ratio de démolition.
+3. **Docteur Géométrique (`geometry_doctor.rs`) :** Assainit le fichier Revit en redressant à 90° ou 0° les murs imperceptiblement faux, en fermant les micro-espacements qui empêchent la détection de pièces, et en supprimant les lignes de détail orphelines.
+4. **Agencement & Menuiserie sur Mesure (`casework_layout.rs`) :** Modélise en 1 seconde des linéaires de placards, dressings, meubles vasque ou cuisines complètes selon les standards des fabricants (modules de 600 ou 800 mm, plinthes de 100 mm).
+5. **Métré Client & Artisans (`artisan_takeoff.rs`) :** Fournit un tableau synthétique immédiat (Loi Carrez, plinthes nettes, surfaces de cloisons à peindre, repères de menuiseries) exportable directement vers Excel ou le dossier client.

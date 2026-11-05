@@ -8828,6 +8828,158 @@
       },
       "action": "walkthrough/direct",
       "isHealthCheck": false
+    },
+    {
+      "name": "revit_auto_dimension_plan",
+      "description": "Architectural Auto-Dimensioning Engine. Automatically computes and places orthogonal 3-chain dimensions on plans: Chain 1 (door/window openings and piers), Chain 2 (interior net room clearances), Chain 3 (overall building boundaries). Saves hours of tedious manual drafting.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "walls": {
+            "type": "array",
+            "description": "List of walls with coordinates x1, y1, x2, y2",
+            "items": {
+              "type": "object"
+            }
+          },
+          "openings": {
+            "type": "array",
+            "description": "List of door/window openings with center x, y and width",
+            "items": {
+              "type": "object"
+            }
+          },
+          "offsetBaseMeters": {
+            "type": "number",
+            "description": "Offset distance from wall to first dimension line in meters (default: 0.80m)"
+          },
+          "offsetSpacingMeters": {
+            "type": "number",
+            "description": "Spacing between parallel dimension lines in meters (default: 0.50m)"
+          }
+        }
+      },
+      "action": "dimension/auto-plan",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_compare_variants_visual",
+      "description": "Visual Demolition & Construction Plan Comparator (Red/Green Diff). Compares existing baseline model with new project variants. Generates an immediate high-resolution vector SVG overlay: Red = Demolished/Removed, Green = Created/New, Grey = Preserved, with exact linear meters and demolition metrics for permits and contractor quotes.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "viewTitle": {
+            "type": "string",
+            "description": "Title of the demolition/construction plan"
+          },
+          "existingElements": {
+            "type": "array",
+            "description": "List of existing baseline elements with id, coordinates x1, y1, x2, y2, thickness",
+            "items": {
+              "type": "object"
+            }
+          },
+          "projectElements": {
+            "type": "array",
+            "description": "List of new project variant elements with id, coordinates x1, y1, x2, y2, thickness",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "action": "variants/visual-diff",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_geometry_doctor",
+      "description": "Geometry Doctor & Model Cleaner. Scans and auto-heals architectural models: snaps slightly off-axis walls (e.g. 89.9° to true 90.0°/0.0°), fuses micro-gaps (<25mm) between disconnected wall junctions, purges micro-segments and orphan zero-length lines to prevent Revit warning dialogs.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "walls": {
+            "type": "array",
+            "description": "List of walls to inspect with id, x1, y1, x2, y2",
+            "items": {
+              "type": "object"
+            }
+          },
+          "angleToleranceDeg": {
+            "type": "number",
+            "description": "Angle tolerance threshold in degrees to snap to 0°/90°/45° (default: 0.85°)"
+          },
+          "gapToleranceMm": {
+            "type": "number",
+            "description": "Distance threshold in millimeters to snap and fuse disconnected endpoints (default: 25mm)"
+          }
+        }
+      },
+      "action": "geometry/doctor-clean",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_layout_casework_millwork",
+      "description": "Parametric Interior Millwork & Casework Layout Engine. Instantly drafts custom wardrobes, dressing closets, fitted kitchens, bookcases, and bathroom vanities along any wall with exact modular subdivisions (600mm/800mm), plinths, hardware, and bill of materials.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "layoutType": {
+            "type": "string",
+            "description": "Type of casework: 'DressingPlacard', 'CuisineLineaire', 'CuisineEnL', 'MeubleVasque', 'Bibliotheque'",
+            "enum": [
+              "DressingPlacard",
+              "CuisineLineaire",
+              "CuisineEnL",
+              "MeubleVasque",
+              "Bibliotheque"
+            ]
+          },
+          "totalLengthMeters": {
+            "type": "number",
+            "description": "Total linear length of the wall or unit in meters (e.g. 3.20m)"
+          },
+          "depthMeters": {
+            "type": "number",
+            "description": "Cabinet depth in meters (e.g. 0.60m for wardrobe/kitchen, 0.35m for bookcase)"
+          },
+          "heightMeters": {
+            "type": "number",
+            "description": "Total height in meters (e.g. 2.50m ceiling height, 0.90m base cabinet)"
+          },
+          "finishMaterial": {
+            "type": "string",
+            "description": "Finish material ('Chêne Naturel Verni Mat', 'Blanc Mat', 'Fenix Noir', etc.)"
+          },
+          "numModules": {
+            "type": "integer",
+            "description": "Optional explicit number of modules (otherwise computed automatically)"
+          }
+        }
+      },
+      "action": "casework/layout-millwork",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_extract_takeoff_artisan_table",
+      "description": "Client & Contractor Quantity Takeoff Generator. Extracts exact room-by-room areas (Loi Carrez), net linear plinths (perimeter minus door widths), wall painting areas, ceiling areas, and detailed door/window joinery schedules. Generates formatted Markdown tables and clean CSV ready for Excel and quotes.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectTitle": {
+            "type": "string",
+            "description": "Project title (e.g. 'Appartement Londonien')"
+          },
+          "rooms": {
+            "type": "array",
+            "description": "List of rooms with number, name, floor area, perimeter, ceiling height, and floor finish",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "action": "takeoff/artisan-table",
+      "isHealthCheck": false
     }
   ]
 }

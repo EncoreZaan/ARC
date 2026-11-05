@@ -70,6 +70,13 @@
   // 2. Interactive 230-Tools Explorer
   // ---------------------------------------------------------------------------
   const toolsData = [
+    // 5 Outils Pratiques & Métier Quotidien d'Architecte (v2.8.1)
+    { name: 'revit_auto_dimension_plan', cat: 'documentation', latency: '0.002 ms', desc: 'Cotation automatique intelligente des pièces et plans en 3 lignes orthogonales (baies/trumeaux, cotes nettes, hors-tout).' },
+    { name: 'revit_compare_variants_visual', cat: 'modelisation', latency: '0.015 s', desc: 'Comparateur visuel de variantes générant directement le plan de démolition/création (Rouge/Vert/Gris) en SVG/PDF.' },
+    { name: 'revit_geometry_doctor', cat: 'modelisation', latency: '0.004 ms', desc: 'Docteur géométrique recalant les murs hors-axe (89.9° -> 90°), fusionnant les micro-écarts (<25mm) et purgeant les lignes parasites.' },
+    { name: 'revit_layout_casework_millwork', cat: 'modelisation', latency: '0.003 ms', desc: 'Calepinage paramétrique instantané de dressings, placards, linéaires de cuisine et meubles vasque sur mesure.' },
+    { name: 'revit_extract_takeoff_artisan_table', cat: 'economie', latency: '0.002 ms', desc: 'Tableau récapitulatif net pour clients et artisans : surfaces Loi Carrez, linéaires de plinthes et nomenclatures de menuiseries.' },
+
     // 7 Piliers Technologiques & Innovations de Rupture (v2.8.0)
     { name: 'revit_live_mirror_sync', cat: 'performance', latency: '0.008 ms', desc: 'Moteur de synchronisation bidirectionnelle & fusion différentielle 3 voies (Revit ↔ BIMcraft).' },
     { name: 'revit_sketch_to_bim', cat: 'modelisation', latency: '0.045 s', desc: 'Vectorisation neuronale de croquis main et plans scannés en géométrie 3D native.' },

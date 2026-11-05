@@ -1,5 +1,5 @@
 # 🏛️ ARC (ARCHITECTURE & REVIT COPILOT) — MASTER PROJECT STATE & ARCHITECTURE BIBLE
-> **Statut global du système :** Opérationnel & Ultra-Performant (v2.8.0 — Dual-Engine, 7 Cutting-Edge Pillars & Multi-Instance Zero-Conflict)  
+> **Statut global du système :** Opérationnel & Ultra-Performant (v2.8.1 — Dual-Engine, 7 Cutting-Edge Pillars & Multi-Instance Zero-Conflict)  
 > **Dernière mise à jour :** 5 Novembre 2026  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/ARC.git](https://github.com/EncoreZaan/ARC.git)  
 > **Site officiel (Landing Page 3D) :** [https://encorezaan.github.io/Revit-MCP/](https://encorezaan.github.io/Revit-MCP/)  
@@ -29,7 +29,7 @@
 | **Fichiers Maquettes Actifs** | `...\06_Revit\REFLET_00_EXISTANT.rvt` & `REFLET_00_EXISTANT.bimcraft`<br>+ Variantes V1, V2, V3 converties et synchronisées |
 | **Gabarit Officiel (.rte)** | `...\DOUBLE-BAY_gabarit.rte` (issu du gabarit architectural FRA RVT 2027) |
 | **Bibliothèque Familles FRA** | `C:\ProgramData\Autodesk\RVT 2027\Libraries\French\` |
-| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v2.7.0 — 243 outils)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
+| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v2.7.0 — 248 outils)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
 
 ---
 
@@ -43,7 +43,7 @@
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │             SERVEUR MCP RUST UNIFIÉ (revit-mcp-server v2.7.0)          │
-│  - Dispatcher haute performance (243 outils répertoriés)               │
+│  - Dispatcher haute performance (248 outils répertoriés)               │
 │  - Moteur Géométrique Déporté Multithread (rayon)                       │
 │    • AABB Clash Detection parallélisée en mémoire vive                 │
 │    • Calculs surfaciques exacts Shoelace (Loi Carrez, PMR)             │
@@ -217,7 +217,7 @@
 - **Pont Agent & Synchronisation Interactive :**
   - Démarrage persistant de l'interface graphique à l'écran via WMI/Win32 (`Invoke-CimMethod -ClassName Win32_Process -MethodName Create`) avec écoute sur port dynamique négocié (`%APPDATA%\BIMCraft\bridge.json`).
   - Connexion automatique pour les agents IA via `bimcraft-cli mcp --connect` pour interagir directement dans le viewport sous les yeux de l'architecte.
-- **6 Nouveaux Outils MCP Dédiés (243 outils au total) :**
+- **6 Nouveaux Outils MCP Dédiés (248 outils au total) :**
   1. `bimcraft_launch` : Lancement détaché du GUI BIMcraft avec activation de l'écoute agent `--control 0`.
   2. `bimcraft_status` : Lecture de l'état du modeleur, version du CLI, statut du processus et configuration de communication active.
   3. `bimcraft_convert` : Conversion native sans Revit entre formats `.rvt`, `.rfa`, `.ifc`, `.bimcraft`, `.svg` et `.png`.
@@ -247,7 +247,7 @@
 - **Architecture Dual-Engine & Multi-Plateforme (macOS, Linux, Windows) :**
   - **Support macOS Déclaré Priorité N°1** : Portabilité native complète du serveur Rust, du modeleur BIMcraft (Metal/Cocoa) et du microservice CAD.
   - Déploiement du support BIMcraft 0.9.0 aux côtés d'Autodesk Revit 2027.
-  - Ajout des 6 nouveaux outils MCP BIMcraft (catalogue étendu à 243 outils).
+  - Ajout des 6 nouveaux outils MCP BIMcraft (catalogue étendu à 248 outils).
   - Transport IPC Unix Domain Socket (`/tmp/revit_mcp_ipc.sock`) pour environnements Unix (macOS/Linux).
   - Génération algorithmique simultanée pour Revit et BIMcraft dans `revit_generate_complete_floorplan` et `revit_solve_parametric_layout`.
   - Extension du serveur `cad-mcp` (PyMuPDF / ezdxf) pour supporter nativement les géométries BIMcraft.

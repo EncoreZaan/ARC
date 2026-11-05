@@ -17,6 +17,11 @@ mod structural_fea;
 mod plu_checker;
 mod spatial_usd_gltf;
 mod walkthrough_director;
+mod auto_dimension;
+mod variant_diff_visual;
+mod geometry_doctor;
+mod casework_layout;
+mod artisan_takeoff;
 
 use geometry::{ClashElement, Polygon2D};
 use reqwest::Client;
@@ -585,6 +590,37 @@ async fn handle_tools_call(
 
     if tool_name == "revit_walkthrough_direct" {
         let res = walkthrough_director::generate_walkthrough_direct(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    // ── 5 PRAGMATIC DAILY ARCHITECTURE TOOLS ─────────────────────────────────
+    if tool_name == "revit_auto_dimension_plan" {
+        let res = auto_dimension::generate_auto_dimensions(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_compare_variants_visual" {
+        let res = variant_diff_visual::compare_variants_visual(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_geometry_doctor" {
+        let res = geometry_doctor::diagnose_and_heal_geometry(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_layout_casework_millwork" {
+        let res = casework_layout::generate_casework_layout(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_extract_takeoff_artisan_table" {
+        let res = artisan_takeoff::generate_artisan_takeoff(&post_body);
         let text = serde_json::to_string_pretty(&res).unwrap_or_default();
         return (json!({ "content": [{ "type": "text", "text": text }] }), false);
     }
