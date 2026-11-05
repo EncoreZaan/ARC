@@ -34,9 +34,14 @@ public class RevitNamedPipeServer
     public void Start()
     {
         _running = true;
-        _listenerThread = new Thread(ListenLoop) { IsBackground = true, Name = "RevitMCP_NamedPipeServer" };
+        _listenerThread = new Thread(() => ListenLoop(PipeName)) { IsBackground = true, Name = "RevitMCP_NamedPipeServer" };
         _listenerThread.Start();
-        ConfigManager.LogAudit("PIPE_SERVER", $"Named Pipe IPC server started on \\\\.\\pipe\\{PipeName}");
+
+        var specificPipe = $"{PipeName}_{Environment.ProcessId}";
+        var specificThread = new Thread(() => ListenLoop(specificPipe)) { IsBackground = true, Name = $"RevitMCP_NamedPipeServer_{Environment.ProcessId}" };
+        specificThread.Start();
+
+        ConfigManager.LogAudit("PIPE_SERVER", $"Named Pipe IPC servers started on \\\\.\\pipe\\{PipeName} and \\\\.\\pipe\\{specificPipe}");
     }
 
     public void Stop()
@@ -49,7 +54,7 @@ public class RevitNamedPipeServer
         catch { }
     }
 
-    private void ListenLoop()
+    private void ListenLoop(string targetPipeName)
     {
         while (_running && !_cts.IsCancellationRequested)
         {
@@ -62,7 +67,7 @@ public class RevitNamedPipeServer
                     AccessControlType.Allow));
 
                 var pipeServer = NamedPipeServerStreamAcl.Create(
-                    PipeName,
+                    targetPipeName,
                     PipeDirection.InOut,
                     NamedPipeServerStream.MaxAllowedServerInstances,
                     PipeTransmissionMode.Byte,
@@ -79,7 +84,7 @@ public class RevitNamedPipeServer
             catch (Exception ex)
             {
                 if (!_running) break;
-                ConfigManager.LogAudit("PIPE_ERROR", $"Named Pipe server loop error: {ex.Message}");
+                ConfigManager.LogAudit("PIPE_ERROR", $"Named Pipe ({targetPipeName}) server loop error: {ex.Message}");
                 Thread.Sleep(500);
             }
         }

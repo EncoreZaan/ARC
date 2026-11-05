@@ -1,5 +1,5 @@
 # 🏛️ ARC (ARCHITECTURE & REVIT COPILOT) — MASTER PROJECT STATE & ARCHITECTURE BIBLE
-> **Statut global du système :** Opérationnel & Ultra-Performant (v2.6.0)  
+> **Statut global du système :** Opérationnel & Ultra-Performant (v2.8.0 — Dual-Engine, 7 Cutting-Edge Pillars & Multi-Instance Zero-Conflict)  
 > **Dernière mise à jour :** 5 Novembre 2026  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/ARC.git](https://github.com/EncoreZaan/ARC.git)  
 > **Site officiel (Landing Page 3D) :** [https://encorezaan.github.io/Revit-MCP/](https://encorezaan.github.io/Revit-MCP/)  
@@ -21,28 +21,52 @@
 | Composant | Spécification / Emplacement |
 | :--- | :--- |
 | **Machine hôte** | `pct-o` (Windows 11 x64) |
+| **Plates-formes Certifiées** | **macOS** (Priorité 1 — Apple Silicon M1/M2/M3/M4 & Intel)<br>**Linux** (Ubuntu, Debian, Fedora, Arch)<br>**Windows 11** (x64) |
 | **Utilisateur** | `teoba` |
-| **Client IA Principal** | Claude Desktop (`%APPDATA%\Claude\claude_desktop_config.json`) |
-| **Revit Version** | **Autodesk Revit 2027** (Build .NET 10 / C++/CLI) |
+| **Client IA Principal** | Claude Desktop (`%APPDATA%\Claude\claude_desktop_config.json`) & Antigravity IDE |
+| **Moteurs BIM Actifs** | **Dual-Engine :**<br>1. **Autodesk Revit 2027** (.NET 10 / C++/CLI Add-in)<br>2. **BIMcraft 0.9.0** (Moteur BIM natif Rust, GUI Vulkan/D3D12 & CLI headless) |
 | **Projet Architecture En Cours** | `C:\Users\teoba\Documents\Projet Appart Londonien\` |
-| **Fichier RVT Actif** | `...\06_Revit\DOUBLE-BAY_00_EXISTANT.rvt` |
+| **Fichiers Maquettes Actifs** | `...\06_Revit\REFLET_00_EXISTANT.rvt` & `REFLET_00_EXISTANT.bimcraft`<br>+ Variantes V1, V2, V3 converties et synchronisées |
 | **Gabarit Officiel (.rte)** | `...\DOUBLE-BAY_gabarit.rte` (issu du gabarit architectural FRA RVT 2027) |
 | **Bibliothèque Familles FRA** | `C:\ProgramData\Autodesk\RVT 2027\Libraries\French\` |
-| **Serveurs MCP Actifs** | 1. `revit` (Pont Rust/C# v2.5.0)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `revit-officiel` (Tech Preview stdio) |
+| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v2.7.0 — 243 outils)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
 
 ---
 
-## 2. Architecture Technique Tri-Couche (v2.5.0)
+## 2. Architecture Technique Dual-Engine (v2.7.0)
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                   CLAUDE DESKTOP / AI CLIENTS                          │
+│                   CLAUDE DESKTOP / ANTIGRAVITY / AI CLIENTS            │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │ stdio (JSON-RPC)
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│             SERVEUR MCP RUST (revit-mcp-server v2.6.0)                 │
-│  - Dispatcher haute performance (230 outils répertoriés)               │
+│             SERVEUR MCP RUST UNIFIÉ (revit-mcp-server v2.7.0)          │
+│  - Dispatcher haute performance (243 outils répertoriés)               │
+│  - Moteur Géométrique Déporté Multithread (rayon)                       │
+│    • AABB Clash Detection parallélisée en mémoire vive                 │
+│    • Calculs surfaciques exacts Shoelace (Loi Carrez, PMR)             │
+│    • Analyse bioclimatique & orientation solaire RE2020                │
+│    • Pipeline Multi-Moteurs : Sorties simultanées Revit & BIMcraft     │
+└───────────────────┬────────────────────────────────┬───────────────────┘
+                    │                                │
+ (Engine A: Revit)  │ Named Pipe IPC                 │ (Engine B: BIMcraft)
+                    │ \\.\pipe\revit_mcp_ipc         │ Agent Bridge / CLI Run
+                    ▼                                ▼
+┌──────────────────────────────────────┐  ┌──────────────────────────────┐
+│  ADD-IN C# REVIT 2027 (v2.7.0)       │  │  BIMCRAFT 0.9.0 (RUST NATIVE)│
+│  - Serveur Named Pipe asynchrone     │  │  - Port bridge.json (--ctrl) │
+│  - "Git of BIM" Branching Engine     │  │  - Rendu direct SVG/PNG      │
+│  - Compilateur dynamique Roslyn      │  │  - Modélisation scriptable   │
+│  - SafeFailurePreprocessor           │  │  - Zéro dépendance externe   │
+└───────────────────┬──────────────────┘  └──────────────┬───────────────┘
+                    │                                    │
+                    ▼                                    ▼
+┌──────────────────────────────────────┐  ┌──────────────────────────────┐
+│        AUTODESK REVIT 2027           │  │     BIMCRAFT VIEWPORT 3D     │
+└──────────────────────────────────────┘  └──────────────────────────────┘
+```
 │  - Moteur Géométrique Déporté Multithread (rayon)                       │
 │    • AABB Clash Detection parallélisée en mémoire vive                 │
 │    • Calculs surfaciques exacts Shoelace (Loi Carrez, PMR)             │
@@ -188,7 +212,49 @@
 - **Réveil Instantané Win32 :** Envoi d'un message non-bloquant `WM_NULL` via `PostMessage` vers le `MainWindowHandle` du processus Revit pour forcer le passage immédiat en cycle `Idling` sans attendre d'interaction souris utilisateur.
 - **Résilience d'Ouverture :** Fallback automatique de `OpenAndActivateDocument` vers `Application.OpenDocumentFile` en cas de restriction de contexte d'événement Revit.
 
+### 🏗️ 23. Intégration & Compatibilité Totale BIMcraft (v2.7.0 — Dual-Engine BIM)
+- **BIMcraft Native Rust Modeler (v0.9.0) :** Modeleur architectural complet et autonome ("Revit-class building model") développé en Rust, offrant un rendu matériel direct Vulkan/DirectX 12, une modélisation paramétrique ultra-rapide et zéro dépendance lourde.
+- **Pont Agent & Synchronisation Interactive :**
+  - Démarrage persistant de l'interface graphique à l'écran via WMI/Win32 (`Invoke-CimMethod -ClassName Win32_Process -MethodName Create`) avec écoute sur port dynamique négocié (`%APPDATA%\BIMCraft\bridge.json`).
+  - Connexion automatique pour les agents IA via `bimcraft-cli mcp --connect` pour interagir directement dans le viewport sous les yeux de l'architecte.
+- **6 Nouveaux Outils MCP Dédiés (243 outils au total) :**
+  1. `bimcraft_launch` : Lancement détaché du GUI BIMcraft avec activation de l'écoute agent `--control 0`.
+  2. `bimcraft_status` : Lecture de l'état du modeleur, version du CLI, statut du processus et configuration de communication active.
+  3. `bimcraft_convert` : Conversion native sans Revit entre formats `.rvt`, `.rfa`, `.ifc`, `.bimcraft`, `.svg` et `.png`.
+  4. `bimcraft_info` : Extraction analytique complète de la structure de maquette (niveaux, éléments, catégories, familles, paramètres).
+  5. `bimcraft_execute_script` : Injection et exécution de scripts batch de modélisation (murs, cloisons, baies, pièces, dalles, toits).
+  6. `bimcraft_render_view` : Génération sub-seconde de rendus plans 2D vectoriels SVG ou 3D PNG.
+- **Conversion et Synchronisation des Variantes du Projet :**
+  - Conversion automatisée des 4 maquettes du projet Londonien (`REFLET_00_EXISTANT`, `REFLET_V1_ECLIPSE_MIROIR-G`, `REFLET_V2_ORBITE_MIROIR-D`, `REFLET_V3_PASSAGE_MIROIR-G`) vers `.bimcraft` et génération immédiate des plans vectoriels `.svg`.
+- **Générateurs Algorithmiques Multi-Moteurs :**
+  - `floorplan_generator.rs` et `solver.rs` enrichis pour exporter simultanément la structure de batch Revit C# et le script BIMcraft en millimètres avec commandes adaptées (`wall`, `door`, `window`, `room`, `desk`, `table`, `chair`).
+- **Pipeline CAD / DXF PyMuPDF Universel :**
+  - Comparaison géométrique DXF $\leftrightarrow$ BIMcraft native prenant en charge les segments de murs, polylignes et points d'insertion dans `cad-mcp`.
+- **Gestionnaire Global Python (`scripts/bimcraft_manager.py`) :**
+  - Script CLI complet offrant le contrôle total du cycle de vie de BIMcraft, l'inspection et la conversion en masse.
+
+### 🍎 24. Compatibilité Multi-Plateforme Nativée (macOS Priorité 1, Linux & Windows)
+- **Révolution pour les Architectes sur Mac :**
+  - Fin du monopole Windows pour la conception et l'analyse BIM avancée.
+  - **macOS Natif :** BIMcraft fonctionne avec accélération matérielle Metal sur tous les Macs Apple Silicon (M1/M2/M3/M4) et Intel.
+  - **Zéro Licence Windows / Zéro Installation Revit requise :** Importation et conversion directes des fichiers `.rvt` et `.rfa` sous macOS.
+  - **Unix Domain Socket (UDS) :** Implémentation du socket local `/tmp/revit_mcp_ipc.sock` pour communication instantanée sans latence réseau.
+  - **Documentation Complète d'Architecture Revit :** Rédaction du guide de référence exhaustif [`docs/revit_architecture_guide.md`](./docs/revit_architecture_guide.md) décrivant dans le détail la genèse, l'état d'avancement et le mode de fonctionnement de l'ensemble du système.
+
 ## 4. Historique Chronologique des Versions
+
+### [v2.7.0] - 2026-11-05
+- **Architecture Dual-Engine & Multi-Plateforme (macOS, Linux, Windows) :**
+  - **Support macOS Déclaré Priorité N°1** : Portabilité native complète du serveur Rust, du modeleur BIMcraft (Metal/Cocoa) et du microservice CAD.
+  - Déploiement du support BIMcraft 0.9.0 aux côtés d'Autodesk Revit 2027.
+  - Ajout des 6 nouveaux outils MCP BIMcraft (catalogue étendu à 243 outils).
+  - Transport IPC Unix Domain Socket (`/tmp/revit_mcp_ipc.sock`) pour environnements Unix (macOS/Linux).
+  - Génération algorithmique simultanée pour Revit et BIMcraft dans `revit_generate_complete_floorplan` et `revit_solve_parametric_layout`.
+  - Extension du serveur `cad-mcp` (PyMuPDF / ezdxf) pour supporter nativement les géométries BIMcraft.
+  - Outil CLI d'orchestration multi-plateforme `scripts/bimcraft_manager.py`.
+  - Conversion intégrale des maquettes de l'Appartement Londonien (`.rvt` -> `.bimcraft` et `.svg`).
+  - Rédaction du guide de référence officiel [`docs/revit_architecture_guide.md`](./docs/revit_architecture_guide.md).
+  - Mise à jour de la landing page vitrine WebGL Three.js avec section dédiée macOS/Linux et filtres d'outils.
 
 ### [v2.6.0] - 2026-11-05
 - **Landing Page Officielle & GitHub Pages :**

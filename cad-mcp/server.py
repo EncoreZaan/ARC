@@ -274,6 +274,32 @@ def dxf_render_all_layouts_pdf(path: str, outputPath: str, dpi: Optional[int] = 
         
         for lyt_name in doc.layout_names():
             space = doc.layout(lyt_name)
+            # Skip empty layouts without graphic entities
+            if len(space) == 0:
+                continue
+            try:
+                be = PyMuPdfBackend()
+                cfg = drawing_config.Configuration(
+                    background_policy=drawing_config.BackgroundPolicy.WHITE,
+                    color_policy=drawing_config.ColorPolicy.BLACK,
+                    lineweight_scaling=1.0,
+                    min_lineweight=0.09
+                )
+                Frontend(RenderContext(doc), be, config=cfg).draw_layout(space, finalize=True)
+                pw, ph = _get_layout_paper_size_mm(space)
+                page = drawing_layout.Page(pw, ph, drawing_layout.Units.mm, margins=drawing_layout.Margins.all(0))
+                settings = drawing_layout.Settings(scale=1, fit_page=False)
+                page_pdf_bytes = be.get_pdf_bytes(page, settings=settings)
+                page_doc = pymupdf.open(stream=page_pdf_bytes, filetype="pdf")
+                merged_pdf.insert_pdf(page_doc)
+                page_doc.close()
+                rendered_layouts.append(lyt_name)
+            except Exception:
+                continue
+            
+        if len(rendered_layouts) == 0:
+            # Fallback to modelspace if layouts failed
+            space = doc.modelspace()
             be = PyMuPdfBackend()
             cfg = drawing_config.Configuration(
                 background_policy=drawing_config.BackgroundPolicy.WHITE,
@@ -284,12 +310,12 @@ def dxf_render_all_layouts_pdf(path: str, outputPath: str, dpi: Optional[int] = 
             Frontend(RenderContext(doc), be, config=cfg).draw_layout(space, finalize=True)
             pw, ph = _get_layout_paper_size_mm(space)
             page = drawing_layout.Page(pw, ph, drawing_layout.Units.mm, margins=drawing_layout.Margins.all(0))
-            settings = drawing_layout.Settings(scale=1, fit_page=False)
+            settings = drawing_layout.Settings(scale=1, fit_page=True)
             page_pdf_bytes = be.get_pdf_bytes(page, settings=settings)
             page_doc = pymupdf.open(stream=page_pdf_bytes, filetype="pdf")
             merged_pdf.insert_pdf(page_doc)
             page_doc.close()
-            rendered_layouts.append(lyt_name)
+            rendered_layouts.append("Model")
             
         merged_pdf.save(str(out_p))
         merged_pdf.close()
@@ -557,6 +583,10 @@ def dxf_compare_with_revit(dxfPath: str, revitElements: List[Dict[str, Any]], to
                     px, py = float(pt[0]), float(pt[1])
                 elif isinstance(pt, dict):
                     px, py = float(pt.get("x", 0)), float(pt.get("y", 0))
+            elif "points" in el and isinstance(el["points"], (list, tuple)) and len(el["points"]) >= 2:
+                # Segment de mur BIMCraft: points: [[x1, y1], [x2, y2]] -> point médian
+                p1, p2 = el["points"][0], el["points"][1]
+                px, py = (float(p1[0]) + float(p2[0])) / 2.0, (float(p1[1]) + float(p2[1])) / 2.0
             else:
                 loc = el.get("location")
                 if loc and loc.get("type") == "point":
@@ -611,6 +641,57 @@ def dxf_compare_with_revit(dxfPath: str, revitElements: List[Dict[str, Any]], to
                 "message": str(ex),
                 "resolvedPath": p_res,
                 "platform": sys.platform
+            }
+        }, indent=2)
+
+
+@mcp.tool()
+def dxf_compare_with_bimcraft(dxfPath: str, bimcraftElements: List[Dict[str, Any]], toleranceMm: Optional[float] = 20.0) -> str:
+    """
+    Compare directement les éléments d'un projet BIMCraft (extraits via query_elements ou inspect_model) avec un plan DXF.
+    Détecte les écarts d'implantation de cloisons, portes, fenêtres et équipements.
+    Exemple : dxf_compare_with_bimcraft("C:/Plan.dxf", bimcraftElements=[...], toleranceMm=20.0)
+    """
+    return dxf_compare_with_revit(dxfPath, bimcraftElements, toleranceMm)
+
+
+@mcp.tool()
+def bimcraft_export_dxf(bimcraftPath: str, dxfOutputPath: str) -> str:
+    """
+    Exporte et convertit un modèle .bimcraft ou .rvt vers un format vectoriel DXF/SVG via le moteur haute vitesse bimcraft-cli.
+    Exemple : bimcraft_export_dxf("C:/Modele.bimcraft", "C:/Dessin.svg")
+    """
+    import subprocess
+    try:
+        p_in = _resolve_path(bimcraftPath)
+        p_out = _resolve_path(dxfOutputPath)
+        p_out.parent.mkdir(parents=True, exist_ok=True)
+        
+        cli_path = r"C:\Users\teoba\.cargo\bin\bimcraft-cli.exe"
+        cmd = [cli_path, "convert", str(p_in), str(p_out)]
+        res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+        
+        if res.returncode != 0:
+            return json.dumps({
+                "success": False,
+                "error": {
+                    "code": "BIMCRAFT_CONVERT_ERROR",
+                    "message": res.stderr or res.stdout
+                }
+            }, indent=2)
+            
+        return json.dumps({
+            "success": True,
+            "input": p_in.as_posix(),
+            "output": p_out.as_posix(),
+            "details": res.stdout.strip()
+        }, indent=2)
+    except Exception as ex:
+        return json.dumps({
+            "success": False,
+            "error": {
+                "code": "BIMCRAFT_CONVERT_EXCEPTION",
+                "message": str(ex)
             }
         }, indent=2)
 

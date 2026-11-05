@@ -2,6 +2,7 @@ mod geometry;
 mod solver;
 mod agent_swarm;
 mod auto_healing;
+mod bimcraft_bridge;
 mod cost_estimator;
 mod floorplan_generator;
 mod ifc_engine;
@@ -9,6 +10,13 @@ mod live_delta_stream;
 mod shared_memory;
 mod solar_raytracer;
 mod spatial_index;
+mod live_mirror;
+mod sketch_vectorizer;
+mod thermal_sim;
+mod structural_fea;
+mod plu_checker;
+mod spatial_usd_gltf;
+mod walkthrough_director;
 
 use geometry::{ClashElement, Polygon2D};
 use reqwest::Client;
@@ -129,9 +137,38 @@ async fn try_pipe_call(action: &str, mut payload: Value) -> Result<Value, String
     Ok(resp_val)
 }
 
-#[cfg(not(windows))]
+/// Zero-latency Unix Domain Socket IPC client for macOS and Linux.
+#[cfg(unix)]
+async fn try_pipe_call(action: &str, mut payload: Value) -> Result<Value, String> {
+    use tokio::net::UnixStream;
+
+    let sock_path = "/tmp/revit_mcp_ipc.sock";
+    let stream = UnixStream::connect(sock_path).await.map_err(|e| e.to_string())?;
+    let (reader, mut writer) = tokio::io::split(stream);
+    let mut buf_reader = BufReader::new(reader);
+
+    if let Value::Object(ref mut map) = payload {
+        map.insert("action".to_string(), json!(action));
+    } else {
+        payload = json!({ "action": action });
+    }
+
+    let mut line = serde_json::to_string(&payload).map_err(|e| e.to_string())?;
+    line.push('\n');
+
+    writer.write_all(line.as_bytes()).await.map_err(|e| e.to_string())?;
+    writer.flush().await.map_err(|e| e.to_string())?;
+
+    let mut response_line = String::new();
+    buf_reader.read_line(&mut response_line).await.map_err(|e| e.to_string())?;
+
+    let resp_val: Value = serde_json::from_str(&response_line).map_err(|e| e.to_string())?;
+    Ok(resp_val)
+}
+
+#[cfg(all(not(windows), not(unix)))]
 async fn try_pipe_call(_action: &str, _payload: Value) -> Result<Value, String> {
-    Err("Named pipe IPC is Windows-only".to_string())
+    Err("Local IPC is unsupported on this platform".to_string())
 }
 
 /// Dispatches a request to Revit, prioritizing ultra-low latency Named Pipes and falling back to HTTP.
@@ -145,18 +182,48 @@ async fn dispatch_bridge_request(
         return Ok(pipe_resp);
     }
 
-    // 2. Fallback to HTTP Bridge
+    // 2. Primary HTTP Bridge attempt
     let api_url = format!("{}/api/{}", state.config.host, action);
-    match state.client.post(&api_url).json(&payload).send().await {
-        Ok(resp) => {
-            let body: Value = match resp.json().await {
-                Ok(val) => val,
-                Err(_) => json!({ "error": "Non-JSON response from Revit bridge" }),
-            };
-            Ok(body)
+    if let Ok(resp) = state.client.post(&api_url).json(&payload).send().await {
+        if let Ok(val) = resp.json::<Value>().await {
+            return Ok(val);
         }
-        Err(e) => Err(format!("Bridge error: {}", e)),
     }
+
+    // 3. Multi-instance discovery from active_instances.json
+    if let Ok(app_data) = env::var("APPDATA") {
+        let reg_path = std::path::PathBuf::from(app_data).join("RevitMCP").join("active_instances.json");
+        if reg_path.exists() {
+            if let Ok(content) = std::fs::read_to_string(&reg_path) {
+                if let Ok(parsed) = serde_json::from_str::<Value>(&content) {
+                    if let Some(arr) = parsed.get("instances").and_then(|v| v.as_array()) {
+                        for inst in arr {
+                            if let Some(port) = inst.get("port").and_then(|v| v.as_u64()) {
+                                let alt_url = format!("http://localhost:{}/api/{}", port, action);
+                                if let Ok(resp) = state.client.post(&alt_url).json(&payload).send().await {
+                                    if let Ok(val) = resp.json::<Value>().await {
+                                        return Ok(val);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // 4. Sequential fallback across ports 6543..6552
+    for alt_port in 6543..=6552 {
+        let alt_url = format!("http://localhost:{}/api/{}", alt_port, action);
+        if let Ok(resp) = state.client.post(&alt_url).json(&payload).send().await {
+            if let Ok(val) = resp.json::<Value>().await {
+                return Ok(val);
+            }
+        }
+    }
+
+    Err("Could not reach any active Revit instance via Named Pipe or HTTP ports 6543-6552".to_string())
 }
 
 async fn handle_tools_call(
@@ -417,14 +484,124 @@ async fn handle_tools_call(
         return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
     }
 
+    // ── NATIVE BIMCRAFT TOOLS ────────────────────────────────────────────────
+    if tool_name == "bimcraft_launch" {
+        let res = match bimcraft_bridge::launch_bimcraft_gui() {
+            Ok(v) => v,
+            Err(e) => json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "bimcraft_status" {
+        let res = match bimcraft_bridge::get_bimcraft_status() {
+            Ok(v) => v,
+            Err(e) => json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "bimcraft_convert" {
+        let in_path = post_body.get("inputPath").and_then(|v| v.as_str()).unwrap_or("");
+        let out_path = post_body.get("outputPath").and_then(|v| v.as_str()).unwrap_or("");
+        let res = match bimcraft_bridge::convert_file(in_path, out_path) {
+            Ok(v) => v,
+            Err(e) => json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "bimcraft_info" {
+        let file_path = post_body.get("filePath").and_then(|v| v.as_str()).unwrap_or("");
+        let res = match bimcraft_bridge::inspect_file(file_path) {
+            Ok(v) => v,
+            Err(e) => json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "bimcraft_execute_script" {
+        let res = match bimcraft_bridge::execute_script(&post_body) {
+            Ok(v) => v,
+            Err(e) => json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "bimcraft_render_view" {
+        let res = match bimcraft_bridge::render_view(&post_body) {
+            Ok(v) => v,
+            Err(e) => json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
     // ── HEALTH CHECK ─────────────────────────────────────────────────────────
+    // ── ADVANCED CUTTING-EDGE NATIVE RUST TOOLS ─────────────────────────────
+    if tool_name == "revit_live_mirror_sync" {
+        let src_elements = post_body.get("sourceElements").and_then(|v| v.as_array()).cloned().unwrap_or_default();
+        let tgt_elements = post_body.get("targetElements").and_then(|v| v.as_array()).cloned().unwrap_or_default();
+        let strategy = post_body.get("strategy").and_then(|v| v.as_str()).unwrap_or("SmartGeometricSnap");
+        let res = live_mirror::compute_live_mirror_sync(&src_elements, &tgt_elements, strategy);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_sketch_to_bim" {
+        let res = sketch_vectorizer::vectorize_sketch(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_simulate_thermal_dynamic_re2020" {
+        let res = thermal_sim::simulate_thermal_dynamic_re2020(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_solve_structural_fea_instant" {
+        let res = structural_fea::solve_structural_fea(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_audit_urban_plu_compliance" {
+        let res = plu_checker::audit_urban_plu_compliance(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_export_usd_visionpro" {
+        let res = spatial_usd_gltf::export_spatial_usd_gltf(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_walkthrough_direct" {
+        let res = walkthrough_director::generate_walkthrough_direct(&post_body);
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
     if tool.is_health_check {
+        let bimcraft_stat = bimcraft_bridge::get_bimcraft_status().unwrap_or_else(|_| json!({ "installed": false }));
+
         // Try pipe health first
         if let Ok(pipe_health) = try_pipe_call("healthz", json!({})).await {
             let payload = json!({
-                "transport": "Windows Named Pipe (Zero-Latency)",
-                "pipe": r"\\.\pipe\revit_mcp_ipc",
-                "health": pipe_health
+                "dualEngineStatus": "Active",
+                "revit": {
+                    "transport": "Windows Named Pipe (Zero-Latency)",
+                    "pipe": r"\\.\pipe\revit_mcp_ipc",
+                    "health": pipe_health
+                },
+                "bimcraft": bimcraft_stat
             });
             let text = serde_json::to_string_pretty(&payload).unwrap_or_default();
             return (json!({ "content": [{ "type": "text", "text": text }] }), false);
@@ -436,20 +613,38 @@ async fn handle_tools_call(
                 let status = resp.status();
                 let body: Value = resp.json().await.unwrap_or_else(|_| json!({ "status": status.as_u16() }));
                 let payload = json!({
-                    "transport": "HTTP",
-                    "host": state.config.host,
-                    "timeoutMs": state.config.timeout.as_millis(),
-                    "health": body
+                    "dualEngineStatus": "Active",
+                    "revit": {
+                        "transport": "HTTP",
+                        "host": state.config.host,
+                        "timeoutMs": state.config.timeout.as_millis(),
+                        "health": body
+                    },
+                    "bimcraft": bimcraft_stat
                 });
                 let text = serde_json::to_string_pretty(&payload).unwrap_or_default();
                 (json!({ "content": [{ "type": "text", "text": text }] }), false)
             }
             Err(e) => {
-                let err_msg = format!(
-                    "Cannot reach Revit addin via Named Pipe or HTTP at {}. Make sure Autodesk Revit is open with a project loaded and RevitMCP addin is running. (Error: {})",
-                    state.config.host, e
-                );
-                (json!({ "content": [{ "type": "text", "text": err_msg }], "isError": true }), true)
+                let bimcraft_gui_active = bimcraft_stat.get("guiRunning").and_then(|v| v.as_bool()).unwrap_or(false);
+                let bimcraft_cli_active = bimcraft_stat.get("cliInstalled").and_then(|v| v.as_bool()).unwrap_or(false);
+
+                if bimcraft_gui_active || bimcraft_cli_active {
+                    let payload = json!({
+                        "dualEngineStatus": "BIMcraft Active (Revit Standby)",
+                        "notice": "Autodesk Revit 2027 n'est pas ouvert, mais le moteur natif BIMcraft est disponible et prêt pour la modélisation et l'analyse.",
+                        "revitError": format!("{}", e),
+                        "bimcraft": bimcraft_stat
+                    });
+                    let text = serde_json::to_string_pretty(&payload).unwrap_or_default();
+                    (json!({ "content": [{ "type": "text", "text": text }] }), false)
+                } else {
+                    let err_msg = format!(
+                        "Cannot reach Revit addin at {} and BIMcraft is not running. (Revit Error: {})",
+                        state.config.host, e
+                    );
+                    (json!({ "content": [{ "type": "text", "text": err_msg }], "isError": true }), true)
+                }
             }
         }
     } else {
@@ -564,7 +759,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         },
                         "serverInfo": {
                             "name": "revit-claude-mcp",
-                            "version": "2.5.0"
+                            "version": "2.7.0"
                         }
                     }
                 });

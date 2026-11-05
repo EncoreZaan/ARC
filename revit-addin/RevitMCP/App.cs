@@ -75,23 +75,20 @@ public class App : IExternalApplication
             _server = new RevitHttpServer(application);
             application.Idling += _server.EventHandler.OnIdling;
             var serverStarted = _server.Start();
-            if (!serverStarted)
+            if (serverStarted)
             {
-                ConfigManager.LogAudit("STARTUP", "Serveur HTTP non démarré (le port 6543 est déjà utilisé par une autre instance Revit ou un processus tiers).");
+                ConfigManager.LogAudit("STARTUP", $"Serveur HTTP démarré avec succès sur {_server.ActivePrefix} (PID: {Environment.ProcessId})");
             }
-
-            if (Environment.GetEnvironmentVariable("REVIT_MCP_SHOW_STARTUP_DIALOG") == "1")
-                TaskDialog.Show("ARC", "ARC Architecture Copilot bridge started on http://localhost:6543");
+            else
+            {
+                ConfigManager.LogAudit("STARTUP", $"Serveur HTTP non démarré sur ports 6543-6555, Named Pipe IPC actif (PID: {Environment.ProcessId})");
+            }
 
             return Result.Succeeded;
         }
         catch (Exception ex)
         {
-            ConfigManager.LogAudit("STARTUP_ERROR", $"Erreur lors de l'initialisation de RevitMCP : {ex}");
-            if (Environment.GetEnvironmentVariable("REVIT_MCP_SHOW_ERROR_DIALOG") == "1")
-            {
-                TaskDialog.Show("ARC", $"Échec du démarrage de ARC sur http://localhost:6543\n\n{ex.Message}");
-            }
+            ConfigManager.LogAudit("STARTUP_ERROR", $"Erreur silencieuse lors de l'initialisation de RevitMCP : {ex.Message}");
             return Result.Succeeded;
         }
     }

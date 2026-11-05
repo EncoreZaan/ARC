@@ -139,6 +139,64 @@ pub fn generate_floorplan(params: &Value) -> Result<Value, String> {
     let duration_ms = t0.elapsed().as_millis();
     let total_calculated_area: f64 = rooms.iter().map(|r| r.area_m2).sum();
 
+    // Génération des commandes BIMcraft natives (unités en millimètres)
+    let mut bimcraft_lines = Vec::new();
+    let mut bimcraft_commands = Vec::new();
+
+    // 1. Enveloppe extérieure fermée
+    let w_mm = (width * 1000.0).round() as i64;
+    let l_mm = (length * 1000.0).round() as i64;
+    let ext_wall_cmd = json!({
+        "points": [[0, 0], [w_mm, 0], [w_mm, l_mm], [0, l_mm]],
+        "closed": true,
+        "height": 2700
+    });
+    bimcraft_lines.push(format!("wall {}", ext_wall_cmd));
+    bimcraft_commands.push(json!({ "command": "wall", "params": ext_wall_cmd }));
+
+    // 2. Cloisons intérieures
+    for w in walls.iter().skip(4) {
+        let p1 = [(w.start[0] * 1000.0).round() as i64, (w.start[1] * 1000.0).round() as i64];
+        let p2 = [(w.end[0] * 1000.0).round() as i64, (w.end[1] * 1000.0).round() as i64];
+        let int_wall_cmd = json!({
+            "points": [p1, p2],
+            "height": 2700
+        });
+        bimcraft_lines.push(format!("wall {}", int_wall_cmd));
+        bimcraft_commands.push(json!({ "command": "wall", "params": int_wall_cmd }));
+    }
+
+    // 3. Portes et fenêtres
+    for o in &openings {
+        let at = [(o.location[0] * 1000.0).round() as i64, (o.location[1] * 1000.0).round() as i64];
+        let cmd_name = if o.opening_type == "Door" { "door" } else { "window" };
+        let op_cmd = json!({ "at": at });
+        bimcraft_lines.push(format!("{} {}", cmd_name, op_cmd));
+        bimcraft_commands.push(json!({ "command": cmd_name, "params": op_cmd }));
+    }
+
+    // 4. Pièces
+    for r in &rooms {
+        let mid_pt = [
+            ((r.min_pt[0] + r.max_pt[0]) * 0.5 * 1000.0).round() as i64,
+            ((r.min_pt[1] + r.max_pt[1]) * 0.5 * 1000.0).round() as i64,
+        ];
+        let room_cmd = json!({
+            "point": mid_pt,
+            "name": r.name
+        });
+        bimcraft_lines.push(format!("room {}", room_cmd));
+        bimcraft_commands.push(json!({ "command": "room", "params": room_cmd }));
+    }
+
+    // 5. Dalle de sol et étiquetage
+    bimcraft_lines.push("floor {}".to_string());
+    bimcraft_commands.push(json!({ "command": "floor", "params": json!({}) }));
+    bimcraft_lines.push("tag {}".to_string());
+    bimcraft_commands.push(json!({ "command": "tag", "params": json!({}) }));
+
+    let bimcraft_script = bimcraft_lines.join("\n");
+
     Ok(json!({
         "success": true,
         "engine": "Rust Topological Dual-Graph Floorplan Synthesizer",
@@ -177,6 +235,11 @@ pub fn generate_floorplan(params: &Value) -> Result<Value, String> {
                 "levelName": level_name,
                 "height": 2.70
             })).collect::<Vec<_>>()
+        },
+        "bimcraftIntegration": {
+            "comment": "Script prêt pour exécution directe sur BIMcraft via bimcraft-cli run ou MCP script",
+            "script": bimcraft_script,
+            "commands": bimcraft_commands
         }
     }))
 }

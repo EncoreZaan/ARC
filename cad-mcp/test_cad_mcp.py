@@ -3,7 +3,7 @@ import os
 import json
 import tempfile
 import ezdxf
-from server import dxf_info, dxf_list_entities, dxf_audit, dxf_edit, dxf_compare_with_revit, dxf_render, dxf_render_all_layouts_pdf, dxf_diff
+from server import dxf_info, dxf_list_entities, dxf_audit, dxf_edit, dxf_compare_with_revit, dxf_compare_with_bimcraft, bimcraft_export_dxf, dxf_render, dxf_render_all_layouts_pdf, dxf_diff
 
 class TestCadMcp(unittest.TestCase):
     def setUp(self):
@@ -102,11 +102,27 @@ class TestCadMcp(unittest.TestCase):
                 "type": "Single Door 900 x 2100",
                 "category": "door",
                 "at": [860.0, 0.0]
+            },
+            {
+                "id": 100004,
+                "type": "Generic Wall 200",
+                "category": "wall",
+                "points": [[0.0, 0.0], [6400.0, 0.0]]
             }
         ]
-        res = json.loads(dxf_compare_with_revit(self.dxf_path, bimcraft_elements, toleranceMm=20.0))
+        res = json.loads(dxf_compare_with_bimcraft(self.dxf_path, bimcraft_elements, toleranceMm=20.0))
         self.assertTrue(res["success"])
         self.assertEqual(res["discrepancyCount"], 0)
+        self.assertEqual(res["elementsChecked"], 2)
+
+    def test_bimcraft_export_dxf_conversion(self):
+        # Test converting a sample bimcraft or rvt file if present
+        sample_bimcraft = r"C:\Users\teoba\Documents\Projet Appart Londonien\06_Revit\REFLET_00_EXISTANT.bimcraft"
+        if os.path.exists(sample_bimcraft):
+            out_svg = os.path.join(self.temp_dir.name, "bimcraft_plan.svg")
+            res = json.loads(bimcraft_export_dxf(sample_bimcraft, out_svg))
+            self.assertTrue(res["success"])
+            self.assertTrue(os.path.exists(out_svg))
 
 if __name__ == "__main__":
     unittest.main()

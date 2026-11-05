@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-10-20T17:54:55.979Z",
-  "totalTools": 230,
+  "totalTools": 236,
   "tools": [
     {
       "name": "revit_health_check",
@@ -8462,6 +8462,371 @@
         "properties": {}
       },
       "action": "stream/status",
+      "isHealthCheck": false
+    },
+    {
+      "name": "bimcraft_launch",
+      "description": "🚀 Lance l'interface graphique interactive de BIMcraft avec le pont Agent actif (--control 0). Permet de visualiser et d'interagir avec la modélisation 3D en direct.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "bimcraft/launch",
+      "isHealthCheck": false
+    },
+    {
+      "name": "bimcraft_status",
+      "description": "🩺 Vérifie l'état opérationnel du moteur BIMcraft (binaire Rust CLI, processus GUI actif à l'écran, port et token bridge.json).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "bimcraft/status",
+      "isHealthCheck": false
+    },
+    {
+      "name": "bimcraft_convert",
+      "description": "🔄 Convertit ultra-rapidement n'importe quel fichier (.rvt Revit, .rfa Famille, .ifc, .bimcraft) vers .ifc, .svg, .png ou .bimcraft sans dépendance Revit.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "inputPath": {
+            "type": "string",
+            "description": "Chemin du fichier source (.rvt, .rfa, .ifc, .bimcraft)"
+          },
+          "outputPath": {
+            "type": "string",
+            "description": "Chemin du fichier cible (.bimcraft, .ifc, .svg, .png)"
+          }
+        },
+        "required": [
+          "inputPath",
+          "outputPath"
+        ]
+      },
+      "action": "bimcraft/convert",
+      "isHealthCheck": false
+    },
+    {
+      "name": "bimcraft_info",
+      "description": "📊 Analyse approfondie d'un projet Revit (.rvt, .rfa), IFC ou BIMcraft : extrait les niveaux, éléments par catégorie, familles, paramètres, release et métadonnées.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "description": "Chemin du fichier à inspecter"
+          }
+        },
+        "required": [
+          "filePath"
+        ]
+      },
+      "action": "bimcraft/info",
+      "isHealthCheck": false
+    },
+    {
+      "name": "bimcraft_execute_script",
+      "description": "⚡ Exécute un script ou une série de commandes BIMcraft natives (murs, cloisons, portes, fenêtres, pièces, dalles, mobilier) directement dans le projet.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "projectPath": {
+            "type": "string",
+            "description": "Chemin du projet .bimcraft ou .ifc (optionnel)"
+          },
+          "commands": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Liste de commandes au format \"ID {json}\" (ex: \"wall {'points': [[0,0],[6000,0]], 'height': 2700}\")"
+          },
+          "scriptFile": {
+            "type": "string",
+            "description": "Chemin vers un fichier de script (une commande par ligne)"
+          },
+          "savePath": {
+            "type": "string",
+            "description": "Chemin de sauvegarde du résultat (.bimcraft, .ifc, .svg, .png)"
+          }
+        }
+      },
+      "action": "bimcraft/execute",
+      "isHealthCheck": false
+    },
+    {
+      "name": "bimcraft_render_view",
+      "description": "🎨 Génère un rendu 2D vectoriel (plan de niveau, élévation, coupe) ou 3D sous forme d'image SVG ou PNG haute fidélité via BIMcraft.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "projectPath": {
+            "type": "string",
+            "description": "Chemin du projet BIMcraft ou Revit (.bimcraft, .rvt, .ifc)"
+          },
+          "outputPath": {
+            "type": "string",
+            "description": "Chemin de l'image rendue (.svg ou .png)"
+          }
+        },
+        "required": [
+          "projectPath",
+          "outputPath"
+        ]
+      },
+      "action": "bimcraft/render",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_live_mirror_sync",
+      "description": "Bi-Directional Live Sync & Differential Merging Engine between Autodesk Revit and BIMcraft. Performs multithreaded 3-way geometric and parametric delta tracking, conflict detection, and generates zero-latency sync patches.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sourceElements": {
+            "type": "array",
+            "description": "List of source elements with coordinates, category and parameters",
+            "items": {
+              "type": "object"
+            }
+          },
+          "targetElements": {
+            "type": "array",
+            "description": "List of target elements with coordinates, category and parameters",
+            "items": {
+              "type": "object"
+            }
+          },
+          "strategy": {
+            "type": "string",
+            "description": "Conflict resolution strategy: 'SmartGeometricSnap', 'SourceWins', 'TargetWins', or 'UnionMerge'",
+            "enum": [
+              "SmartGeometricSnap",
+              "SourceWins",
+              "TargetWins",
+              "UnionMerge"
+            ]
+          }
+        }
+      },
+      "action": "live-mirror/sync",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_sketch_to_bim",
+      "description": "Neural Sketch-to-BIM Vectorizer. Converts 2D hand-drawn sketches, scanned blueprints, or vector strokes into native 3D architectural elements (walls with thicknesses, doors, windows, and closed rooms) ready for Revit and BIMcraft.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "strokes": {
+            "type": "array",
+            "description": "List of strokes with x1, y1, x2, y2, thickness and type ('wall', 'door', 'window')",
+            "items": {
+              "type": "object"
+            }
+          },
+          "scaleFactor": {
+            "type": "number",
+            "description": "Pixel to meter conversion factor (default: 0.01)"
+          },
+          "ceilingHeight": {
+            "type": "number",
+            "description": "Ceiling height in meters (default: 2.60m)"
+          },
+          "snapTolerance": {
+            "type": "number",
+            "description": "Endpoint snap tolerance in meters (default: 0.15m)"
+          }
+        }
+      },
+      "action": "sketch/vectorize",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_simulate_thermal_dynamic_re2020",
+      "description": "Dynamic Thermal Simulation (STD) & French RE2020 Engine (ISO 52016-1). Computes bioclimatic needs Bbio, primary energy consumption Cep & Cep,nr, and summer comfort degree-hours DH with regional French climate files.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "zoneName": {
+            "type": "string",
+            "description": "Zone or apartment name"
+          },
+          "floorAreaM2": {
+            "type": "number",
+            "description": "Net habitable floor area in m²"
+          },
+          "ceilingHeightMeters": {
+            "type": "number",
+            "description": "Ceiling height in meters"
+          },
+          "climateZone": {
+            "type": "string",
+            "description": "French climate zone (H1a, H1b, H1c, H2a, H2b, H2c, H2d, H3)",
+            "enum": [
+              "H1a",
+              "H1b",
+              "H1c",
+              "H2a",
+              "H2b",
+              "H2c",
+              "H2d",
+              "H3"
+            ]
+          },
+          "thermalInertia": {
+            "type": "string",
+            "description": "Inertia class ('TresLourde', 'Lourde', 'Moyenne', 'Legere')",
+            "enum": [
+              "TresLourde",
+              "Lourde",
+              "Moyenne",
+              "Legere"
+            ]
+          },
+          "envelopeSurfaces": {
+            "type": "array",
+            "description": "Detailed wall, window, roof, and floor envelope definitions with areas, U-values, orientations, and solar factors",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "action": "simulation/thermal-re2020",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_solve_structural_fea_instant",
+      "description": "Instant Structural Finite Element Analysis (FEA / RDM) and Eurocode 2 & 3 Compliance Solver. Solves internal forces (M_Ed, V_Ed), checks deflection limits (L/350), stress utilization ratio, and provides intelligent cross-section resizing recommendations.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "members": {
+            "type": "array",
+            "description": "Structural members (beams, joists, columns) with span length, section (IPE, HEA), material, and dead/live loads",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "action": "structural/solve-fea",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_audit_urban_plu_compliance",
+      "description": "Automated Urban Permitting (PLU / RNU) and Fire Safety Compliance Auditor. Verifies building envelope height, prospect rule (H = L), boundary setbacks (D >= H/2), footprint ratio (CES), biotope permeability (CBS), and fire escape evacuation distances.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "zonePlu": {
+            "type": "string",
+            "description": "PLU zone code (UB, UA, UC, etc.)"
+          },
+          "parcelAreaM2": {
+            "type": "number",
+            "description": "Cadastral plot area in m²"
+          },
+          "streetWidthMeters": {
+            "type": "number",
+            "description": "Street width facing parcel in meters"
+          },
+          "buildingHeightMeters": {
+            "type": "number",
+            "description": "Total building height in meters"
+          },
+          "footprintAreaM2": {
+            "type": "number",
+            "description": "Building ground footprint in m²"
+          },
+          "boundaryDistanceMeters": {
+            "type": "number",
+            "description": "Distance to neighboring plot boundaries in meters"
+          },
+          "openGroundAreaM2": {
+            "type": "number",
+            "description": "Open ground vegetated surface in m²"
+          },
+          "greenRoofAreaM2": {
+            "type": "number",
+            "description": "Green roof area in m²"
+          },
+          "maxEscapeDistanceMeters": {
+            "type": "number",
+            "description": "Max walking distance to nearest exit stair in meters"
+          },
+          "mainExitDoorWidthMeters": {
+            "type": "number",
+            "description": "Main exit width in meters"
+          }
+        }
+      },
+      "action": "permits/audit-plu",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_export_usd_visionpro",
+      "description": "Native USD/USDZ Spatial Exporter for Apple Vision Pro & glTF 2.0 PBR for Unreal Engine 5.5. Generates optimized scene hierarchies with PBR Metallic-Roughness materials, metersPerUnit=1.0, and VisionOS spatial anchors.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectName": {
+            "type": "string",
+            "description": "Project or exported model name"
+          },
+          "exportUsd": {
+            "type": "boolean",
+            "description": "Generate USDA/USDZ for Apple Vision Pro"
+          },
+          "exportGltf": {
+            "type": "boolean",
+            "description": "Generate glTF 2.0 PBR for Unreal Engine 5.5 / Blender"
+          },
+          "outputDirectory": {
+            "type": "string",
+            "description": "Directory to save generated files"
+          },
+          "meshes": {
+            "type": "array",
+            "description": "List of 3D meshes / elements with bounding box and category",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "action": "export/spatial-usd-visionpro",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_walkthrough_direct",
+      "description": "Conversational AI Walkthrough Director & Voice Companion. Generates cinematic Catmull-Rom camera waypoints at eye height (1.65m), dynamic solar time-of-day progression, interactive material variant toggles, and synchronized audio narration scripts.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectName": {
+            "type": "string",
+            "description": "Project title"
+          },
+          "totalDurationSec": {
+            "type": "number",
+            "description": "Total duration of the walkthrough in seconds (e.g. 45 or 60)"
+          },
+          "eyeHeightMeters": {
+            "type": "number",
+            "description": "Camera eye height in meters (default: 1.65m)"
+          }
+        }
+      },
+      "action": "walkthrough/direct",
       "isHealthCheck": false
     }
   ]

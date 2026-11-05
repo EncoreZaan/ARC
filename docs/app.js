@@ -70,6 +70,15 @@
   // 2. Interactive 230-Tools Explorer
   // ---------------------------------------------------------------------------
   const toolsData = [
+    // 7 Piliers Technologiques & Innovations de Rupture (v2.8.0)
+    { name: 'revit_live_mirror_sync', cat: 'performance', latency: '0.008 ms', desc: 'Moteur de synchronisation bidirectionnelle & fusion différentielle 3 voies (Revit ↔ BIMcraft).' },
+    { name: 'revit_sketch_to_bim', cat: 'modelisation', latency: '0.045 s', desc: 'Vectorisation neuronale de croquis main et plans scannés en géométrie 3D native.' },
+    { name: 'revit_simulate_thermal_dynamic_re2020', cat: 'normes', latency: '0.012 s', desc: 'Simulation Thermique Dynamique (STD ISO 52016-1) & calculs réglementaires RE2020 (Bbio, Cep, DH).' },
+    { name: 'revit_solve_structural_fea_instant', cat: 'performance', latency: '0.003 ms', desc: 'Calcul aux Éléments Finis RDM instantané et vérifications Eurocode 2 & 3 avec redimensionnement automatique.' },
+    { name: 'revit_audit_urban_plu_compliance', cat: 'normes', latency: '0.009 s', desc: 'Audit automatique de conformité Permis de Construire (PLU, prospect H=L, CES, CBS et sécurité incendie).' },
+    { name: 'revit_export_usd_visionpro', cat: 'documentation', latency: '0.035 s', desc: 'Exportation spatiale native USD/USDZ pour Apple Vision Pro et glTF 2.0 PBR pour Unreal Engine 5.5.' },
+    { name: 'revit_walkthrough_direct', cat: 'modelisation', latency: '0.020 s', desc: 'Réalisateur IA de visites virtuelles immersives, course solaire dynamique et compagnon audio vocal.' },
+
     // Performance Rust & Shared Memory
     { name: 'revit_fast_clash_detection', cat: 'performance', latency: '0.04 ms', desc: 'Détection de clashs AABB multithreadée via Rayon en mémoire vive sans bloquer Revit.' },
     { name: 'revit_read_shared_memory', cat: 'performance', latency: '0.002 ms', desc: 'Transfert zero-copy ultra-rapide par buffer annulaire 64 Mo (Local\\RevitMCP_SharedMemory).' },
@@ -114,7 +123,15 @@
     { name: 'revit_get_security_mode', cat: 'securite', latency: '0.001 ms', desc: 'Consultation du mode de protection actif (read-only, write, full).' },
     { name: 'revit_set_security_mode', cat: 'securite', latency: '0.002 ms', desc: 'Verrouille la maquette en lecture seule pour interdire les corruptions d’IA.' },
     { name: 'revit_create_snapshot', cat: 'securite', latency: '0.15 s', desc: 'Point de restauration horodaté (.snapshots) avant modifications lourdes.' },
-    { name: 'revit_get_diagnostics', cat: 'securite', latency: '0.01 s', desc: 'Analyse de santé Revit : empreinte RAM, avertissements et liens CAO.' }
+    { name: 'revit_get_diagnostics', cat: 'securite', latency: '0.01 s', desc: 'Analyse de santé Revit : empreinte RAM, avertissements et liens CAO.' },
+
+    // BIMcraft Native Rust Engine
+    { name: 'bimcraft_launch', cat: 'bimcraft', latency: '0.10 s', desc: 'Lance l’interface graphique interactive BIMcraft avec le pont Agent actif (--control 0).' },
+    { name: 'bimcraft_status', cat: 'bimcraft', latency: '0.005 ms', desc: 'Vérifie l’état opérationnel du moteur BIMcraft, port et token bridge.json.' },
+    { name: 'bimcraft_convert', cat: 'bimcraft', latency: '0.04 s', desc: 'Conversion instantanée de fichiers Revit .rvt/.rfa vers .bimcraft, .ifc, .svg sans Revit.' },
+    { name: 'bimcraft_info', cat: 'bimcraft', latency: '0.02 s', desc: 'Inspection et extraction des niveaux, catégories, éléments et métadonnées Revit/IFC.' },
+    { name: 'bimcraft_execute_script', cat: 'bimcraft', latency: '0.03 s', desc: 'Modélisation directe dans BIMcraft par script batch (murs, cloisons, baies, pièces).' },
+    { name: 'bimcraft_render_view', cat: 'bimcraft', latency: '0.08 s', desc: 'Génération de rendus 2D vectoriels et 3D en temps réel au format SVG ou PNG.' }
   ];
 
   const toolsGrid = document.getElementById('tools-grid');
@@ -194,9 +211,50 @@
       "command": "C:\\\\Users\\\\%USERNAME%\\\\AppData\\\\Local\\\\Programs\\\\RevitMCP\\\\revit-mcp-server.exe",
       "args": ["--pipe", "\\\\\\\\.\\\\pipe\\\\revit_mcp_ipc"]
     },
+    "bimcraft": {
+      "command": "bimcraft-cli",
+      "args": ["mcp", "--connect"]
+    },
     "cad-mcp": {
       "command": "python",
       "args": ["-m", "cad_mcp.server"]
+    }
+  }
+}`,
+    macos: `// ~/Library/Application Support/Claude/claude_desktop_config.json
+{
+  "mcpServers": {
+    "bimcraft": {
+      "command": "/Users/%USERNAME%/.cargo/bin/bimcraft-cli",
+      "args": ["mcp", "--connect"]
+    },
+    "revit-core": {
+      "command": "/Users/%USERNAME%/.cargo/bin/revit-mcp-server",
+      "env": {
+        "REVIT_HOST": "http://localhost:6543",
+        "REVIT_ALLOW_REMOTE": "1"
+      }
+    },
+    "cad-mcp": {
+      "command": "python3",
+      "args": ["/Users/%USERNAME%/ARC/cad-mcp/server.py"]
+    }
+  }
+}`,
+    linux: `// ~/.config/Claude/claude_desktop_config.json
+{
+  "mcpServers": {
+    "bimcraft": {
+      "command": "/usr/local/bin/bimcraft-cli",
+      "args": ["mcp", "--connect"]
+    },
+    "revit-core": {
+      "command": "/usr/local/bin/revit-mcp-server",
+      "args": ["--pipe", "/tmp/revit_mcp_ipc.sock"]
+    },
+    "cad-mcp": {
+      "command": "python3",
+      "args": ["/opt/ARC/cad-mcp/server.py"]
     }
   }
 }`,

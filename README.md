@@ -1,17 +1,55 @@
-# ARC (Architecture & Revit Copilot) — Pont MCP Haute Précision pour Autodesk Revit
+# ARC (Architecture & Revit Copilot) — Pont MCP Haute Précision pour Autodesk Revit & BIMcraft
 
 [![Site Officiel](https://img.shields.io/badge/Site%20Officiel-encorezaan.github.io%2FARC-D7B98C?style=flat&logo=safari&logoColor=white)](https://encorezaan.github.io/ARC/)
-[![Release](https://img.shields.io/github/v/release/EncoreZaan/ARC?color=00d2ff&label=Version)](https://github.com/EncoreZaan/ARC/releases/tag/v2.6.0)
-[![Revit](https://img.shields.io/badge/Autodesk%20Revit-2024%20%7C%202025%20%7C%202026%20%7C%202027-blue.svg)](https://www.autodesk.fr/products/revit/overview)
+[![Release](https://img.shields.io/github/v/release/EncoreZaan/ARC?color=00d2ff&label=Version)](https://github.com/EncoreZaan/ARC/releases/tag/v2.8.0)
+[![Platforms](https://img.shields.io/badge/Platforms-macOS%20(Apple%20Silicon)%20%7C%20Linux%20%7C%20Windows-brightgreen.svg)](#-disponibilité-multi-plateforme--macos-linux--windows)
+[![Revit & BIMcraft](https://img.shields.io/badge/Engines-Revit%202027%20%7C%20BIMcraft%200.9.0-blue.svg)](#-architecture-dual-engine)
 [![Rust](https://img.shields.io/badge/Server-Rust%20100%25%20Natif-orange.svg)](https://www.rust-lang.org/)
 [![MCP](https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-green.svg)](https://modelcontextprotocol.io/)
-[![Zero Crash](https://img.shields.io/badge/Architecture-Zéro--Crash%20Garanti-brightgreen.svg)](#-architecture--résilience-zéro-crash)
 
-> **Site web officiel & Expérience 3D interactive :** **[https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)**
+> **Site web officiel & Expérience 3D interactive :** **[https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)**  
+> **Documentation d'architecture complète :** **[`docs/revit_architecture_guide.md`](./docs/revit_architecture_guide.md)**
 
-> **ARC (Architecture & Revit Copilot)** connecte **Claude (Claude Desktop, Cursor, Claude Code, Antigravity)** directement à **Autodesk Revit** via le protocole ouvert **Model Context Protocol (MCP)**.
+> **ARC (Architecture & Revit Copilot)** connecte **Claude (Claude Desktop, Cursor, Claude Code, Antigravity)** et vos assistants IA directement à **Autodesk Revit** et **BIMcraft** via le protocole ouvert **Model Context Protocol (MCP)**.
 >
-> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **230 outils locaux ultra-rapides**, un **panneau latéral WPF incrusté dans Revit**, des **audits PMR en 1 clic**, une **vision multimodale instantanée** et un moteur géométrique multithreadé propulsé par un serveur autonome en **Rust**.
+> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **243 outils locaux ultra-rapides**, une architecture **Dual-Engine compatible macOS, Linux et Windows**, des **audits PMR en 1 clic**, une **vision multimodale instantanée** et un moteur géométrique multithreadé propulsé par un serveur autonome en **Rust**.
+
+---
+
+## 🍎 Disponibilité Multi-Plateforme : macOS, Linux & Windows
+
+ARC brise l'enfermement Windows historique du monde BIM :
+- **macOS (Priorité N°1 — Apple Silicon M1/M2/M3/M4 & Intel) :** Grâce au moteur **BIMcraft 0.9.0** natif en Rust et au rendu matériel Metal, concevez et éditez vos maquettes architecturales directement sur votre Mac. Importez et convertissez des fichiers Revit `.rvt` et `.rfa` **sans aucun besoin d'installer Revit ni d'utiliser une machine Windows**.
+- **Linux (Ubuntu, Debian, Fedora, Arch) :** Fonctionnement complet en environnement headless ou graphique Vulkan pour les pipelines d'automatisation CI/CD, audits carbone RE2020 et exports IFC 4.3.
+- **Windows 11 (x64) :** Intégration native avec Autodesk Revit 2024–2027 via Windows Named Pipes (`\\.\pipe\revit_mcp_ipc`) et affichage holographique DirectContext3D.
+
+---
+
+
+---
+
+## ⚡ Nouveautés Majeures de la v2.8.0
+
+### 🔄 1. Résilience Multi-Instance Totale & Zéro-Conflit Réseau
+Fini les blocages et les messages d'erreurs au démarrage de plusieurs instances :
+- **Multi-Revit Silencieux :** Ouvrez autant de fenêtres Revit que souhaité. Le serveur interne teste automatiquement la plage de ports `http://localhost:6543/` à `6555/`, bascule silencieusement sur le premier port libre, et publie son état dans `%APPDATA%\RevitMCP\active_instances.json`. Aucune boîte de dialogue modale d'erreur ne vient interrompre l'architecte.
+- **Multi-BIMcraft Dynamique :** Lancez plusieurs instances de BIMcraft côte à côte. Chaque instance alloue un port éphémère indépendant sans jamais entrer en collision avec Revit ni avec les autres fenêtres.
+- **Environnements Mixtes Harmonieux :** Exécutez simultanément plusieurs Revit et plusieurs BIMcraft sur la même machine. Le pont Rust `revit-mcp-server` route les requêtes avec précision.
+
+### 🏛️ 2. Les 7 Piliers Technologiques de Rupture
+1. **Live Mirror & Fusion Différentielle 3 Voies (`revit_live_mirror_sync`) :** Synchronisation bidirectionnelle multithreadée avec détection fine des deltas géométriques et résolution automatique de conflits.
+2. **Vectoriseur Neuronal Croquis-vers-BIM (`revit_sketch_to_bim`) :** Transformation automatique de croquis à main levée, scans de plans papier et tracés vectoriels en murs 3D paramétriques, ouvertures et pièces.
+3. **Simulation Thermique Dynamique & RE2020 (`revit_simulate_thermal_dynamic_re2020`) :** Moteur conforme ISO 52016-1 évaluant en temps réel le Bbio, le Cep, le Cep,nr et le confort estival DH avec les fichiers météo officiels français.
+4. **Calcul RDM Éléments Finis & Eurocodes 2 & 3 (`revit_solve_structural_fea_instant`) :** Résolution matricielle des moments $M_{Ed}$, efforts tranchants $V_{Ed}$, flèches $L/350$ et dimensionnement optimal des profilés acier/béton.
+5. **Auditeur Réglementaire PLU & Sécurité Incendie (`revit_audit_urban_plu_compliance`) :** Vérification automatique de conformité pour permis de construire : hauteur faîtage, prospect $H = L + R$, retraits séparatifs, CES, CBS et distances d'évacuation ERP.
+6. **Exportateur Spatial USD/USDZ & glTF 2.0 PBR (`revit_export_usd_visionpro`) :** Exportation native pour Apple Vision Pro (visionOS avec ancres spatiales) et Unreal Engine 5.5 (géométrie virtualisée Nanite et éclairage global Lumen).
+7. **Réalisateur IA de Visites Virtuelles & Compagnon Vocal (`revit_walkthrough_direct`) :** Génération de trajectoires cinématiques de caméra (splines Catmull-Rom à 1.65 m), course solaire dynamically synchronisée, bascules de finitions et narration vocale synchronisée.
+
+## 🏛️ Architecture Dual-Engine
+
+1. **Engine A — Autodesk Revit 2027 (.NET 10 / C#) :** Pilotez l'API native officielle d'Autodesk avec zéro latence, file de requêtes thread-safe active même sans document ouvert, et suppression automatique des avertissements (`SafeFailurePreprocessor`).
+2. **Engine B — BIMcraft 0.9.0 (Rust Natif) :** Modeleur complet de classe Revit ("Revit-class building model") fonctionnant en local avec zéro dépendance lourde, pont agent interactif (`--control 0`), et conversion instantanée des fichiers `.rvt`.
+3. **Moteur CAD / DXF PyMuPDF (`cad-mcp`) :** Rendu vectoriel 1:1 à l'échelle exacte pour planches A4/A3 et détection des écarts géométriques plan-maquette.
 
 ---
 
@@ -20,30 +58,30 @@
 Visitez la vitrine officielle d'ARC en ligne : **[https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)**
 
 - **Direction Artistique Cinématique :** Univers sombre et épuré respectant les nuances noir profond (`#0B080D`), prune fumé (`#2B242C`), reflets champagne doré (`#D7B98C`), blanc perlé (`#F6F4EF`) et cobalt nocturne (`#274C8F`).
-- **Scène 3D Interactive WebGL (Three.js) :**
-  - Dôme liquide métallique organique avec déformations en bruit de Simplex 3D.
-  - Pavillon architectural BIM filaire tridimensionnel rétro-éclairé intégré sous la sphère.
-  - Impulsions lumineuses et flux de données animés le long des colonnes et des dalles.
-  - Parallaxe interactive au curseur / gyroscope tactile et élévation dynamique au scroll.
-- **Double Mode d'Affichage :** Bascule instantanée entre la scène 3D temps réel WebGL et le rendu vidéo cinématique de référence (`.webm` / `.mp4`).
-- **Catalogue Interactif des 230 Outils :** Moteur de recherche instantané et filtrage par catégorie (Performance Rust, PMR/RE2020, Git du BIM, Modélisation, Fluides MEP, Documentation, Sécurité).
-- **Déploiement Automatisé :** Pipeline GitHub Actions continu avec publication sur GitHub Pages.
+- **Scène 3D Interactive WebGL (Three.js) :** Dôme liquide métallique organique, pavillon BIM filaire tridimensionnel rétro-éclairé et flux de particules de données actives.
+- **Catalogue Interactif des 243 Outils :** Moteur de recherche instantané et filtrage par catégorie (Performance Rust, PMR/RE2020, Git du BIM, Modélisation, Fluides MEP, Documentation, Sécurité, BIMcraft Rust).
 
 ---
 
-## Installation Express (Configuration Automatisée)
+## Installation Express
 
-Pas besoin de compiler du code ou de configurer des variables d'environnement. Tout est automatisé dans un installateur autonome ultra-léger de 5,2 Mo écrit en Rust.
+### Sur macOS (Apple Silicon & Intel)
+```bash
+# 1. Cloner le dépôt
+git clone https://github.com/EncoreZaan/ARC.git
+cd "ARC"
 
-### Option A : L'installateur universel (Recommandé)
+# 2. Compiler et installer le serveur MCP Rust et BIMcraft
+cargo install --path revit-mcp-server
 
-1. Téléchargez la dernière version : **[Télécharger RevitMCP-Setup-v2.6.0.exe](https://github.com/EncoreZaan/ARC/releases/download/v2.6.0/RevitMCP-Setup-v2.6.0.exe)**
-2. Double-cliquez sur **`RevitMCP-Setup-v2.6.0.exe`**.
-3. **C'est tout !** L'installateur :
-   - Déploie automatiquement l'add-in Revit pour vos versions installées (2027, 2026, 2025 ou 2024).
-   - Configure automatiquement le commutateur silencieux `DisableAddInSecurity=1` (zéro popup d'éditeur non vérifié au démarrage).
-   - Configure le serveur MCP autonome Rust dans votre **Claude Desktop** (`claude_desktop_config.json`).
-4. Démarrez **Revit**, ouvrez un projet, lancez **Claude Desktop** et discutez avec votre maquette !
+# 3. Lancer le gestionnaire unifié
+python3 scripts/bimcraft_manager.py status
+python3 scripts/bimcraft_manager.py launch
+```
+
+### Sur Windows (Installateur Automatisé)
+1. Téléchargez l'installateur : **[Télécharger RevitMCP-Setup-v2.8.0.exe](https://github.com/EncoreZaan/ARC/releases/download/v2.8.0/RevitMCP-Setup-v2.8.0.exe)**
+2. Double-cliquez sur `RevitMCP-Setup-v2.8.0.exe` pour déployer l'add-in Revit 2024-2027 et configurer Claude Desktop automatiquement.
 
 ---
 

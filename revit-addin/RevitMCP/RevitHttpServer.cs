@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.IO;
 using System.Net;
@@ -16,7 +17,8 @@ namespace RevitMCP;
 /// </summary>
 public class RevitHttpServer
 {
-    private const string Prefix = "http://localhost:6543/";
+    public int BoundPort { get; private set; } = 0;
+    public string ActivePrefix => BoundPort > 0 ? $"http://localhost:{BoundPort}/" : "";
     private const string ServiceName = "RevitMCP";
     private const string ServiceVersion = "2.6.0";
     private static readonly DateTime StartedUtc = DateTime.UtcNow;
@@ -25,7 +27,7 @@ public class RevitHttpServer
     private static readonly TimeSpan RevitApiTimeout = TimeSpan.FromSeconds(120);
     private const long MaxRequestBytes = 2 * 1024 * 1024;
 
-    private readonly HttpListener _listener = new();
+    private HttpListener? _listener;
     private Thread? _thread;
     private bool _running;
 
@@ -54,30 +56,44 @@ public class RevitHttpServer
             ConfigManager.LogAudit("PIPE_SERVER_ERROR", $"Failed to start Named Pipe server: {ex.Message}");
         }
 
-        try
+        // Dynamic port fallback for seamless multi-instance Revit without conflict (6543 to 6555)
+        for (int port = 6543; port <= 6555; port++)
         {
-            if (!_listener.Prefixes.Contains(Prefix))
-                _listener.Prefixes.Add(Prefix);
+            var prefix = $"http://localhost:{port}/";
+            HttpListener? candidate = null;
+            try
+            {
+                candidate = new HttpListener();
+                candidate.Prefixes.Add(prefix);
+                candidate.Start();
 
-            _listener.Start();
-            _running = true;
-            _thread = new Thread(Listen) { IsBackground = true };
-            _thread.Start();
-            ConfigManager.LogAudit("HTTP_SERVER", $"Revit AI Copilot bridge started on {Prefix}");
-            return true;
+                _listener = candidate;
+                BoundPort = port;
+                _running = true;
+                _thread = new Thread(Listen) { IsBackground = true, Name = $"RevitMCP_HttpServer_{port}" };
+                _thread.Start();
+
+                ConfigManager.LogAudit("HTTP_SERVER", $"Revit AI Copilot bridge started on {prefix} (PID: {Environment.ProcessId})");
+                RegisterInstance(port);
+                return true;
+            }
+            catch (HttpListenerException hle)
+            {
+                try { candidate?.Close(); } catch { }
+                ConfigManager.LogAudit("HTTP_SERVER_PORT_BUSY", $"Port {port} busy ({hle.Message}), attempting next port...");
+                continue;
+            }
+            catch (Exception ex)
+            {
+                try { candidate?.Close(); } catch { }
+                ConfigManager.LogAudit("HTTP_SERVER_PORT_FAIL", $"Port {port} error: {ex.Message}");
+                continue;
+            }
         }
-        catch (HttpListenerException hle)
-        {
-            _running = false;
-            ConfigManager.LogAudit("HTTP_SERVER_PORT_CONFLICT", $"Could not bind to {Prefix}: {hle.Message} (Error code: {hle.ErrorCode}). Another Revit instance or process is already listening.");
-            return false;
-        }
-        catch (Exception ex)
-        {
-            _running = false;
-            ConfigManager.LogAudit("HTTP_SERVER_START_ERROR", $"Failed to start HTTP server on {Prefix}: {ex.Message}");
-            return false;
-        }
+
+        _running = false;
+        ConfigManager.LogAudit("HTTP_SERVER_START_FAILED", "Could not bind to any port in range 6543-6555. Named Pipe IPC remains active.");
+        return false;
     }
 
     public void Stop()
@@ -86,15 +102,98 @@ public class RevitHttpServer
         try { _pipeServer.Stop(); } catch { }
         try
         {
-            if (_listener.IsListening)
+            if (_listener != null && _listener.IsListening)
+            {
                 _listener.Stop();
+                _listener.Close();
+            }
+        }
+        catch { }
+
+        if (BoundPort > 0)
+        {
+            UnregisterInstance(BoundPort);
+        }
+    }
+
+    private static void RegisterInstance(int port)
+    {
+        try
+        {
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var mcpDir = Path.Combine(appData, "RevitMCP");
+            if (!Directory.Exists(mcpDir))
+                Directory.CreateDirectory(mcpDir);
+
+            var regFile = Path.Combine(mcpDir, "active_instances.json");
+            var instances = new JArray();
+
+            if (File.Exists(regFile))
+            {
+                try
+                {
+                    var text = File.ReadAllText(regFile);
+                    var parsed = JObject.Parse(text);
+                    if (parsed["instances"] is JArray arr)
+                    {
+                        var runningPids = System.Diagnostics.Process.GetProcesses().Select(p => p.Id).ToHashSet();
+                        foreach (var item in arr)
+                        {
+                            var pid = item["pid"]?.Value<int>() ?? 0;
+                            if (pid > 0 && runningPids.Contains(pid) && pid != Environment.ProcessId)
+                            {
+                                instances.Add(item);
+                            }
+                        }
+                    }
+                }
+                catch { }
+            }
+
+            instances.Add(new JObject
+            {
+                ["pid"] = Environment.ProcessId,
+                ["port"] = port,
+                ["pipe"] = "revit_mcp_ipc",
+                ["specific_pipe"] = $"revit_mcp_ipc_{Environment.ProcessId}",
+                ["started_at"] = DateTime.UtcNow.ToString("o")
+            });
+
+            var outputObj = new JObject { ["instances"] = instances };
+            File.WriteAllText(regFile, outputObj.ToString(Formatting.Indented));
+        }
+        catch { }
+    }
+
+    private static void UnregisterInstance(int port)
+    {
+        try
+        {
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var regFile = Path.Combine(appData, "RevitMCP", "active_instances.json");
+            if (!File.Exists(regFile)) return;
+
+            var text = File.ReadAllText(regFile);
+            var parsed = JObject.Parse(text);
+            if (parsed["instances"] is JArray arr)
+            {
+                var remaining = new JArray();
+                foreach (var item in arr)
+                {
+                    var pid = item["pid"]?.Value<int>() ?? 0;
+                    if (pid != Environment.ProcessId)
+                        remaining.Add(item);
+                }
+                parsed["instances"] = remaining;
+                File.WriteAllText(regFile, parsed.ToString(Formatting.Indented));
+            }
         }
         catch { }
     }
 
     private void Listen()
     {
-        while (_running)
+        while (_running && _listener != null && _listener.IsListening)
         {
             HttpListenerContext ctx;
             try { ctx = _listener.GetContext(); }

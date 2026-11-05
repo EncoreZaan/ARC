@@ -1,0 +1,111 @@
+{
+  "asset": {
+    "generator": "ARC Native glTF 2.0 PBR Exporter for UE 5.5",
+    "version": "2.0"
+  },
+  "materials": [
+    {
+      "name": "M_WALL_EXT_01",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.9,
+          0.88,
+          0.85,
+          1.0
+        ],
+        "metallicFactor": 0.02,
+        "roughnessFactor": 0.7
+      }
+    },
+    {
+      "name": "M_FLOOR_SLAB_01",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.72,
+          0.53,
+          0.35,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.35
+      }
+    },
+    {
+      "name": "M_WINDOW_BAY_01",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.2,
+          0.25,
+          0.3,
+          1.0
+        ],
+        "metallicFactor": 0.95,
+        "roughnessFactor": 0.05
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "extras": {
+        "revitCategory": "Walls",
+        "unrealNaniteCompatible": true
+      },
+      "name": "Mur Porteur Sud",
+      "scale": [
+        8.0,
+        0.3,
+        2.8
+      ],
+      "translation": [
+        4.0,
+        0.15,
+        1.4
+      ]
+    },
+    {
+      "extras": {
+        "revitCategory": "Floors",
+        "unrealNaniteCompatible": true
+      },
+      "name": "Dalle Parquet Chêne",
+      "scale": [
+        8.0,
+        6.0,
+        0.25
+      ],
+      "translation": [
+        4.0,
+        3.0,
+        -0.125
+      ]
+    },
+    {
+      "extras": {
+        "revitCategory": "Windows",
+        "unrealNaniteCompatible": true
+      },
+      "name": "Baie Vitrée Coulissante",
+      "scale": [
+        3.0,
+        0.2,
+        2.4
+      ],
+      "translation": [
+        4.0,
+        0.15,
+        1.2
+      ]
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "London_Apartment",
+      "nodes": [
+        0,
+        1,
+        2
+      ]
+    }
+  ]
+}

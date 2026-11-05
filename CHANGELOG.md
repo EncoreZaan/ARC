@@ -4,6 +4,65 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 
 ---
 
+## [2.8.0] - 2026-11-05
+
+### ⚡ Résilience Multi-Instance Totale & Zéro-Conflit Réseau (Revit & BIMcraft)
+- **Suppression Définitive des Modales d'Erreur :** L'add-in Revit C# ne déclenche plus jamais de `TaskDialog.Show` d'erreur lors du lancement d'une seconde ou troisième instance. Le démarrage est 100% silencieux avec audit logging.
+- **Allocation Dynamique de Ports (6543 à 6555) :** Lorsqu'un port est occupé, Revit bascule silencieusement sur le port suivant disponible et enregistre son PID et port dans `%APPDATA%\RevitMCP\active_instances.json`.
+- **Canaux Named Pipes Multiples :** Chaque instance écoute à la fois sur le canal global `revit_mcp_ipc` et sur son canal dédié `revit_mcp_ipc_<pid>`.
+- **Multi-BIMcraft Dynamique :** Support de plusieurs fenêtres BIMcraft actives simultanément avec détection multi-processus et ports éphémères indépendants.
+- **Routage Intelligent Côté Rust :** Le serveur `revit-mcp-server` interroge le registre actif et sonde automatiquement la plage de ports en cas de requêtes multi-instances.
+
+### 🏛️ Les 7 Piliers Technologiques de Rupture (Rust Natif 100%)
+- **243 Outils MCP Actifs au Total** (+7 nouveaux outils d'excellence architecturale) :
+  1. `revit_live_mirror_sync` (`live_mirror.rs`) : Moteur de synchronisation bidirectionnelle & fusion différentielle 3 voies (Revit ↔ BIMcraft) avec calcul de deltas spatiaux multithreadé (`rayon`) et résolution de conflits (`SmartGeometricSnap`, `SourceWins`, `TargetWins`, `UnionMerge`).
+  2. `revit_sketch_to_bim` (`sketch_vectorizer.rs`) : Vectoriseur neuronal transformant des croquis à main levée, scans de plans papier et tracés vectoriels en parois 3D réelles avec distinction porteurs 30cm / cloisons 10cm, portes, fenêtres et détection polygonale de pièces avec surface Loi Carrez.
+  3. `revit_simulate_thermal_dynamic_re2020` (`thermal_sim.rs`) : Moteur de Simulation Thermique Dynamique (STD ISO 52016-1) calculant le bilan thermique en temps réel, les coefficients de déperditions $H_{tr}$ et $H_{ve}$, les indicateurs officiels RE2020 (**Bbio**, **Cep**, **Cep,nr**) et le confort estival en Degrés-Heures (**DH**) selon les zones climatiques françaises H1a à H3.
+  4. `revit_solve_structural_fea_instant` (`structural_fea.rs`) : Calcul de structure RDM / Éléments Finis instantané (poutres Bernoulli-Euler) avec vérifications Eurocodes 2 (béton) et Eurocode 3 (acier), sollicitations ELU/ELS ($M_{Ed}, V_{Ed}$), flèches admissibles $L/350$ et recommandations de redimensionnement de section.
+  5. `revit_audit_urban_plu_compliance` (`plu_checker.rs`) : Audit automatisé de conformité Permis de Construire : hauteur maximale au faîtage/acrotère, prospect urbain sur voie ($H = L + R$), retraits aux limites séparatives ($D \ge H/2$), emprise au sol (**CES**), biotope végétalisé (**CBS**), et sécurité incendie ERP/CCH (distances d'évacuation $\le 30\text{ m}$, largeurs en Unités de Passage).
+  6. `revit_export_usd_visionpro` (`spatial_usd_gltf.rs`) : Exportateur spatial natif produisant des fichiers USDA/USDZ pour Apple Vision Pro (visionOS avec ancres spatiales) et glTF 2.0 PBR pour Unreal Engine 5.5 (compatible Nanite et Lumen).
+  7. `revit_walkthrough_direct` (`walkthrough_director.rs`) : Réalisateur IA de visites virtuelles générant des trajectoires cinématiques de caméra (splines Catmull-Rom à $1.65\text{ m}$), course solaire dynamique selon l'heure de la journée, bascules interactives de finitions architecturales et narration vocale synchronisée pour intégration avec Gemini Live API et TTS.
+
+### 🌐 Vitrine Web & Documentation
+- **Landing Page 3D Three.js :** Mise à jour à 243 outils avec mise en avant des 7 piliers et des badges multi-plateformes macOS (Apple Silicon M1-M4 & Intel), Linux et Windows 11.
+- **Guide Architectural Revit & BIMcraft :** Enrichi des sections 7 et 8 détaillant l'architecture multi-instance silencieuse et les 7 moteurs algorithmiques.
+
+---
+
+## [2.7.0] - 2026-11-05
+
+### 🍎 Disponibilité Multi-Plateforme : macOS (Priorité N°1) & Linux
+- **Fin du Monopole Windows en BIM** : ARC et BIMcraft fonctionnent désormais nativement sur **macOS (Apple Silicon M1/M2/M3/M4 & Intel)** et **Linux** en plus de Windows 11.
+- **Accélération Matérielle Metal sur Mac** : Rendu 3D temps réel direct sous macOS avec le moteur BIMcraft sans émulation ni virtualisation.
+- **Importation & Conversion RVT Natives sous macOS** : Traitement direct des fichiers Revit `.rvt` et `.rfa` sur Mac sans licence Revit ni machine Windows requise.
+- **Transport IPC Unix Domain Socket** : Prise en charge des sockets locaux `/tmp/revit_mcp_ipc.sock` pour communication instantanée sans surcharge réseau.
+- **Guide Architectural Revit Exhaustif** : Publication du guide de référence officiel [`docs/revit_architecture_guide.md`](./docs/revit_architecture_guide.md) détaillant la conception, l'état actuel et les modes opératoires.
+
+### 🏗️ Support BIMcraft & Architecture Dual-Engine (Revit 2027 + BIMcraft 0.9.0)
+- **Architecture Multi-BIM Universelle** : Intégration complète de **BIMcraft**, modeleur BIM autonome 100% Rust haute performance ("Revit-class"), aux côtés d'Autodesk Revit 2027.
+- **6 Nouveaux Outils MCP BIMcraft Dédiés (Total porté à 236 outils)** :
+  1. `bimcraft_launch` : Démarrage du GUI BIMcraft à l'écran avec le pont agent interactif (`--control 0`) via WMI/Win32 détaché persistant.
+  2. `bimcraft_status` : Diagnostic temps réel du moteur (CLI Rust, processus GUI actif, port et token de communication `bridge.json`).
+  3. `bimcraft_convert` : Conversion ultra-rapide de fichiers (.rvt, .rfa, .bimcraft, .ifc, .svg, .png) sans nécessiter Revit.
+  4. `bimcraft_info` : Extraction instantanée des niveaux, catégories, familles, paramètres et métadonnées d'un projet Revit ou BIMcraft.
+  5. `bimcraft_execute_script` : Modélisation directe dans BIMcraft par script batch (murs, cloisons, baies, pièces, dalles, toits).
+  6. `bimcraft_render_view` : Génération de rendus 2D vectoriels et 3D en temps réel aux formats SVG ou PNG.
+- **Conversion Automatisée du Projet Appartement Londonien** :
+  - Conversion réussie de l'ensemble des 4 variantes RVT (`REFLET_00_EXISTANT`, `REFLET_V1_ECLIPSE_MIROIR-G`, `REFLET_V2_ORBITE_MIROIR-D`, `REFLET_V3_PASSAGE_MIROIR-G`) vers les formats natifs `.bimcraft` et vectoriels `.svg`.
+- **Générateurs Algorithmiques Multi-Moteurs** :
+  - `revit_generate_complete_floorplan` (`floorplan_generator.rs`) : produit simultanément le batch de modélisation Revit C# et le script BIMcraft en millimètres avec murs fermés, cloisons, baies et pièces étiquetées.
+  - `revit_solve_parametric_layout` (`solver.rs`) : produit désormais les commandes d'implantation natives BIMcraft (`desk`, `chair`, `table`) prêtes à injecter.
+- **Moteur CAD / DXF (`cad-mcp`) Amélioré** :
+  - Prise en charge des segments de murs et polylignes BIMcraft dans `dxf_compare_with_revit`.
+  - Nouveaux outils MCP : `dxf_compare_with_bimcraft` et `bimcraft_export_dxf`.
+  - Résilience accrue du rendu multi-layouts PDF face aux présentations vides.
+- **Gestionnaire d'Automatisation Universel (`scripts/bimcraft_manager.py`)** :
+  - Outil CLI Python complet pour piloter le cycle de vie de BIMcraft, convertir les variantes et inspecter les modèles.
+- **Site Officiel & Documentation Synchronisés** :
+  - Vitrine WebGL Three.js mise à jour à 236 outils avec filtre interactif BIMcraft et badge de release v2.7.0.
+
+---
+
 ## [2.6.0] - 2026-11-05
 
 ### 🌐 Landing Page Officielle & Déploiement GitHub Pages

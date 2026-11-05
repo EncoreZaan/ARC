@@ -416,6 +416,20 @@ pub fn solve_parametric_layout(params: &Value) -> Value {
             })
         }).collect();
 
+        let mut bimcraft_lines = Vec::new();
+        let mut bimcraft_cmds = Vec::new();
+        for it in &best.items {
+            let at = [it.x.round() as i64, it.y.round() as i64];
+            let cmd_name = match it.item_type.as_str() {
+                "workstation" => "desk",
+                "meeting_table" => "table",
+                _ => "desk",
+            };
+            let p = json!({ "at": at });
+            bimcraft_lines.push(format!("{} {}", cmd_name, p));
+            bimcraft_cmds.push(json!({ "command": cmd_name, "params": p }));
+        }
+
         json!({
             "success": true,
             "status": "OPTIMAL_LAYOUT_FOUND",
@@ -434,6 +448,10 @@ pub fn solve_parametric_layout(params: &Value) -> Value {
             },
             "placed_furniture": best.items,
             "ghost_preview_items": ghost_items,
+            "bimcraftIntegration": {
+                "script": bimcraft_lines.join("\n"),
+                "commands": bimcraft_cmds
+            },
             "recommendation": format!(
                 "Disposition mathématiquement optimale trouvée en {:.1} ms parmi {} combinaisons. Lumière naturelle : {:.1}%, Dégagement garanti : {:.2} m.",
                 elapsed_ms, total_evaluations, best.daylight_score, best.min_clearance_mm / 1000.0
