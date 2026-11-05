@@ -6,7 +6,12 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 
 ## [2.9.1] - 2026-11-05
 
-### 🚀 5 Outils Poids-Plume Haute Performance en Rust Pur & Format Colonnaire (-70% Tokens)
+### 🚀 5 Outils Poids-Plume Haute Performance en Rust Pur, Format Colonnaire & Sync Live BIMcraft
+- **Hub de Téléchargement Dual-Engine & Écouteur GitHub Live Releases (IPedrax/BIMCraft) :**
+  - Ajout sur la landing page d'une carte dédiée au téléchargement direct de BIMcraft en 1 clic.
+  - Écoute active et en temps réel de l'API GitHub (`IPedrax/BIMCraft/releases/latest`) : actualisation automatique du badge de version (actuellement `v0.10.0`), de la taille des paquets et des liens directs vers les binaires officiels (macOS Universal `.dmg`, Windows `.msi`, Linux `.AppImage`).
+  - Détection automatique de la plateforme de l'utilisateur pour surligner le binaire natif adapté.
+  - Ajout des sous-commandes `update` et `install` dans `scripts/bimcraft_manager.py` pour synchroniser et mettre à jour automatiquement BIMcraft depuis GitHub en local.
 - **5 Nouveaux Outils Ultra-Légers (Catalogue porté à 254 outils) :**
   - `revit_semantic_model_digest` (`semantic_digest.rs`) : Synthèse topologique et architecturale globale en < 350 tokens (SHAB, SDP, orientation, distribution des pièces, enveloppe thermique et ratio RE2020).
   - `revit_audit_regulatory_scorecard` (`regulatory_scorecard.rs`) : Scorecard réglementaire unifié en 1 ms (PMR passages >= 0.83m et girations Ø1.50m, distance d'évacuation incendie <= 30m, surface de baies RE2020 >= 1/6e).

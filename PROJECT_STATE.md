@@ -244,6 +244,10 @@
 ## 4. Historique Chronologique des Versions
 
 ### [v2.9.1] - 2026-11-05
+- **Hub de Téléchargement Dual-Engine & Écouteur Live GitHub Releases (IPedrax/BIMCraft) :**
+  - Intégration sur la landing page d'une carte de téléchargement 1-clic pour BIMcraft connectée en temps réel à l'API GitHub (`IPedrax/BIMCraft/releases/latest`).
+  - Téléchargement direct sans redirection des binaires officiels : macOS `.dmg` (Universal Metal M1–M4), Windows `.msi`, Linux `.AppImage`.
+  - Détection automatique d'OS visiteur et auto-updater local dans `scripts/bimcraft_manager.py (update/install)`.
 - **5 Nouveaux Outils Rust Poids-Plume & Format Colonnaire (254 outils total) :**
   - `revit_semantic_model_digest`, `revit_audit_regulatory_scorecard`, `revit_clash_matrix_fast`, `revit_smart_diff_history`, `revit_batch_transform_vectorized`.
   - Moteur colonnaire compact (`compact: true` / `format: "columnar"`) éliminant les répétitions de clés JSON (-70% de tokens).

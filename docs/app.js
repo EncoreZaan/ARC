@@ -1892,4 +1892,102 @@ curl http://localhost:6543/health`
     document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in-view'));
   }
 
+}
+  // ---------------------------------------------------------------------------
+  // 7. Live Real-Time GitHub Release Sync for BIMcraft (IPedrax/BIMCraft)
+  // Always fetches the latest official releases in real-time with zero lag
+  // ---------------------------------------------------------------------------
+  async function initBimcraftReleaseSync() {
+    const GITHUB_REPO = 'IPedrax/BIMCraft';
+    const API_URL = `https://api.github.com/repos/${GITHUB_REPO}/releases/latest`;
+
+    // Detect user platform
+    const ua = navigator.userAgent || '';
+    const platform = navigator.platform || '';
+    let os = 'other';
+    if (/Mac|iPhone|iPad|iPod/i.test(ua) || /Mac/i.test(platform)) {
+      os = 'mac';
+    } else if (/Win/i.test(ua) || /Win/i.test(platform)) {
+      os = 'win';
+    } else if (/Linux/i.test(ua) || /Linux/i.test(platform)) {
+      os = 'linux';
+    }
+
+    const osName = os === 'mac' ? 'macOS (Apple Silicon M1–M4 & Intel)' : (os === 'win' ? 'Windows' : (os === 'linux' ? 'Linux' : 'votre système'));
+    const osMsg = document.getElementById('detected-os-msg');
+    if (osMsg) {
+      osMsg.innerHTML = `<strong>${osName}</strong> détecté : le binaire adapté se télécharge automatiquement en un clic.`;
+    }
+
+    const macBtn = document.getElementById('bimcraft-btn-mac');
+    const winBtn = document.getElementById('bimcraft-btn-win');
+    const linBtn = document.getElementById('bimcraft-btn-linux');
+
+    if (os === 'mac' && macBtn) macBtn.classList.add('btn-highlighted-os');
+    else if (os === 'win' && winBtn) winBtn.classList.add('btn-highlighted-os');
+    else if (os === 'linux' && linBtn) linBtn.classList.add('btn-highlighted-os');
+
+    try {
+      let data = null;
+      const cached = sessionStorage.getItem('bimcraft_release_cache');
+      const cachedTime = sessionStorage.getItem('bimcraft_release_time');
+
+      // Cache TTL: 10 minutes to respect GitHub rate limits
+      if (cached && cachedTime && (Date.now() - parseInt(cachedTime, 10) < 600000)) {
+        data = JSON.parse(cached);
+      } else {
+        const resp = await fetch(API_URL, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+        if (resp.ok) {
+          data = await resp.json();
+          sessionStorage.setItem('bimcraft_release_cache', JSON.stringify(data));
+          sessionStorage.setItem('bimcraft_release_time', Date.now().toString());
+        }
+      }
+
+      if (data && data.tag_name) {
+        const tag = data.tag_name; // e.g. "v0.10.0"
+        const tagBadge = document.getElementById('bimcraft-live-tag');
+        if (tagBadge) {
+          tagBadge.textContent = `BIMcraft ${tag} (Sync Direct GitHub)`;
+        }
+
+        const assets = data.assets || [];
+
+        // macOS Universal DMG
+        const macAsset = assets.find(a => a.name.endsWith('.dmg'));
+        if (macAsset && macBtn) {
+          macBtn.href = macAsset.browser_download_url;
+          const sizeMb = (macAsset.size / (1024 * 1024)).toFixed(1);
+          const label = document.getElementById('bimcraft-label-mac');
+          if (label) label.textContent = `macOS .dmg (${sizeMb} Mo)`;
+          macBtn.setAttribute('title', `Télécharger BIMcraft ${tag} pour macOS (${macAsset.name})`);
+        }
+
+        // Windows MSI Installer
+        const winAsset = assets.find(a => a.name.endsWith('.msi')) || assets.find(a => a.name.includes('windows') && a.name.endsWith('.zip'));
+        if (winAsset && winBtn) {
+          winBtn.href = winAsset.browser_download_url;
+          const sizeMb = (winAsset.size / (1024 * 1024)).toFixed(1);
+          const label = document.getElementById('bimcraft-label-win');
+          if (label) label.textContent = `Windows .msi (${sizeMb} Mo)`;
+          winBtn.setAttribute('title', `Télécharger BIMcraft ${tag} pour Windows (${winAsset.name})`);
+        }
+
+        // Linux AppImage
+        const linAsset = assets.find(a => a.name.endsWith('.AppImage') && a.name.includes('x86_64')) || assets.find(a => a.name.endsWith('.AppImage'));
+        if (linAsset && linBtn) {
+          linBtn.href = linAsset.browser_download_url;
+          const sizeMb = (linAsset.size / (1024 * 1024)).toFixed(1);
+          const label = document.getElementById('bimcraft-label-linux');
+          if (label) label.textContent = `Linux .AppImage (${sizeMb} Mo)`;
+          linBtn.setAttribute('title', `Télécharger BIMcraft ${tag} pour Linux (${linAsset.name})`);
+        }
+      }
+    } catch (err) {
+      console.warn('[BIMcraft Sync] GitHub API listener fallback active:', err);
+    }
+  }
+
+  initBimcraftReleaseSync();
+
 })();

@@ -33,7 +33,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Stylesheet (with cache-buster) -->
-  <link rel="stylesheet" href="./styles.css?v=2.9.1">
+  <link rel="stylesheet" href="./styles.css?v=2.9.2">
 
   <!-- Defensive Hero Layout Overrides (Guaranteed Zero Overlap across all browsers & caches) -->
   <style>
@@ -645,63 +645,107 @@
       </div>
     </section>
 
-    <!-- Section: Flagship Download Card -->
+    <!-- Section: Dual-Engine Download Hub (ARC & BIMcraft) -->
     <section class="section" id="download">
       <div class="container">
-        <div class="download-flagship-card" data-animate>
-          <div class="download-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
-            Version Officielle Validée • v2.9.1
-          </div>
-          <h2 class="download-title">Prêt à propulser vos projets BIM ?</h2>
-          <p class="download-subtitle">
-            Disponible universellement pour <strong>Windows</strong> (Revit 2024–2027 & BIMcraft), <strong>macOS</strong> (Apple Silicon M1–M4 & Intel avec BIMcraft Metal) et <strong>Linux</strong> (Vulkan, Headless & CI/CD).
+        <header class="section-header" data-animate>
+          <span class="section-eyebrow">TÉLÉCHARGEMENT & SYNCHRONISATION LIVE</span>
+          <h2 class="section-title">Prêt à propulser vos projets BIM ?</h2>
+          <p class="section-subtitle">
+            Téléchargez l'infrastructure complète : le pont MCP ARC pour Autodesk Revit, ou le moteur natif BIMcraft avec synchronisation GitHub en direct.
           </p>
+        </header>
 
-          <div class="download-action-row">
-            <a href="https://github.com/EncoreZaan/ARC/releases/download/v2.9.1/RevitMCP-Setup-v2.9.1.exe" class="btn-dl-platform btn-dl-win" title="Installateur automatique pour Windows 11 / 10">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
+        <div class="download-dual-grid">
+          <!-- Carte 1: ARC Copilot (Revit 2024–2027) -->
+          <div class="download-flagship-card" data-animate>
+            <div class="download-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
               </svg>
-              <span>Windows (Revit 2024–2027)</span>
-            </a>
-            <a href="./revit_architecture_guide.md" class="btn-dl-platform btn-dl-mac" title="Guide complet d'installation et d'utilisation sur macOS (Apple Silicon M1–M4 & Intel)">
-              <span class="platform-icon"></span>
-              <span>macOS (Apple Silicon & Intel)</span>
-            </a>
-            <a href="./revit_architecture_guide.md#installation-express-sous-linux" class="btn-dl-platform btn-dl-lin" title="Installation et configuration sous Linux (Vulkan & Headless)">
-              <span class="platform-icon">🐧</span>
-              <span>Linux (Vulkan & Headless)</span>
-            </a>
-            <a href="https://github.com/EncoreZaan/ARC/releases" target="_blank" rel="noopener noreferrer" class="btn-pill btn-glass btn-dl-sec">
-              Toutes les Releases
-            </a>
-            <a href="https://github.com/EncoreZaan/ARC" target="_blank" rel="noopener noreferrer" class="btn-pill btn-glass btn-dl-sec">
-              Voir sur GitHub
-            </a>
+              ARC v2.9.1 • Validé
+            </div>
+            <h3 class="download-title" style="font-size: 1.85rem;">ARC Copilot pour Revit</h3>
+            <p class="download-subtitle" style="font-size: 0.95rem; margin-bottom: 2rem;">
+              Pour <strong>Autodesk Revit 2024–2027</strong> (.NET 10). Add-in C# avec serveur Rust autonome (Claude Desktop, Cursor, Antigravity) et 254 outils natifs zéro-latence.
+            </p>
+
+            <div class="download-action-row">
+              <a href="https://github.com/EncoreZaan/ARC/releases/download/v2.9.1/RevitMCP-Setup-v2.9.1.exe" class="btn-dl-platform btn-dl-win" title="Installateur automatique Windows 11 / 10">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>RevitMCP-Setup-v2.9.1.exe</span>
+              </a>
+              <a href="https://github.com/EncoreZaan/ARC/releases" target="_blank" rel="noopener noreferrer" class="btn-pill btn-glass btn-dl-sec">
+                Releases ARC
+              </a>
+            </div>
+
+            <div class="download-meta-tags">
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 254 Outils MCP</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Zero-Latency IPC</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Licence MIT</span>
+            </div>
           </div>
 
-          <div class="download-meta-tags">
-            <span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              100% Local (Named Pipe IPC)
-            </span>
-            <span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Zero-Crash Garanti
-            </span>
-            <span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Licence MIT Open Source
-            </span>
-            <span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Windows 11 / 10 (x64)
-            </span>
+          <!-- Carte 2: BIMcraft Live (GitHub Releases Sync en direct) -->
+          <div class="download-flagship-card bimcraft-card" data-animate>
+            <div class="download-badge live-sync-pulse" id="bimcraft-badge-container">
+              <span class="pulse-dot-green"></span>
+              <span id="bimcraft-live-tag">BIMcraft v0.10.0 (Sync Direct GitHub)</span>
+            </div>
+            <h3 class="download-title" style="font-size: 1.85rem; color: #E0F2FE;">BIMcraft (Moteur Rust Pur)</h3>
+            <p class="download-subtitle" style="font-size: 0.95rem; margin-bottom: 1.5rem;">
+              Modeleur BIM complet indépendant pour <strong>macOS</strong> (Metal M1–M4 & Intel), <strong>Windows</strong> et <strong>Linux</strong>. Sans licence Revit. Téléchargement direct 1-clic synchronisé en temps réel sur le dépôt officiel <a href="https://github.com/IPedrax/BIMCraft" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); text-decoration: underline;">IPedrax/BIMCraft</a>.
+            </p>
+
+            <div class="download-action-row" id="bimcraft-download-row">
+              <!-- macOS Universal DMG -->
+              <a id="bimcraft-btn-mac" href="https://github.com/IPedrax/BIMCraft/releases/download/v0.10.0/bimcraft-0.10.0-macos-universal.dmg" class="btn-dl-platform btn-dl-mac" title="Télécharger BIMcraft pour macOS (Apple Silicon M1-M4 & Intel)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                <span id="bimcraft-label-mac">macOS .dmg (Metal)</span>
+              </a>
+
+              <!-- Windows MSI -->
+              <a id="bimcraft-btn-win" href="https://github.com/IPedrax/BIMCraft/releases/download/v0.10.0/bimcraft-0.10.0-windows-x64.msi" class="btn-dl-platform btn-dl-win" title="Télécharger BIMcraft Installateur Windows x64">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span id="bimcraft-label-win">Windows .msi (x64)</span>
+              </a>
+
+              <!-- Linux AppImage -->
+              <a id="bimcraft-btn-linux" href="https://github.com/IPedrax/BIMCraft/releases/download/v0.10.0/bimcraft-0.10.0-linux-x86_64.AppImage" class="btn-dl-platform btn-dl-lin" title="Télécharger BIMcraft AppImage Linux">
+                <span class="platform-icon">🐧</span>
+                <span id="bimcraft-label-linux">Linux .AppImage</span>
+              </a>
+
+              <!-- GitHub Repo Link -->
+              <a id="bimcraft-btn-github" href="https://github.com/IPedrax/BIMCraft/releases" target="_blank" rel="noopener noreferrer" class="btn-pill btn-glass btn-dl-sec">
+                Releases IPedrax/BIMCraft
+              </a>
+            </div>
+
+            <!-- Auto-detection banner -->
+            <div class="detected-os-banner" id="detected-os-banner">
+              <span class="pulse-dot-green"></span>
+              <span id="detected-os-msg">Écoute active GitHub API : la dernière version disponible se télécharge automatiquement en un clic.</span>
+            </div>
+
+            <div class="download-meta-tags">
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 100% Rust & Metal/Vulkan</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Zéro Licence Windows</span>
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Toujours à jour (GitHub)</span>
+            </div>
           </div>
         </div>
       </div>
@@ -940,9 +984,9 @@
   </script>
 
   <!-- 3D WebGL Sphere & Central Experience -->
-  <script src="./three-scene.js?v=2.9.1"></script>
+  <script src="./three-scene.js?v=2.9.2"></script>
 
   <!-- UI Interactivity, Tools & Accordion -->
-  <script src="./app.js?v=2.9.1"></script>
+  <script src="./app.js?v=2.9.2"></script>
 </body>
 </html>
