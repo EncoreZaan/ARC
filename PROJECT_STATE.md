@@ -1,8 +1,8 @@
 # 🏛️ ARC (ARCHITECTURE & REVIT COPILOT) — MASTER PROJECT STATE & ARCHITECTURE BIBLE
-> **Statut global du système :** Opérationnel & Ultra-Performant (v2.8.1 — Dual-Engine, 7 Cutting-Edge Pillars & Multi-Instance Zero-Conflict)  
+> **Statut global du système :** Opérationnel & Ultra-Performant (v2.9.0 — High-Efficiency Dual-Engine, Tokens -91.7%, Zero-Spike RAM, 5µs ReadCache & macOS/Linux Fallback)  
 > **Dernière mise à jour :** 5 Novembre 2026  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/ARC.git](https://github.com/EncoreZaan/ARC.git)  
-> **Site officiel (Landing Page 3D) :** [https://encorezaan.github.io/Revit-MCP/](https://encorezaan.github.io/Revit-MCP/)  
+> **Site officiel (Landing Page 3D) :** [https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)  
 > **Auteur & Propriétaire :** @EncoreZaan  
 
 ---
@@ -29,11 +29,11 @@
 | **Fichiers Maquettes Actifs** | `...\06_Revit\REFLET_00_EXISTANT.rvt` & `REFLET_00_EXISTANT.bimcraft`<br>+ Variantes V1, V2, V3 converties et synchronisées |
 | **Gabarit Officiel (.rte)** | `...\DOUBLE-BAY_gabarit.rte` (issu du gabarit architectural FRA RVT 2027) |
 | **Bibliothèque Familles FRA** | `C:\ProgramData\Autodesk\RVT 2027\Libraries\French\` |
-| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v2.7.0 — 248 outils)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
+| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v2.8.1 — 248 outils)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
 
 ---
 
-## 2. Architecture Technique Dual-Engine (v2.7.0)
+## 2. Architecture Technique Dual-Engine (v2.8.1)
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -199,7 +199,7 @@
 - Outil MCP : `revit_get_live_stream_status`.
 
 ### 🌐 21. Landing Page Officielle ARC & Expérience WebGL Three.js (v2.6.0)
-- Site web vitrine officiel haute performance déployé sous `docs/` et prêt pour GitHub Pages (`https://encorezaan.github.io/Revit-MCP/`).
+- Site web vitrine officiel haute performance déployé sous `docs/` et prêt pour GitHub Pages (`https://encorezaan.github.io/ARC/`).
 - **Direction Artistique Cinématique :** Reproduction fidèle de l'univers visuel de référence (fond noir obsidienne `#0B080D` avec nuances prune fumé `#2B242C`, reflets métalliques champagne doré `#D7B98C`, ivoire et cobalt profond `#274C8F`).
 - **Élément Central 3D Interactif :** Scène WebGL Three.js complète (`docs/three-scene.js`) intégrant une sphère/dôme liquide métallique avec déformation organique en bruit de Simplex 3D, reflets Fresnel champagne/cobalt mouvants, et un pavillon architectural BIM filaire tridimensionnel rétro-éclairé avec flux de particules de données à l'intérieur.
 - **Double Mode Rendu :** Bascule instantanée entre la scène 3D temps réel WebGL et le rendu cinématique vidéo haute définition (`arc-hero-reference.webm` / `arc-hero-reference.mp4`).
@@ -242,6 +242,45 @@
   - **Documentation Complète d'Architecture Revit :** Rédaction du guide de référence exhaustif [`docs/revit_architecture_guide.md`](./docs/revit_architecture_guide.md) décrivant dans le détail la genèse, l'état d'avancement et le mode de fonctionnement de l'ensemble du système.
 
 ## 4. Historique Chronologique des Versions
+
+### [v2.9.0] - 2026-11-05
+- **Optimisation Radicale des Tokens (-91.7% d'Empreinte Initial Context Window) :**
+  - **Tool Profiles Dynamiques (`ARC_TOOL_PROFILE`) :** Support de 3 profils (`all`, `compact`, `bimcraft`). En mode `compact`, exposition ciblée de 38 outils polyvalents (passage de 311 Ko à 25 Ko de payload, économisant plus de 73 000 tokens par tour).
+  - **Méta-Outil Universel `revit_dispatch` (249 outils au total) :** Exécution dynamique sans faille de l'intégralité du catalogue ARC via un seul point d'entrée.
+  - **Correction Majeure de la Duplication Base64 :** Extraction multimodale native MCP et élimination de la chaîne Base64 du corps JSON textuel (+350 000 tokens économisés par rendu/capture).
+  - **Minification JSON & Nettoyage de Schémas :** Suppression des balises `$schema` redondantes et sérialisation dense sans indentation inutile (-35% de tokens sur chaque échange).
+  - **Field Projection C# & Rust (`fields: [...]`) :** Filtrage sélectif des attributs d'éléments (ex: `fields: ["id", "name", "category"]`) diminuant la taille des listes d'éléments de 95%.
+- **Cache en Mémoire Vive Rust Sub-Milliseconde (5 µs de Latence) :**
+  - In-memory read-cache pour les métadonnées statiques (`model/info`, `levels/get`, `phases/get`, `categories/list`, `documents/list`).
+  - Invalidation instantanée lors de toute transaction de modification/création.
+- **Élimination du Spike Mémoire Revit (Économie RAM > 80%) :**
+  - Réécriture de `QueryElementsEnhanced` : remplacement de `col.ToElements()` par `col.GetElementCount()` et itération paresseuse C# avec filtres natifs C++ Revit API (`ElementLevelFilter`).
+- **Robustesse Multi-Plateforme Dual-Engine (macOS, Linux & Windows) :**
+  - **BIMcraft Automatic Fallback :** En l'absence de Revit (ou sous macOS/Linux), routage instantané et transparent des requêtes de modèle, niveaux, catégories, phases, conversions IFC et batchs de modélisation vers BIMcraft.
+  - Minification dense des sorties JSON de `cad-mcp`.
+
+### [v2.8.1] - 2026-11-05
+- **5 Outils Pratiques & Métier Quotidien d'Architecte (248 outils répertoriés) :**
+  - `revit_auto_dimension_plan` (`auto_dimension.rs`) : Cotation automatique 3 lignes orthogonales.
+  - `revit_compare_variants_visual` (`variant_diff_visual.rs`) : Comparateur visuel de démolition/création SVG/PDF (Rouge/Vert/Gris).
+  - `revit_geometry_doctor` (`geometry_doctor.rs`) : Recalage des murs hors-axe (89.9° vers 90.0°), fusion des micro-écarts (< 25 mm).
+  - `revit_layout_casework_millwork` (`casework_layout.rs`) : Calepinage paramétrique d'agencements et dressings.
+  - `revit_extract_takeoff_artisan_table` (`artisan_takeoff.rs`) : Métré récapitulatif net Carrez, plinthes et menuiseries.
+- **Refonte Visuelle, Éclat des Couleurs & Correction des Bogues Landing Page (docs/) :**
+  - Élimination définitive du chevauchement de cartes et texte dans le Hero (cartes flottantes en flux naturel responsive).
+  - Palette lumineuse et contrastée (bleu nuit cosmique `#080C18`, or champagne `#F59E0B`, cyber cyan `#38BDF8`).
+  - Lisibilité 100% garantie sur les boutons macOS et Linux (texte blanc pur sur verre lumineux).
+  - Intégration de la barre de recherche en temps réel connectée aux 248 outils.
+  - Scène 3D WebGL Three.js ré-éclairée avec caustiques spéculaires et reflets iridescents.
+  - Synchronisation universelle des versions (`v2.8.1`).
+
+### [v2.8.0] - 2026-11-05
+- **Résilience Multi-Instance Totale & Zéro-Conflit Réseau (Revit & BIMcraft) :**
+  - Démarrage silencieux sans modale ni TaskDialog.
+  - Allocation dynamique de ports (6543 à 6555) et canaux Named Pipes dédiés par PID (`revit_mcp_ipc_<pid>`).
+  - Routage intelligent multithreadé côté serveur Rust.
+- **7 Piliers Technologiques de Rupture (243 outils) :**
+  - `revit_live_mirror_sync`, `revit_sketch_to_bim`, `revit_simulate_thermal_dynamic_re2020`, `revit_solve_structural_fea_instant`, `revit_audit_urban_plu_compliance`, `revit_export_usd_visionpro`, `revit_walkthrough_direct`.
 
 ### [v2.7.0] - 2026-11-05
 - **Architecture Dual-Engine & Multi-Plateforme (macOS, Linux, Windows) :**

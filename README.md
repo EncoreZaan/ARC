@@ -1,7 +1,7 @@
 # ARC (Architecture & Revit Copilot) — Pont MCP Haute Précision pour Autodesk Revit & BIMcraft
 
 [![Site Officiel](https://img.shields.io/badge/Site%20Officiel-encorezaan.github.io%2FARC-D7B98C?style=flat&logo=safari&logoColor=white)](https://encorezaan.github.io/ARC/)
-[![Release](https://img.shields.io/github/v/release/EncoreZaan/ARC?color=00d2ff&label=Version)](https://github.com/EncoreZaan/ARC/releases/tag/v2.8.0)
+[![Release](https://img.shields.io/github/v/release/EncoreZaan/ARC?color=00d2ff&label=Version)](https://github.com/EncoreZaan/ARC/releases/tag/v2.9.0)
 [![Platforms](https://img.shields.io/badge/Platforms-macOS%20(Apple%20Silicon)%20%7C%20Linux%20%7C%20Windows-brightgreen.svg)](#-disponibilité-multi-plateforme--macos-linux--windows)
 [![Revit & BIMcraft](https://img.shields.io/badge/Engines-Revit%202027%20%7C%20BIMcraft%200.9.0-blue.svg)](#-architecture-dual-engine)
 [![Rust](https://img.shields.io/badge/Server-Rust%20100%25%20Natif-orange.svg)](https://www.rust-lang.org/)
@@ -88,8 +88,8 @@ python3 scripts/bimcraft_manager.py launch
 ```
 
 ### Sur Windows (Installateur Automatisé)
-1. Téléchargez l'installateur : **[Télécharger RevitMCP-Setup-v2.8.0.exe](https://github.com/EncoreZaan/ARC/releases/download/v2.8.0/RevitMCP-Setup-v2.8.0.exe)**
-2. Double-cliquez sur `RevitMCP-Setup-v2.8.0.exe` pour déployer l'add-in Revit 2024-2027 et configurer Claude Desktop automatiquement.
+1. Téléchargez l'installateur : **[Télécharger RevitMCP-Setup-v2.8.1.exe](https://github.com/EncoreZaan/ARC/releases/download/v2.8.1/RevitMCP-Setup-v2.8.1.exe)**
+2. Double-cliquez sur `RevitMCP-Setup-v2.8.1.exe` pour déployer l'add-in Revit 2024-2027 et configurer Claude Desktop automatiquement.
 
 ---
 

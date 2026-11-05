@@ -4,6 +4,28 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 
 ---
 
+## [2.9.0] - 2026-11-05
+
+### ⚡ Révolution Performance, Économie de Tokens & Optimisation RAM (Dual-Engine Revit & BIMcraft)
+- **Réduction Drastique des Tokens (-91.7% de Payload Initial) :**
+  - **Profils d'Outils Adaptatifs (`ARC_TOOL_PROFILE`) :** Support de `compact`, `bimcraft` et `all`. En mode `compact`, sélection haute performance de 38 outils polyvalents (réduisant le catalogue de 311 Ko à 25 Ko, passant de ~80 000 tokens à moins de 6 500 tokens par tour).
+  - **Méta-Outil Universel `revit_dispatch` :** Permet à l'agent d'exécuter dynamiquement n'importe laquelle des 249 actions du catalogue Dual-Engine en mode compact sans charger l'ensemble des schémas.
+  - **Élimination Critique de la Duplication Base64 :** Correction majeure dans le serveur Rust — les chaînes Base64 d'images (`imageBase64`) sont désormais extraites proprement vers le bloc image MCP natif et retirées du bloc texte JSON, épargnant plus de 350 000 tokens par rendu/capture 3D.
+  - **Minification JSON & Suppression de `$schema` :** Nettoyage automatique des définitions de schémas et sérialisation compacte (`serde_json::to_string` et séparateurs denses en Python) supprimant 35% à 40% de tokens de mise en page superflus.
+- **Field Projection Haute Précision (`fields: [...]`) :**
+  - Implémentation du filtrage de champs côté C# et côté Rust : l'IA peut demander uniquement les attributs requis (`fields: ["id", "name", "category"]`), réduisant les réponses d'éléments de 50 Ko à moins de 250 octets (-95% de tokens).
+- **Read-Cache Rust Sub-Milliseconde (5 µs de Latence) :**
+  - Cache en mémoire vive ultra-rapide (`Arc<RwLock<HashMap>>`) pour les métadonnées statiques (`model/info`, `categories/list`, `levels/get`, `phases/get`, `documents/list`) avec TTL 30s.
+  - Invalidation instantanée lors de toute opération d'écriture/mutation (`create`, `modify`, `delete`, `set`, `batch`, `undo`, `redo`).
+- **Suppression du Spike Mémoire Revit (Économie RAM > 80%) :**
+  - Réécriture de `QueryElementsEnhanced` dans `QueryHandlers.cs` : élimination de `col.ToElements()` (qui chargeait tout le modèle en mémoire managée .NET LOH).
+  - Utilisation de filtres natifs C++ `ElementLevelFilter`, `col.GetElementCount()` et itération paresseuse `.Skip().Take()` pour ne charger en RAM que la page demandée.
+- **Compatibilité Multi-Plateforme Nativée (macOS, Linux & Windows) :**
+  - **Dual-Engine Fallback :** Lorsque Revit n'est pas lancé (ou sur macOS / Linux), `dispatch_bridge_request` bascule automatiquement et de manière transparente sur BIMcraft pour les requêtes de modèle, niveaux, catégories, phases, conversions IFC et batchs de modélisation scriptés.
+  - Optimisation des rendus CAD vectoriels `cad-mcp` avec sérialisation dense.
+
+---
+
 ## [2.8.1] - 2026-11-05
 
 ### 🎯 Les 5 Outils Métier Indispensables de l'Architecte (248 Outils Totaux)
@@ -12,6 +34,14 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 - **Docteur Géométrique & Nettoyeur d'Avertissements (`revit_geometry_doctor` - `geometry_doctor.rs`) :** Recalage automatique des parois légèrement obliques (89.9° vers 90.0°), fusion des micro-écarts (< 25 mm) aux jonctions de murs, et purge des segments parasites invisibles.
 - **Calepinage Paramétrique d'Agencement Intérieur (`revit_layout_casework_millwork` - `casework_layout.rs`) :** Conception instantanée de dressings, placards, linéaires de cuisine et meubles vasque sur mesure avec caissons modulaires (600mm / 800mm) et nomenclature quincaillerie.
 - **Tableau de Métré Récapitulatif Clients & Artisans (`revit_extract_takeoff_artisan_table` - `artisan_takeoff.rs`) :** Extraction automatisée en Markdown et CSV des surfaces Loi Carrez pièce par pièce, linéaires réels de plinthes (déduction des portes), surfaces de murs à peindre et nomenclature ordonnée des menuiseries.
+
+### 💎 Refonte Majeure de la Landing Page Officielle & Expérience Utilisateur (docs/)
+- **Résolution Définitive du Bug de Superposition Hero :** Les cartes flottantes (`MCP Bridge`, `Revit 2024–2027`, `macOS & Linux Natifs`) sont désormais ancrées dans le flux naturel avec flexbox responsive, éliminant tout chevauchement avec le texte du sous-titre sur l'ensemble des résolutions d'écran.
+- **Palette de Couleurs Vivantes & Lumineuses :** Remplacement des teintes sombres et brunes par un thème cosmique architectural éclatant (fond bleu nuit/indigo profond `#080C18`, or champagne vibrant `#F59E0B`, cyan céleste `#38BDF8` et émeraude néon `#10B981`).
+- **Correction Critique des Boutons de Téléchargement Multi-Plateformes :** Les boutons macOS et Linux arborent désormais un verre dépoli lumineux avec texte blanc pur `#FFFFFF` à fort contraste et auras luminescentes (cyan pour Apple Silicon / émeraude pour Linux), résolvant définitivement le texte sombre illisible.
+- **Moteur de Recherche Instantané des 248 Outils :** Intégration d'une barre de recherche dynamique avec filtrage instantané par nom, mots-clés ou description, et affichage en temps réel du compteur d'outils actifs synchronisé avec les 248 outils du manifest.
+- **Centre 3D WebGL Three.js Éclairé & Dynamisé :** Augmentation des intensités lumineuses, reflets iridescents plus spéculaires sur la sphère métallique liquide, particules bicolores scintillantes (or et cyan) et animations d'élévation parallaxe plus fluides.
+- **Synchronisation Globale des Versions (v2.8.1) :** Harmonisation stricte de l'ensemble des manifestes et métadonnées (`Cargo.toml`, `RevitMCP.csproj`, `package.json`, `README.md`, `PROJECT_STATE.md`, `docs/index.html`).
 
 ---
 

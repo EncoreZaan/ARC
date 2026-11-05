@@ -84,7 +84,7 @@ def dxf_info(path: str) -> str:
             "layerCount": len(layers),
             "layers": layers,
             "entityCounts": entity_counts
-        }, indent=2)
+        }, separators=(',', ':'))
     except Exception as ex:
         p_res = ""
         try:
@@ -99,7 +99,7 @@ def dxf_info(path: str) -> str:
                 "resolvedPath": p_res,
                 "platform": sys.platform
             }
-        }, indent=2)
+        }, separators=(',', ':'))
 
 
 @mcp.tool()
@@ -150,7 +150,7 @@ def dxf_list_entities(path: str, layer: Optional[str] = None, layout: Optional[s
             "path": p.as_posix(),
             "entityCount": len(entities),
             "entities": entities
-        }, indent=2)
+        }, separators=(',', ':'))
     except Exception as ex:
         p_res = ""
         try:
@@ -165,7 +165,7 @@ def dxf_list_entities(path: str, layer: Optional[str] = None, layout: Optional[s
                 "resolvedPath": p_res,
                 "platform": sys.platform
             }
-        }, indent=2)
+        }, separators=(',', ':'))
 
 
 def _get_layout_paper_size_mm(space) -> tuple[float, float]:
@@ -237,7 +237,7 @@ def dxf_render(path: str, outputPath: str, layout: Optional[str] = "Model", dpi:
             "format": fmt,
             "scale": scale or 1,
             "dpi": dpi or 150
-        }, indent=2)
+        }, separators=(',', ':'))
     except Exception as ex:
         p_res = ""
         try:
@@ -252,7 +252,7 @@ def dxf_render(path: str, outputPath: str, layout: Optional[str] = "Model", dpi:
                 "resolvedPath": p_res,
                 "platform": sys.platform
             }
-        }, indent=2)
+        }, separators=(',', ':'))
 
 
 @mcp.tool()
@@ -326,7 +326,7 @@ def dxf_render_all_layouts_pdf(path: str, outputPath: str, dpi: Optional[int] = 
             "outputPath": out_p.as_posix(),
             "layoutsRendered": rendered_layouts,
             "pageCount": len(rendered_layouts)
-        }, indent=2)
+        }, separators=(',', ':'))
     except Exception as ex:
         p_res = ""
         try:
@@ -341,7 +341,7 @@ def dxf_render_all_layouts_pdf(path: str, outputPath: str, dpi: Optional[int] = 
                 "resolvedPath": p_res,
                 "platform": sys.platform
             }
-        }, indent=2)
+        }, separators=(',', ':'))
 
 
 @mcp.tool()
@@ -367,7 +367,7 @@ def dxf_audit(path: str) -> str:
             "errors": errors,
             "fixCount": len(fixes),
             "fixes": fixes
-        }, indent=2)
+        }, separators=(',', ':'))
     except Exception as ex:
         p_res = ""
         try:
@@ -382,7 +382,7 @@ def dxf_audit(path: str) -> str:
                 "resolvedPath": p_res,
                 "platform": sys.platform
             }
-        }, indent=2)
+        }, separators=(',', ':'))
 
 
 @mcp.tool()
@@ -433,7 +433,7 @@ def dxf_edit(path: str, operations: List[Dict[str, Any]], outputPath: str) -> st
             "path": p.as_posix(),
             "outputPath": out_p.as_posix(),
             "appliedOperations": applied
-        }, indent=2)
+        }, separators=(',', ':'))
     except Exception as ex:
         p_res = ""
         try:
@@ -448,7 +448,7 @@ def dxf_edit(path: str, operations: List[Dict[str, Any]], outputPath: str) -> st
                 "resolvedPath": p_res,
                 "platform": sys.platform
             }
-        }, indent=2)
+        }, separators=(',', ':'))
 
 
 @mcp.tool()
@@ -529,7 +529,7 @@ def dxf_diff(pathA: str, pathB: str, toleranceMm: Optional[float] = 1.0) -> str:
             "added": added[:50],
             "removed": removed[:50],
             "modified": modified[:50]
-        }, indent=2)
+        }, separators=(',', ':'))
     except Exception as ex:
         p_res = ""
         try:
@@ -544,7 +544,7 @@ def dxf_diff(pathA: str, pathB: str, toleranceMm: Optional[float] = 1.0) -> str:
                 "resolvedPath": p_res,
                 "platform": sys.platform
             }
-        }, indent=2)
+        }, separators=(',', ':'))
 
 
 @mcp.tool()
@@ -627,7 +627,7 @@ def dxf_compare_with_revit(dxfPath: str, revitElements: List[Dict[str, Any]], to
             "discrepancyCount": len(discrepancies),
             "toleranceMm": tol,
             "discrepancies": discrepancies
-        }, indent=2)
+        }, separators=(',', ':'))
     except Exception as ex:
         p_res = ""
         try:
@@ -642,7 +642,7 @@ def dxf_compare_with_revit(dxfPath: str, revitElements: List[Dict[str, Any]], to
                 "resolvedPath": p_res,
                 "platform": sys.platform
             }
-        }, indent=2)
+        }, separators=(',', ':'))
 
 
 @mcp.tool()
@@ -678,14 +678,14 @@ def bimcraft_export_dxf(bimcraftPath: str, dxfOutputPath: str) -> str:
                     "code": "BIMCRAFT_CONVERT_ERROR",
                     "message": res.stderr or res.stdout
                 }
-            }, indent=2)
+            }, separators=(',', ':'))
             
         return json.dumps({
             "success": True,
             "input": p_in.as_posix(),
             "output": p_out.as_posix(),
             "details": res.stdout.strip()
-        }, indent=2)
+        }, separators=(',', ':'))
     except Exception as ex:
         return json.dumps({
             "success": False,
@@ -693,7 +693,7 @@ def bimcraft_export_dxf(bimcraftPath: str, dxfOutputPath: str) -> str:
                 "code": "BIMCRAFT_CONVERT_EXCEPTION",
                 "message": str(ex)
             }
-        }, indent=2)
+        }, separators=(',', ':'))
 
 
 if __name__ == "__main__":

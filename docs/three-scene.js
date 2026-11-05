@@ -29,7 +29,7 @@
   // Scene, Camera, Renderer Setup
   // ---------------------------------------------------------------------------
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x0B080D, 0.08);
+  scene.fog = new THREE.FogExp2(0x080B16, 0.045);
 
   let width = container.clientWidth || window.innerWidth;
   let height = container.clientHeight || 640;
@@ -46,31 +46,31 @@
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.28;
+  renderer.toneMappingExposure = 1.45;
 
   // ---------------------------------------------------------------------------
-  // Lighting Setup (Smoked Plum, Champagne Gold & Midnight Cobalt)
+  // Lighting Setup (Radiant Indigo, Sunburst Gold & Cyber Sapphire)
   // ---------------------------------------------------------------------------
-  const ambientLight = new THREE.AmbientLight(0x2B242C, 0.9);
+  const ambientLight = new THREE.AmbientLight(0x1E293B, 1.3);
   scene.add(ambientLight);
 
-  // Key Rim Light (Champagne Gold)
-  const keyLight = new THREE.DirectionalLight(0xF5E5C9, 3.2);
+  // Key Rim Light (Sunburst Gold)
+  const keyLight = new THREE.DirectionalLight(0xFFFBEB, 4.4);
   keyLight.position.set(-2.5, 4.2, 3.0);
   scene.add(keyLight);
 
-  // Fill Light (Midnight Cobalt)
-  const fillLight = new THREE.DirectionalLight(0x274C8F, 2.4);
+  // Fill Light (Cyber Sapphire / Azure)
+  const fillLight = new THREE.DirectionalLight(0x38BDF8, 3.6);
   fillLight.position.set(3.5, -2.0, 2.0);
   scene.add(fillLight);
 
-  // Base Floor Accent Light
-  const baseLight = new THREE.DirectionalLight(0x503C4B, 1.4);
+  // Base Floor Accent Light (Deep Amethyst / Neon Violet)
+  const baseLight = new THREE.DirectionalLight(0x818CF8, 2.2);
   baseLight.position.set(0, -4.0, -1.0);
   scene.add(baseLight);
 
   // Orbiting Specular Point Light (Dynamic continuous reflection sweep)
-  const orbitLight = new THREE.PointLight(0xFFF1D8, 3.4, 12, 1.6);
+  const orbitLight = new THREE.PointLight(0xFFEAA7, 4.6, 14, 1.5);
   orbitLight.position.set(0, 1.5, 2.6);
   scene.add(orbitLight);
 
@@ -91,15 +91,15 @@
       uTime: { value: 0.0 },
       uLightPos: { value: new THREE.Vector3(-2.2, 3.8, 3.0) },
       uOrbitLightPos: { value: new THREE.Vector3(0, 1.5, 2.6) },
-      uColorBase: { value: new THREE.Color(0x0B080D) },
-      uColorPlum: { value: new THREE.Color(0x2B242C) },
-      uColorGold: { value: new THREE.Color(0xD7B98C) },
-      uColorGoldBright: { value: new THREE.Color(0xFFF4DF) },
-      uColorCobalt: { value: new THREE.Color(0x274C8F) },
-      uColorNavy: { value: new THREE.Color(0x0E1422) },
-      uRoughness: { value: 0.16 },
-      uMetalness: { value: 0.94 },
-      uOpacity: { value: 0.90 }
+      uColorBase: { value: new THREE.Color(0x0A0E1A) },
+      uColorPlum: { value: new THREE.Color(0x1E1B4B) },
+      uColorGold: { value: new THREE.Color(0xF59E0B) },
+      uColorGoldBright: { value: new THREE.Color(0xFFFBEB) },
+      uColorCobalt: { value: new THREE.Color(0x38BDF8) },
+      uColorNavy: { value: new THREE.Color(0x0F172A) },
+      uRoughness: { value: 0.10 },
+      uMetalness: { value: 0.96 },
+      uOpacity: { value: 0.92 }
     },
     vertexShader: `
       uniform float uTime;
@@ -263,15 +263,15 @@
 
   const ribbonGeo = new THREE.TubeGeometry(ribbonCurve, 128, 0.045, 16, true);
   const ribbonMat = new THREE.MeshPhysicalMaterial({
-    color: 0x1B1622,
-    emissive: 0xD7B98C,
-    emissiveIntensity: 0.35,
-    metalness: 0.96,
-    roughness: 0.12,
+    color: 0x1E1B4B,
+    emissive: 0xF59E0B,
+    emissiveIntensity: 0.65,
+    metalness: 0.98,
+    roughness: 0.08,
     clearcoat: 1.0,
-    clearcoatRoughness: 0.05,
+    clearcoatRoughness: 0.03,
     transparent: true,
-    opacity: 0.88
+    opacity: 0.92
   });
   const ribbonMesh = new THREE.Mesh(ribbonGeo, ribbonMat);
   orbRoot.add(ribbonMesh);
@@ -284,27 +284,27 @@
   archiGroup.scale.set(0.72, 0.72, 0.72);
   orbRoot.add(archiGroup);
 
-  const colorGoldWire = 0xD7B98C;
-  const colorGoldDim = 0x8C7452;
+  const colorGoldWire = 0xFCD34D;
+  const colorGoldDim = 0xD97706;
 
   const plateMat = new THREE.LineBasicMaterial({
     color: colorGoldWire,
     transparent: true,
-    opacity: 0.78,
+    opacity: 0.88,
     linewidth: 1
   });
 
   const plateDimMat = new THREE.LineBasicMaterial({
-    color: colorGoldDim,
+    color: 0x38BDF8,
     transparent: true,
-    opacity: 0.48,
+    opacity: 0.65,
     linewidth: 1
   });
 
   const glassFloorMat = new THREE.MeshBasicMaterial({
-    color: 0x1B1624,
+    color: 0x1E293B,
     transparent: true,
-    opacity: 0.28,
+    opacity: 0.35,
     side: THREE.DoubleSide
   });
 
@@ -391,11 +391,11 @@
   archiGroup.add(louversMesh);
 
   // Glowing Nodes at Structural Joints
-  const nodeGeo = new THREE.SphereGeometry(0.022, 8, 8);
+  const nodeGeo = new THREE.SphereGeometry(0.028, 12, 12);
   const nodeMat = new THREE.MeshBasicMaterial({
-    color: 0xFFF2D9,
+    color: 0xFFFFFF,
     transparent: true,
-    opacity: 0.95
+    opacity: 1.0
   });
 
   const nodesGroup = new THREE.Group();
@@ -413,9 +413,9 @@
   // Interior Volumetric Core Glow
   const coreGeo = new THREE.BoxGeometry(0.4, 1.2, 0.4);
   const coreMat = new THREE.MeshBasicMaterial({
-    color: 0xD7B98C,
+    color: 0xF59E0B,
     transparent: true,
-    opacity: 0.09
+    opacity: 0.22
   });
   const coreMesh = new THREE.Mesh(coreGeo, coreMat);
   coreMesh.position.set(0, 0.0, 0);
@@ -424,7 +424,7 @@
   // ---------------------------------------------------------------------------
   // 4. Data Pulse Flow (Real-time BIM telemetry)
   // ---------------------------------------------------------------------------
-  const pulseCount = 18;
+  const pulseCount = 24;
   const pulseGeometry = new THREE.BufferGeometry();
   const pulsePositions = new Float32Array(pulseCount * 3);
   const pulseProgress = [];
@@ -436,7 +436,7 @@
     pulseTracks.push({
       start: new THREE.Vector3(px, -0.6, pz),
       end: new THREE.Vector3(px, 0.7, pz),
-      speed: 0.004 + Math.random() * 0.006
+      speed: 0.005 + Math.random() * 0.008
     });
     pulseProgress.push(Math.random());
   }
@@ -444,10 +444,10 @@
   pulseGeometry.setAttribute('position', new THREE.BufferAttribute(pulsePositions, 3));
 
   const pulseMaterial = new THREE.PointsMaterial({
-    color: 0xFFF8E7,
-    size: 0.065,
+    color: 0x38BDF8,
+    size: 0.085,
     transparent: true,
-    opacity: 0.9,
+    opacity: 0.95,
     blending: THREE.AdditiveBlending
   });
   const pulsePointsMesh = new THREE.Points(pulseGeometry, pulseMaterial);
@@ -469,10 +469,10 @@
   starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
 
   const starMat = new THREE.PointsMaterial({
-    color: 0xD7B98C,
-    size: 0.035,
+    color: 0x38BDF8,
+    size: 0.045,
     transparent: true,
-    opacity: 0.48,
+    opacity: 0.70,
     blending: THREE.AdditiveBlending
   });
   const starPoints = new THREE.Points(starGeo, starMat);

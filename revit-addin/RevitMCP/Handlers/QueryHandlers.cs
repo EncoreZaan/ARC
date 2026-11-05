@@ -66,8 +66,35 @@ public partial class RevitEventHandler
             }
         }
 
-        var matched = col.ToElements()
-            .Where(e =>
+        // Native Level filter if levelName is given (D4 - Zero allocation)
+        if (!string.IsNullOrWhiteSpace(levelName))
+        {
+            var targetLvl = new FilteredElementCollector(doc)
+                .OfClass(typeof(Level))
+                .Cast<Level>()
+                .FirstOrDefault(l => string.Equals(l.Name, levelName, StringComparison.OrdinalIgnoreCase));
+            if (targetLvl != null)
+            {
+                col = col.WherePasses(new ElementLevelFilter(targetLvl.Id));
+            }
+        }
+
+        // Fields projection support for token optimization
+        var fieldsArray = p["fields"] as JArray;
+        HashSet<string>? requestedFields = null;
+        if (fieldsArray != null && fieldsArray.Count > 0)
+        {
+            requestedFields = new HashSet<string>(fieldsArray.Select(f => f.Value<string>() ?? "").Where(s => !string.IsNullOrEmpty(s)), StringComparer.OrdinalIgnoreCase);
+        }
+
+        bool WantField(string fieldName) => requestedFields == null || requestedFields.Contains(fieldName);
+
+        // Lazy evaluation without col.ToElements() to prevent LOH allocation and GC spikes
+        IEnumerable<Element> matched = col;
+
+        if (!string.IsNullOrWhiteSpace(category) || !string.IsNullOrWhiteSpace(familyName))
+        {
+            matched = matched.Where(e =>
             {
                 if (!string.IsNullOrWhiteSpace(category) && e.Category != null)
                 {
@@ -81,70 +108,76 @@ public partial class RevitEventHandler
                         return false;
                 }
 
-                if (!string.IsNullOrWhiteSpace(levelName))
-                {
-                    var lvl = doc.GetElement(e.LevelId) as Level;
-                    var lvlParam = e.get_Parameter(BuiltInParameter.FAMILY_LEVEL_PARAM)
-                                 ?? e.get_Parameter(BuiltInParameter.LEVEL_PARAM)
-                                 ?? e.get_Parameter(BuiltInParameter.INSTANCE_REFERENCE_LEVEL_PARAM);
-                    var elLevelName = lvl?.Name ?? lvlParam?.AsValueString();
-                    if (!string.Equals(elLevelName, levelName, StringComparison.OrdinalIgnoreCase))
-                        return false;
-                }
-
                 return true;
             });
+        }
 
-        var totalCount = matched.Count();
+        var totalCount = col.GetElementCount();
         var paged = matched.Skip(offset).Take(limit);
 
         var elements = paged.Select(e =>
         {
             var item = new JObject
             {
-                ["id"] = e.Id.Value,
-                ["uniqueId"] = e.UniqueId,
-                ["name"] = e.Name,
-                ["category"] = e.Category?.Name,
-                ["typeName"] = doc.GetElement(e.GetTypeId())?.Name,
-                ["typeId"] = e.GetTypeId()?.Value ?? -1L,
+                ["id"] = e.Id.Value
             };
 
-            var lvl = doc.GetElement(e.LevelId) as Level;
-            var lvlParam = e.get_Parameter(BuiltInParameter.FAMILY_LEVEL_PARAM)
-                         ?? e.get_Parameter(BuiltInParameter.LEVEL_PARAM)
-                         ?? e.get_Parameter(BuiltInParameter.INSTANCE_REFERENCE_LEVEL_PARAM);
-            item["levelName"] = lvl?.Name ?? lvlParam?.AsValueString();
+            if (WantField("uniqueId")) item["uniqueId"] = e.UniqueId;
+            if (WantField("name")) item["name"] = e.Name;
+            if (WantField("category")) item["category"] = e.Category?.Name;
+            if (WantField("typeName")) item["typeName"] = doc.GetElement(e.GetTypeId())?.Name;
+            if (WantField("typeId")) item["typeId"] = e.GetTypeId()?.Value ?? -1L;
+
+            if (WantField("levelName"))
+            {
+                var lvl = doc.GetElement(e.LevelId) as Level;
+                var lvlParam = e.get_Parameter(BuiltInParameter.FAMILY_LEVEL_PARAM)
+                             ?? e.get_Parameter(BuiltInParameter.LEVEL_PARAM)
+                             ?? e.get_Parameter(BuiltInParameter.INSTANCE_REFERENCE_LEVEL_PARAM);
+                item["levelName"] = lvl?.Name ?? lvlParam?.AsValueString();
+            }
 
             // Location and BBox (D2)
-            var loc = GeometryHelpers.ExtractLocation(e);
-            if (loc != null) item["location"] = loc;
+            if (WantField("location"))
+            {
+                var loc = GeometryHelpers.ExtractLocation(e);
+                if (loc != null) item["location"] = loc;
+            }
 
-            var bbox = GeometryHelpers.ExtractBbox(e);
-            if (bbox != null) item["bbox"] = bbox;
+            if (WantField("bbox"))
+            {
+                var bbox = GeometryHelpers.ExtractBbox(e);
+                if (bbox != null) item["bbox"] = bbox;
+            }
 
             if (e is FamilyInstance fi)
             {
-                item["family"] = fi.Symbol?.FamilyName;
-                item["hostId"] = fi.Host?.Id.Value;
-                item["facingOrientation"] = new JObject
+                if (WantField("family")) item["family"] = fi.Symbol?.FamilyName;
+                if (WantField("hostId")) item["hostId"] = fi.Host?.Id.Value;
+                if (WantField("facingOrientation"))
                 {
-                    ["x"] = Math.Round(fi.FacingOrientation.X, 4),
-                    ["y"] = Math.Round(fi.FacingOrientation.Y, 4),
-                    ["z"] = Math.Round(fi.FacingOrientation.Z, 4)
-                };
-                item["handOrientation"] = new JObject
+                    item["facingOrientation"] = new JObject
+                    {
+                        ["x"] = Math.Round(fi.FacingOrientation.X, 4),
+                        ["y"] = Math.Round(fi.FacingOrientation.Y, 4),
+                        ["z"] = Math.Round(fi.FacingOrientation.Z, 4)
+                    };
+                }
+                if (WantField("handOrientation"))
                 {
-                    ["x"] = Math.Round(fi.HandOrientation.X, 4),
-                    ["y"] = Math.Round(fi.HandOrientation.Y, 4),
-                    ["z"] = Math.Round(fi.HandOrientation.Z, 4)
-                };
-                item["isFlipped"] = fi.FacingFlipped || fi.HandFlipped;
-                item["facingFlipped"] = fi.FacingFlipped;
-                item["handFlipped"] = fi.HandFlipped;
+                    item["handOrientation"] = new JObject
+                    {
+                        ["x"] = Math.Round(fi.HandOrientation.X, 4),
+                        ["y"] = Math.Round(fi.HandOrientation.Y, 4),
+                        ["z"] = Math.Round(fi.HandOrientation.Z, 4)
+                    };
+                }
+                if (WantField("isFlipped")) item["isFlipped"] = fi.FacingFlipped || fi.HandFlipped;
+                if (WantField("facingFlipped")) item["facingFlipped"] = fi.FacingFlipped;
+                if (WantField("handFlipped")) item["handFlipped"] = fi.HandFlipped;
             }
 
-            if (includeGeom)
+            if (includeGeom && WantField("geometry"))
             {
                 item["geometry"] = GeometryHelpers.ExtractGeometry(e, doc, "bbox");
             }

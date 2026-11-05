@@ -9,47 +9,58 @@
    1. Design Tokens & Color System
    -------------------------------------------------------------------------- */
 :root {
-  /* Core Dark Background Palette */
-  --bg-black: #060508;
-  --bg-deep: #0B080D;
-  --bg-surface: #120F17;
-  --bg-card: rgba(22, 18, 28, 0.58);
-  --bg-card-hover: rgba(32, 26, 40, 0.72);
-  --bg-card-elevated: rgba(38, 30, 48, 0.85);
+  /* Core Deep Cosmic & Architectural Palette (High Vibrancy & Modern Contrast) */
+  --bg-black: #05070E;
+  --bg-deep: #080C18;
+  --bg-surface: #0E1528;
+  --bg-card: rgba(15, 23, 42, 0.68);
+  --bg-card-hover: rgba(23, 37, 72, 0.85);
+  --bg-card-elevated: rgba(30, 48, 96, 0.92);
 
-  /* Smoked Plum & Midnight Atmosphere */
-  --plum-fume: #2B242C;
-  --plum-glow: rgba(43, 36, 44, 0.65);
-  --blue-nuit: #0E1422;
-  --cobalt-discret: #274C8F;
-  --cobalt-glow: rgba(39, 76, 143, 0.45);
+  /* Radiant Cosmic Atmospheres */
+  --plum-fume: #1E1B4B;
+  --plum-glow: rgba(99, 102, 241, 0.45);
+  --blue-nuit: #0A1128;
+  --cobalt-discret: #38BDF8;
+  --cobalt-glow: rgba(56, 189, 248, 0.50);
 
-  /* Metallic Accents: Champagne, Gold, Ivory */
-  --champagne-gold: #D7B98C;
-  --champagne-bright: #F5E5C9;
-  --champagne-glint: #FFF6E9;
-  --champagne-deep: #B59363;
-  --champagne-glow: rgba(215, 185, 140, 0.35);
-  --champagne-glow-soft: rgba(215, 185, 140, 0.12);
+  /* Metallic & Luminous Accents: Sunburst Gold, Amber & Cyber Cyan */
+  --champagne-gold: #F59E0B;
+  --champagne-bright: #FEF3C7;
+  --champagne-glint: #FFFBEB;
+  --champagne-deep: #D97706;
+  --champagne-glow: rgba(245, 158, 11, 0.45);
+  --champagne-glow-soft: rgba(245, 158, 11, 0.18);
 
-  /* Text & Foreground */
+  /* Cyber Accents */
+  --accent-cyan: #38BDF8;
+  --accent-cyan-bright: #BAE6FD;
+  --accent-cyan-glow: rgba(56, 189, 248, 0.40);
+  --accent-cobalt: #3B82F6;
+  --accent-emerald: #10B981;
+  --accent-emerald-glow: rgba(16, 185, 129, 0.40);
+  --accent-violet: #8B5CF6;
+  --accent-violet-glow: rgba(139, 92, 246, 0.40);
+
+  /* Text & Foreground (High Contrast Diamond Clarity) */
   --text-pure: #FFFFFF;
-  --text-pearl: #F6F4EF;
-  --text-body: #D4CED9;
-  --text-muted: #8E8797;
-  --text-subtle: #615B6A;
+  --text-pearl: #F8FAFC;
+  --text-body: #E2E8F0;
+  --text-muted: #94A3B8;
+  --text-subtle: #64748B;
 
-  /* Glassmorphism & Borders */
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-glass: rgba(255, 255, 255, 0.10);
-  --border-champagne: rgba(215, 185, 140, 0.28);
-  --border-champagne-bright: rgba(215, 185, 140, 0.6);
+  /* Glassmorphism & Radiant Borders */
+  --border-subtle: rgba(255, 255, 255, 0.10);
+  --border-glass: rgba(56, 189, 248, 0.20);
+  --border-champagne: rgba(245, 158, 11, 0.45);
+  --border-champagne-bright: rgba(251, 191, 36, 0.75);
+  --border-cyan: rgba(56, 189, 248, 0.55);
 
-  /* Shadow & Glow */
-  --shadow-ambient: 0 30px 80px -20px rgba(0, 0, 0, 0.85);
-  --shadow-card: 0 16px 40px -10px rgba(0, 0, 0, 0.6);
-  --shadow-glow-gold: 0 0 60px -10px rgba(215, 185, 140, 0.25);
-  --shadow-glow-cobalt: 0 0 80px -10px rgba(39, 76, 143, 0.3);
+  /* Shadow & Multi-Layer Glow */
+  --shadow-ambient: 0 30px 80px -20px rgba(0, 0, 0, 0.90);
+  --shadow-card: 0 16px 40px -10px rgba(0, 0, 0, 0.65);
+  --shadow-glow-gold: 0 0 50px -5px rgba(245, 158, 11, 0.35);
+  --shadow-glow-cobalt: 0 0 60px -5px rgba(56, 189, 248, 0.35);
 
   /* Typography */
   --font-display: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -93,7 +104,7 @@ html {
 body {
   min-height: 100vh;
   position: relative;
-  background: radial-gradient(circle at 50% 0%, #17111C 0%, #0B080D 45%, #050406 100%);
+  background: radial-gradient(ellipse at 50% -10%, #151C3A 0%, #0B1124 35%, #070A15 70%, #04050A 100%);
   color: var(--text-body);
   overflow-x: hidden;
   line-height: 1.6;
@@ -172,7 +183,7 @@ img, svg, video {
 }
 
 /* --------------------------------------------------------------------------
-   3. Volumetric Background Gradients & Atmosphere
+   3. Volumetric Background Gradients & Atmosphere (Luminous Cosmic Mesh)
    -------------------------------------------------------------------------- */
 .ambient-bg {
   position: fixed;
@@ -184,36 +195,38 @@ img, svg, video {
 
 .ambient-glow-top {
   position: absolute;
-  top: -20%;
+  top: -25%;
   left: 50%;
   transform: translateX(-50%);
-  width: 1400px;
-  height: 800px;
-  background: radial-gradient(ellipse at center, rgba(43, 36, 44, 0.45) 0%, rgba(14, 20, 34, 0.35) 45%, transparent 70%);
-  filter: blur(100px);
-  opacity: 0.85;
+  width: 1500px;
+  height: 900px;
+  background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.25) 0%, rgba(99, 102, 241, 0.28) 40%, rgba(15, 23, 42, 0.3) 70%, transparent 85%);
+  filter: blur(110px);
+  opacity: 0.95;
+  animation: auroraPulse 12s ease-in-out infinite alternate;
 }
 
 .ambient-glow-hero-gold {
   position: absolute;
-  top: 35vh;
+  top: 32vh;
   left: 50%;
   transform: translateX(-50%);
-  width: 700px;
-  height: 450px;
-  background: radial-gradient(ellipse at center, rgba(215, 185, 140, 0.12) 0%, rgba(39, 76, 143, 0.08) 50%, transparent 75%);
-  filter: blur(80px);
+  width: 850px;
+  height: 520px;
+  background: radial-gradient(ellipse at center, rgba(245, 158, 11, 0.25) 0%, rgba(56, 189, 248, 0.16) 50%, transparent 75%);
+  filter: blur(90px);
   pointer-events: none;
+  animation: auroraShift 10s ease-in-out infinite alternate;
 }
 
 .ambient-glow-blue {
   position: absolute;
-  top: 140vh;
-  right: -10%;
-  width: 900px;
-  height: 900px;
-  background: radial-gradient(circle, rgba(39, 76, 143, 0.15) 0%, transparent 65%);
-  filter: blur(120px);
+  top: 130vh;
+  right: -8%;
+  width: 950px;
+  height: 950px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(99, 102, 241, 0.18) 45%, transparent 70%);
+  filter: blur(125px);
 }
 
 .ambient-glow-bottom {
@@ -221,10 +234,22 @@ img, svg, video {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 1200px;
-  height: 600px;
-  background: radial-gradient(ellipse at center, rgba(43, 36, 44, 0.35) 0%, rgba(215, 185, 140, 0.08) 40%, transparent 70%);
-  filter: blur(100px);
+  width: 1400px;
+  height: 700px;
+  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.28) 0%, rgba(245, 158, 11, 0.15) 45%, transparent 75%);
+  filter: blur(115px);
+}
+
+@keyframes auroraPulse {
+  0% { transform: translateX(-50%) scale(0.96); opacity: 0.8; }
+  50% { transform: translateX(-48%) scale(1.05); opacity: 1.0; }
+  100% { transform: translateX(-52%) scale(0.98); opacity: 0.85; }
+}
+
+@keyframes auroraShift {
+  0% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-49%) translateY(-15px); }
+  100% { transform: translateX(-51%) translateY(10px); }
 }
 
 /* Star / Dust particle canvas backdrop */
@@ -235,7 +260,7 @@ img, svg, video {
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 /* --------------------------------------------------------------------------
@@ -531,67 +556,94 @@ img, svg, video {
   flex-wrap: wrap;
 }
 
-/* Floating Badges (Concept Board replication) */
+/* Floating Badges in Natural Flow (Zero Overlap Guaranteed) */
 .hero-floating-badges {
-  position: absolute;
-  top: 360px;
-  left: 0;
-  right: 0;
   display: flex;
-  justify-content: space-between;
-  pointer-events: none;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.35rem;
+  margin-top: 1.75rem;
+  margin-bottom: 2rem;
+  position: relative;
   z-index: 25;
-  padding: 0 2rem;
+  width: 100%;
+  pointer-events: auto;
+  flex-wrap: wrap;
 }
 
 .badge-card {
+  flex: 1 1 250px;
+  max-width: 295px;
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.85rem 1.35rem;
-  background: rgba(18, 14, 23, 0.65);
-  backdrop-filter: blur(20px) saturate(130%);
-  border: 1px solid var(--border-subtle);
+  padding: 0.95rem 1.35rem;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(56, 189, 248, 0.22);
   border-radius: 16px;
-  box-shadow: var(--shadow-card);
-  max-width: 290px;
+  box-shadow: 0 12px 35px -8px rgba(0, 0, 0, 0.65), 0 0 15px rgba(56, 189, 248, 0.08);
   pointer-events: auto;
-  transition: transform var(--duration-med) var(--ease-cinematic),
-              border-color var(--duration-med) var(--ease-smooth),
-              box-shadow var(--duration-med) var(--ease-smooth);
+  transition: all var(--duration-med) var(--ease-cinematic);
+  animation: floatSlow 6s ease-in-out infinite alternate;
+}
+
+.badge-card:nth-child(1) {
+  animation-delay: 0s;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.badge-card:nth-child(2) {
+  animation-delay: 1.8s;
+  border-color: rgba(59, 130, 246, 0.40);
+}
+
+.badge-card:nth-child(3) {
+  animation-delay: 3.6s;
+  border-color: rgba(56, 189, 248, 0.40);
 }
 
 .badge-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-champagne);
-  box-shadow: var(--shadow-glow-gold);
+  transform: translateY(-6px) scale(1.02);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.3);
+}
+
+@keyframes floatSlow {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+  100% { transform: translateY(0px); }
 }
 
 .badge-icon {
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
   border-radius: 12px;
-  background: rgba(215, 185, 140, 0.08);
-  border: 1px solid rgba(215, 185, 140, 0.18);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--champagne-gold);
+  color: var(--accent-gold);
 }
 
 .badge-icon.revit-icon {
-  background: rgba(39, 76, 143, 0.12);
-  border-color: rgba(39, 76, 143, 0.25);
-  color: #7AA2F7;
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.4);
+  color: #60A5FA;
   font-weight: 700;
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
+}
+
+.badge-content {
+  text-align: left;
 }
 
 .badge-content h4 {
-  font-size: 0.92rem;
-  font-weight: 500;
+  font-size: 0.94rem;
+  font-weight: 600;
   color: var(--text-pearl);
   margin-bottom: 0.2rem;
 }
@@ -599,12 +651,9 @@ img, svg, video {
 .badge-content p {
   font-size: 0.78rem;
   color: var(--text-muted);
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
-/* --------------------------------------------------------------------------
-   6. The Central 3D Sphere & Cinematic Visualizer
-   -------------------------------------------------------------------------- */
 .hero-stage {
   position: relative;
   width: 100%;
