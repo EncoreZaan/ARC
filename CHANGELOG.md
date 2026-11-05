@@ -7,6 +7,10 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 ## [2.9.1] - 2026-11-05
 
 ### 🚀 5 Outils Poids-Plume Haute Performance en Rust Pur, Format Colonnaire & Sync Live BIMcraft
+- **Correction Critique Visibilité du Texte & Résilience Landing Page (v2.9.3) :**
+  - Élimination d'une accolade résiduelle dans `docs/app.js` qui bloquait l'exécution de l'observateur d'animation sur certains navigateurs.
+  - Définition d'une règle de visibilité absolue (`[data-animate] { opacity: 1 !important; }`) dans le CSS critique inliné : le texte et la présentation sont garantis visibles immédiatement à 100% sans jamais dépendre du moteur d'intersection JavaScript.
+  - Bump des cache-busters des actifs à `?v=2.9.3`.
 - **Hub de Téléchargement Dual-Engine & Écouteur GitHub Live Releases (IPedrax/BIMCraft) :**
   - Ajout sur la landing page d'une carte dédiée au téléchargement direct de BIMcraft en 1 clic.
   - Écoute active et en temps réel de l'API GitHub (`IPedrax/BIMCraft/releases/latest`) : actualisation automatique du badge de version (actuellement `v0.10.0`), de la taille des paquets et des liens directs vers les binaires officiels (macOS Universal `.dmg`, Windows `.msi`, Linux `.AppImage`).

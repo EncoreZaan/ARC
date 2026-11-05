@@ -1587,14 +1587,14 @@ img, svg, video {
    16. Motion & Animation Helpers
    -------------------------------------------------------------------------- */
 [data-animate] {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s var(--ease-cinematic), transform 0.8s var(--ease-cinematic);
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s var(--ease-cinematic), transform 0.6s var(--ease-cinematic);
 }
 
 [data-animate].in-view {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* --------------------------------------------------------------------------

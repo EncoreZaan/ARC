@@ -244,6 +244,8 @@
 ## 4. Historique Chronologique des Versions
 
 ### [v2.9.1] - 2026-11-05
+- **Correction Critique Visibilité Landing Page (v2.9.3) :**
+  - Correction de syntaxe dans `docs/app.js` et neutralisation défensive de `opacity: 0` sur `[data-animate]` : affichage instantané et garanti de l'ensemble des textes et présentations, même hors exécution JS.
 - **Hub de Téléchargement Dual-Engine & Écouteur Live GitHub Releases (IPedrax/BIMCraft) :**
   - Intégration sur la landing page d'une carte de téléchargement 1-clic pour BIMcraft connectée en temps réel à l'API GitHub (`IPedrax/BIMCraft/releases/latest`).
   - Téléchargement direct sans redirection des binaires officiels : macOS `.dmg` (Universal Metal M1–M4), Windows `.msi`, Linux `.AppImage`.

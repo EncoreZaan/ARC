@@ -1892,7 +1892,6 @@ curl http://localhost:6543/health`
     document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in-view'));
   }
 
-}
   // ---------------------------------------------------------------------------
   // 7. Live Real-Time GitHub Release Sync for BIMcraft (IPedrax/BIMCraft)
   // Always fetches the latest official releases in real-time with zero lag

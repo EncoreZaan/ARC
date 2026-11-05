@@ -33,7 +33,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Stylesheet (with cache-buster) -->
-  <link rel="stylesheet" href="./styles.css?v=2.9.2">
+  <link rel="stylesheet" href="./styles.css?v=2.9.3">
 
   <!-- Defensive Hero Layout Overrides (Guaranteed Zero Overlap across all browsers & caches) -->
   <style>
@@ -111,6 +111,12 @@
     .hero-stage {
       position: relative !important;
       margin-top: 1rem !important;
+    }
+    /* Bulletproof Text Visibility: Content is ALWAYS visible immediately */
+    [data-animate] {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
     }
   </style>
 
@@ -984,9 +990,9 @@
   </script>
 
   <!-- 3D WebGL Sphere & Central Experience -->
-  <script src="./three-scene.js?v=2.9.2"></script>
+  <script src="./three-scene.js?v=2.9.3"></script>
 
   <!-- UI Interactivity, Tools & Accordion -->
-  <script src="./app.js?v=2.9.2"></script>
+  <script src="./app.js?v=2.9.3"></script>
 </body>
 </html>
