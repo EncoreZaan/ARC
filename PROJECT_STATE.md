@@ -1,5 +1,5 @@
 # 🏛️ ARC (ARCHITECTURE & REVIT COPILOT) — MASTER PROJECT STATE & ARCHITECTURE BIBLE
-> **Statut global du système :** Opérationnel & Ultra-Performant (v2.9.0 — High-Efficiency Dual-Engine, Tokens -91.7%, Zero-Spike RAM, 5µs ReadCache & macOS/Linux Fallback)  
+> **Statut global du système :** Opérationnel & Ultra-Performant (v2.9.1 — 254 Outils, High-Efficiency Dual-Engine, Tokens -91.7%, Zero-Spike RAM, 5µs ReadCache & macOS/Linux Fallback)  
 > **Dernière mise à jour :** 5 Novembre 2026  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/ARC.git](https://github.com/EncoreZaan/ARC.git)  
 > **Site officiel (Landing Page 3D) :** [https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)  
@@ -29,11 +29,11 @@
 | **Fichiers Maquettes Actifs** | `...\06_Revit\REFLET_00_EXISTANT.rvt` & `REFLET_00_EXISTANT.bimcraft`<br>+ Variantes V1, V2, V3 converties et synchronisées |
 | **Gabarit Officiel (.rte)** | `...\DOUBLE-BAY_gabarit.rte` (issu du gabarit architectural FRA RVT 2027) |
 | **Bibliothèque Familles FRA** | `C:\ProgramData\Autodesk\RVT 2027\Libraries\French\` |
-| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v2.8.1 — 254 outils)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
+| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v2.9.1 — 254 outils)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
 
 ---
 
-## 2. Architecture Technique Dual-Engine (v2.8.1)
+## 2. Architecture Technique Dual-Engine (v2.9.1)
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -42,7 +42,7 @@
                                     │ stdio (JSON-RPC)
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│             SERVEUR MCP RUST UNIFIÉ (revit-mcp-server v2.7.0)          │
+│             SERVEUR MCP RUST UNIFIÉ (revit-mcp-server v2.9.1)          │
 │  - Dispatcher haute performance (254 outils répertoriés)               │
 │  - Moteur Géométrique Déporté Multithread (rayon)                       │
 │    • AABB Clash Detection parallélisée en mémoire vive                 │
@@ -55,7 +55,7 @@
                     │ \\.\pipe\revit_mcp_ipc         │ Agent Bridge / CLI Run
                     ▼                                ▼
 ┌──────────────────────────────────────┐  ┌──────────────────────────────┐
-│  ADD-IN C# REVIT 2027 (v2.7.0)       │  │  BIMCRAFT 0.9.0 (RUST NATIVE)│
+│  ADD-IN C# REVIT 2027 (v2.9.1)       │  │  BIMCRAFT 0.9.0 (RUST NATIVE)│
 │  - Serveur Named Pipe asynchrone     │  │  - Port bridge.json (--ctrl) │
 │  - "Git of BIM" Branching Engine     │  │  - Rendu direct SVG/PNG      │
 │  - Compilateur dynamique Roslyn      │  │  - Modélisation scriptable   │
