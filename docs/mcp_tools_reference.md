@@ -1,6 +1,6 @@
-# RÉFÉRENCE COMPLÈTE DES OUTILS MCP — REVIT AI BRIDGE (v2.5.0)
+# RÉFÉRENCE COMPLÈTE DES OUTILS MCP — REVIT AI BRIDGE (v2.6.0)
 
-Ce document fournit la documentation de référence exhaustive de l'ensemble des **220 outils MCP** exposés par le serveur Revit AI Bridge à Claude (Claude Desktop, Claude Code et clients MCP).
+Ce document fournit la documentation de référence exhaustive de l'ensemble des **230 outils MCP** exposés par le serveur Revit AI Bridge à Claude (Claude Desktop, Claude Code et clients MCP).
 
 ---
 
@@ -25,6 +25,7 @@ Ce document fournit la documentation de référence exhaustive de l'ensemble des
 17. [Graphismes, Révisions, Sous-projets & Variantes (13 outils)](#17-graphismes-révisions-sous-projets--variantes)
 18. [Serveur Compagnon CAD-MCP — Outils DXF / DWG (8 outils)](#18-serveur-compagnon-cad-mcp--outils-dxf--dwg)
 19. [Super-Pouvoirs v2.5.0 : Hologrammes 3D, Solveur Rust, Three.js, Speech-to-BIM & ACV RE2020 (10 outils)](#19-super-pouvoirs-v250--hologrammes-3d-solveur-rust-threejs-speech-to-bim--acv-re2020)
+20. [Moteurs de Performance v2.6.0 : Shared Memory, BVH, Ray-Tracing Solaire, Auto-Healing MEP, Swarm & Fast IFC (10 outils)](#20-moteurs-de-performance-v260--shared-memory-bvh-ray-tracing-solaire-auto-healing-mep-swarm--fast-ifc)
 
 ---
 
@@ -1362,3 +1363,95 @@ Cette catégorie introduit les 5 super-pouvoirs majeurs de la version 2.2.0, con
   - `query` (chaîne, optionnelle) : matériau ou mot-clé (ex: *"bois"*, *"plâtre"*, *"isolant"*, *"béton"*).
   - `category` (chaîne, optionnelle) : *"Structure"*, *"Cloisonnement"*, *"Isolation"*, *"Menuiserie"*, *"Finitions"*.
 - **Exemple** : `revit_inies_database_lookup({ query: "ossature bois" })`.
+
+
+---
+
+## 20. Moteurs de Performance v2.6.0 : Shared Memory, BVH, Ray-Tracing Solaire, Auto-Healing MEP, Swarm & Fast IFC
+
+### `revit_read_shared_memory`
+- **Description** : Lecteur haute-performance de mémoire partagée Windows (Memory-Mapped File 64 Mo `Local\RevitMCP_SharedMemory`, latence 0.002 ms). Permet le transfert de géométrie et deltas volumineux en Zero-Copy entre le runtime Revit et l'IA.
+- **Paramètres** : Aucun.
+- **Exemple** : `revit_read_shared_memory({})`.
+
+### `revit_spatial_query_fast`
+- **Description** : Indexation spatiale 3D BVH & R-Tree multithreadée en Rust (`rayon`, requêtes en 5 µs). Recherche d'éléments par rayon sphérique, boîte AABB ou détection globale de clashs internes en mémoire sans latence Revit.
+- **Paramètres** :
+  - `query_type` (chaîne, `"radius"`, `"box"`, ou `"clashes"`).
+  - `center` (tableau `[x, y, z]` en mètres).
+  - `radius` (nombre en mètres).
+  - `elements` (tableau optionnel d'éléments personnalisés avec `min`/`max`).
+- **Exemple** : `revit_spatial_query_fast({ query_type: "radius", center: [0, 0, 0], radius: 10.0 })`.
+
+### `revit_compute_solar_daylight_raytrace`
+- **Description** : Ray-tracing solaire et calcul d'éclairage naturel Monte Carlo parallélisé (jusqu'à 1 million de rayons simulés sous Rayon). Calcule le Facteur de Lumière du Jour (FLJ en %), l'uniformité et vérifie la conformité RE2020 Confort Visuel et crédits BREEAM.
+- **Paramètres** :
+  - `ray_count` (entier, défaut `250000`).
+  - `width` (nombre, largeur en mètres).
+  - `length` (nombre, longueur en mètres).
+  - `window_area` (nombre, surface vitrée en m²).
+  - `orientation_deg` (nombre, orientation façade : 0° Nord, 90° Est, 180° Sud, 270° Ouest).
+- **Exemple** : `revit_compute_solar_daylight_raytrace({ ray_count: 500000, width: 7.0, length: 9.0, window_area: 6.0, orientation_deg: 180 })`.
+
+### `revit_compute_room_acoustics`
+- **Description** : Simulation acoustique prédictive des locaux selon les formules de Sabine & Eyring et la norme française NF S 31-080 / NRA 2000. Calcule le temps de réverbération $RT_{60}$ et l'aire d'absorption équivalente $A_{eq}$.
+- **Paramètres** :
+  - `volume_m3` (nombre, volume brut de la pièce en m³).
+  - `floor_area_m2` (nombre, surface au sol en m²).
+  - `wall_area_m2` (nombre, surface murale en m²).
+  - `room_type` (chaîne : `"bureau_individuel"`, `"open_space"`, `"salle_reunion"`, `"salle_classe"`).
+  - `alpha_ceiling` (nombre, coefficient d'absorption plafond, défaut `0.70`).
+- **Exemple** : `revit_compute_room_acoustics({ volume_m3: 80.0, floor_area_m2: 30.0, wall_area_m2: 55.0, room_type: "open_space" })`.
+
+### `revit_auto_resolve_clash`
+- **Description** : Auto-Healing MEP : Résolution mathématique et reroute automatique des conflits de réseaux (CVC, plomberie, chemins de câbles vs structure). Calcule le dévoiement optimal à 45° pour limiter la perte de charge $\Delta P$ ou dimensionne des trémies coupe-feu EI 120.
+- **Paramètres** :
+  - `clash_id` (chaîne, identifiant).
+  - `primary_element_id` (entier, ID de l'élément à dévoyer).
+  - `secondary_element_id` (entier, ID de l'obstacle).
+  - `element_type` (chaîne, `"Duct"`, `"Pipe"`, `"CableTray"`).
+  - `obstacle_type` (chaîne, `"StructuralBeam"`, `"Wall"`, `"Pipe"`).
+  - `clearance_m` (nombre, marge minimale en mètres, défaut `0.10`).
+  - `executeInRevit` (booléen, défaut `true`).
+- **Exemple** : `revit_auto_resolve_clash({ primary_element_id: 104230, secondary_element_id: 201104, element_type: "Duct", obstacle_type: "StructuralBeam" })`.
+
+### `revit_run_multi_agent_swarm`
+- **Description** : Essaim multi-agents IA d'ingénierie concurrente en Rust (5 agents parallèles : Architecte, Structure Béton, Fluides CVC, Carbone RE2020, Sécurité Incendie/PMR). Fournit une revue exhaustive et un plan d'action d'optimisation unifié.
+- **Paramètres** :
+  - `project_name` (chaîne, nom du projet).
+  - `total_area_m2` (nombre, surface de plancher totale).
+  - `floor_count` (entier, nombre de niveaux).
+- **Exemple** : `revit_run_multi_agent_swarm({ project_name: "Résidence Londonienne", total_area_m2: 180.0, floor_count: 2 })`.
+
+### `revit_generate_complete_floorplan`
+- **Description** : Synthétiseur génératif d'agencement Text-to-BIM par graphe dual topologique. Génère l'empreinte complète d'un logement (T2, T3, T4, T5), les murs porteurs extérieurs, cloisons distributives intérieures, portes et fenêtres prêtes pour création Revit.
+- **Paramètres** :
+  - `program_type` (chaîne : `"T2"`, `"T3"`, `"T4"`, `"T5"`).
+  - `target_area_m2` (nombre, surface habitable cible en m²).
+  - `level_name` (chaîne, niveau d'accueil dans Revit).
+  - `executeInRevit` (booléen, créer directement les éléments dans Revit).
+- **Exemple** : `revit_generate_complete_floorplan({ program_type: "T3", target_area_m2: 75.0, level_name: "Niveau 0" })`.
+
+### `revit_compute_live_cctp_budget`
+- **Description** : Métreur estimatif CCTP en direct avec bordereau de prix unitaires conforme BPU France 2026 (Lots CCTP 01 à 10 : Gros-œuvre, étanchéité, menuiseries, plâtrerie, sols, peinture, CVC, plomberie, électricité). Calcule le déboursé sec, aléas 5%, sous-totaux par corps d'état, TVA et ratio € HT/m² SHAB.
+- **Paramètres** :
+  - `project_name` (chaîne, nom du chantier).
+  - `gross_floor_area_m2` (nombre, surface de plancher).
+  - `wall_area_m2` (nombre optionnel, surface de cloisons).
+  - `concrete_volume_m3` (nombre optionnel, volume de béton).
+  - `tva_rate` (nombre, défaut `0.20`).
+  - `syncWithRevit` (booléen, extraire les métrés depuis Revit).
+- **Exemple** : `revit_compute_live_cctp_budget({ gross_floor_area_m2: 120.0, syncWithRevit: false })`.
+
+### `revit_export_fast_ifc`
+- **Description** : Exportateur IFC 4.3 buildingSMART ultra-rapide natif en Rust. Génère un fichier IFC conforme ISO-10303-21 en quelques millisecondes sans dépendance externe ni blocage de Revit.
+- **Paramètres** :
+  - `output_path` (chaîne, chemin du fichier `.ifc`).
+  - `project_name` (chaîne, nom du projet IFC).
+  - `building_name` (chaîne, nom du bâtiment).
+- **Exemple** : `revit_export_fast_ifc({ output_path: "Projet_Export_IFC4.ifc", project_name: "Appart_Londonien" })`.
+
+### `revit_get_live_stream_status`
+- **Description** : Statut du flux de synchronisation continue en direct (Delta-Sync événementiel `DocumentChangedEventArgs` et stream binaire 60 FPS vers Three.js via Shared Memory Ring Buffer).
+- **Paramètres** : Aucun.
+- **Exemple** : `revit_get_live_stream_status({})`.

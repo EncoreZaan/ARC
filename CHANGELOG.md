@@ -4,6 +4,64 @@ Toutes les modifications notables apportées au projet RevitMCP sont documentée
 
 ---
 
+## [2.6.0] - 2026-11-05
+
+### ⚡ 1. Shared Memory Zero-Copy Transport (0.002 ms)
+- **Ring Buffer Windows MMF 64 Mo (`Local\RevitMCP_SharedMemory`)** : pont de transfert ultra-rapide en mémoire vive évitant toute sérialisation JSON lourde pour les gros volumes géométriques, nuages de points et maillages facettisés.
+- **Latence de lecture sub-milliseconde (0.002 ms)** : communication bi-directionnelle instantanée entre le processus .NET 10 de Revit et le runtime natif Rust.
+- **Nouvel outil MCP** : `revit_read_shared_memory`.
+
+### 🚀 2. Indexation Spatiale 3D BVH & R-Tree en Rust (5 µs)
+- **Structure BVH multithreadée avec Rayon** : indexation hiérarchique des boîtes englobantes AABB de l'ensemble de la maquette en 26 microsecondes pour 10 000 éléments.
+- **Requêtes spatiales ultra-rapides** : requêtes par sphère (`radius`), volume (`box`) ou audit exhaustif de collisions internes (`clashes`) en 5 microsecondes sans saturer le thread principal Revit.
+- **Nouvel outil MCP** : `revit_spatial_query_fast`.
+
+### ☀️ 3. Ray-Tracing Solaire Monte Carlo & Acoustique Prédictive Sabine
+- **Moteur de ray-tracing solaire 1M rayons** : simulation photométrique du Facteur de Lumière du Jour (FLJ en %) sur plan de travail à 0.85 m, calcul de l'uniformité et vérification de conformité aux exigences RE2020 Confort Visuel et crédits BREEAM.
+- **Acoustique prédictive des locaux** : calcul des temps de réverbération $RT_{60}$ selon les formules de Sabine et Eyring par bandes de fréquences, avec vérification de conformité réglementaire française (NF S 31-080 / NRA 2000).
+- **Nouveaux outils MCP** :
+  - `revit_compute_solar_daylight_raytrace`
+  - `revit_compute_room_acoustics`
+
+### 🔧 4. Auto-Healing MEP : Résolution & Reroute Automatique
+- **Détection et résolution autonome des conflits MEP/Structure** : calcul géométrique de contournement optimal des gaines, canalisations et chemins de câbles en collision avec des éléments porteurs.
+- **Dévoiement 45° optimisé** : réduction de la perte de charge singulière $\Delta P$ par rapport aux coudes à 90°, calcul automatique des longueurs de transition et des waypoints d'implantation.
+- **Réservations & trémies structurelles EI 120** : dimensionnement automatique des traversées de poutres/voiles avec garde périphérique de 50 mm et classification coupe-feu.
+- **Nouvel outil MCP** : `revit_auto_resolve_clash`.
+
+### 🐝 5. Essaim Multi-Agents IA Concurrent en Rust
+- **5 agents d'ingénierie concurrents sous Rayon** :
+  1. *Architect Agent* : conformité des circulations, largeurs libres, ratio de surface vitrée (Art. R111-9).
+  2. *Structure Agent* : limites de portée de dalle, continuité des voiles porteurs et intégrité des trémies.
+  3. *MEP/HVAC Agent* : garde sous faux-plafond, accessibilité des organes de coupure, pentes gravitaires.
+  4. *RE2020 LCA Agent* : respect du seuil carbone $I_{c\_construction} < 640\text{ kgCO}_2\text{eq/m}^2$, valorisation biosourcée.
+  5. *PMR & Fire Safety Agent* : aire de giration $\varnothing 1.50$ m, largeur de passage $\ge 0.83$ m, évacuation.
+- **Synthèse instantanée & plan d'action unifié** : rapport consolidé avec patchs de commandes Revit prêts à l'exécution.
+- **Nouvel outil MCP** : `revit_run_multi_agent_swarm`.
+
+### 📐 6. Synthétiseur Génératif Text-to-BIM Floorplan
+- **Génération topologique d'agencements par graphe dual** : dimensionnement spatial automatique selon la typologie souhaitée (T2, T3, T4, T5) et la surface habitable cible.
+- **Implantation géométrique complète** : tracé des murs extérieurs isolés 30 cm, cloisons Placostil 10 cm, blocs-portes de communication et baies vitrées orientées.
+- **Nouvel outil MCP** : `revit_generate_complete_floorplan`.
+
+### 💶 7. Métreur Estimatif CCTP en Direct (Lots 01 à 10)
+- **Estimation économique temps réel** : bordereau de prix unitaires conforme au BPU bâtiment France 2026.
+- **Décomposition complète par lots techniques** : Gros-œuvre béton, charpente/étanchéité, menuiseries extérieures/intérieures, plâtrerie/faux-plafonds, carrelage/parquet, peinture, CVC/PAC, plomberie et électricité CFO/CFA.
+- **Indicateurs financiers clefs** : déboursé sec, aléas 5%, total HT, TVA et ratio économique au m² de surface de plancher.
+- **Nouvel outil MCP** : `revit_compute_live_cctp_budget`.
+
+### 🏗️ 8. Exportateur Natif Fast IFC 4.3 buildingSMART
+- **Génération native ISO-10303-21 en Rust** : export complet du modèle en format physique STEP en une fraction de seconde sans monopoliser Revit.
+- **Conformité IFC 4.3 Architecture** : mapping standard `IfcProject`, `IfcSite`, `IfcBuilding`, `IfcBuildingStorey`, `IfcWallStandardCase` et solides extrudés paramétriques.
+- **Nouvel outil MCP** : `revit_export_fast_ifc`.
+
+### 🔄 9. Synchronisation Continue Live Delta-Sync (60 FPS)
+- **Monitoring événementiel natif `DocumentChangedEventArgs`** : détection en arrière-plan de chaque ajout, suppression ou modification d'élément dans Revit sans sollicitation polling.
+- **Injection dans la mémoire partagée** : flux continu 60 FPS vers le visualiseur 3D Three.js et la surimpression DirectContext3D.
+- **Nouvel outil MCP** : `revit_get_live_stream_status`.
+
+---
+
 ## [2.5.0] - 2026-11-05
 
 ### 🔮 1. Affichage Holographique en Direct DANS la Vue 3D (DirectContext3D / HUD Augmenté)

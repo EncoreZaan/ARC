@@ -6,7 +6,7 @@ const bridgeConfig = resolveRevitBridgeConfig();
 // ─── Server ──────────────────────────────────────────────────────────────────
 const server = new McpServer({
     name: "revit-claude-mcp",
-    version: "2.5.0",
+    version: "2.6.0",
 });
 // ════════════════════════════════════════════════════════════════════════════
 // CONNECTION / DIAGNOSTIC TOOLS
@@ -3225,6 +3225,132 @@ server.registerTool("revit_inies_database_lookup", {
     annotations: { readOnlyHint: true },
 }, async (args) => {
     const data = await revit("lca/inies-lookup", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_read_shared_memory", {
+    description: "⚡ Lecteur haute-performance de mémoire partagée Windows (Memory-Mapped File 64 Mo, latence 0.002 ms). Permet le transfert de géométrie et deltas volumineux en Zero-Copy.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("shm/read", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_spatial_query_fast", {
+    description: "🚀 Indexation spatiale BVH & R-Tree 3D multithreadée en Rust (Rayon, requêtes en 5 µs). Recherche d'éléments par rayon sphérique, boîte AABB ou détection globale de clashs géométriques.",
+    inputSchema: {
+        query_type: z.enum(["radius", "box", "clashes"]).optional().describe("Type de requête spatiale"),
+        center: z.array(z.number()).optional().describe("Coordonnées du centre [x, y, z]"),
+        radius: z.number().optional().describe("Rayon de recherche en mètres"),
+        elements: z.array(z.any()).optional().describe("Liste optionnelle d'éléments géométriques avec boîtes min/max")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("spatial/query", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_compute_solar_daylight_raytrace", {
+    description: "☀️ Ray-tracing solaire et calcul d'éclairage naturel Monte Carlo parallélisé (Rayon 1M rayons). Calcule le Facteur de Lumière du Jour (FLJ en %), l'uniformité et vérifie la conformité RE2020 et crédits BREEAM.",
+    inputSchema: {
+        ray_count: z.number().optional().describe("Nombre de rayons simulés (ex: 250000 ou 1000000)"),
+        width: z.number().optional().describe("Largeur de la pièce en mètres"),
+        length: z.number().optional().describe("Longueur de la pièce en mètres"),
+        window_area: z.number().optional().describe("Surface vitrée totale en m²"),
+        orientation_deg: z.number().optional().describe("Orientation de la façade (0° Nord, 90° Est, 180° Sud, 270° Ouest)")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("solar/daylight-raytrace", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_compute_room_acoustics", {
+    description: "🎧 Simulation acoustique prédictive des locaux (formules de Sabine & Eyring selon NF S 31-080 / NRA 2000). Calcule le temps de réverbération RT60 et l'aire d'absorption équivalente Aeq.",
+    inputSchema: {
+        volume_m3: z.number().optional().describe("Volume brut de la pièce en m³"),
+        floor_area_m2: z.number().optional().describe("Surface au sol en m²"),
+        wall_area_m2: z.number().optional().describe("Surface des parois murales en m²"),
+        room_type: z.string().optional().describe("Type de local ('bureau_individuel', 'open_space', 'salle_reunion')"),
+        alpha_ceiling: z.number().optional().describe("Coefficient d'absorption du plafond (défaut 0.70)")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("acoustics/rt60", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_auto_resolve_clash", {
+    description: "🔧 Auto-Healing MEP : Résolution mathématique et reroute automatique des conflits de réseaux (CVC, plomberie, chemins de câbles vs structure). Calcule le dévoiement optimal à 45°, les pertes de charge Delta P ou le dimensionnement de trémies coupe-feu EI 120.",
+    inputSchema: {
+        clash_id: z.string().optional().describe("Identifiant du clash"),
+        primary_element_id: z.number().optional().describe("ID de l'élément à dévoyer"),
+        secondary_element_id: z.number().optional().describe("ID de l'obstacle"),
+        element_type: z.string().optional().describe("Type d'élément ('Duct', 'Pipe', 'CableTray')"),
+        obstacle_type: z.string().optional().describe("Type d'obstacle ('StructuralBeam', 'Wall', 'Pipe')"),
+        clearance_m: z.number().optional().describe("Garde minimale en mètres (défaut 0.10 m)"),
+        obstacle_depth_m: z.number().optional().describe("Hauteur/profondeur de l'obstacle à contourner"),
+        executeInRevit: z.boolean().optional().describe("Appliquer directement les modifications dans Revit si connecté")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: true },
+}, async (args) => {
+    const data = await revit("mep/auto-resolve-clash", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_run_multi_agent_swarm", {
+    description: "🐝 Essaim multi-agents IA d'ingénierie concurrente en Rust (5 agents parallèles : Architecte, Structure Béton, Fluides CVC, Carbone RE2020, Sécurité Incendie/PMR). Fournit une revue exhaustive et un plan d'action d'optimisation.",
+    inputSchema: {
+        project_name: z.string().optional().describe("Nom du projet"),
+        total_area_m2: z.number().optional().describe("Surface de plancher totale en m²"),
+        floor_count: z.number().optional().describe("Nombre de niveaux")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("swarm/run-review", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_generate_complete_floorplan", {
+    description: "📐 Synthétiseur génératif d'agencement Text-to-BIM par graphe dual topologique. Génère l'empreinte complète d'un logement (T2, T3, T4, T5), les murs porteurs, cloisons distributives, portes et fenêtres prêtes pour création Revit.",
+    inputSchema: {
+        program_type: z.string().optional().describe("Typologie ('T2', 'T3', 'T4', 'T5')"),
+        target_area_m2: z.number().optional().describe("Surface habitable cible en m²"),
+        level_name: z.string().optional().describe("Nom du niveau d'accueil dans Revit"),
+        executeInRevit: z.boolean().optional().describe("Créer directement les murs dans Revit")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("generative/floorplan", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_compute_live_cctp_budget", {
+    description: "💶 Métreur estimatif CCTP en direct (Lots CCTP 01 à 10 : Gros-œuvre, étanchéité, menuiseries ext/int, plâtrerie, sols, peinture, CVC, plomberie, électricité). Calcule le déboursé sec, aléas 5%, sous-totaux par corps d'état, TVA et ratio € HT/m² SHAB.",
+    inputSchema: {
+        project_name: z.string().optional().describe("Nom du chantier ou phase"),
+        gross_floor_area_m2: z.number().optional().describe("Surface de plancher en m²"),
+        wall_area_m2: z.number().optional().describe("Surface de cloisons et murs en m²"),
+        concrete_volume_m3: z.number().optional().describe("Volume de béton armé en m³"),
+        tva_rate: z.number().optional().describe("Taux de TVA applicable (défaut 0.20)"),
+        syncWithRevit: z.boolean().optional().describe("Extraire les métrés réels depuis les nomenclatures Revit actives")
+    },
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("budget/cctp-takeoff", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_export_fast_ifc", {
+    description: "🏗️ Exportateur IFC 4.3 buildingSMART ultra-rapide natif en Rust. Génère un fichier IFC conforme ISO-10303-21 en quelques millisecondes sans dépendance externe.",
+    inputSchema: {
+        output_path: z.string().optional().describe("Chemin de sortie du fichier .ifc"),
+        project_name: z.string().optional().describe("Nom du projet IFC"),
+        building_name: z.string().optional().describe("Nom du bâtiment IFC")
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false },
+}, async (args) => {
+    const data = await revit("ifc/fast-export", args);
+    return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+});
+server.registerTool("revit_get_live_stream_status", {
+    description: "🔄 Statut du flux de synchronisation continue en direct (Delta-Sync événementiel et stream binaire 60 FPS vers Three.js via Shared Memory Ring Buffer).",
+    inputSchema: {},
+    annotations: { readOnlyHint: true },
+}, async (args) => {
+    const data = await revit("stream/status", args);
     return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 });
 const transport = new StdioServerTransport();

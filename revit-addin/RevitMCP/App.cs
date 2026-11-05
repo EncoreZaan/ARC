@@ -61,6 +61,7 @@ public class App : IExternalApplication
             CreateRibbonTabAndPanel(application);
 
             // 3. Initialisation du Copilote Proactif (DocumentChanged)
+            LiveDeltaMonitor.Initialize(application);
             ProactiveGuardian.Initialize(application, alert =>
             {
                 DockablePanel?.AddProactiveAlert(alert);

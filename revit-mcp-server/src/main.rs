@@ -1,5 +1,14 @@
 mod geometry;
 mod solver;
+mod agent_swarm;
+mod auto_healing;
+mod cost_estimator;
+mod floorplan_generator;
+mod ifc_engine;
+mod live_delta_stream;
+mod shared_memory;
+mod solar_raytracer;
+mod spatial_index;
 
 use geometry::{ClashElement, Polygon2D};
 use reqwest::Client;
@@ -289,6 +298,123 @@ async fn handle_tools_call(
 
         let text = serde_json::to_string_pretty(&solution).unwrap_or_default();
         return (json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_read_shared_memory" {
+        let res = match shared_memory::read_shared_memory_payload() {
+            Ok(v) => v,
+            Err(e) => serde_json::json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_spatial_query_fast" {
+        let res = match spatial_index::execute_spatial_query(&post_body) {
+            Ok(v) => v,
+            Err(e) => serde_json::json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_compute_solar_daylight_raytrace" {
+        let res = match solar_raytracer::compute_solar_daylight(&post_body) {
+            Ok(v) => v,
+            Err(e) => serde_json::json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_compute_room_acoustics" {
+        let res = match solar_raytracer::compute_room_acoustics(&post_body) {
+            Ok(v) => v,
+            Err(e) => serde_json::json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_auto_resolve_clash" {
+        let reroute_calc = auto_healing::resolve_mep_clash_offline(&post_body);
+        let execute_in_revit = post_body.get("executeInRevit").and_then(|v| v.as_bool()).unwrap_or(true);
+        if execute_in_revit {
+            if let Ok(revit_res) = dispatch_bridge_request(state, &tool.action, post_body.clone()).await {
+                let mut combined = reroute_calc.unwrap_or_else(|_| serde_json::json!({}));
+                if let Some(obj) = combined.as_object_mut() {
+                    obj.insert("revitAddinExecution".to_string(), revit_res);
+                }
+                let text = serde_json::to_string_pretty(&combined).unwrap_or_default();
+                return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+            }
+        }
+        let res = reroute_calc.unwrap_or_else(|e| serde_json::json!({ "success": false, "error": e }));
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_run_multi_agent_swarm" {
+        let res = match agent_swarm::run_agent_swarm(&post_body) {
+            Ok(v) => v,
+            Err(e) => serde_json::json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_generate_complete_floorplan" {
+        let plan_calc = floorplan_generator::generate_floorplan(&post_body);
+        let execute_in_revit = post_body.get("executeInRevit").and_then(|v| v.as_bool()).unwrap_or(false);
+        if execute_in_revit {
+            if let Ok(revit_res) = dispatch_bridge_request(state, &tool.action, post_body.clone()).await {
+                let mut combined = plan_calc.unwrap_or_else(|_| serde_json::json!({}));
+                if let Some(obj) = combined.as_object_mut() {
+                    obj.insert("revitAddinExecution".to_string(), revit_res);
+                }
+                let text = serde_json::to_string_pretty(&combined).unwrap_or_default();
+                return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+            }
+        }
+        let res = plan_calc.unwrap_or_else(|e| serde_json::json!({ "success": false, "error": e }));
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_compute_live_cctp_budget" {
+        let budget_calc = cost_estimator::compute_cctp_budget(&post_body);
+        let sync_with_revit = post_body.get("syncWithRevit").and_then(|v| v.as_bool()).unwrap_or(false);
+        if sync_with_revit {
+            if let Ok(revit_res) = dispatch_bridge_request(state, &tool.action, post_body.clone()).await {
+                let mut combined = budget_calc.unwrap_or_else(|_| serde_json::json!({}));
+                if let Some(obj) = combined.as_object_mut() {
+                    obj.insert("revitAddinQuantities".to_string(), revit_res);
+                }
+                let text = serde_json::to_string_pretty(&combined).unwrap_or_default();
+                return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+            }
+        }
+        let res = budget_calc.unwrap_or_else(|e| serde_json::json!({ "success": false, "error": e }));
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_export_fast_ifc" {
+        let res = match ifc_engine::export_fast_ifc_buffer(&post_body) {
+            Ok(v) => v,
+            Err(e) => serde_json::json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
+    }
+
+    if tool_name == "revit_get_live_stream_status" {
+        let res = match live_delta_stream::get_live_stream_status(&post_body) {
+            Ok(v) => v,
+            Err(e) => serde_json::json!({ "success": false, "error": e }),
+        };
+        let text = serde_json::to_string_pretty(&res).unwrap_or_default();
+        return (serde_json::json!({ "content": [{ "type": "text", "text": text }] }), false);
     }
 
     // ── HEALTH CHECK ─────────────────────────────────────────────────────────

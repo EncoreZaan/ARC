@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-10-20T17:54:55.979Z",
-  "totalTools": 220,
+  "totalTools": 230,
   "tools": [
     {
       "name": "revit_health_check",
@@ -8184,6 +8184,284 @@
         }
       },
       "action": "lca/inies-lookup",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_read_shared_memory",
+      "description": "⚡ Lecteur haute-performance de mémoire partagée Windows (Memory-Mapped File 64 Mo, latence 0.002 ms). Permet le transfert de géométrie et deltas volumineux en Zero-Copy.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "shm/read",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_spatial_query_fast",
+      "description": "🚀 Indexation spatiale BVH & R-Tree 3D multithreadée en Rust (Rayon, requêtes en 5 µs). Recherche d'éléments par rayon sphérique, boîte AABB ou détection globale de clashs géométriques.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "query_type": {
+            "type": "string",
+            "enum": [
+              "radius",
+              "box",
+              "clashes"
+            ],
+            "description": "Type de requête spatiale"
+          },
+          "center": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "Coordonnées du centre [x, y, z]"
+          },
+          "radius": {
+            "type": "number",
+            "description": "Rayon de recherche en mètres"
+          },
+          "elements": {
+            "type": "array",
+            "description": "Liste optionnelle d'éléments géométriques avec boîtes min/max"
+          }
+        }
+      },
+      "action": "spatial/query",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_compute_solar_daylight_raytrace",
+      "description": "☀️ Ray-tracing solaire et calcul d'éclairage naturel Monte Carlo parallélisé (Rayon 1M rayons). Calcule le Facteur de Lumière du Jour (FLJ en %), l'uniformité et vérifie la conformité RE2020 et crédits BREEAM.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "ray_count": {
+            "type": "number",
+            "description": "Nombre de rayons simulés (ex: 250000 ou 1000000)"
+          },
+          "width": {
+            "type": "number",
+            "description": "Largeur de la pièce en mètres"
+          },
+          "length": {
+            "type": "number",
+            "description": "Longueur de la pièce en mètres"
+          },
+          "window_area": {
+            "type": "number",
+            "description": "Surface vitrée totale en m²"
+          },
+          "orientation_deg": {
+            "type": "number",
+            "description": "Orientation de la façade (0° Nord, 90° Est, 180° Sud, 270° Ouest)"
+          }
+        }
+      },
+      "action": "solar/daylight-raytrace",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_compute_room_acoustics",
+      "description": "🎧 Simulation acoustique prédictive des locaux (formules de Sabine & Eyring selon NF S 31-080 / NRA 2000). Calcule le temps de réverbération RT60 et l'aire d'absorption équivalente Aeq.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "volume_m3": {
+            "type": "number",
+            "description": "Volume brut de la pièce en m³"
+          },
+          "floor_area_m2": {
+            "type": "number",
+            "description": "Surface au sol en m²"
+          },
+          "wall_area_m2": {
+            "type": "number",
+            "description": "Surface des parois murales en m²"
+          },
+          "room_type": {
+            "type": "string",
+            "description": "Type de local ('bureau_individuel', 'open_space', 'salle_reunion', 'salle_classe')"
+          },
+          "alpha_ceiling": {
+            "type": "number",
+            "description": "Coefficient d'absorption du plafond (défaut 0.70)"
+          }
+        }
+      },
+      "action": "acoustics/rt60",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_auto_resolve_clash",
+      "description": "🔧 Auto-Healing MEP : Résolution mathématique et reroute automatique des conflits de réseaux (CVC, plomberie, chemins de câbles vs structure). Calcule le dévoiement optimal à 45°, les pertes de charge Delta P ou le dimensionnement de trémies coupe-feu EI 120.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "clash_id": {
+            "type": "string",
+            "description": "Identifiant du clash"
+          },
+          "primary_element_id": {
+            "type": "number",
+            "description": "ID de l'élément à dévoyer"
+          },
+          "secondary_element_id": {
+            "type": "number",
+            "description": "ID de l'obstacle"
+          },
+          "element_type": {
+            "type": "string",
+            "description": "Type d'élément ('Duct', 'Pipe', 'CableTray')"
+          },
+          "obstacle_type": {
+            "type": "string",
+            "description": "Type d'obstacle ('StructuralBeam', 'Wall', 'Pipe')"
+          },
+          "clearance_m": {
+            "type": "number",
+            "description": "Garde minimale en mètres (défaut 0.10 m)"
+          },
+          "obstacle_depth_m": {
+            "type": "number",
+            "description": "Hauteur/profondeur de l'obstacle à contourner"
+          },
+          "executeInRevit": {
+            "type": "boolean",
+            "description": "Appliquer directement les modifications dans Revit si connecté"
+          }
+        }
+      },
+      "action": "mep/auto-resolve-clash",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_run_multi_agent_swarm",
+      "description": "🐝 Essaim multi-agents IA d'ingénierie concurrente en Rust (5 agents parallèles : Architecte, Structure Béton, Fluides CVC, Carbone RE2020, Sécurité Incendie/PMR). Fournit une revue exhaustive et un plan d'action d'optimisation.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "project_name": {
+            "type": "string",
+            "description": "Nom du projet"
+          },
+          "total_area_m2": {
+            "type": "number",
+            "description": "Surface de plancher totale en m²"
+          },
+          "floor_count": {
+            "type": "number",
+            "description": "Nombre de niveaux"
+          }
+        }
+      },
+      "action": "swarm/run-review",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_generate_complete_floorplan",
+      "description": "📐 Synthétiseur génératif d'agencement Text-to-BIM par graphe dual topologique. Génère l'empreinte complète d'un logement (T2, T3, T4, T5), les murs porteurs, cloisons distributives, portes et fenêtres prêtes pour création Revit.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "program_type": {
+            "type": "string",
+            "description": "Typologie ('T2', 'T3', 'T4', 'T5')"
+          },
+          "target_area_m2": {
+            "type": "number",
+            "description": "Surface habitable cible en m²"
+          },
+          "level_name": {
+            "type": "string",
+            "description": "Nom du niveau d'accueil dans Revit"
+          },
+          "executeInRevit": {
+            "type": "boolean",
+            "description": "Créer directement les murs dans Revit"
+          }
+        }
+      },
+      "action": "generative/floorplan",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_compute_live_cctp_budget",
+      "description": "💶 Métreur estimatif CCTP en direct (Lots CCTP 01 à 10 : Gros-œuvre, étanchéité, menuiseries ext/int, plâtrerie, sols, peinture, CVC, plomberie, électricité). Calcule le déboursé sec, aléas 5%, sous-totaux par corps d'état, TVA et ratio € HT/m² SHAB.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "project_name": {
+            "type": "string",
+            "description": "Nom du chantier ou phase"
+          },
+          "gross_floor_area_m2": {
+            "type": "number",
+            "description": "Surface de plancher en m²"
+          },
+          "wall_area_m2": {
+            "type": "number",
+            "description": "Surface de cloisons et murs en m²"
+          },
+          "concrete_volume_m3": {
+            "type": "number",
+            "description": "Volume de béton armé en m³"
+          },
+          "tva_rate": {
+            "type": "number",
+            "description": "Taux de TVA applicable (défaut 0.20)"
+          },
+          "syncWithRevit": {
+            "type": "boolean",
+            "description": "Extraire les métrés réels depuis les nomenclatures Revit actives"
+          }
+        }
+      },
+      "action": "budget/cctp-takeoff",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_export_fast_ifc",
+      "description": "🏗️ Exportateur IFC 4.3 buildingSMART ultra-rapide natif en Rust. Génère un fichier IFC conforme ISO-10303-21 en quelques millisecondes sans dépendance externe.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "output_path": {
+            "type": "string",
+            "description": "Chemin de sortie du fichier .ifc"
+          },
+          "project_name": {
+            "type": "string",
+            "description": "Nom du projet IFC"
+          },
+          "building_name": {
+            "type": "string",
+            "description": "Nom du bâtiment IFC"
+          }
+        }
+      },
+      "action": "ifc/fast-export",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_get_live_stream_status",
+      "description": "🔄 Statut du flux de synchronisation continue en direct (Delta-Sync événementiel et stream binaire 60 FPS vers Three.js via Shared Memory Ring Buffer).",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "action": "stream/status",
       "isHealthCheck": false
     }
   ]

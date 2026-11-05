@@ -1204,7 +1204,21 @@ public partial class RevitEventHandler : IExternalEventHandler
             // ── Bilan Carbone ACV & RE2020 INIES ──
             "lca/carbon-footprint" => CalculateLcaCarbonFootprint(doc!, payload),
             "lca/low-carbon-alternatives" => SuggestLowCarbonAlternatives(doc!, payload),
-            "lca/inies-lookup" => LookupIniesDatabase(payload),
+                        "lca/inies-lookup" => LookupIniesDatabase(payload),
+
+            // ── Auto-Healing Clash MEP ──
+            "mep/auto-resolve-clash" => AutoResolveClash(doc!, payload),
+            "mep/plan-reroute" => PlanMepReroute(doc!, payload),
+
+            // ── Topologie Générative & Floorplans ──
+            "generate/complete-floorplan" => GenerateCompleteFloorplan(doc!, payload),
+
+            // ── Estimatif Budgétaire CCTP Live ──
+            "budget/cctp-takeoff" => ComputeLiveCctpBudget(doc!, payload),
+
+            // ── Mémoire Partagée & Live Deltas ──
+            "mesh/export-shared-memory" => ExportFastMeshBinary(doc!, payload),
+            "deltas/get-recent" => LiveDeltaMonitor.GetDeltas(payload["sinceSequence"]?.Value<long>() ?? 0),
 
 
 

@@ -1,6 +1,6 @@
 # ⚡ REVIT AI BRIDGE — LE PONT MCP INTELLIGENT POUR AUTODESK REVIT
 
-[![Release](https://img.shields.io/github/v/release/EncoreZaan/Revit-MCP?color=00d2ff&label=Version)](https://github.com/EncoreZaan/Revit-MCP/releases/tag/v2.5.0)
+[![Release](https://img.shields.io/github/v/release/EncoreZaan/Revit-MCP?color=00d2ff&label=Version)](https://github.com/EncoreZaan/Revit-MCP/releases/tag/v2.6.0)
 [![Revit](https://img.shields.io/badge/Autodesk%20Revit-2024%20%7C%202025%20%7C%202026%20%7C%202027-blue.svg)](https://www.autodesk.fr/products/revit/overview)
 [![Rust](https://img.shields.io/badge/Server-Rust%20100%25%20Natif-orange.svg)](https://www.rust-lang.org/)
 [![MCP](https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-green.svg)](https://modelcontextprotocol.io/)
@@ -8,7 +8,7 @@
 
 > **Revit AI Bridge** connecte **Claude (Claude Desktop, Cursor, Claude Code)** directement à **Autodesk Revit** via le protocole ouvert **Model Context Protocol (MCP)**.
 >
-> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **220 outils locaux ultra-rapides**, un **panneau latéral WPF incrusté dans Revit**, des **audits PMR en 1 clic** et une **vision multimodale instantanée** propulsée par un serveur autonome en **Rust**.
+> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **230 outils locaux ultra-rapides**, un **panneau latéral WPF incrusté dans Revit**, des **audits PMR en 1 clic** et une **vision multimodale instantanée** propulsée par un serveur autonome en **Rust**.
 
 ---
 
@@ -18,8 +18,8 @@ Pas besoin de compiler du code ou de configurer des variables d'environnement. T
 
 ### Option A : L'installateur universel (Recommandé) ⚡
 
-1. Téléchargez la dernière version : **[📥 Télécharger RevitMCP-Setup-v2.5.0.exe](https://github.com/EncoreZaan/Revit-MCP/releases/download/v2.2.0/RevitMCP-Setup-v2.5.0.exe)**
-2. Double-cliquez sur **`RevitMCP-Setup-v2.5.0.exe`**.
+1. Téléchargez la dernière version : **[📥 Télécharger RevitMCP-Setup-v2.6.0.exe](https://github.com/EncoreZaan/Revit-MCP/releases/download/v2.6.0/RevitMCP-Setup-v2.6.0.exe)**
+2. Double-cliquez sur **`RevitMCP-Setup-v2.6.0.exe`**.
 3. **C'est tout !** L'installateur :
    - Déploie automatiquement l'add-in Revit pour vos versions installées (2027, 2026, 2025 ou 2024).
    - Configure automatiquement le commutateur silencieux `DisableAddInSecurity=1` (zéro popup d'éditeur non vérifié au démarrage).
@@ -43,7 +43,7 @@ powershell -ExecutionPolicy Bypass -File "scripts/install.ps1"
 
 ---
 
-## ⚡ Nouveautés Majeures v2.5.0 (Named Pipes Zero-Latence, Moteur Rust & Git du BIM)
+## ⚡ Nouveautés Majeures v2.6.0 (Named Pipes Zero-Latence, Moteur Rust & Git du BIM)
 
 ### 🚀 Transport IPC Windows Named Pipes (< 0.5 ms)
 - Communication directe ultra-basse latence via `\\.\pipe\revit_mcp_ipc` contournant intégralement la pile réseau TCP/HTTP.
