@@ -29,7 +29,7 @@
 | **Fichiers Maquettes Actifs** | `...\06_Revit\REFLET_00_EXISTANT.rvt` & `REFLET_00_EXISTANT.bimcraft`<br>+ Variantes V1, V2, V3 converties et synchronisées |
 | **Gabarit Officiel (.rte)** | `...\DOUBLE-BAY_gabarit.rte` (issu du gabarit architectural FRA RVT 2027) |
 | **Bibliothèque Familles FRA** | `C:\ProgramData\Autodesk\RVT 2027\Libraries\French\` |
-| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v2.8.1 — 248 outils)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
+| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v2.8.1 — 254 outils)<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
 
 ---
 
@@ -43,7 +43,7 @@
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │             SERVEUR MCP RUST UNIFIÉ (revit-mcp-server v2.7.0)          │
-│  - Dispatcher haute performance (248 outils répertoriés)               │
+│  - Dispatcher haute performance (254 outils répertoriés)               │
 │  - Moteur Géométrique Déporté Multithread (rayon)                       │
 │    • AABB Clash Detection parallélisée en mémoire vive                 │
 │    • Calculs surfaciques exacts Shoelace (Loi Carrez, PMR)             │
@@ -217,7 +217,7 @@
 - **Pont Agent & Synchronisation Interactive :**
   - Démarrage persistant de l'interface graphique à l'écran via WMI/Win32 (`Invoke-CimMethod -ClassName Win32_Process -MethodName Create`) avec écoute sur port dynamique négocié (`%APPDATA%\BIMCraft\bridge.json`).
   - Connexion automatique pour les agents IA via `bimcraft-cli mcp --connect` pour interagir directement dans le viewport sous les yeux de l'architecte.
-- **6 Nouveaux Outils MCP Dédiés (248 outils au total) :**
+- **6 Nouveaux Outils MCP Dédiés (254 outils au total) :**
   1. `bimcraft_launch` : Lancement détaché du GUI BIMcraft avec activation de l'écoute agent `--control 0`.
   2. `bimcraft_status` : Lecture de l'état du modeleur, version du CLI, statut du processus et configuration de communication active.
   3. `bimcraft_convert` : Conversion native sans Revit entre formats `.rvt`, `.rfa`, `.ifc`, `.bimcraft`, `.svg` et `.png`.
@@ -243,6 +243,12 @@
 
 ## 4. Historique Chronologique des Versions
 
+### [v2.9.1] - 2026-11-05
+- **5 Nouveaux Outils Rust Poids-Plume & Format Colonnaire (254 outils total) :**
+  - `revit_semantic_model_digest`, `revit_audit_regulatory_scorecard`, `revit_clash_matrix_fast`, `revit_smart_diff_history`, `revit_batch_transform_vectorized`.
+  - Moteur colonnaire compact (`compact: true` / `format: "columnar"`) éliminant les répétitions de clés JSON (-70% de tokens).
+  - BVH mémoire continue contiguë (RAM < 8 Mo, 0 Mo VRAM GPU requis, Rayon SIMD).
+
 ### [v2.9.0] - 2026-11-05
 - **Correction Critique Landing Page & Cache-Buster v2.9.1 :**
   - Élimination absolue de tout risque de chevauchement visuel dans le Hero : injection de règles CSS défensives en ligne dans le <head> de docs/index.html (position: static !important, espacements automatiques, lex-wrap).
@@ -251,7 +257,7 @@
 
 - **Optimisation Radicale des Tokens (-91.7% d'Empreinte Initial Context Window) :**
   - **Tool Profiles Dynamiques (`ARC_TOOL_PROFILE`) :** Support de 3 profils (`all`, `compact`, `bimcraft`). En mode `compact`, exposition ciblée de 38 outils polyvalents (passage de 311 Ko à 25 Ko de payload, économisant plus de 73 000 tokens par tour).
-  - **Méta-Outil Universel `revit_dispatch` (249 outils au total) :** Exécution dynamique sans faille de l'intégralité du catalogue ARC via un seul point d'entrée.
+  - **Méta-Outil Universel `revit_dispatch` (254 outils au total) :** Exécution dynamique sans faille de l'intégralité du catalogue ARC via un seul point d'entrée.
   - **Correction Majeure de la Duplication Base64 :** Extraction multimodale native MCP et élimination de la chaîne Base64 du corps JSON textuel (+350 000 tokens économisés par rendu/capture).
   - **Minification JSON & Nettoyage de Schémas :** Suppression des balises `$schema` redondantes et sérialisation dense sans indentation inutile (-35% de tokens sur chaque échange).
   - **Field Projection C# & Rust (`fields: [...]`) :** Filtrage sélectif des attributs d'éléments (ex: `fields: ["id", "name", "category"]`) diminuant la taille des listes d'éléments de 95%.
@@ -265,7 +271,7 @@
   - Minification dense des sorties JSON de `cad-mcp`.
 
 ### [v2.8.1] - 2026-11-05
-- **5 Outils Pratiques & Métier Quotidien d'Architecte (248 outils répertoriés) :**
+- **5 Outils Pratiques & Métier Quotidien d'Architecte (254 outils répertoriés) :**
   - `revit_auto_dimension_plan` (`auto_dimension.rs`) : Cotation automatique 3 lignes orthogonales.
   - `revit_compare_variants_visual` (`variant_diff_visual.rs`) : Comparateur visuel de démolition/création SVG/PDF (Rouge/Vert/Gris).
   - `revit_geometry_doctor` (`geometry_doctor.rs`) : Recalage des murs hors-axe (89.9° vers 90.0°), fusion des micro-écarts (< 25 mm).
@@ -275,7 +281,7 @@
   - Élimination définitive du chevauchement de cartes et texte dans le Hero (cartes flottantes en flux naturel responsive).
   - Palette lumineuse et contrastée (bleu nuit cosmique `#080C18`, or champagne `#F59E0B`, cyber cyan `#38BDF8`).
   - Lisibilité 100% garantie sur les boutons macOS et Linux (texte blanc pur sur verre lumineux).
-  - Intégration de la barre de recherche en temps réel connectée aux 248 outils.
+  - Intégration de la barre de recherche en temps réel connectée aux 254 outils.
   - Scène 3D WebGL Three.js ré-éclairée avec caustiques spéculaires et reflets iridescents.
   - Synchronisation universelle des versions (`v2.8.1`).
 
@@ -291,7 +297,7 @@
 - **Architecture Dual-Engine & Multi-Plateforme (macOS, Linux, Windows) :**
   - **Support macOS Déclaré Priorité N°1** : Portabilité native complète du serveur Rust, du modeleur BIMcraft (Metal/Cocoa) et du microservice CAD.
   - Déploiement du support BIMcraft 0.9.0 aux côtés d'Autodesk Revit 2027.
-  - Ajout des 6 nouveaux outils MCP BIMcraft (catalogue étendu à 248 outils).
+  - Ajout des 6 nouveaux outils MCP BIMcraft (catalogue étendu à 254 outils).
   - Transport IPC Unix Domain Socket (`/tmp/revit_mcp_ipc.sock`) pour environnements Unix (macOS/Linux).
   - Génération algorithmique simultanée pour Revit et BIMcraft dans `revit_generate_complete_floorplan` et `revit_solve_parametric_layout`.
   - Extension du serveur `cad-mcp` (PyMuPDF / ezdxf) pour supporter nativement les géométries BIMcraft.

@@ -22,6 +22,11 @@ mod variant_diff_visual;
 mod geometry_doctor;
 mod casework_layout;
 mod artisan_takeoff;
+mod semantic_digest;
+mod regulatory_scorecard;
+mod clash_matrix;
+mod smart_diff;
+mod batch_transform;
 
 use geometry::{ClashElement, Polygon2D};
 use reqwest::Client;
@@ -121,6 +126,46 @@ fn apply_field_projection(body: &mut Value, fields: &[String]) {
     }
 }
 
+fn convert_to_columnar(val: &mut Value) {
+    if let Value::Object(ref mut map) = val {
+        for key in &["elements", "items", "rooms", "clashes", "data", "results", "checks"] {
+            if let Some(Value::Array(arr)) = map.get(*key) {
+                if !arr.is_empty() && arr.iter().all(|item| item.is_object()) {
+                    let mut cols: Vec<String> = Vec::new();
+                    for item in arr {
+                        if let Value::Object(obj) = item {
+                            for k in obj.keys() {
+                                if !cols.contains(k) {
+                                    cols.push(k.clone());
+                                }
+                            }
+                        }
+                    }
+                    let mut rows: Vec<Vec<Value>> = Vec::new();
+                    for item in arr {
+                        if let Value::Object(obj) = item {
+                            let mut row = Vec::with_capacity(cols.len());
+                            for col in &cols {
+                                row.push(obj.get(col).cloned().unwrap_or(Value::Null));
+                            }
+                            rows.push(row);
+                        }
+                    }
+                    map.insert(
+                        format!("{}_columnar", key),
+                        json!({
+                            "columns": cols,
+                            "rows": rows
+                        }),
+                    );
+                    map.remove(*key);
+                    break;
+                }
+            }
+        }
+    }
+}
+
 fn format_tool_response(res: &Value, post_body: &Value) -> (Value, bool) {
     let is_err = res.get("success").and_then(|v| v.as_bool()).map(|s| !s).unwrap_or(false);
     let mut clean_body = res.clone();
@@ -144,6 +189,13 @@ fn format_tool_response(res: &Value, post_body: &Value) -> (Value, bool) {
     if let Some(fields_arr) = post_body.get("fields").and_then(|v| v.as_array()) {
         let fields: Vec<String> = fields_arr.iter().filter_map(|v| v.as_str().map(|s| s.to_string())).collect();
         apply_field_projection(&mut clean_body, &fields);
+    }
+
+    // 2b. Columnar compact conversion if requested (-70% token savings)
+    let compact_requested = post_body.get("compact").and_then(|v| v.as_bool()).unwrap_or(false)
+        || post_body.get("format").and_then(|v| v.as_str()).map_or(false, |s| s == "columnar" || s == "compact");
+    if compact_requested {
+        convert_to_columnar(&mut clean_body);
     }
 
     // 3. Compact minified JSON output (Zero whitespace/indentation bloat)
@@ -186,6 +238,11 @@ fn is_core_tool(name: &str) -> bool {
             | "revit_calculate_lca_carbon_footprint"
             | "revit_generate_complete_floorplan"
             | "revit_solve_parametric_layout"
+            | "revit_semantic_model_digest"
+            | "revit_audit_regulatory_scorecard"
+            | "revit_clash_matrix_fast"
+            | "revit_smart_diff_history"
+            | "revit_batch_transform_vectorized"
             | "bimcraft_launch"
             | "bimcraft_status"
             | "bimcraft_convert"
@@ -212,6 +269,11 @@ fn is_bimcraft_tool(name: &str) -> bool {
                 | "revit_geometry_doctor"
                 | "revit_generate_complete_floorplan"
                 | "revit_solve_parametric_layout"
+            | "revit_semantic_model_digest"
+            | "revit_audit_regulatory_scorecard"
+            | "revit_clash_matrix_fast"
+            | "revit_smart_diff_history"
+            | "revit_batch_transform_vectorized"
                 | "revit_dispatch"
         )
 }
@@ -861,6 +923,32 @@ async fn handle_tools_call(
 
     if tool_name == "revit_extract_takeoff_artisan_table" {
         let res = artisan_takeoff::generate_artisan_takeoff(&post_body);
+        return format_tool_response(&res, &post_body);
+    }
+
+    // ── 5 ULTRA-LEAN PURE RUST REVOLUTION TOOLS ─────────────────────────────
+    if tool_name == "revit_semantic_model_digest" {
+        let res = semantic_digest::generate_semantic_digest(&post_body);
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "revit_audit_regulatory_scorecard" {
+        let res = regulatory_scorecard::audit_regulatory_scorecard(&post_body);
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "revit_clash_matrix_fast" {
+        let res = clash_matrix::detect_clash_matrix(&post_body);
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "revit_smart_diff_history" {
+        let res = smart_diff::compare_smart_diff(&post_body);
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "revit_batch_transform_vectorized" {
+        let res = batch_transform::execute_batch_transform(&post_body);
         return format_tool_response(&res, &post_body);
     }
 

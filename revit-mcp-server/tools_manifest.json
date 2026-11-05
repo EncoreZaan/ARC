@@ -8980,6 +8980,116 @@
       },
       "action": "takeoff/artisan-table",
       "isHealthCheck": false
+    },
+    {
+      "name": "revit_semantic_model_digest",
+      "description": "Topological & Semantic Architectural Digest. Computes a dense, high-level summary of the floorplan or building (< 350 tokens) including SHAB, SDP, room distribution, cardinal orientation, fenestration ratio (RE2020), PMR clearances, and thermal envelope metrics.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "string",
+            "description": "Target level name (e.g. 'RDC / Level 0')"
+          },
+          "unit": {
+            "type": "string",
+            "description": "Area unit (default: 'm²')"
+          },
+          "includeEnvelope": {
+            "type": "boolean",
+            "description": "Whether to include thermal envelope summary"
+          }
+        }
+      },
+      "action": "model/semantic-digest",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_audit_regulatory_scorecard",
+      "description": "Unified Express Regulatory Compliance Scorecard. Audits PMR (disabled accessibility door widths >= 83cm, turning radius Ø1.50m), French Fire Safety (evacuation distance <= 30m, compartmentation), and RE2020 glazing ratio (>= 1/6th) in under 1 millisecond. Returns compact pass/fail markdown and element checklist.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "string",
+            "description": "Target level or zone"
+          },
+          "standards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Standards to audit: ['PMR', 'SECURITE_INCENDIE', 'RE2020']"
+          }
+        }
+      },
+      "action": "audit/regulatory-scorecard",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_clash_matrix_fast",
+      "description": "Fast Multithreaded Debounced Clash Matrix (Pure Rust + Rayon). Detects true physical interferences between Structure, MEP, and Architecture using continuous memory BVH while automatically filtering out authorized construction contacts (wall-on-floor, door-in-wall, T-junctions). Returns prioritized critical clash points.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "toleranceMm": {
+            "type": "number",
+            "description": "Clash tolerance in millimeters (default: 10.0)"
+          },
+          "severityFilter": {
+            "type": "string",
+            "enum": [
+              "all",
+              "hard_only"
+            ],
+            "description": "Filter by severity level"
+          }
+        }
+      },
+      "action": "clash/matrix-fast",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_smart_diff_history",
+      "description": "64-bit Spatial & Parametric Hashing Micro-Diff Engine. Compares two model versions or Git-of-BIM branches in microseconds using FNV-1a 64-bit hashing. Returns exact deltas (added, modified parameter details, demolished) in a microscopic patch format (< 150 tokens).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "baselineVersion": {
+            "type": "string",
+            "description": "Baseline variant or branch name"
+          },
+          "targetVersion": {
+            "type": "string",
+            "description": "Target variant or branch name"
+          }
+        }
+      },
+      "action": "branch/smart-diff",
+      "isHealthCheck": false
+    },
+    {
+      "name": "revit_batch_transform_vectorized",
+      "description": "Vectorized Batch Element Transformation Engine. Applies bulk parameter changes, type substitutions, or geometric translations across elements matching a filter in a single atomic transaction without IPC roundtrip overhead. Automatically invalidates in-memory read-cache.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "type": "object",
+            "description": "Element filter criteria (e.g. {'category': 'Windows', 'level': 'RDC'})"
+          },
+          "transformation": {
+            "type": "object",
+            "description": "Transformation instruction (setParameter, translate, or replaceType)"
+          }
+        },
+        "required": [
+          "filter",
+          "transformation"
+        ]
+      },
+      "action": "batch/transform-vectorized",
+      "isHealthCheck": false
     }
   ]
 }
