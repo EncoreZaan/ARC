@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARC — Architectural Intelligence Bridge | Official</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="ARC (Architectural Intelligence Bridge) connecte vos assistants IA (Claude, Cursor, ChatGPT) à Autodesk Revit 2024–2027 via le Model Context Protocol (MCP). 230 outils BIM natifs, serveur Rust ultra-rapide et latence sub-milliseconde.">
+  <meta name="keywords" content="Revit, MCP, Model Context Protocol, BIM, Architecture, Intelligence Artificielle, Claude Desktop, Cursor, Rust, C#, Autodesk Revit 2027">
+  <meta name="author" content="@EncoreZaan">
+  <link rel="canonical" href="https://encorezaan.github.io/ARC/">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://encorezaan.github.io/ARC/">
+  <meta property="og:title" content="ARC — Architectural Intelligence Bridge">
+  <meta property="og:description" content="Connectez vos assistants IA à votre environnement BIM Autodesk Revit. 230 outils locaux ultra-rapides propulsés par un serveur 100% Rust.">
+  <meta property="og:image" content="./assets/arc-hero-poster.jpg">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://encorezaan.github.io/ARC/">
+  <meta name="twitter:title" content="ARC — Architectural Intelligence Bridge">
+  <meta name="twitter:description" content="Connectez vos assistants IA à votre environnement BIM Autodesk Revit.">
+  <meta name="twitter:image" content="./assets/arc-hero-poster.jpg">
+
+  <!-- Typography & Fonts -->
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 15 L85 85 L65 85 L50 50 L35 85 L15 85 Z' fill='%23D7B98C'/></svg>">
+</head>
+<body>
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link">Passer directement au contenu principal</a>
+
+  <!-- Volumetric Ambient Lighting Layers (Cinematic Video Universe) -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-glow-top"></div>
+    <div class="ambient-glow-hero-gold"></div>
+    <div class="ambient-glow-blue"></div>
+    <div class="ambient-glow-bottom"></div>
+    <canvas id="stars-canvas"></canvas>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="container nav-container">
+      <!-- Brand Logo -->
+      <a href="./" class="brand" aria-label="ARC — Retour à l'accueil">
+        <span class="brand-symbol">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 12 L88 84 L68 84 L50 48 L32 84 L12 84 Z" fill="url(#brandGrad)" />
+            <defs>
+              <linearGradient id="brandGrad" x1="50" y1="12" x2="50" y2="84" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFF5E5" />
+                <stop offset="0.6" stop-color="#D7B98C" />
+                <stop offset="1" stop-color="#8C7048" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        ARC
+        <span class="brand-meta">Architectural<br>Intelligence Bridge</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav aria-label="Navigation principale">
+        <ul class="nav-menu">
+          <li><a href="#capacites" class="nav-link">Capacités</a></li>
+          <li><a href="#outils" class="nav-link">Outils (230)</a></li>
+          <li><a href="#architecture" class="nav-link">Architecture</a></li>
+          <li><a href="#installation" class="nav-link">Installation</a></li>
+          <li><a href="#documentation" class="nav-link">Documentation</a></li>
+          <li><a href="#faq" class="nav-link">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <div class="nav-version-badge" title="Dernière version officielle en production">
+          <span class="pulse-dot"></span>
+          v2.6.0
+        </div>
+        <a href="#download" class="btn-pill btn-primary">
+          Télécharger
+        </a>
+      </div>
+
+      <!-- Mobile Menu Hamburger -->
+      <button class="mobile-toggle" aria-label="Ouvrir le menu de navigation" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="container hero-content" data-animate>
+        <!-- Eyebrow Pill -->
+        <div class="hero-capsule">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          Architectural Intelligence Bridge
+        </div>
+
+        <!-- Headline -->
+        <h1 class="hero-title">Intelligence, meet Revit.</h1>
+
+        <!-- Subtitle -->
+        <p class="hero-subtitle">
+          Connectez vos assistants IA à votre environnement BIM Autodesk Revit.
+          Pilotez, concevez, auditez et documentez vos maquettes en langage naturel.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-actions">
+          <a href="#capacites" class="btn-pill btn-primary">
+            Découvrir ARC
+            <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#download" class="btn-pill btn-glass">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Télécharger v2.6.0
+          </a>
+          <a href="https://github.com/EncoreZaan/ARC" target="_blank" rel="noopener noreferrer" class="btn-pill btn-glass">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- Floating Badges (Replicating Concept Board Layout) -->
+      <div class="container hero-floating-badges" aria-hidden="true">
+        <!-- Badge 1: MCP Bridge -->
+        <div class="badge-card">
+          <div class="badge-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <div class="badge-content">
+            <h4>MCP Bridge</h4>
+            <p>Un pont standardisé entre l'IA et Autodesk Revit.</p>
+          </div>
+        </div>
+
+        <!-- Badge 2: Revit 2024–2027 -->
+        <div class="badge-card">
+          <div class="badge-icon revit-icon">
+            R
+          </div>
+          <div class="badge-content">
+            <h4>Revit 2024 – 2027</h4>
+            <p>Compatible avec toutes les versions majeures 64-bit.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Centerpiece Stage (Three.js WebGL & Video Reference Fallback) -->
+      <div class="hero-stage" id="hero-stage">
+        <!-- WebGL Canvas for 3D liquid dome & embedded architectural wireframe -->
+        <canvas id="webgl-canvas"></canvas>
+
+        <!-- Video Render Mode (Exact Original Reference Loop) -->
+        <div class="hero-video-fallback" id="hero-video-fallback">
+          <video class="hero-video-element" autoplay loop muted playsinline poster="./assets/arc-hero-poster.jpg">
+            <source src="./assets/arc-hero-reference.webm" type="video/webm">
+            <source src="./assets/arc-hero-reference.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <!-- Atmospheric Rim Glow & Horizon Fade -->
+        <div class="stage-rim-light" aria-hidden="true"></div>
+        <div class="hero-stage-horizon" aria-hidden="true"></div>
+
+        <!-- Mode Controller Capsule -->
+        <div class="stage-controller" role="toolbar" aria-label="Contrôles du rendu visuel">
+          <button class="stage-btn active" id="btn-mode-3d">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            </svg>
+            Scène 3D Interactive
+          </button>
+          <button class="stage-btn" id="btn-mode-video">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Rendu Vidéo Référence
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Capacités (Ce que vous pouvez faire avec ARC) -->
+    <section class="section" id="capacites">
+      <div class="container">
+        <header class="section-header" data-animate>
+          <span class="section-eyebrow">CAPACITÉS</span>
+          <h2 class="section-title">Ce que vous pouvez faire avec ARC</h2>
+          <p class="section-subtitle">
+            Une interface universelle et fluide pour dialoguer avec votre maquette BIM en langage naturel.
+          </p>
+        </header>
+
+        <!-- 4 Glassmorphic Feature Cards (Concept Board Alignment) -->
+        <div class="capacites-grid">
+          <!-- Card 1: Comprendre -->
+          <article class="glass-card" data-animate>
+            <div class="card-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <h3 class="card-title">Comprendre</h3>
+            <p class="card-desc">Analysez votre modèle et ses données BIM en profondeur sans jamais saturer l'interface.</p>
+            <ul class="card-features-list">
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Calculs Loi Carrez & SDP au millimètre</span>
+              </li>
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Audit d'accessibilité PMR instantané en 1 clic</span>
+              </li>
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Orientation solaire & ratios bioclimatiques RE2020</span>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Card 2: Créer -->
+          <article class="glass-card" data-animate>
+            <div class="card-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+            </div>
+            <h3 class="card-title">Créer</h3>
+            <p class="card-desc">Générez des éléments paramétriques, des vues et des nomenclatures complètes.</p>
+            <ul class="card-features-list">
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Murs, planchers, toitures et faux-plafonds</span>
+              </li>
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Placement de familles, portes et fenêtres hébergées</span>
+              </li>
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Synthétiseur Text-to-BIM d'agencements complets</span>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Card 3: Modifier -->
+          <article class="glass-card" data-animate>
+            <div class="card-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+              </svg>
+            </div>
+            <h3 class="card-title">Modifier</h3>
+            <p class="card-desc">Apportez des modifications en langage naturel avec transactions sécurisées.</p>
+            <ul class="card-features-list">
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Modification de paramètres d'instance et de type</span>
+              </li>
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Reroute automatique de gaines et clashs MEP</span>
+              </li>
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Branching "Git du BIM" (variantes architecturales)</span>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Card 4: Documenter -->
+          <article class="glass-card" data-animate>
+            <div class="card-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+            </div>
+            <h3 class="card-title">Documenter</h3>
+            <p class="card-desc">Exportez vos plans, quantitatifs et données techniques conformes aux normes.</p>
+            <ul class="card-features-list">
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Impression vectorielle 1:1 exacte PyMuPDF (A4/A3)</span>
+              </li>
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Exportateur natif rapide IFC 4.3 buildingSMART</span>
+              </li>
+              <li class="card-feature-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Métré estimatif CCTP Lots 01 à 10 en temps réel</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Interactive 230-Tools Explorer -->
+        <div class="tools-explorer" id="outils" data-animate>
+          <div class="tools-explorer-header">
+            <div class="tools-stats">
+              <div class="tools-count-badge" id="active-tool-count">230</div>
+              <div class="tools-count-label">
+                <strong>Outils MCP natifs</strong><br>
+                Répertoriés & Prêts à l'emploi
+              </div>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="tools-filter-pills" role="tablist" aria-label="Filtrer les outils par catégorie">
+              <button class="tool-pill active" data-cat="all">Tous (230)</button>
+              <button class="tool-pill" data-cat="performance">Performance Rust</button>
+              <button class="tool-pill" data-cat="normes">PMR & RE2020</button>
+              <button class="tool-pill" data-cat="branching">Git du BIM</button>
+              <button class="tool-pill" data-cat="modelisation">Modélisation</button>
+              <button class="tool-pill" data-cat="mep">Fluides MEP</button>
+              <button class="tool-pill" data-cat="documentation">Documentation</button>
+              <button class="tool-pill" data-cat="securite">Sécurité</button>
+            </div>
+          </div>
+
+          <!-- Tool Cards Grid -->
+          <div class="tools-grid" id="tools-grid">
+            <!-- Dynamically populated by app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Architecture (Une architecture simple et efficace) -->
+    <section class="section" id="architecture">
+      <div class="container">
+        <header class="section-header" data-animate>
+          <span class="section-eyebrow">FONCTIONNEMENT</span>
+          <h2 class="section-title">Une architecture simple et efficace</h2>
+          <p class="section-subtitle">
+            Trois couches souveraines connectées à vitesse mémoire sans intermédiaire cloud.
+          </p>
+        </header>
+
+        <!-- Pipeline Flow (Tri-layer architecture) -->
+        <div class="architecture-pipeline" data-animate>
+          <!-- Node 1: AI Assistant -->
+          <div class="pipeline-node">
+            <div class="node-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+            </div>
+            <h3 class="node-title">Assistant IA</h3>
+            <div class="node-tech">Claude, Cursor, ChatGPT, Antigravity</div>
+            <p class="node-desc">Interprète les requêtes architecturales en langage naturel et orchestre les outils via stdio JSON-RPC.</p>
+          </div>
+
+          <!-- Connector 1 -->
+          <div class="pipeline-connector" aria-hidden="true">
+            <div class="connector-line">
+              <div class="connector-pulse"></div>
+            </div>
+          </div>
+
+          <!-- Node 2: ARC Rust Server -->
+          <div class="pipeline-node highlight-rust">
+            <div class="node-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+            </div>
+            <h3 class="node-title">ARC MCP Server</h3>
+            <div class="node-tech">Rust 100% Natif (v2.6.0)</div>
+            <p class="node-desc">Dispatcher multithreadé Rayon, indexation spatiale 3D BVH, calculs géométriques et IPC Named Pipes.</p>
+          </div>
+
+          <!-- Connector 2 -->
+          <div class="pipeline-connector" aria-hidden="true">
+            <div class="connector-line">
+              <div class="connector-pulse"></div>
+            </div>
+          </div>
+
+          <!-- Node 3: Revit Add-in -->
+          <div class="pipeline-node">
+            <div class="node-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="3" x2="9" y2="21"></line>
+              </svg>
+            </div>
+            <h3 class="node-title">Revit 2024–2027</h3>
+            <div class="node-tech">Extension Native (C# .NET 10)</div>
+            <p class="node-desc">Serveur Named Pipe non-bloquant, transactions Revit thread-safe, HUD DirectContext3D et panneau WPF incrusté.</p>
+          </div>
+        </div>
+
+        <!-- 4 Architectural Pillars -->
+        <div class="architecture-pillars">
+          <div class="pillar-card" data-animate>
+            <h4>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              Zero-Latency IPC
+            </h4>
+            <p>Windows Named Pipe <code>\\.\pipe\revit_mcp_ipc</code> avec latence sub-milliseconde (0.05 ms) sans conflit de port réseau TCP.</p>
+          </div>
+
+          <div class="pillar-card" data-animate>
+            <h4>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              Moteur Rust Déporté
+            </h4>
+            <p>Décharge complète du thread UI Revit pour la détection de clashs AABB et l'évaluation de 100 000 permutations spatiales en 36 ms.</p>
+          </div>
+
+          <div class="pillar-card" data-animate>
+            <h4>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              Sécurité & Snapshots
+            </h4>
+            <p>Mode lecture seule strict, rollback automatique en cas d'incident et copies de sauvegarde horodatées (.snapshots) avant modélisation.</p>
+          </div>
+
+          <div class="pillar-card" data-animate>
+            <h4>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+              Panneau Ancré DANS Revit
+            </h4>
+            <p>Panneau WPF rétractable incrusté à côté des Propriétés, affichant en temps réel la sélection active et des actions instantanées.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Installation en 3 Étapes -->
+    <section class="section" id="installation">
+      <div class="container">
+        <header class="section-header" data-animate>
+          <span class="section-eyebrow">INSTALLATION</span>
+          <h2 class="section-title">Mise en place en 3 étapes</h2>
+          <p class="section-subtitle">
+            Prêt à l'emploi en moins de 60 secondes sans compilation ni variables manuelles.
+          </p>
+        </header>
+
+        <!-- 3 Installation Steps -->
+        <div class="steps-grid">
+          <!-- Step 1 -->
+          <div class="step-card" data-animate>
+            <div class="step-header">
+              <div class="step-number">1</div>
+              <div class="step-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </div>
+            </div>
+            <h3 class="step-title">Télécharger</h3>
+            <p class="step-desc">Récupérez l'installateur autonome <code>RevitMCP-Setup-v2.6.0.exe</code> (5.2 Mo) depuis les Releases officielles GitHub.</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card" data-animate>
+            <div class="step-header">
+              <div class="step-number">2</div>
+              <div class="step-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="step-title">Installer</h3>
+            <p class="step-desc">Lancez l'installateur d'un simple double-clic. Il déploie l'add-in pour Revit 2024, 2025, 2026 et 2027 sans pop-up de sécurité.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card" data-animate>
+            <div class="step-header">
+              <div class="step-number">3</div>
+              <div class="step-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="step-title">Connecter</h3>
+            <p class="step-desc">Démarrez Revit, ouvrez un projet et lancez Claude Desktop ou Cursor. Discutez instantanément avec votre modèle architectural !</p>
+          </div>
+        </div>
+
+        <!-- Configuration Code Preview Box -->
+        <div class="config-box" data-animate>
+          <div class="config-box-header">
+            <div class="config-tabs">
+              <button class="config-tab active" data-target="claude">Claude Desktop (Auto-configuré)</button>
+              <button class="config-tab" data-target="cursor">Cursor / VS Code MCP</button>
+              <button class="config-tab" data-target="cli">Ligne de commande (Daemon)</button>
+            </div>
+            <button class="copy-btn" id="btn-copy-config" aria-label="Copier la configuration dans le presse-papier">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copier
+            </button>
+          </div>
+          <pre class="config-code-pre"><code id="config-code-content">{
+  "mcpServers": {
+    "revit": {
+      "command": "C:\\Users\\%USERNAME%\\AppData\\Local\\Programs\\RevitMCP\\revit-mcp-server.exe",
+      "args": ["--pipe", "\\\\.\\pipe\\revit_mcp_ipc"]
+    },
+    "cad-mcp": {
+      "command": "python",
+      "args": ["-m", "cad_mcp.server"]
+    }
+  }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Flagship Download Card -->
+    <section class="section" id="download">
+      <div class="container">
+        <div class="download-flagship-card" data-animate>
+          <div class="download-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            Version Officielle Validée • v2.6.0
+          </div>
+          <h2 class="download-title">Prêt à propulser vos projets BIM ?</h2>
+          <p class="download-subtitle">
+            Téléchargez l'installateur autonome ARC pour Windows. Compatible avec Autodesk Revit 2024, 2025, 2026 et 2027.
+          </p>
+
+          <div class="download-action-row">
+            <a href="https://github.com/EncoreZaan/ARC/releases/download/v2.6.0/RevitMCP-Setup-v2.6.0.exe" class="btn-download-hero">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Télécharger ARC v2.6.0 (5.2 Mo)
+            </a>
+            <a href="https://github.com/EncoreZaan/ARC/releases" target="_blank" rel="noopener noreferrer" class="btn-pill btn-glass">
+              Toutes les Releases
+            </a>
+            <a href="https://github.com/EncoreZaan/ARC" target="_blank" rel="noopener noreferrer" class="btn-pill btn-glass">
+              Voir sur GitHub
+            </a>
+          </div>
+
+          <div class="download-meta-tags">
+            <span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              100% Local (Named Pipe IPC)
+            </span>
+            <span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Zero-Crash Garanti
+            </span>
+            <span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Licence MIT Open Source
+            </span>
+            <span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55B57F" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Windows 11 / 10 (x64)
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Documentation & Guides -->
+    <section class="section" id="documentation">
+      <div class="container">
+        <header class="section-header" data-animate>
+          <span class="section-eyebrow">RESSOURCES</span>
+          <h2 class="section-title">Documentation & Références</h2>
+          <p class="section-subtitle">
+            Accédez aux guides techniques complets, schémas d'outils et protocoles de gouvernance.
+          </p>
+        </header>
+
+        <div class="doc-links-grid">
+          <div class="doc-card" data-animate>
+            <div class="doc-card-top">
+              <div class="doc-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              </div>
+              <h4>Catalogue des 230 Outils</h4>
+              <p>Documentation détaillée de chaque outil MCP avec arguments JSON, retours typés et exemples d'appels.</p>
+            </div>
+            <a href="./mcp_tools_reference.md" target="_blank" class="doc-card-link">
+              Consulter la référence
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+
+          <div class="doc-card" data-animate>
+            <div class="doc-card-top">
+              <div class="doc-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              </div>
+              <h4>Configuration Claude Desktop</h4>
+              <p>Guide pas-à-pas pour intégrer le serveur dans Claude Desktop, Cursor et Antigravity avec Named Pipe.</p>
+            </div>
+            <a href="./claude_configuration.md" target="_blank" class="doc-card-link">
+              Lire le manuel
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+
+          <div class="doc-card" data-animate>
+            <div class="doc-card-top">
+              <div class="doc-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              </div>
+              <h4>Dépannage & Diagnostic</h4>
+              <p>Résolution des incidents courants, vérification de connectivité IPC et diagnostic de santé en direct.</p>
+            </div>
+            <a href="./troubleshooting.md" target="_blank" class="doc-card-link">
+              Guide de dépannage
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+
+          <div class="doc-card" data-animate>
+            <div class="doc-card-top">
+              <div class="doc-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              </div>
+              <h4>Audit Sécurité & Open Source</h4>
+              <p>Rapport d'audit de souveraineté des données, analyse de résilience mémoire et conformité des licences.</p>
+            </div>
+            <a href="./open_source_audit_report.md" target="_blank" class="doc-card-link">
+              Consulter le rapport
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: FAQ (Foire Aux Questions) -->
+    <section class="section" id="faq">
+      <div class="container">
+        <header class="section-header" data-animate>
+          <span class="section-eyebrow">FAQ</span>
+          <h2 class="section-title">Foire Aux Questions</h2>
+          <p class="section-subtitle">
+            Tout ce que les architectes, BIM managers et développeurs doivent savoir sur ARC.
+          </p>
+        </header>
+
+        <div class="faq-list">
+          <div class="faq-item" data-animate>
+            <button class="faq-question">
+              <span>Quelles versions d'Autodesk Revit sont supportées ?</span>
+              <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                ARC est certifié pour <strong>Autodesk Revit 2027</strong> (.NET 10), ainsi que <strong>Revit 2026, 2025 et 2024</strong>. L'installateur autonome <code>RevitMCP-Setup-v2.6.0.exe</code> détecte automatiquement toutes les versions installées sur votre machine et configure l'add-in pour chacune d'elles.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-animate>
+            <button class="faq-question">
+              <span>Mes maquettes et données BIM partent-elles sur des serveurs externes ?</span>
+              <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <strong>Non, absolument aucune donnée ne transite par Internet.</strong> Toute la communication entre l'assistant IA (Claude Desktop, Cursor) et Revit s'effectue localement via des <em>Windows Named Pipes</em> (<code>\\.\pipe\revit_mcp_ipc</code>) ou mémoire partagée. La souveraineté de vos projets d'architecture est totale et garantie.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-animate>
+            <button class="faq-question">
+              <span>L'IA risque-t-elle de modifier ou corrompre ma maquette par erreur ?</span>
+              <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                ARC intègre un système de triple protection :<br>
+                1. <strong>Mode Read-Only strict :</strong> Vous pouvez verrouiller le pont en lecture seule lors des phases d'audit ou de métré.<br>
+                2. <strong>Points de restauration automatiques :</strong> Des instantanés horodatés (<code>.snapshots</code>) peuvent être générés avant toute opération structurelle.<br>
+                3. <strong>Gestionnaire de transactions sécurisé :</strong> En cas d'erreur de modélisation, la transaction est instantanément annulée (rollback) sans aucun dommage pour le fichier RVT.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-animate>
+            <button class="faq-question">
+              <span>Le serveur MCP ralentit-il les performances d'Autodesk Revit ?</span>
+              <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Au contraire. Grâce au <strong>moteur géométrique déporté en Rust (Rayon)</strong>, les calculs lourds (détection de clashs AABB sur 50 000 éléments, simulations d'ensoleillement et calculs Loi Carrez) sont exécutés sur des threads CPU séparés en mémoire vive, laissant le thread graphique principal de Revit 100% réactif à 60 FPS.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-animate>
+            <button class="faq-question">
+              <span>Est-il possible d'utiliser ARC avec d'autres assistants que Claude ?</span>
+              <svg class="faq-icon-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Oui. ARC respecte scrupuleusement la spécification ouverte <strong>Model Context Protocol (MCP)</strong> créée par Anthropic. Il est compatible avec <strong>Claude Desktop, Cursor, Claude Code, Antigravity, Continue.dev, ChatGPT Desktop</strong> et tout environnement supportant le protocole MCP via stdio ou SSE.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <a href="./" class="brand">
+            <span class="brand-symbol">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 12 L88 84 L68 84 L50 48 L32 84 L12 84 Z" fill="url(#brandGradFoot)" />
+                <defs>
+                  <linearGradient id="brandGradFoot" x1="50" y1="12" x2="50" y2="84" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FFF5E5" />
+                    <stop offset="0.6" stop-color="#D7B98C" />
+                    <stop offset="1" stop-color="#8C7048" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>
+            ARC
+          </a>
+          <p>
+            Architectural Intelligence Bridge pour Autodesk Revit.
+            Conçu pour les architectes, BIM managers et ingénieurs exigeants.
+          </p>
+        </div>
+
+        <div class="footer-nav-cols">
+          <div class="footer-col">
+            <h5>Navigation</h5>
+            <ul>
+              <li><a href="#capacites">Capacités</a></li>
+              <li><a href="#outils">Catalogue 230 Outils</a></li>
+              <li><a href="#architecture">Architecture</a></li>
+              <li><a href="#installation">Installation</a></li>
+              <li><a href="#faq">FAQ</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Ressources</h5>
+            <ul>
+              <li><a href="./mcp_tools_reference.md">Guide des Outils</a></li>
+              <li><a href="./claude_configuration.md">Configuration Claude</a></li>
+              <li><a href="./troubleshooting.md">Dépannage</a></li>
+              <li><a href="./open_source_audit_report.md">Audit Sécurité</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Communauté</h5>
+            <ul>
+              <li><a href="https://github.com/EncoreZaan/ARC" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a></li>
+              <li><a href="https://github.com/EncoreZaan/ARC/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+              <li><a href="https://github.com/EncoreZaan/ARC/issues" target="_blank" rel="noopener noreferrer">Signaler un bug</a></li>
+              <li><a href="./licenses_and_attribution.md">Licences (MIT)</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 ARC (Architecture & Revit Copilot) — Par <a href="https://github.com/EncoreZaan" target="_blank" rel="noopener noreferrer" style="color: var(--champagne-gold);">@EncoreZaan</a>. Distribué sous licence MIT.
+        </div>
+        <div class="footer-status">
+          <span class="status-dot"></span>
+          <span>Tous les systèmes opérationnels — v2.6.0</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: Three.js (Local with fallback to CDN) -->
+  <script src="./assets/three.min.js"></script>
+  <script>
+    if (typeof THREE === 'undefined') {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
+    }
+  </script>
+
+  <!-- 3D WebGL Sphere & Central Experience -->
+  <script src="./three-scene.js"></script>
+
+  <!-- UI Interactivity, Tools & Accordion -->
+  <script src="./app.js"></script>
+</body>
+</html>

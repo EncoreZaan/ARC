@@ -2,6 +2,7 @@
 > **Statut global du système :** Opérationnel & Ultra-Performant (v2.6.0)  
 > **Dernière mise à jour :** 5 Novembre 2026  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/ARC.git](https://github.com/EncoreZaan/ARC.git)  
+> **Site officiel (Landing Page 3D) :** [https://encorezaan.github.io/Revit-MCP/](https://encorezaan.github.io/Revit-MCP/)  
 > **Auteur & Propriétaire :** @EncoreZaan  
 
 ---
@@ -173,9 +174,28 @@
 - Injection dans le buffer mémoire partagée pour alimentation du visualiseur Three.js 60 FPS et HUD DirectContext3D.
 - Outil MCP : `revit_get_live_stream_status`.
 
+### 🌐 21. Landing Page Officielle ARC & Expérience WebGL Three.js (v2.6.0)
+- Site web vitrine officiel haute performance déployé sous `docs/` et prêt pour GitHub Pages (`https://encorezaan.github.io/Revit-MCP/`).
+- **Direction Artistique Cinématique :** Reproduction fidèle de l'univers visuel de référence (fond noir obsidienne `#0B080D` avec nuances prune fumé `#2B242C`, reflets métalliques champagne doré `#D7B98C`, ivoire et cobalt profond `#274C8F`).
+- **Élément Central 3D Interactif :** Scène WebGL Three.js complète (`docs/three-scene.js`) intégrant une sphère/dôme liquide métallique avec déformation organique en bruit de Simplex 3D, reflets Fresnel champagne/cobalt mouvants, et un pavillon architectural BIM filaire tridimensionnel rétro-éclairé avec flux de particules de données à l'intérieur.
+- **Double Mode Rendu :** Bascule instantanée entre la scène 3D temps réel WebGL et le rendu cinématique vidéo haute définition (`arc-hero-reference.webm` / `arc-hero-reference.mp4`).
+- **Explorateur Interactif des 230 Outils :** Moteur de recherche et filtrage par catégorie (Performance Rust, PMR/RE2020, Git du BIM, Modélisation, Fluides MEP, Documentation, Sécurité) avec affichage des latences sub-millisecondes.
+- **Déploiement Automatisé :** Workflow GitHub Actions `.github/workflows/pages.yml` pour déploiement continu à chaque push sur la branche `main`.
+
+### ⚡ 22. Dispatcher Asynchrone Hybride « Zéro Document » (ExternalEvent & Idling Queue)
+- **Traitement de file sans document actif :** Résolution définitive du blocage et des erreurs 429 lors de l'exécution d'appels API (`revit_open_document`, `revit_new_project`, `revit_get_ui_state`, `revit_list_open_documents`) lorsque Revit est ouvert sur l'écran d'accueil sans aucun document chargé.
+- **Architecture Dual-Queue Thread-Safe :** File d'attente FIFO concurrente (`ConcurrentQueue<Request>`) dépouillée harmonieusement soit par `IExternalEventHandler.Execute`, soit par l'événement `UIApplication.Idling`.
+- **Réveil Instantané Win32 :** Envoi d'un message non-bloquant `WM_NULL` via `PostMessage` vers le `MainWindowHandle` du processus Revit pour forcer le passage immédiat en cycle `Idling` sans attendre d'interaction souris utilisateur.
+- **Résilience d'Ouverture :** Fallback automatique de `OpenAndActivateDocument` vers `Application.OpenDocumentFile` en cas de restriction de contexte d'événement Revit.
+
 ## 4. Historique Chronologique des Versions
 
 ### [v2.6.0] - 2026-11-05
+- **Landing Page Officielle & GitHub Pages :**
+  - Conception et développement de la landing page vitrine officielle dans `docs/` avec redirection racine `index.html`.
+  - Intégration de la scène 3D WebGL Three.js (dôme liquide, pavillon architectural BIM filaire, flux de données).
+  - Déploiement automatique GitHub Actions (`.github/workflows/pages.yml`).
+  - Catalogue interactif des 230 outils MCP avec filtres et recherche instantanée.
 - **Features Majeures (230 outils MCP au total) :**
   - **Shared Memory Zero-Copy Transport :** Buffer annulaire 64 Mo (`Local\RevitMCP_SharedMemory`), latence 0.002 ms.
   - **Spatial Indexing BVH & R-Tree :** Moteur 3D multithreadé sous Rayon en Rust (5 µs par requête spatiale).
@@ -186,6 +206,11 @@
   - **Live CCTP Construction Budget :** Décomposition économique Lots 01 à 10 avec BPU France 2026.
   - **buildingSMART Fast IFC 4.3 :** Générateur ISO-10303-21 natif Rust sub-seconde.
   - **Continuous Live Delta-Sync :** Capture événementielle native et stream 60 FPS.
+- **Stabilité & Mode Zéro Document :**
+  - Traitement garanti de la file de requêtes même sans aucun document ouvert dans Revit (résolution du blocage 429 sur `revit_open_document`, `revit_new_project`, `revit_get_ui_state`, etc.).
+  - Double consommation de la file par `ExternalEvent` et `UIApplication.Idling`.
+  - Signalement instantané de la boucle de messages Revit via `PostMessage(WM_NULL)`.
+  - Bascule de secours automatique `OpenAndActivateDocument` -> `OpenDocumentFile` si requis par le contexte événementiel.
 - **Packaging :**
   - Nouvel installeur universel autonome `dist/RevitMCP-Setup-v2.6.0.exe` (5.2 Mo).
 

@@ -18,7 +18,7 @@ public class RevitHttpServer
 {
     private const string Prefix = "http://localhost:6543/";
     private const string ServiceName = "RevitMCP";
-    private const string ServiceVersion = "2.4.0";
+    private const string ServiceVersion = "2.6.0";
     private static readonly DateTime StartedUtc = DateTime.UtcNow;
     private static readonly Regex SafeActionPattern = new("^[a-z0-9-]+(?:/[a-z0-9-]+)*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
     private static readonly TimeSpan QueueTimeout = TimeSpan.FromSeconds(10);
@@ -31,6 +31,7 @@ public class RevitHttpServer
 
     // The ExternalEvent mechanism lets us marshal calls onto Revit's main thread.
     private readonly RevitEventHandler _eventHandler;
+    public RevitEventHandler EventHandler => _eventHandler;
     private readonly ExternalEvent _externalEvent;
     // RevitEventHandler.RequestGate moved to RevitEventHandler.RequestGate
     private readonly RevitNamedPipeServer _pipeServer;

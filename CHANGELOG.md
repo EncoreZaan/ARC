@@ -6,6 +6,20 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 
 ## [2.6.0] - 2026-11-05
 
+### 🌐 Landing Page Officielle & Déploiement GitHub Pages
+- **Landing Page Cinématique & WebGL Three.js** : Conception et déploiement sous `docs/` d'une interface web haut de gamme respectant fidèlement la direction artistique vidéo (palette noir profond `#0B080D`, prune fumé `#2B242C`, or champagne `#D7B98C` et cobalt nuit `#274C8F`).
+- **Orbe 3D Filaire Architectural Interactif** : Moteur Three.js WebGL (`docs/three-scene.js`) avec déformations de surface en bruit de Simplex 3D, reflets spéculaires champagne dynamiques et pavillon BIM tridimensionnel filaire avec particules de données actives.
+- **Double Mode Vidéo / 3D** : Bascule fluide en 1 clic entre la scène interactive WebGL et le rendu vidéo cinématique de référence (`arc-hero-reference.webm`).
+- **Explorateur Interactif des 230 Outils** : Filtrage par catégorie et recherche instantanée avec affichage des temps de réponse mesurés.
+- **Workflow Déploiement Automatisé** : Ajout du fichier `.github/workflows/pages.yml` pour publication automatique sur GitHub Pages (`https://encorezaan.github.io/Revit-MCP/`).
+- **Redirection Racine** : Ajout de `index.html` à la racine pour compatibilité totale avec les configurations GitHub Pages classiques.
+
+### 🛡️ 8. Traitement de File Résilient en Mode « Zéro Document » (ExternalEvent / Idling)
+- **Élimination du blocage 429 sans projet ouvert** : correction de l'incapacité d'Autodesk Revit à dépouiller les `ExternalEvent` lorsque la session est sur l'écran d'accueil ("Zéro Document").
+- **Double dispatch unifié `ConcurrentQueue<Request>`** : la file d'attente d'instructions est traitée de manière transparente soit par `IExternalEventHandler.Execute(UIApplication)` lorsque disponible, soit directement par le cycle `UIControlledApplication.Idling`.
+- **Réveil de la boucle de messages Win32 (`WM_NULL`)** : déclenchement immédiat de l'inactivité sans latence ni dépendance aux mouvements de souris de l'utilisateur.
+- **Fonctionnement garanti de `revit_open_document` et `revit_new_project`** : ouverture et instanciation de projets fiabilisées avec fallback automatique `app.OpenAndActivateDocument` vers `app.Application.OpenDocumentFile` en environnement restreint.
+
 ### ⚡ 1. Shared Memory Zero-Copy Transport (0.002 ms)
 - **Ring Buffer Windows MMF 64 Mo (`Local\RevitMCP_SharedMemory`)** : pont de transfert ultra-rapide en mémoire vive évitant toute sérialisation JSON lourde pour les gros volumes géométriques, nuages de points et maillages facettisés.
 - **Latence de lecture sub-milliseconde (0.002 ms)** : communication bi-directionnelle instantanée entre le processus .NET 10 de Revit et le runtime natif Rust.

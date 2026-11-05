@@ -1,11 +1,14 @@
 # ⚡ ARC (ARCHITECTURE & REVIT COPILOT) — LE PONT MCP INTELLIGENT POUR AUTODESK REVIT
 
+[![Site Officiel](https://img.shields.io/badge/Site%20Officiel-encorezaan.github.io%2FARC-D7B98C?style=flat&logo=safari&logoColor=white)](https://encorezaan.github.io/ARC/)
 [![Release](https://img.shields.io/github/v/release/EncoreZaan/ARC?color=00d2ff&label=Version)](https://github.com/EncoreZaan/ARC/releases/tag/v2.6.0)
 [![Revit](https://img.shields.io/badge/Autodesk%20Revit-2024%20%7C%202025%20%7C%202026%20%7C%202027-blue.svg)](https://www.autodesk.fr/products/revit/overview)
 [![Rust](https://img.shields.io/badge/Server-Rust%20100%25%20Natif-orange.svg)](https://www.rust-lang.org/)
 [![MCP](https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-green.svg)](https://modelcontextprotocol.io/)
 [![Zero Crash](https://img.shields.io/badge/Architecture-Zéro--Crash%20Garanti-brightgreen.svg)](#-architecture--résilience-zéro-crash)
 
+> 🌐 **Site web officiel & Expérience 3D interactive :** **[https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)**
+>
 > **ARC (Architecture & Revit Copilot)** connecte **Claude (Claude Desktop, Cursor, Claude Code, Antigravity)** directement à **Autodesk Revit** via le protocole ouvert **Model Context Protocol (MCP)**.
 >
 > Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **230 outils locaux ultra-rapides**, un **panneau latéral WPF incrusté dans Revit**, des **audits PMR en 1 clic** et une **vision multimodale instantanée** propulsée par un serveur autonome en **Rust**.

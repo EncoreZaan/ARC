@@ -73,6 +73,7 @@ public class App : IExternalApplication
             // 5. Initialisation du cache des documents et Démarrage du serveur HTTP
             OpenDocumentsCache.Initialize(application);
             _server = new RevitHttpServer(application);
+            application.Idling += _server.EventHandler.OnIdling;
             var serverStarted = _server.Start();
             if (!serverStarted)
             {
@@ -97,6 +98,10 @@ public class App : IExternalApplication
 
     public Result OnShutdown(UIControlledApplication application)
     {
+        if (_server?.EventHandler != null)
+        {
+            try { application.Idling -= _server.EventHandler.OnIdling; } catch { }
+        }
         _server?.Stop();
         return Result.Succeeded;
     }

@@ -133,7 +133,7 @@ public class RevitNamedPipeServer
                     {
                         ["ok"] = true,
                         ["service"] = "RevitMCP",
-                        ["version"] = "2.3.0",
+                        ["version"] = "2.6.0",
                         ["transport"] = "named_pipe",
                         ["openDocuments"] = JArray.FromObject(OpenDocumentsCache.GetList())
                     };

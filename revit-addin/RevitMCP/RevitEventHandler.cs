@@ -135,177 +135,82 @@ public partial class RevitEventHandler : IExternalEventHandler
 
 
     public static readonly SemaphoreSlim RequestGate = new(1, 1);
-    private readonly object _sync = new();
+    private readonly System.Collections.Concurrent.ConcurrentQueue<Request> _queue = new();
+    private readonly object _processLock = new();
 
+    [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
+    private static extern bool PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+    private const uint WM_NULL = 0x0000;
 
-
-    private Request? _pendingRequest;
-
-
-
-
-
-
-
-    public Request SetRequest(string action, JObject payload)
-
-
-
+    public static void WakeUpRevit()
     {
-
-
-
-        var request = new Request(action, payload);
-
-
-
-        lock (_sync)
-
-
-
-            _pendingRequest = request;
-
-
-
-        return request;
-
-
-
+        try
+        {
+            var hwnd = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
+            if (hwnd != IntPtr.Zero)
+            {
+                PostMessage(hwnd, WM_NULL, IntPtr.Zero, IntPtr.Zero);
+            }
+        }
+        catch { }
     }
 
-
-
-
-
-
+    public Request SetRequest(string action, JObject payload)
+    {
+        var request = new Request(action, payload);
+        _queue.Enqueue(request);
+        WakeUpRevit();
+        return request;
+    }
 
     public static bool WaitForResult(Request request, TimeSpan timeout) => request.Done.Wait(timeout);
 
-
-
-
-
-
-
     public static (JObject? result, string? error) GetResult(Request request) => (request.Result, request.Error);
-
-
-
-
-
-
 
     public string GetName() => "RevitMCPHandler";
 
-
-
-
-
-
-
-    public void Execute(UIApplication app)
-
-
-
+    public void OnIdling(object? sender, Autodesk.Revit.UI.Events.IdlingEventArgs e)
     {
+        if (sender is not UIApplication app) return;
 
-
-
-        Request request;
-
-
-
-        lock (_sync)
-
-
-
+        if (!_queue.IsEmpty)
         {
-
-
-
-            request = _pendingRequest
-
-
-
-                      ?? throw new InvalidOperationException("No pending RevitMCP request.");
-
-
-
-            _pendingRequest = null;
-
-
-
+            ProcessQueue(app);
+            if (!_queue.IsEmpty)
+            {
+                e.SetRaiseWithoutDelay();
+            }
         }
-
-
-
-
-
-
-
-        try
-
-
-
-        {
-
-
-
-            OpenDocumentsCache.SyncFromRevit(app);
-
-
-
-            DispatchInternal(app, null, request);
-
-
-
-        }
-
-
-
-        catch (Exception ex)
-
-
-
-        {
-
-
-
-            request.Result = RevitMcpException.FromException(ex);
-
-
-
-            request.Error = ex.Message;
-
-
-
-        }
-
-
-
-        finally
-
-
-
-        {
-
-
-
-            request.Done.Set();
-
-
-
-        }
-
-
-
     }
 
+    public void Execute(UIApplication app)
+    {
+        ProcessQueue(app);
+    }
 
-
-
-
-
+    public void ProcessQueue(UIApplication app)
+    {
+        lock (_processLock)
+        {
+            while (_queue.TryDequeue(out var request))
+            {
+                try
+                {
+                    OpenDocumentsCache.SyncFromRevit(app);
+                    DispatchInternal(app, null, request);
+                }
+                catch (Exception ex)
+                {
+                    request.Result = RevitMcpException.FromException(ex);
+                    request.Error = ex.Message;
+                }
+                finally
+                {
+                    request.Done.Set();
+                }
+            }
+        }
+    }
 
     public void DispatchInternal(UIApplication app, Document? doc, Request request)
 

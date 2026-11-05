@@ -45,15 +45,20 @@ public partial class RevitEventHandler
 
         newDoc.SaveAs(savePath, saveOpts);
 
-        UIDocument uiDoc;
+        UIDocument? uiDoc = null;
         try
         {
             uiDoc = app.OpenAndActivateDocument(savePath);
         }
-        catch
+        catch (Exception ex)
         {
-            newDoc.Close(false);
-            uiDoc = app.OpenAndActivateDocument(savePath);
+            ConfigManager.LogAudit("NEW_PROJECT_ACTIVATE", $"OpenAndActivateDocument: {ex.Message}");
+            try
+            {
+                newDoc.Close(false);
+                uiDoc = app.OpenAndActivateDocument(savePath);
+            }
+            catch { }
         }
 
         OpenDocumentsCache.SyncFromRevit(app);
@@ -61,8 +66,8 @@ public partial class RevitEventHandler
         return new JObject
         {
             ["success"] = true,
-            ["title"] = uiDoc.Document.Title,
-            ["path"] = uiDoc.Document.PathName
+            ["title"] = uiDoc?.Document?.Title ?? newDoc.Title,
+            ["path"] = uiDoc?.Document?.PathName ?? savePath
         };
     }
 
@@ -117,10 +122,20 @@ public partial class RevitEventHandler
 
         var modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
         Document doc;
+        bool wasActivated = activate;
         if (activate)
         {
-            var uiDoc = app.OpenAndActivateDocument(modelPath, openOpts, detach);
-            doc = uiDoc.Document;
+            try
+            {
+                var uiDoc = app.OpenAndActivateDocument(modelPath, openOpts, detach);
+                doc = uiDoc.Document;
+            }
+            catch (Exception ex)
+            {
+                ConfigManager.LogAudit("OPEN_DOC_FALLBACK", $"OpenAndActivateDocument could not activate directly: {ex.Message}. Falling back to OpenDocumentFile.");
+                doc = app.Application.OpenDocumentFile(modelPath, openOpts);
+                wasActivated = false;
+            }
         }
         else
         {
@@ -135,7 +150,7 @@ public partial class RevitEventHandler
             ["title"] = doc.Title,
             ["path"] = doc.PathName,
             ["isWorkshared"] = doc.IsWorkshared,
-            ["isActive"] = activate
+            ["isActive"] = wasActivated
         };
     }
 
