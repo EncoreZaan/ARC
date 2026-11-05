@@ -1,17 +1,16 @@
 /**
- * ARC (Architectural Intelligence Bridge) — 3D Hero Experience
- * WebGL / Three.js Interactive Scene
- * - Liquid Metallic / Glass Dome with 3D Simplex noise deformation
- * - Champagne Gold & Midnight Cobalt Fresnel & Specular caustics
- * - Interior 3D Architectural BIM Wireframe Pavilion with data flow pulses
+ * ARC (Architectural Intelligence Bridge) — 3D Centerpiece
+ * High-Precision WebGL / Three.js Interactive Scene
+ * - Liquid Metallic Obsidian Dome with 3D Simplex noise deformation
+ * - Champagne Gold & Midnight Cobalt Fresnel & Dynamic Specular Caustics
+ * - Interior 3D Architectural BIM Wireframe Pavilion with real-time data pulses
  * - Fluid Molten Ribbon & Ambient Particle Field
- * - Interactive Mouse Parallax, Scroll Elevation & Viewport Intersection Throttling
+ * - Cursor & Gyroscope Parallax, Scroll Elevation & Viewport Throttling
  */
 
 (function () {
   'use strict';
 
-  // Check WebGL availability
   function isWebGLAvailable() {
     try {
       const canvas = document.createElement('canvas');
@@ -23,29 +22,20 @@
 
   const container = document.getElementById('hero-stage');
   const canvas = document.getElementById('webgl-canvas');
-  const videoFallback = document.getElementById('hero-video-fallback');
-  const toggle3DBtn = document.getElementById('btn-mode-3d');
-  const toggleVideoBtn = document.getElementById('btn-mode-video');
 
-  if (!container || !canvas) return;
-
-  if (!isWebGLAvailable() || typeof THREE === 'undefined') {
-    if (videoFallback) videoFallback.classList.add('active');
-    if (canvas) canvas.style.display = 'none';
-    return;
-  }
+  if (!container || !canvas || !isWebGLAvailable() || typeof THREE === 'undefined') return;
 
   // ---------------------------------------------------------------------------
   // Scene, Camera, Renderer Setup
   // ---------------------------------------------------------------------------
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x0B080D, 0.09);
+  scene.fog = new THREE.FogExp2(0x0B080D, 0.08);
 
   let width = container.clientWidth || window.innerWidth;
   let height = container.clientHeight || 640;
 
   const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
-  camera.position.set(0, 0.2, 5.6);
+  camera.position.set(0, 0.25, 5.5);
 
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
@@ -56,61 +46,60 @@
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.25;
+  renderer.toneMappingExposure = 1.28;
 
   // ---------------------------------------------------------------------------
-  // Lighting Setup (Prune, Champagne & Cobalt)
+  // Lighting Setup (Smoked Plum, Champagne Gold & Midnight Cobalt)
   // ---------------------------------------------------------------------------
-  const ambientLight = new THREE.AmbientLight(0x2B242C, 0.85);
+  const ambientLight = new THREE.AmbientLight(0x2B242C, 0.9);
   scene.add(ambientLight);
 
   // Key Rim Light (Champagne Gold)
-  const keyLight = new THREE.DirectionalLight(0xF5E5C9, 2.8);
-  keyLight.position.set(-2.5, 4.0, 3.0);
+  const keyLight = new THREE.DirectionalLight(0xF5E5C9, 3.2);
+  keyLight.position.set(-2.5, 4.2, 3.0);
   scene.add(keyLight);
 
   // Fill Light (Midnight Cobalt)
-  const fillLight = new THREE.DirectionalLight(0x274C8F, 2.2);
+  const fillLight = new THREE.DirectionalLight(0x274C8F, 2.4);
   fillLight.position.set(3.5, -2.0, 2.0);
   scene.add(fillLight);
 
-  // Soft Base Accent Light
-  const baseLight = new THREE.DirectionalLight(0x503C4B, 1.2);
+  // Base Floor Accent Light
+  const baseLight = new THREE.DirectionalLight(0x503C4B, 1.4);
   baseLight.position.set(0, -4.0, -1.0);
   scene.add(baseLight);
 
-  // Orbiting Specular Point Light (Simulating moving highlight from video)
-  const orbitLight = new THREE.PointLight(0xFFF1D8, 3.0, 10, 1.5);
-  orbitLight.position.set(0, 1.5, 2.5);
+  // Orbiting Specular Point Light (Dynamic continuous reflection sweep)
+  const orbitLight = new THREE.PointLight(0xFFF1D8, 3.4, 12, 1.6);
+  orbitLight.position.set(0, 1.5, 2.6);
   scene.add(orbitLight);
 
   // ---------------------------------------------------------------------------
-  // Root 3D Object Group (For Entrance Animation & Mouse Tilt)
+  // Root 3D Object Group (For Entrance Animation & Parallax Tilt)
   // ---------------------------------------------------------------------------
   const orbRoot = new THREE.Group();
   orbRoot.position.set(0, -0.65, 0); // Emerge from bottom of hero
   scene.add(orbRoot);
 
   // ---------------------------------------------------------------------------
-  // 1. The Liquid Metallic / Glass Dome (Outer Shell)
+  // 1. The Liquid Metallic Obsidian Dome (Outer Shell)
   // ---------------------------------------------------------------------------
   const domeGeometry = new THREE.SphereGeometry(1.68, 96, 96, 0, Math.PI * 2, 0, Math.PI * 0.76);
 
-  // Custom GLSL Shader for Organic Fluid Deformation & Caustics
   const liquidShader = {
     uniforms: {
       uTime: { value: 0.0 },
-      uLightPos: { value: new THREE.Vector3(-2.0, 3.5, 3.0) },
-      uOrbitLightPos: { value: new THREE.Vector3(0, 1.5, 2.5) },
+      uLightPos: { value: new THREE.Vector3(-2.2, 3.8, 3.0) },
+      uOrbitLightPos: { value: new THREE.Vector3(0, 1.5, 2.6) },
       uColorBase: { value: new THREE.Color(0x0B080D) },
       uColorPlum: { value: new THREE.Color(0x2B242C) },
       uColorGold: { value: new THREE.Color(0xD7B98C) },
-      uColorGoldBright: { value: new THREE.Color(0xFFF3DD) },
+      uColorGoldBright: { value: new THREE.Color(0xFFF4DF) },
       uColorCobalt: { value: new THREE.Color(0x274C8F) },
       uColorNavy: { value: new THREE.Color(0x0E1422) },
-      uRoughness: { value: 0.18 },
-      uMetalness: { value: 0.92 },
-      uOpacity: { value: 0.88 }
+      uRoughness: { value: 0.16 },
+      uMetalness: { value: 0.94 },
+      uOpacity: { value: 0.90 }
     },
     vertexShader: `
       uniform float uTime;
@@ -120,7 +109,6 @@
       varying vec2 vUv;
       varying float vDisp;
 
-      // 3D Simplex Noise generator
       vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
       vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
       vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -173,14 +161,12 @@
         vUv = uv;
         vec3 pos = position;
 
-        // Slow organic undulating liquid deformation
-        float slowTime = uTime * 0.45;
+        float slowTime = uTime * 0.40;
         float n1 = snoise(pos * 0.85 + vec3(slowTime * 0.35, slowTime * 0.25, 0.0));
         float n2 = snoise(pos * 1.6 - vec3(0.0, slowTime * 0.5, slowTime * 0.3));
         float disp = (n1 * 0.065 + n2 * 0.025);
         vDisp = disp;
 
-        // Apply displacement along normal
         pos += normal * disp;
 
         vec4 worldPos = modelMatrix * vec4(pos, 1.0);
@@ -189,7 +175,6 @@
         vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
         vViewPosition = -mvPosition.xyz;
 
-        // Recompute smooth perturbed normal
         vNormal = normalize(normalMatrix * (normal + vec3(n1 * 0.15, n2 * 0.15, 0.0)));
         gl_Position = projectionMatrix * mvPosition;
       }
@@ -217,50 +202,36 @@
         vec3 N = normalize(vNormal);
         vec3 V = normalize(vViewPosition);
 
-        // Direction to main light
         vec3 L1 = normalize(uLightPos - vWorldPosition);
         vec3 L_orbit = normalize(uOrbitLightPos - vWorldPosition);
 
-        // Halfway vectors for specular
         vec3 H1 = normalize(L1 + V);
         vec3 H_orbit = normalize(L_orbit + V);
 
-        // Fresnel term (strong at glancing angles)
         float NdotV = max(dot(N, V), 0.0);
         float fresnel = pow(1.0 - NdotV, 2.8);
         float rimTop = pow(1.0 - NdotV, 2.2) * max(N.y * 0.6 + 0.4, 0.0);
         float rimBottom = pow(1.0 - NdotV, 3.2) * max(-N.y * 0.7 + 0.3, 0.0);
 
-        // Specular highlights
         float NdotH1 = max(dot(N, H1), 0.0);
-        float spec1 = pow(NdotH1, 38.0);
+        float spec1 = pow(NdotH1, 40.0);
 
         float NdotH_orbit = max(dot(N, H_orbit), 0.0);
-        float spec_orbit = pow(NdotH_orbit, 64.0);
+        float spec_orbit = pow(NdotH_orbit, 68.0);
 
-        // Fluid specular ribbon caustics (matching moving reflections from video)
-        float causticSweep = smoothstep(0.82, 0.98, dot(N, L_orbit)) * 0.9;
+        float causticSweep = smoothstep(0.82, 0.98, dot(N, L_orbit)) * 0.95;
         float ribbonWave = sin(vWorldPosition.x * 2.5 + vWorldPosition.y * 3.0 + uTime * 1.2);
-        float ribbonGlint = smoothstep(0.65, 0.98, ribbonWave * fresnel) * 0.6;
+        float ribbonGlint = smoothstep(0.65, 0.98, ribbonWave * fresnel) * 0.65;
 
-        // Base shading: Deep smoky plum obsidian
         vec3 baseColor = mix(uColorBase, uColorPlum, max(dot(N, L1) * 0.4, 0.0) + vDisp * 0.5);
-
-        // Cobalt / midnight blue interior reflection
         vec3 cobaltReflection = mix(uColorNavy, uColorCobalt, rimBottom + max(dot(N, vec3(0.8, -0.4, 0.2)), 0.0) * 0.7);
-
-        // Champagne Gold specular & rim reflection
         vec3 goldReflection = mix(uColorGold, uColorGoldBright, spec1 + spec_orbit * 0.8 + causticSweep);
 
-        // Composite Color
         vec3 finalColor = baseColor;
         finalColor += cobaltReflection * (rimBottom * 1.8 + 0.15);
-        finalColor += goldReflection * (rimTop * 2.2 + spec1 * 1.5 + spec_orbit * 2.4 + ribbonGlint * 1.2);
-
-        // Subsurface warm amber ambient inside
+        finalColor += goldReflection * (rimTop * 2.4 + spec1 * 1.6 + spec_orbit * 2.6 + ribbonGlint * 1.3);
         finalColor += uColorGold * 0.08 * (1.0 - NdotV);
 
-        // Edge fade at dome bottom
         float bottomFade = smoothstep(0.0, 0.25, vUv.y);
 
         gl_FragColor = vec4(finalColor, uOpacity * bottomFade);
@@ -276,7 +247,7 @@
   orbRoot.add(liquidDome);
 
   // ---------------------------------------------------------------------------
-  // 2. The Liquid Metallic Orbital Ribbon (Echoing Video Fluid Ring)
+  // 2. The Liquid Metallic Orbital Ribbon
   // ---------------------------------------------------------------------------
   const ribbonCurve = new THREE.CatmullRomCurve3([
     new THREE.Vector3(-1.9, 0.2, 0.3),
@@ -295,41 +266,38 @@
     color: 0x1B1622,
     emissive: 0xD7B98C,
     emissiveIntensity: 0.35,
-    metalness: 0.95,
+    metalness: 0.96,
     roughness: 0.12,
     clearcoat: 1.0,
     clearcoatRoughness: 0.05,
     transparent: true,
-    opacity: 0.85
+    opacity: 0.88
   });
   const ribbonMesh = new THREE.Mesh(ribbonGeo, ribbonMat);
   orbRoot.add(ribbonMesh);
 
   // ---------------------------------------------------------------------------
-  // 3. Embedded Architectural BIM Wireframe Pavilion (Inside the Dome)
+  // 3. Embedded Architectural BIM Wireframe Pavilion
   // ---------------------------------------------------------------------------
   const archiGroup = new THREE.Group();
   archiGroup.position.set(0, -0.15, 0);
   archiGroup.scale.set(0.72, 0.72, 0.72);
   orbRoot.add(archiGroup);
 
-  // Colors for Architectural Pavilion
   const colorGoldWire = 0xD7B98C;
   const colorGoldDim = 0x8C7452;
-  const colorCobaltWire = 0x3E6DB8;
 
-  // Floor Plates (Chamfered Rectangles)
   const plateMat = new THREE.LineBasicMaterial({
     color: colorGoldWire,
     transparent: true,
-    opacity: 0.75,
+    opacity: 0.78,
     linewidth: 1
   });
 
   const plateDimMat = new THREE.LineBasicMaterial({
     color: colorGoldDim,
     transparent: true,
-    opacity: 0.45,
+    opacity: 0.48,
     linewidth: 1
   });
 
@@ -340,24 +308,21 @@
     side: THREE.DoubleSide
   });
 
-  function createFloorPlate(y, w, d, inset = 0) {
+  function createFloorPlate(y, w, d) {
     const group = new THREE.Group();
 
-    // Solid faint glass plane
     const planeGeo = new THREE.PlaneGeometry(w, d);
     const plane = new THREE.Mesh(planeGeo, glassFloorMat);
     plane.rotation.x = Math.PI / 2;
     plane.position.y = y;
     group.add(plane);
 
-    // Outer wireframe edge
     const boxGeo = new THREE.BoxGeometry(w, 0.03, d);
     const edges = new THREE.EdgesGeometry(boxGeo);
     const line = new THREE.LineSegments(edges, plateMat);
     line.position.y = y;
     group.add(line);
 
-    // Floor beam grid (BIM structure)
     const gridCols = 4;
     const gridRows = 3;
     const gridGeo = new THREE.BufferGeometry();
@@ -383,14 +348,14 @@
 
   // 3 Architectural Levels
   archiGroup.add(createFloorPlate(-0.6, 2.2, 1.8));   // Ground Level
-  archiGroup.add(createFloorPlate(0.05, 1.9, 1.5));   // Level 1 (Mezzanine)
+  archiGroup.add(createFloorPlate(0.05, 1.9, 1.5));   // Level 1
   archiGroup.add(createFloorPlate(0.7, 1.5, 1.2));    // Level 2 (Roof Terrace)
 
-  // Structural Column Grid (Vertical Beams)
+  // Structural Column Grid
   const columnMat = new THREE.LineBasicMaterial({
     color: colorGoldWire,
     transparent: true,
-    opacity: 0.65
+    opacity: 0.68
   });
 
   const columnCoords = [
@@ -403,7 +368,6 @@
   const columnPoints = [];
 
   columnCoords.forEach(([cx, cz]) => {
-    // Ground to roof or mezzanine
     const topY = (Math.abs(cx) > 0.8 || Math.abs(cz) > 0.6) ? 0.05 : 0.7;
     columnPoints.push(new THREE.Vector3(cx, -0.6, cz));
     columnPoints.push(new THREE.Vector3(cx, topY, cz));
@@ -413,7 +377,7 @@
   const columnMesh = new THREE.LineSegments(columnLinesGeo, columnMat);
   archiGroup.add(columnMesh);
 
-  // Roof Pergola Louvers / Solar Fins (RE2020 Architecture)
+  // Roof Pergola Louvers (RE2020 Architectural Shading)
   const louverGeo = new THREE.BufferGeometry();
   const louverPoints = [];
   const louverCount = 9;
@@ -431,7 +395,7 @@
   const nodeMat = new THREE.MeshBasicMaterial({
     color: 0xFFF2D9,
     transparent: true,
-    opacity: 0.9
+    opacity: 0.95
   });
 
   const nodesGroup = new THREE.Group();
@@ -451,14 +415,14 @@
   const coreMat = new THREE.MeshBasicMaterial({
     color: 0xD7B98C,
     transparent: true,
-    opacity: 0.08
+    opacity: 0.09
   });
   const coreMesh = new THREE.Mesh(coreGeo, coreMat);
   coreMesh.position.set(0, 0.0, 0);
   archiGroup.add(coreMesh);
 
   // ---------------------------------------------------------------------------
-  // 4. Data Pulse Flow (Metaphor for AI / BIM Live Data Transfer)
+  // 4. Data Pulse Flow (Real-time BIM telemetry)
   // ---------------------------------------------------------------------------
   const pulseCount = 18;
   const pulseGeometry = new THREE.BufferGeometry();
@@ -466,7 +430,6 @@
   const pulseProgress = [];
   const pulseTracks = [];
 
-  // Define pathways along columns & beams
   for (let p = 0; p < pulseCount; p++) {
     const colIdx = p % columnCoords.length;
     const [px, pz] = columnCoords[colIdx];
@@ -484,28 +447,23 @@
     color: 0xFFF8E7,
     size: 0.065,
     transparent: true,
-    opacity: 0.85,
+    opacity: 0.9,
     blending: THREE.AdditiveBlending
   });
   const pulsePointsMesh = new THREE.Points(pulseGeometry, pulseMaterial);
   archiGroup.add(pulsePointsMesh);
 
   // ---------------------------------------------------------------------------
-  // 5. Ambient 3D Particle Star Field (Dust & Depth)
+  // 5. Ambient 3D Particle Field
   // ---------------------------------------------------------------------------
   const starCount = 280;
   const starGeo = new THREE.BufferGeometry();
   const starPositions = new Float32Array(starCount * 3);
-  const starOriginalY = new Float32Array(starCount);
 
   for (let s = 0; s < starCount; s++) {
-    const sx = (Math.random() - 0.5) * 12;
-    const sy = (Math.random() - 0.5) * 8;
-    const sz = (Math.random() - 0.5) * 8 - 1;
-    starPositions[s * 3] = sx;
-    starPositions[s * 3 + 1] = sy;
-    starPositions[s * 3 + 2] = sz;
-    starOriginalY[s] = sy;
+    starPositions[s * 3] = (Math.random() - 0.5) * 12;
+    starPositions[s * 3 + 1] = (Math.random() - 0.5) * 8;
+    starPositions[s * 3 + 2] = (Math.random() - 0.5) * 8 - 1;
   }
 
   starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
@@ -514,14 +472,14 @@
     color: 0xD7B98C,
     size: 0.035,
     transparent: true,
-    opacity: 0.45,
+    opacity: 0.48,
     blending: THREE.AdditiveBlending
   });
   const starPoints = new THREE.Points(starGeo, starMat);
   scene.add(starPoints);
 
   // ---------------------------------------------------------------------------
-  // 6. Smooth Mouse Parallax & Scroll Elevation
+  // 6. Smooth Parallax & Elevation
   // ---------------------------------------------------------------------------
   let mouseX = 0;
   let mouseY = 0;
@@ -545,14 +503,12 @@
   window.addEventListener('mousemove', onPointerMove, { passive: true });
   window.addEventListener('touchmove', onPointerMove, { passive: true });
 
-  // Scroll Tracking for Orb Elevation
   function onScroll() {
     const scrollY = window.scrollY || window.pageYOffset;
     scrollProgress = Math.min(scrollY / window.innerHeight, 1.5);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // Window Resize
   function onResize() {
     if (!container) return;
     width = container.clientWidth || window.innerWidth;
@@ -563,7 +519,6 @@
   }
   window.addEventListener('resize', onResize);
 
-  // Intersection Observer to pause rendering when hero is out of view (100% GPU efficiency)
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -574,30 +529,7 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 7. Mode Switcher (Interactive 3D WebGL vs Cinematic Video Loop)
-  // ---------------------------------------------------------------------------
-  if (toggle3DBtn && toggleVideoBtn && videoFallback) {
-    toggle3DBtn.addEventListener('click', () => {
-      toggle3DBtn.classList.add('active');
-      toggleVideoBtn.classList.remove('active');
-      canvas.style.display = 'block';
-      videoFallback.classList.remove('active');
-    });
-
-    toggleVideoBtn.addEventListener('click', () => {
-      toggleVideoBtn.classList.add('active');
-      toggle3DBtn.classList.remove('active');
-      canvas.style.display = 'none';
-      videoFallback.classList.add('active');
-      const vid = videoFallback.querySelector('video');
-      if (vid && vid.paused) {
-        vid.play().catch(() => {});
-      }
-    });
-  }
-
-  // ---------------------------------------------------------------------------
-  // 8. Animation Loop
+  // 7. Animation Loop
   // ---------------------------------------------------------------------------
   const clock = new THREE.Clock();
   let entranceTime = 0;
@@ -610,38 +542,31 @@
     const delta = clock.getDelta();
     const elapsedTime = clock.getElapsedTime();
 
-    // Smooth Entrance (Dome rises gracefully during first 2 seconds)
     if (entranceTime < 2.0) {
       entranceTime += delta;
       const t = Math.min(entranceTime / 2.0, 1.0);
-      const ease = 1 - Math.pow(1 - t, 3); // Cubic ease out
+      const ease = 1 - Math.pow(1 - t, 3);
       orbRoot.position.y = -1.6 + 0.95 * ease;
-      liquidMaterial.uniforms.uOpacity.value = 0.88 * ease;
+      liquidMaterial.uniforms.uOpacity.value = 0.90 * ease;
     }
 
-    // Scroll Elevation & Scale
     const scrollLift = scrollProgress * 0.45;
     const scrollRot = scrollProgress * 0.35;
     orbRoot.position.y = (-0.65 + scrollLift);
 
-    // Mouse Lerp Damping
     currentRotationX += (targetRotationX - currentRotationX) * 0.045;
     currentRotationY += (targetRotationY - currentRotationY) * 0.045;
 
     orbRoot.rotation.x = currentRotationX + scrollRot * 0.2;
     orbRoot.rotation.y = currentRotationY + elapsedTime * 0.08;
 
-    // Architectural Pavilion Subtle Internal Orbit
     archiGroup.rotation.y = -elapsedTime * 0.04;
 
-    // Metallic Ribbon Breathing & Motion
     ribbonMesh.rotation.y = elapsedTime * 0.12;
     ribbonMesh.rotation.z = Math.sin(elapsedTime * 0.4) * 0.1;
 
-    // Update Shader Uniforms
     liquidMaterial.uniforms.uTime.value = elapsedTime;
 
-    // Orbit Specular Point Light (Dynamic highlight sweep across liquid dome)
     const orbitAngle = elapsedTime * 0.65;
     const orbitRadius = 2.4;
     orbitLight.position.x = Math.cos(orbitAngle) * orbitRadius;
@@ -649,7 +574,6 @@
     orbitLight.position.y = 1.0 + Math.sin(elapsedTime * 0.8) * 0.5;
     liquidMaterial.uniforms.uOrbitLightPos.value.copy(orbitLight.position);
 
-    // Animate Data Pulses along Structural Columns
     const posAttr = pulseGeometry.attributes.position;
     for (let p = 0; p < pulseCount; p++) {
       const track = pulseTracks[p];
@@ -665,7 +589,6 @@
     }
     posAttr.needsUpdate = true;
 
-    // Drifting Star Field
     const starPos = starGeo.attributes.position;
     for (let s = 0; s < starCount; s++) {
       let curY = starPos.getY(s) - 0.003;
@@ -674,7 +597,6 @@
     }
     starPos.needsUpdate = true;
 
-    // Render
     renderer.render(scene, camera);
   }
 
