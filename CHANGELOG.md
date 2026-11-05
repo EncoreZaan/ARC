@@ -7,6 +7,11 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 ## [2.9.0] - 2026-11-05
 
 ### ⚡ Révolution Performance, Économie de Tokens & Optimisation RAM (Dual-Engine Revit & BIMcraft)
+- **Correction Définitive Landing Page (Résolution Anti-Chevauchement & Cache Buster) :**
+  - Ajout du paramètre de cache-busting ?v=2.9.1 sur styles.css, 	hree-scene.js et pp.js dans docs/index.html pour forcer l'actualisation immédiate sur tous les navigateurs sans nécessiter de purge manuelle de cache.
+  - Injection d'un bloc de styles défensifs stricts (position: static !important;, marges naturelles, flex-wrap) directement dans le <head> de index.html garantissant l'absence totale de superposition entre le sous-titre héro, les boutons d'action et les cartes de caractéristiques.
+  - Remplacement du glyphe système Unicode Apple (rectangle vide sur Windows) par une icône SVG vectorielle standard multiplateforme.
+
 - **Réduction Drastique des Tokens (-91.7% de Payload Initial) :**
   - **Profils d'Outils Adaptatifs (`ARC_TOOL_PROFILE`) :** Support de `compact`, `bimcraft` et `all`. En mode `compact`, sélection haute performance de 38 outils polyvalents (réduisant le catalogue de 311 Ko à 25 Ko, passant de ~80 000 tokens à moins de 6 500 tokens par tour).
   - **Méta-Outil Universel `revit_dispatch` :** Permet à l'agent d'exécuter dynamiquement n'importe laquelle des 249 actions du catalogue Dual-Engine en mode compact sans charger l'ensemble des schémas.

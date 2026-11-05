@@ -244,6 +244,11 @@
 ## 4. Historique Chronologique des Versions
 
 ### [v2.9.0] - 2026-11-05
+- **Correction Critique Landing Page & Cache-Buster v2.9.1 :**
+  - Élimination absolue de tout risque de chevauchement visuel dans le Hero : injection de règles CSS défensives en ligne dans le <head> de docs/index.html (position: static !important, espacements automatiques, lex-wrap).
+  - Cache-busting systématique (styles.css?v=2.9.1, 	hree-scene.js?v=2.9.1, pp.js?v=2.9.1) forçant le rafraîchissement immédiat sur les navigateurs clients et GitHub Pages.
+  - Substitution du glyphe  (invisible sur Windows) par une icône vectorielle SVG universelle dans la carte macOS & Linux.
+
 - **Optimisation Radicale des Tokens (-91.7% d'Empreinte Initial Context Window) :**
   - **Tool Profiles Dynamiques (`ARC_TOOL_PROFILE`) :** Support de 3 profils (`all`, `compact`, `bimcraft`). En mode `compact`, exposition ciblée de 38 outils polyvalents (passage de 311 Ko à 25 Ko de payload, économisant plus de 73 000 tokens par tour).
   - **Méta-Outil Universel `revit_dispatch` (249 outils au total) :** Exécution dynamique sans faille de l'intégralité du catalogue ARC via un seul point d'entrée.

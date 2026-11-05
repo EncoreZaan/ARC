@@ -489,7 +489,7 @@ img, svg, video {
   align-items: center;
   padding-top: calc(var(--nav-height) + 2.5rem);
   padding-bottom: 2rem;
-  overflow: hidden;
+  overflow: visible;
   z-index: 10;
 }
 

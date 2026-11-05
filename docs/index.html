@@ -32,8 +32,87 @@
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="./styles.css">
+  <!-- Stylesheet (with cache-buster) -->
+  <link rel="stylesheet" href="./styles.css?v=2.9.1">
+
+  <!-- Defensive Hero Layout Overrides (Guaranteed Zero Overlap across all browsers & caches) -->
+  <style>
+    .hero {
+      position: relative !important;
+      min-height: auto !important;
+      padding-top: calc(var(--nav-height, 80px) + 2.5rem) !important;
+      padding-bottom: 2rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      overflow: visible !important;
+    }
+    .hero-content {
+      position: relative !important;
+      z-index: 20 !important;
+      text-align: center !important;
+      max-width: 880px !important;
+      margin: 0 auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      pointer-events: auto !important;
+    }
+    .hero-capsule {
+      margin-bottom: 1.5rem !important;
+    }
+    .hero-title {
+      margin-bottom: 1.25rem !important;
+    }
+    .hero-subtitle {
+      position: relative !important;
+      margin: 0 auto 2.25rem !important;
+      max-width: 660px !important;
+      line-height: 1.6 !important;
+    }
+    .hero-actions {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 1.25rem !important;
+      margin: 0 auto 2.5rem !important;
+      flex-wrap: wrap !important;
+      z-index: 25 !important;
+    }
+    .hero-floating-badges {
+      position: static !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      transform: none !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: stretch !important;
+      gap: 1.35rem !important;
+      margin: 0 auto 2.5rem !important;
+      width: 100% !important;
+      max-width: 960px !important;
+      flex-wrap: wrap !important;
+      z-index: 25 !important;
+    }
+    .badge-card {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      flex: 1 1 260px !important;
+      max-width: 300px !important;
+      margin: 0 !important;
+    }
+    .hero-stage {
+      position: relative !important;
+      margin-top: 1rem !important;
+    }
+  </style>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 15 L85 85 L65 85 L50 50 L35 85 L15 85 Z' fill='%23D7B98C'/></svg>">
@@ -183,8 +262,12 @@
 
           <!-- Badge 3: macOS & Linux Native -->
           <div class="badge-card">
-            <div class="badge-icon" style="color: var(--accent-cyan); font-size: 1.15rem; font-weight: 700;">
-              
+            <div class="badge-icon" style="color: var(--accent-cyan); background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.35);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
             </div>
             <div class="badge-content">
               <h4>macOS & Linux Natifs</h4>
@@ -857,9 +940,9 @@
   </script>
 
   <!-- 3D WebGL Sphere & Central Experience -->
-  <script src="./three-scene.js"></script>
+  <script src="./three-scene.js?v=2.9.1"></script>
 
   <!-- UI Interactivity, Tools & Accordion -->
-  <script src="./app.js"></script>
+  <script src="./app.js?v=2.9.1"></script>
 </body>
 </html>
