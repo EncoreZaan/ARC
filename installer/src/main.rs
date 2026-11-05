@@ -67,13 +67,13 @@ fn print_help() {
               --status       Affiche le diagnostic d'installation et l'état du pont\n\
               --use-node     Force le serveur MCP Node.js au lieu du binaire Rust natif\n\
           -h, --help         Affiche cette aide\n",
-        format!("Revit AI Bridge Installer v{}", VERSION).cyan().bold()
+        format!("ARC Installer v{}", VERSION).cyan().bold()
     );
 }
 
 fn print_banner() {
     println!("{}", "==========================================================".cyan());
-    println!("{}", format!("       REVIT AI BRIDGE — INSTALLATEUR UNIVERSEL v{}       ", VERSION).cyan().bold());
+    println!("{}", format!("       ARC (ARCHITECTURE & REVIT COPILOT) v{}       ", VERSION).cyan().bold());
     println!("{}", "   Pont natif Autodesk Revit <-> Claude AI via MCP        ".white());
     println!("{}", "==========================================================".cyan());
     println!();

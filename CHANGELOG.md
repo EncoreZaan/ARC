@@ -1,6 +1,6 @@
-# Journal des modifications (Changelog) — RevitMCP
+# Journal des modifications (Changelog) — ARC (Architecture & Revit Copilot)
 
-Toutes les modifications notables apportées au projet RevitMCP sont documentées dans ce fichier.
+Toutes les modifications notables apportées au projet ARC sont documentées dans ce fichier.
 
 ---
 

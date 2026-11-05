@@ -1,6 +1,6 @@
 # 🤖 INSTRUCTIONS CRITIQUES POUR LES AGENTS IA
 
-Bienvenue dans le dépôt **Revit-MCP**.
+Bienvenue dans le dépôt **ARC** (Architecture & Revit Copilot).
 
 Avant de réaliser la moindre action, vous devez vous conformer aux instructions suivantes. Ce dépôt est un projet de haute précision interfaçant des modèles IA, des serveurs MCP haute performance (Rust & Python), et l'API native d'Autodesk Revit 2027.
 

@@ -3,7 +3,7 @@ name = "revit-mcp-installer"
 version = "2.6.0"
 edition = "2021"
 authors = ["UV Techs"]
-description = "Universal standalone installer for Revit AI Bridge"
+description = "Universal standalone installer for ARC (Architecture & Revit Copilot)"
 
 [dependencies]
 winreg = "0.52"

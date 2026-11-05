@@ -55,7 +55,7 @@ public class App : IExternalApplication
         {
             // 1. Initialisation et Enregistrement du Dockable Panel WPF
             DockablePanel = new RevitAiDockablePanel(application);
-            application.RegisterDockablePane(RevitAiDockablePanel.PaneId, "Revit AI Copilot", DockablePanel);
+            application.RegisterDockablePane(RevitAiDockablePanel.PaneId, "ARC — Architecture Copilot", DockablePanel);
 
             // 2. Création du Ruban Revit ("Revit AI Copilot")
             CreateRibbonTabAndPanel(application);
@@ -80,7 +80,7 @@ public class App : IExternalApplication
             }
 
             if (Environment.GetEnvironmentVariable("REVIT_MCP_SHOW_STARTUP_DIALOG") == "1")
-                TaskDialog.Show("RevitMCP", "Revit AI Copilot bridge started on http://localhost:6543");
+                TaskDialog.Show("ARC", "ARC Architecture Copilot bridge started on http://localhost:6543");
 
             return Result.Succeeded;
         }
@@ -89,7 +89,7 @@ public class App : IExternalApplication
             ConfigManager.LogAudit("STARTUP_ERROR", $"Erreur lors de l'initialisation de RevitMCP : {ex}");
             if (Environment.GetEnvironmentVariable("REVIT_MCP_SHOW_ERROR_DIALOG") == "1")
             {
-                TaskDialog.Show("RevitMCP", $"Échec du démarrage de Revit AI Bridge sur http://localhost:6543\n\n{ex.Message}");
+                TaskDialog.Show("ARC", $"Échec du démarrage de ARC sur http://localhost:6543\n\n{ex.Message}");
             }
             return Result.Succeeded;
         }
@@ -103,7 +103,7 @@ public class App : IExternalApplication
 
     private static void CreateRibbonTabAndPanel(UIControlledApplication application)
     {
-        const string tabName = "Revit AI Copilot";
+        const string tabName = "ARC";
         try
         {
             application.CreateRibbonTab(tabName);
@@ -116,11 +116,11 @@ public class App : IExternalApplication
         RibbonPanel? panel = null;
         try
         {
-            panel = application.CreateRibbonPanel(tabName, "Copilote IA & Audits");
+            panel = application.CreateRibbonPanel(tabName, "ARC Copilote & Audits");
         }
         catch
         {
-            panel = application.GetRibbonPanels(tabName).FirstOrDefault(p => p.Name == "Copilote IA & Audits");
+            panel = application.GetRibbonPanels(tabName).FirstOrDefault(p => p.Name == "ARC Copilote & Audits");
         }
 
         if (panel == null) return;

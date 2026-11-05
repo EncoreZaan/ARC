@@ -1,4 +1,4 @@
-# 🏛️ REVIT-MCP MASTER PROJECT STATE & ARCHITECTURE BIBLE
+# 🏛️ ARC (ARCHITECTURE & REVIT COPILOT) — MASTER PROJECT STATE & ARCHITECTURE BIBLE
 > **Statut global du système :** Opérationnel & Ultra-Performant (v2.6.0)  
 > **Dernière mise à jour :** 5 Novembre 2026  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/ARC.git](https://github.com/EncoreZaan/ARC.git)  
