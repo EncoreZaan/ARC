@@ -1,7 +1,7 @@
 # ARC (Architecture & Revit Copilot) — Pont MCP Haute Précision pour Autodesk Revit & BIMcraft
 
 [![Site Officiel](https://img.shields.io/badge/Site%20Officiel-encorezaan.github.io%2FARC-D7B98C?style=flat&logo=safari&logoColor=white)](https://encorezaan.github.io/ARC/)
-[![Release](https://img.shields.io/github/v/release/EncoreZaan/ARC?color=00d2ff&label=Version)](https://github.com/EncoreZaan/ARC/releases/tag/v3.0.0)
+[![Release](https://img.shields.io/github/v/release/EncoreZaan/ARC?color=00d2ff&label=Version)](https://github.com/EncoreZaan/ARC/releases/tag/v3.1.0)
 [![Platforms](https://img.shields.io/badge/Platforms-macOS%20(Apple%20Silicon)%20%7C%20Linux%20%7C%20Windows-brightgreen.svg)](#-disponibilité-multi-plateforme--macos-linux--windows)
 [![Revit & BIMcraft](https://img.shields.io/badge/Engines-Revit%202027%20%7C%20BIMcraft%200.9.0-blue.svg)](#-architecture-dual-engine)
 [![Rust](https://img.shields.io/badge/Server-Rust%20100%25%20Natif-orange.svg)](https://www.rust-lang.org/)
@@ -12,7 +12,7 @@
 
 > **ARC (Architecture & Revit Copilot)** connecte **Claude (Claude Desktop, Cursor, Claude Code, Antigravity)** et vos assistants IA directement à **Autodesk Revit** et **BIMcraft** via le protocole ouvert **Model Context Protocol (MCP)**.
 >
-> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **264 outils locaux ultra-rapides**, une architecture **Dual-Engine compatible macOS, Linux et Windows**, des **audits PMR en 1 clic**, une **vision multimodale instantanée** et un moteur géométrique multithreadé propulsé par un serveur autonome en **Rust**.
+> Pilotez, concevez, auditez, documentez et vérifiez vos maquettes BIM en langage naturel grâce à **268 outils locaux ultra-rapides**, une architecture **Dual-Engine compatible macOS, Linux et Windows**, des **audits PMR en 1 clic**, une **vision multimodale instantanée** et un moteur géométrique multithreadé propulsé par un serveur autonome en **Rust**.
 
 ---
 
@@ -28,7 +28,7 @@ ARC brise l'enfermement Windows historique du monde BIM :
 
 ---
 
-## ⚡ Nouveautés Majeures v3.0.0 (Moteur CAD 100% Rust, SafeModalInterceptor & 264 Outils)
+## ⚡ Nouveautés Majeures v3.1.0 (Moteur CAD 100% Rust, SafeModalInterceptor & 268 Outils)
 
 ### 📐 1. Moteur CAD & DXF 100% Rust Natif (Zéro Dépendance Python)
 - **Éradication totale de Python & Matplotlib :** Remplacement complet du serveur Python par le module natif `dxf_engine.rs` compilé en Rust pur.
@@ -52,7 +52,7 @@ ARC brise l'enfermement Windows historique du monde BIM :
 
 ### 🚀 1. Économie Radicale de Tokens (-91.7% d'Empreinte) & Format Colonnaire
 - **Profils d'Outils Dynamiques (`ARC_TOOL_PROFILE`) :** Support de `all`, `compact` et `bimcraft`. En mode `compact`, exposition ciblée de 43 outils haute performance (38 essentiels + 5 nouveaux outils Rust), faisant chuter la fenêtre de contexte de 80 000 à moins de 6 500 tokens par tour.
-- **Méta-Outil Universel `revit_dispatch` :** Exécution dynamique sans faille de l'intégralité des 264 outils du catalogue Dual-Engine.
+- **Méta-Outil Universel `revit_dispatch` :** Exécution dynamique sans faille de l'intégralité des 268 outils du catalogue Dual-Engine.
 - **Moteur Colonnaire Compact (`compact: true`) :** Conversion automatique des listes d'éléments en `{ "columns": [...], "rows": [[...]] }`, épargnant 70% de tokens sur chaque requête d'éléments.
 - **Extraction Multimodale Native Base64 :** Les images 3D et captures sont extraites vers des blocs d'image MCP natifs et purgées du corps JSON textuel (+350 000 tokens épargnés par rendu).
 
@@ -108,7 +108,7 @@ Visitez la vitrine officielle d'ARC en ligne : **[https://encorezaan.github.io/A
 
 - **Direction Artistique Cinématique :** Univers sombre et épuré respectant les nuances noir profond (`#0B080D`), prune fumé (`#2B242C`), reflets champagne doré (`#D7B98C`), blanc perlé (`#F6F4EF`) et cobalt nocturne (`#274C8F`).
 - **Scène 3D Interactive WebGL (Three.js) :** Dôme liquide métallique organique, pavillon BIM filaire tridimensionnel rétro-éclairé et flux de particules de données actives.
-- **Catalogue Interactif des 264 Outils :** Moteur de recherche instantané et filtrage par catégorie (Performance Rust, PMR/RE2020, Git du BIM, Modélisation, Fluides MEP, Documentation, Sécurité, BIMcraft Rust).
+- **Catalogue Interactif des 268 Outils :** Moteur de recherche instantané et filtrage par catégorie (Performance Rust, PMR/RE2020, Git du BIM, Modélisation, Fluides MEP, Documentation, Sécurité, BIMcraft Rust).
 
 ---
 
@@ -129,8 +129,8 @@ python3 scripts/bimcraft_manager.py launch
 ```
 
 ### Sur Windows (Installateur Automatisé)
-1. Téléchargez l'installateur : **[Télécharger RevitMCP-Setup-v3.0.0.exe](https://github.com/EncoreZaan/ARC/releases/download/v2.8.1/RevitMCP-Setup-v3.0.0.exe)**
-2. Double-cliquez sur `RevitMCP-Setup-v3.0.0.exe` pour déployer l'add-in Revit 2024-2027 et configurer Claude Desktop automatiquement.
+1. Téléchargez l'installateur : **[Télécharger RevitMCP-Setup-v3.1.0.exe](https://github.com/EncoreZaan/ARC/releases/download/v2.8.1/RevitMCP-Setup-v3.1.0.exe)**
+2. Double-cliquez sur `RevitMCP-Setup-v3.1.0.exe` pour déployer l'add-in Revit 2024-2027 et configurer Claude Desktop automatiquement.
 
 ---
 
@@ -254,7 +254,7 @@ flowchart TD
         Claude["Claude Desktop / Cursor / Claude Code / Antigravity\n(Modèles : Claude 3.5 Sonnet, GPT-4o)"]
     end
 
-    subgraph RustServer["Serveur Standalone Rust (revit-mcp-server v3.0.0)"]
+    subgraph RustServer["Serveur Standalone Rust (revit-mcp-server v3.1.0)"]
         RPC["Protocole MCP (stdio / JSON-RPC 2024-11-05)"]
         Registry["230 Outils Locaux Répertoriés"]
         RayonEngine["Moteur Multithread Rayon (AABB BVH, Shoelace, RE2020)"]

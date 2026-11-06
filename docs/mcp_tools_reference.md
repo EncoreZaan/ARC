@@ -1,6 +1,6 @@
-# RÉFÉRENCE COMPLÈTE DES OUTILS MCP — ARC (ARCHITECTURE & REVIT COPILOT v2.6.0)
+# RÉFÉRENCE COMPLÈTE DES OUTILS MCP — ARC (ARCHITECTURE & REVIT COPILOT v3.1.0)
 
-Ce document fournit la documentation de référence exhaustive de l'ensemble des **230 outils MCP** exposés par le serveur Revit AI Bridge à Claude (Claude Desktop, Claude Code et clients MCP).
+Ce document fournit la documentation de référence exhaustive de l'ensemble des **268 outils MCP** exposés par le serveur Revit AI Bridge à Claude (Claude Desktop, Claude Code et clients MCP).
 
 ---
 

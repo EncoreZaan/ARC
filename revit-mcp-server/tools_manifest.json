@@ -9344,6 +9344,109 @@
       },
       "action": "cad/bimcraft-export-dxf",
       "isHealthCheck": false
+    },
+    {
+      "name": "dxf_edit",
+      "description": "Applique une suite d'opérations géométriques sur un DXF (ajout de lignes, textes, cercles, calques) en pur Rust natif sub-milliseconde.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Chemin du fichier DXF source"
+          },
+          "operations": {
+            "type": "array",
+            "description": "Liste d'opérations (ex: [{'action': 'add_line', 'start': [0,0], 'end': [5000,0], 'layer': 'MURS'}])"
+          },
+          "outputPath": {
+            "type": "string",
+            "description": "Chemin de destination du DXF modifié"
+          }
+        },
+        "required": [
+          "path",
+          "operations"
+        ]
+      },
+      "action": "cad/dxf-edit",
+      "isHealthCheck": false
+    },
+    {
+      "name": "dxf_compare_with_revit",
+      "description": "Compare vectoriellement les entités d'un plan DXF avec les éléments d'une maquette Revit pour détecter les écarts d'implantation.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "dxfPath": {
+            "type": "string",
+            "description": "Chemin du fichier DXF"
+          },
+          "revitElements": {
+            "type": "array",
+            "description": "Liste des éléments Revit à comparer"
+          },
+          "toleranceMm": {
+            "type": "number",
+            "description": "Tolérance millimétrique maximale (défaut: 20 mm)"
+          }
+        },
+        "required": [
+          "dxfPath",
+          "revitElements"
+        ]
+      },
+      "action": "cad/dxf-compare-revit",
+      "isHealthCheck": false
+    },
+    {
+      "name": "dxf_compare_with_bimcraft",
+      "description": "Compare vectoriellement les entités d'un plan DXF avec les éléments d'une maquette BIMcraft native pour détecter les écarts d'implantation.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "dxfPath": {
+            "type": "string",
+            "description": "Chemin du fichier DXF"
+          },
+          "bimcraftElements": {
+            "type": "array",
+            "description": "Liste des éléments BIMcraft à comparer"
+          },
+          "toleranceMm": {
+            "type": "number",
+            "description": "Tolérance millimétrique maximale (défaut: 20 mm)"
+          }
+        },
+        "required": [
+          "dxfPath",
+          "bimcraftElements"
+        ]
+      },
+      "action": "cad/dxf-compare-bimcraft",
+      "isHealthCheck": false
+    },
+    {
+      "name": "dxf_render_all_layouts_pdf",
+      "description": "Génère un rendu vectoriel haute précision multi-feuilles avec métadonnées d'impression à l'échelle.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Chemin du fichier DXF"
+          },
+          "outputPath": {
+            "type": "string",
+            "description": "Chemin de sortie SVG/PDF"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "action": "cad/dxf-render-layouts",
+      "isHealthCheck": false
     }
   ]
 }

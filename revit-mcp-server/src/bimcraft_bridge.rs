@@ -410,3 +410,96 @@ pub fn render_view(params: &Value) -> Result<Value, String> {
 
     convert_file(input_file, output_image)
 }
+
+
+/// Exécute une commande directe de modélisation dans BIMcraft CLI
+pub fn execute_command(cmd_str: &str, project_path: Option<&str>) -> Result<Value, String> {
+    let cli_path = get_bimcraft_cli_path();
+    if !cli_path.exists() {
+        return Err(format!("bimcraft-cli introuvable à : {:?}", cli_path));
+    }
+
+    let mut cmd = Command::new(&cli_path);
+    cmd.arg("run");
+    if let Some(p) = project_path {
+        cmd.arg(p);
+    }
+    cmd.args(["--cmd", cmd_str]);
+
+    let output = cmd.output().map_err(|e| format!("Échec d'exécution de la commande BIMcraft '{}': {}", cmd_str, e))?;
+    let stdout_str = String::from_utf8_lossy(&output.stdout);
+    let stderr_str = String::from_utf8_lossy(&output.stderr);
+
+    Ok(json!({
+        "success": output.status.success(),
+        "engine": "BIMcraft Native CLI (Cross-Platform / Zero-Revit)",
+        "platform": env::consts::OS,
+        "command": cmd_str,
+        "stdout": stdout_str.trim(),
+        "stderr": stderr_str.trim()
+    }))
+}
+
+/// Crée un mur dans BIMcraft
+pub fn create_wall_bimcraft(params: &Value) -> Result<Value, String> {
+    let start = params.get("startPoint")
+        .or_else(|| params.get("start"))
+        .and_then(|v| v.as_array())
+        .map(|arr| [
+            arr.first().and_then(|v| v.as_f64()).unwrap_or(0.0),
+            arr.get(1).and_then(|v| v.as_f64()).unwrap_or(0.0),
+        ])
+        .unwrap_or([0.0, 0.0]);
+
+    let end = params.get("endPoint")
+        .or_else(|| params.get("end"))
+        .and_then(|v| v.as_array())
+        .map(|arr| [
+            arr.first().and_then(|v| v.as_f64()).unwrap_or(5000.0),
+            arr.get(1).and_then(|v| v.as_f64()).unwrap_or(0.0),
+        ])
+        .unwrap_or([5000.0, 0.0]);
+
+    let height = params.get("height").and_then(|v| v.as_f64()).unwrap_or(2800.0);
+    let thickness = params.get("thickness").or_else(|| params.get("wallWidth")).and_then(|v| v.as_f64()).unwrap_or(200.0);
+
+    let cmd = format!("wall {{\"start\": [{:.1}, {:.1}], \"end\": [{:.1}, {:.1}], \"height\": {:.1}, \"thickness\": {:.1}}}",
+        start[0], start[1], end[0], end[1], height, thickness);
+
+    let proj_p = params.get("projectPath").and_then(|v| v.as_str());
+    execute_command(&cmd, proj_p)
+}
+
+/// Crée une pièce dans BIMcraft
+pub fn create_room_bimcraft(params: &Value) -> Result<Value, String> {
+    let name = params.get("name").or_else(|| params.get("roomName")).and_then(|v| v.as_str()).unwrap_or("Pièce");
+    let at = params.get("at")
+        .or_else(|| params.get("point"))
+        .and_then(|v| v.as_array())
+        .map(|arr| [
+            arr.first().and_then(|v| v.as_f64()).unwrap_or(1500.0),
+            arr.get(1).and_then(|v| v.as_f64()).unwrap_or(1500.0),
+        ])
+        .unwrap_or([1500.0, 1500.0]);
+
+    let cmd = format!("room {{\"name\": \"{}\", \"at\": [{:.1}, {:.1}]}}", name, at[0], at[1]);
+    let proj_p = params.get("projectPath").and_then(|v| v.as_str());
+    execute_command(&cmd, proj_p)
+}
+
+/// Crée une dalle / sol dans BIMcraft
+pub fn create_floor_bimcraft(params: &Value) -> Result<Value, String> {
+    let cmd = "floor {\"boundary\": [[0,0], [6000,0], [6000,5000], [0,5000]]}".to_string();
+    let proj_p = params.get("projectPath").and_then(|v| v.as_str());
+    execute_command(&cmd, proj_p)
+}
+
+/// Crée un niveau dans BIMcraft
+pub fn create_level_bimcraft(params: &Value) -> Result<Value, String> {
+    let elevation = params.get("elevation").or_else(|| params.get("elevationMm")).and_then(|v| v.as_f64()).unwrap_or(3000.0);
+    let name = params.get("name").and_then(|v| v.as_str()).unwrap_or("Nouveau Niveau");
+
+    let cmd = format!("level {{\"elevation\": {:.1}, \"name\": \"{}\"}}", elevation, name);
+    let proj_p = params.get("projectPath").and_then(|v| v.as_str());
+    execute_command(&cmd, proj_p)
+}

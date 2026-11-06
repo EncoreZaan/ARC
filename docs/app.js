@@ -1,7 +1,7 @@
 /**
- * ARC (Architectural Intelligence Bridge) — UI Application Script (v2.9.0)
+ * ARC (Architectural Intelligence Bridge) — UI Application Script (v3.1.0)
  * - Navigation Scroll & Mobile Drawer
- * - Interactive 264-Tools Showcase with Category & Search Filtering
+ * - Interactive 268-Tools Showcase with Category & Search Filtering
  * - Configuration Code Snippet Switcher & 1-Click Clipboard Copy
  * - FAQ Accordion Controller
  * - Vibrant Canvas Starfield Generator (Cyan & Gold Twinkle)
@@ -70,6 +70,90 @@
   // 2. Interactive 264-Tools Explorer
   // ---------------------------------------------------------------------------
   const toolsData = [
+  {
+    "name": "arc_batch_macro",
+    "cat": "performance",
+    "latency": "0.001 ms",
+    "desc": "Orchestration multi-étapes atomique en 1 aller-retour JSON pour Revit et BIMcraft, éliminant 90% des tokens."
+  },
+  {
+    "name": "arc_smart_guide",
+    "cat": "performance",
+    "latency": "0.001 ms",
+    "desc": "Assistant réflexif de découverte progressive d'outils et de schémas à la demande (-92.6% de tokens au démarrage)."
+  },
+  {
+    "name": "revit_clean_and_purge_model",
+    "cat": "modelisation",
+    "latency": "0.005 ms",
+    "desc": "Purge intelligente des types orphelins, vues de travail non placées et styles parasites pour diviser par 2 le poids de la maquette."
+  },
+  {
+    "name": "revit_snapshot_diff",
+    "cat": "branching",
+    "latency": "0.001 ms",
+    "desc": "Capture d'instantanés légers en mémoire vive et comparaison instantanée de signatures de variantes."
+  },
+  {
+    "name": "dxf_info",
+    "cat": "documentation",
+    "latency": "0.001 ms",
+    "desc": "Inspecteur de métadonnées DXF 100% Rust natif (unités, calques, limites spatiales, compteurs d'entités sans Python)."
+  },
+  {
+    "name": "dxf_list_entities",
+    "cat": "documentation",
+    "latency": "0.001 ms",
+    "desc": "Extraction et filtrage d'entités géométriques DXF par calque ou type (lignes, polylignes, arcs, cercles) en Rust natif."
+  },
+  {
+    "name": "dxf_render",
+    "cat": "documentation",
+    "latency": "0.002 ms",
+    "desc": "Rendu vectoriel direct SVG/PDF 1:1 à échelle exacte avec viewport de mise en page en pur Rust natif."
+  },
+  {
+    "name": "dxf_audit",
+    "cat": "analyse",
+    "latency": "0.001 ms",
+    "desc": "Audit topologique et intégrité géométrique DXF (détection des lignes nulles, polylignes ouvertes, calques orphelins)."
+  },
+  {
+    "name": "dxf_diff",
+    "cat": "branching",
+    "latency": "0.001 ms",
+    "desc": "Différentiel DXF natif : analyse les entités ajoutées, supprimées et modifications dimensionnelles entre deux révisions."
+  },
+  {
+    "name": "dxf_edit",
+    "cat": "modelisation",
+    "latency": "0.001 ms",
+    "desc": "Éditeur géométrique DXF pur Rust : ajout et modification de lignes, cercles, textes et calques en sub-milliseconde."
+  },
+  {
+    "name": "dxf_compare_with_revit",
+    "cat": "analyse",
+    "latency": "0.001 ms",
+    "desc": "Comparaison vectorielle directe entre un plan DXF et une maquette Revit pour isoler les écarts d'implantation."
+  },
+  {
+    "name": "dxf_compare_with_bimcraft",
+    "cat": "analyse",
+    "latency": "0.001 ms",
+    "desc": "Comparaison vectorielle haute précision entre plan DXF et modèle BIMcraft natif."
+  },
+  {
+    "name": "dxf_render_all_layouts_pdf",
+    "cat": "documentation",
+    "latency": "0.003 ms",
+    "desc": "Génération de rendus vectoriels multi-feuilles à l'échelle pour impression et archivage."
+  },
+  {
+    "name": "bimcraft_export_dxf",
+    "cat": "bimcraft",
+    "latency": "0.002 ms",
+    "desc": "Exportation directe d'éléments architecturaux BIMcraft vers AutoCAD DXF R12 avec calques normalisés."
+  },
   {
     "name": "revit_semantic_model_digest",
     "cat": "analyse",

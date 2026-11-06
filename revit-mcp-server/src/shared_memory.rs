@@ -13,10 +13,10 @@ pub fn read_shared_memory_payload() -> Result<Value, String> {
         if let Ok(file) = OpenOptions::new().read(true).open(&temp_shm_path) {
             if let Ok(mmap) = unsafe { memmap2::Mmap::map(&file) } {
                 if mmap.len() >= 16 {
-                    let magic = u32::from_le_bytes(mmap[0..4].try_into().unwrap());
+                    let magic = mmap[0..4].try_into().map(u32::from_le_bytes).unwrap_or(0);
                     if magic == MAGIC_BYTES {
-                        let payload_type = i32::from_le_bytes(mmap[8..12].try_into().unwrap());
-                        let len = u32::from_le_bytes(mmap[12..16].try_into().unwrap()) as usize;
+                        let payload_type = mmap[8..12].try_into().map(i32::from_le_bytes).unwrap_or(0);
+                        let len = mmap[12..16].try_into().map(u32::from_le_bytes).unwrap_or(0) as usize;
                         if mmap.len() >= 16 + len {
                             if let Ok(utf8_str) = std::str::from_utf8(&mmap[16..16 + len]) {
                                 if let Ok(parsed) = serde_json::from_str::<Value>(utf8_str) {

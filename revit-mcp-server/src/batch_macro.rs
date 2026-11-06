@@ -66,8 +66,9 @@ pub fn validate_macro_payload(payload: &Value) -> Result<Vec<Value>, String> {
 
     for (idx, op) in ops.iter().enumerate() {
         let tool = op.get("tool").or_else(|| op.get("action")).and_then(|v| v.as_str());
-        if tool.is_none() || tool.unwrap().trim().is_empty() {
-            return Err(format!("Operation at index {} is missing 'tool' or 'action' name", idx));
+        match tool {
+            Some(t) if !t.trim().is_empty() => {}
+            _ => return Err(format!("Operation at index {} is missing 'tool' or 'action' name", idx)),
         }
     }
 

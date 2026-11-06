@@ -1,11 +1,11 @@
 # 🏛️ ARC (Architecture & Revit Copilot) — Guide Architectural & Technique Complet
 
-> **Version du Système :** ARC v2.9.1 (Dual-Engine Architecture — 254 Outils)  
+> **Version du Système :** ARC v3.1.0 (Dual-Engine Architecture — 268 Outils Natifs)  
 > **Dernière mise à jour :** 5 Novembre 2026  
 > **Auteur & Conception :** @EncoreZaan  
 > **Plates-formes certifiées :** macOS (Apple Silicon M1/M2/M3/M4 & Intel), Linux (Ubuntu, Debian, Fedora, Arch) & Windows 11 (x64)  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/ARC.git](https://github.com/EncoreZaan/ARC.git)  
-> **Site vitrine WebGL Three.js :** [https://encorezaan.github.io/Revit-MCP/](https://encorezaan.github.io/Revit-MCP/)  
+> **Site vitrine WebGL Three.js :** [https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)  
 
 ---
 
@@ -17,7 +17,7 @@
    - [3.2 Le Transport IPC Zero-Latency (Named Pipe & Unix Sockets)](#32-le-transport-ipc-zero-latency-named-pipe--unix-sockets)
    - [3.3 L'Add-in C# Autodesk Revit 2027 (.NET 10)](#33-laddin-c-autodesk-revit-2027-net-10)
    - [3.4 Le Moteur BIMcraft 0.9.0 (BIM Natif Rust pour macOS & Linux)](#34-le-moteur-bimcraft-090-bim-natif-rust-pour-macos--linux)
-   - [3.5 Le Microservice CAD / DXF PyMuPDF (`cad-mcp`)](#35-le-microservice-cad--dxf-pymupdf-cad-mcp)
+   - [3.5 Le Moteur CAO / DXF 100% Rust Natif (`cad-mcp` / `dxf_engine.rs`)](#35-le-microservice-cad--dxf-pymupdf-cad-mcp)
 4. [Où Ça En Est Aujourd'hui : Statut, Métriques & Cas Réels](#4-où-ça-en-est-aujourdhui--statut-métriques--cas-réels)
 5. [Comment C'est : Guide d'Utilisation & Workflows Pratiques](#5-comment-cest--guide-dutilisation--workflows-pratiques)
 
@@ -115,7 +115,7 @@ BIMcraft offre une alternative légère et ultra-rapide à Revit :
 - **Port de contrôle dynamique :** Lors de son démarrage avec `--control 0`, BIMcraft enregistre son port TCP et son jeton dans `bridge.json`, permettant aux agents IA de manipuler la maquette en direct sous les yeux de l'architecte.
 - **Conversion universelle sans Revit :** La commande `bimcraft-cli convert mon_projet.rvt mon_projet.bimcraft` lit le fichier RVT binaire directement et reconstruit la maquette en moins d'une seconde.
 
-### 3.5 Le Microservice CAD / DXF PyMuPDF (`cad-mcp`)
+### 3.5 Le Moteur CAO / DXF 100% Rust Natif (`cad-mcp` / `dxf_engine.rs`)
 Microservice Python autonome combinant `ezdxf` et `PyMuPDF` :
 - Rendu vectoriel exact 1:1 à échelle réelle pour formats normalisés A4, A3, A2, A1, A0.
 - Comparaison géométrique bidirectionnelle entre plans DXF géomètres et maquettes BIM pour détecter les écarts de positionnement de cloisons ou d'ouvertures.

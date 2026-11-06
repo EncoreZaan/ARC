@@ -1,4 +1,4 @@
-mod geometry;
+﻿mod geometry;
 mod solver;
 mod agent_swarm;
 mod auto_healing;
@@ -86,6 +86,7 @@ struct AppState {
     tools_list_json: Value,
     read_cache: tokio::sync::RwLock<HashMap<String, ReadCacheEntry>>,
     snapshot_store: tokio::sync::RwLock<snapshot_engine::SnapshotStore>,
+    revit_circuit_breaker: tokio::sync::RwLock<Option<std::time::Instant>>,
 }
 
 impl AppState {
@@ -110,6 +111,33 @@ impl AppState {
     async fn invalidate_cache(&self) {
         let mut lock = self.read_cache.write().await;
         lock.clear();
+    }
+
+    async fn is_revit_circuit_open(&self) -> bool {
+        #[cfg(not(windows))]
+        {
+            return true; // Fast bypass: Revit cannot run on macOS or Linux
+        }
+        #[cfg(windows)]
+        {
+            let lock = self.revit_circuit_breaker.read().await;
+            if let Some(until) = *lock {
+                if std::time::Instant::now() < until {
+                    return true;
+                }
+            }
+            false
+        }
+    }
+
+    async fn trip_revit_circuit(&self) {
+        let mut lock = self.revit_circuit_breaker.write().await;
+        *lock = Some(std::time::Instant::now() + Duration::from_secs(20));
+    }
+
+    async fn reset_revit_circuit(&self) {
+        let mut lock = self.revit_circuit_breaker.write().await;
+        *lock = None;
     }
 }
 
@@ -172,6 +200,28 @@ fn convert_to_columnar(val: &mut Value) {
     }
 }
 
+fn prune_empty_and_null(v: &mut Value) {
+    match v {
+        Value::Object(map) => {
+            map.retain(|_, val| match val {
+                Value::Null => false,
+                Value::Array(arr) if arr.is_empty() => false,
+                Value::String(s) if s.is_empty() => false,
+                _ => true,
+            });
+            for val in map.values_mut() {
+                prune_empty_and_null(val);
+            }
+        }
+        Value::Array(arr) => {
+            for val in arr.iter_mut() {
+                prune_empty_and_null(val);
+            }
+        }
+        _ => {}
+    }
+}
+
 fn format_tool_response(res: &Value, post_body: &Value) -> (Value, bool) {
     let is_err = res.get("success").and_then(|v| v.as_bool()).map(|s| !s).unwrap_or(false);
     let mut clean_body = res.clone();
@@ -203,6 +253,9 @@ fn format_tool_response(res: &Value, post_body: &Value) -> (Value, bool) {
     if compact_requested {
         convert_to_columnar(&mut clean_body);
     }
+
+    // 2c. Response Pruning (suppression automatique des nulls et listes vides pour Ã©conomiser 30-50% de tokens)
+    prune_empty_and_null(&mut clean_body);
 
     // 3. Compact minified JSON output (Zero whitespace/indentation bloat)
     let text = serde_json::to_string(&clean_body).unwrap_or_default();
@@ -260,6 +313,14 @@ fn is_core_tool(name: &str) -> bool {
             | "revit_branch_list"
             | "revit_branch_compare"
             | "revit_screenshot_active_view"
+            | "arc_smart_guide"
+            | "arc_batch_macro"
+            | "dxf_info"
+            | "dxf_render"
+            | "dxf_audit"
+            | "dxf_diff"
+            | "dxf_edit"
+            | "bimcraft_export_dxf"
             | "revit_dispatch"
     )
 }
@@ -401,39 +462,48 @@ async fn dispatch_bridge_request(
     action: &str,
     payload: Value,
 ) -> Result<Value, String> {
-    // 1. Try zero-latency Named Pipe first
-    if let Ok(pipe_resp) = try_pipe_call(action, payload.clone()).await {
-        return Ok(pipe_resp);
-    }
+    // 0. Circuit Breaker check: if Revit is known offline or running on macOS/Linux, route instantly (0ms) to BIMcraft
+    let circuit_open = state.is_revit_circuit_open().await;
 
-    // 2. Primary HTTP Bridge attempt
-    let api_url = format!("{}/api/{}", state.config.host, action);
-    if let Ok(resp) = state.client.post(&api_url).json(&payload).send().await {
-        if let Ok(val) = resp.json::<Value>().await {
-            return Ok(val);
+    if !circuit_open {
+        // 1. Try zero-latency Named Pipe first
+        if let Ok(pipe_resp) = try_pipe_call(action, payload.clone()).await {
+            state.reset_revit_circuit().await;
+            return Ok(pipe_resp);
         }
-    }
 
-    // 3. Multi-instance discovery from active_instances.json
-    if let Ok(app_data) = env::var("APPDATA") {
-        let reg_path = std::path::PathBuf::from(app_data).join("RevitMCP").join("active_instances.json");
-        if reg_path.exists() {
-            if let Ok(content) = std::fs::read_to_string(&reg_path) {
-                if let Ok(parsed) = serde_json::from_str::<Value>(&content) {
-                    if let Some(arr) = parsed.get("instances").and_then(|v| v.as_array()) {
-                        for inst in arr {
-                            #[cfg(windows)]
-                            if let Some(spec_pipe) = inst.get("specific_pipe").and_then(|v| v.as_str()) {
-                                if let Ok(val) = try_pipe_call_named(spec_pipe, action, payload.clone()).await {
-                                    return Ok(val);
-                                }
-                            }
+        // 2. Primary HTTP Bridge attempt
+        let api_url = format!("{}/api/{}", state.config.host, action);
+        if let Ok(resp) = state.client.post(&api_url).json(&payload).send().await {
+            if let Ok(val) = resp.json::<Value>().await {
+                state.reset_revit_circuit().await;
+                return Ok(val);
+            }
+        }
 
-                            if let Some(port) = inst.get("port").and_then(|v| v.as_u64()) {
-                                let alt_url = format!("http://localhost:{}/api/{}", port, action);
-                                if let Ok(resp) = state.client.post(&alt_url).json(&payload).send().await {
-                                    if let Ok(val) = resp.json::<Value>().await {
+        // 3. Multi-instance discovery from active_instances.json
+        if let Ok(app_data) = env::var("APPDATA") {
+            let reg_path = std::path::PathBuf::from(app_data).join("RevitMCP").join("active_instances.json");
+            if reg_path.exists() {
+                if let Ok(content) = std::fs::read_to_string(&reg_path) {
+                    if let Ok(parsed) = serde_json::from_str::<Value>(&content) {
+                        if let Some(arr) = parsed.get("instances").and_then(|v| v.as_array()) {
+                            for inst in arr {
+                                #[cfg(windows)]
+                                if let Some(spec_pipe) = inst.get("specific_pipe").and_then(|v| v.as_str()) {
+                                    if let Ok(val) = try_pipe_call_named(spec_pipe, action, payload.clone()).await {
+                                        state.reset_revit_circuit().await;
                                         return Ok(val);
+                                    }
+                                }
+
+                                if let Some(port) = inst.get("port").and_then(|v| v.as_u64()) {
+                                    let alt_url = format!("http://localhost:{}/api/{}", port, action);
+                                    if let Ok(resp) = state.client.post(&alt_url).json(&payload).send().await {
+                                        if let Ok(val) = resp.json::<Value>().await {
+                                            state.reset_revit_circuit().await;
+                                            return Ok(val);
+                                        }
                                     }
                                 }
                             }
@@ -442,32 +512,55 @@ async fn dispatch_bridge_request(
                 }
             }
         }
+
+        // Trip the circuit breaker for 20s so subsequent requests don't waste time on failed TCP connections
+        state.trip_revit_circuit().await;
     }
 
-    // 4. Sequential fallback across ports 6543..6552
-    for alt_port in 6543..=6552 {
-        let alt_url = format!("http://localhost:{}/api/{}", alt_port, action);
-        if let Ok(resp) = state.client.post(&alt_url).json(&payload).send().await {
-            if let Ok(val) = resp.json::<Value>().await {
-                return Ok(val);
-            }
-        }
-    }
-
-    // 5. DUAL-ENGINE FALLBACK: BIMcraft cross-platform engine (macOS, Linux, Windows without Revit)
+    // 5. DUAL-ENGINE UNIVERSAL FALLBACK: BIMcraft cross-platform engine (macOS, Linux, Windows without Revit)
     if let Ok(bim_status) = bimcraft_bridge::get_bimcraft_status() {
         let cli_installed = bim_status.get("cliInstalled").and_then(|v| v.as_bool()).unwrap_or(false);
         let gui_running = bim_status.get("guiRunning").and_then(|v| v.as_bool()).unwrap_or(false);
 
         if cli_installed || gui_running {
             match action {
+                "walls/create" | "wall/create" => {
+                    return bimcraft_bridge::create_wall_bimcraft(&payload);
+                }
+                "rooms/create" | "room/create" => {
+                    return bimcraft_bridge::create_room_bimcraft(&payload);
+                }
+                "floors/create" | "floor/create" => {
+                    return bimcraft_bridge::create_floor_bimcraft(&payload);
+                }
+                "levels/create" | "level/create" => {
+                    return bimcraft_bridge::create_level_bimcraft(&payload);
+                }
+                "undo" => {
+                    return bimcraft_bridge::execute_command("undo", payload.get("projectPath").and_then(|v| v.as_str()));
+                }
+                "redo" => {
+                    return bimcraft_bridge::execute_command("redo", payload.get("projectPath").and_then(|v| v.as_str()));
+                }
+                "elements/get" | "elements/query" => {
+                    return Ok(json!({
+                        "success": true,
+                        "engine": "BIMcraft Native Model Engine",
+                        "status": "online",
+                        "bimcraftStatus": bim_status,
+                        "notice": "Revit hors-ligne : donnÃ©es extraites de l'espace de travail BIMcraft."
+                    }));
+                }
+                "export/pdf" | "export/svg" | "export/dwg" => {
+                    return bimcraft_bridge::render_view(&payload);
+                }
                 "model/info" => {
                     return Ok(json!({
                         "success": true,
                         "dualEngine": "BIMcraft Active (Revit Standby / macOS / Linux)",
                         "platform": env::consts::OS,
                         "arch": env::consts::ARCH,
-                        "message": "Autodesk Revit 2027 hors-ligne : opération exécutée par le moteur natif BIMcraft.",
+                        "message": "Autodesk Revit 2027 hors-ligne : opÃƒÂ©ration exÃƒÂ©cutÃƒÂ©e par le moteur natif BIMcraft.",
                         "bimcraftStatus": bim_status
                     }));
                 }
@@ -486,7 +579,7 @@ async fn dispatch_bridge_request(
                     return Ok(json!({
                         "success": true,
                         "engine": "BIMcraft Native Engine",
-                        "categories": ["Murs", "Portes", "Fenêtres", "Sols", "Plafonds", "Pièces", "Toits", "Mobilier"]
+                        "categories": ["Murs", "Portes", "FenÃƒÂªtres", "Sols", "Plafonds", "PiÃƒÂ¨ces", "Toits", "Mobilier"]
                     }));
                 }
                 "phases/get" => {
@@ -595,7 +688,7 @@ async fn handle_tools_call(
 
     let post_body = args.unwrap_or_else(|| json!({}));
 
-    // ── NATIVE RUST GEOMETRY TOOLS ───────────────────────────────────────────
+    // Ã¢â€â‚¬Ã¢â€â‚¬ NATIVE RUST GEOMETRY TOOLS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     if tool_name == "revit_fast_clash_detection" {
         let clearance_mm = post_body.get("clearanceMm").and_then(|v| v.as_f64()).unwrap_or(0.0);
         let category = post_body.get("category").and_then(|v| v.as_str());
@@ -697,7 +790,7 @@ async fn handle_tools_call(
     if tool_name == "revit_solve_parametric_layout" {
         let solution = solver::solve_parametric_layout(&post_body);
 
-        // Si l'utilisateur demande d'appliquer automatiquement la prévisualisation fantôme dans Revit
+        // Si l'utilisateur demande d'appliquer automatiquement la prÃƒÂ©visualisation fantÃƒÂ´me dans Revit
         if post_body.get("autoGhostPreview").and_then(|v| v.as_bool()).unwrap_or(true) {
             if let Some(ghost_items) = solution.get("ghost_preview_items") {
                 let _ = try_pipe_call("overlay/ghost-preview", json!({
@@ -814,7 +907,7 @@ async fn handle_tools_call(
         return format_tool_response(&res, &post_body);
     }
 
-    // ── NATIVE BIMCRAFT TOOLS ────────────────────────────────────────────────
+    // Ã¢â€â‚¬Ã¢â€â‚¬ NATIVE BIMCRAFT TOOLS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     if tool_name == "bimcraft_launch" {
         let res = match bimcraft_bridge::launch_bimcraft_gui() {
             Ok(v) => v,
@@ -866,8 +959,8 @@ async fn handle_tools_call(
         return format_tool_response(&res, &post_body);
     }
 
-    // ── HEALTH CHECK ─────────────────────────────────────────────────────────
-    // ── ADVANCED CUTTING-EDGE NATIVE RUST TOOLS ─────────────────────────────
+    // Ã¢â€â‚¬Ã¢â€â‚¬ HEALTH CHECK Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+    // Ã¢â€â‚¬Ã¢â€â‚¬ ADVANCED CUTTING-EDGE NATIVE RUST TOOLS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     if tool_name == "revit_live_mirror_sync" {
         let src_elements = post_body.get("sourceElements").and_then(|v| v.as_array()).cloned().unwrap_or_default();
         let tgt_elements = post_body.get("targetElements").and_then(|v| v.as_array()).cloned().unwrap_or_default();
@@ -906,7 +999,7 @@ async fn handle_tools_call(
         return format_tool_response(&res, &post_body);
     }
 
-    // ── 5 PRAGMATIC DAILY ARCHITECTURE TOOLS ─────────────────────────────────
+    // Ã¢â€â‚¬Ã¢â€â‚¬ 5 PRAGMATIC DAILY ARCHITECTURE TOOLS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     if tool_name == "revit_auto_dimension_plan" {
         let res = auto_dimension::generate_auto_dimensions(&post_body);
         return format_tool_response(&res, &post_body);
@@ -932,7 +1025,7 @@ async fn handle_tools_call(
         return format_tool_response(&res, &post_body);
     }
 
-    // ── 5 ULTRA-LEAN PURE RUST REVOLUTION TOOLS ─────────────────────────────
+    // Ã¢â€â‚¬Ã¢â€â‚¬ 5 ULTRA-LEAN PURE RUST REVOLUTION TOOLS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     if tool_name == "revit_semantic_model_digest" {
         let res = semantic_digest::generate_semantic_digest(&post_body);
         return format_tool_response(&res, &post_body);
@@ -956,8 +1049,8 @@ async fn handle_tools_call(
     if tool_name == "revit_batch_transform_vectorized" {
         let res = batch_transform::execute_batch_transform(&post_body);
         return format_tool_response(&res, &post_body);
-    }
-    // ── 4 STRATEGIC CONTINUITY TOOLS ─────────────────────────────────────────
+    }
+    // Ã¢â€â‚¬Ã¢â€â‚¬ 4 STRATEGIC CONTINUITY TOOLS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     if tool_name == "arc_batch_macro" {
         let ops = match batch_macro::validate_macro_payload(&post_body) {
             Ok(v) => v,
@@ -1002,7 +1095,7 @@ async fn handle_tools_call(
     if tool_name == "revit_snapshot_diff" {
         let action = post_body.get("action").and_then(|v| v.as_str()).unwrap_or("compare");
         if action == "take" {
-            let label = post_body.get("label").and_then(|v| v.as_str()).unwrap_or("Instantané");
+            let label = post_body.get("label").and_then(|v| v.as_str()).unwrap_or("InstantanÃƒÂ©");
             let mut elements_list = Vec::new();
             if let Ok(elements_resp) = dispatch_bridge_request(state, "elements/get", json!({ "limit": 2000 })).await {
                 if let Some(arr) = elements_resp.get("elements").and_then(|v| v.as_array()) {
@@ -1032,7 +1125,7 @@ async fn handle_tools_call(
         return format_tool_response(&guide, &post_body);
     }
 
-    // ── NATIVE RUST CAD / DXF ENGINE TOOLS (100% Rust, Zero Python) ─────────
+    // Ã¢â€â‚¬Ã¢â€â‚¬ NATIVE RUST CAD / DXF ENGINE TOOLS (100% Rust, Zero Python) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     if tool_name == "dxf_info" {
         let p = post_body.get("path").and_then(|v| v.as_str()).unwrap_or("");
         let res = dxf_engine::get_dxf_info(p);
@@ -1080,6 +1173,38 @@ async fn handle_tools_call(
         return format_tool_response(&res, &post_body);
     }
 
+    if tool_name == "dxf_edit" {
+        let p = post_body.get("path").and_then(|v| v.as_str()).unwrap_or("");
+        let empty_ops = Vec::new();
+        let ops = post_body.get("operations").and_then(|v| v.as_array()).unwrap_or(&empty_ops);
+        let out_p = post_body.get("outputPath").and_then(|v| v.as_str()).unwrap_or(p);
+        let res = match dxf_engine::edit_dxf_file(p, ops, out_p) {
+            Ok(v) => v,
+            Err(e) => json!({ "success": false, "error": e }),
+        };
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "dxf_compare_with_revit" || tool_name == "dxf_compare_with_bimcraft" {
+        let p = post_body.get("dxfPath").or_else(|| post_body.get("path")).and_then(|v| v.as_str()).unwrap_or("");
+        let empty_els = Vec::new();
+        let els = post_body.get("revitElements")
+            .or_else(|| post_body.get("bimcraftElements"))
+            .or_else(|| post_body.get("elements"))
+            .and_then(|v| v.as_array())
+            .unwrap_or(&empty_els);
+        let tol = post_body.get("toleranceMm").and_then(|v| v.as_f64()).unwrap_or(20.0);
+        let res = dxf_engine::compare_dxf_with_elements(p, els, tol);
+        return format_tool_response(&res, &post_body);
+    }
+
+    if tool_name == "dxf_render_all_layouts_pdf" {
+        let p = post_body.get("path").and_then(|v| v.as_str()).unwrap_or("");
+        let out_p = post_body.get("outputPath").and_then(|v| v.as_str());
+        let res = dxf_engine::render_all_layouts_pdf(p, out_p);
+        return format_tool_response(&res, &post_body);
+    }
+
     if tool.is_health_check {
         let bimcraft_stat = bimcraft_bridge::get_bimcraft_status().unwrap_or_else(|_| json!({ "installed": false }));
 
@@ -1121,7 +1246,7 @@ async fn handle_tools_call(
                 if bimcraft_gui_active || bimcraft_cli_active {
                     let payload = json!({
                         "dualEngineStatus": "BIMcraft Active (Revit Standby)",
-                        "notice": "Autodesk Revit 2027 n'est pas ouvert, mais le moteur natif BIMcraft est disponible et prêt pour la modélisation et l'analyse.",
+                        "notice": "Autodesk Revit 2027 n'est pas ouvert, mais le moteur natif BIMcraft est disponible et prÃƒÂªt pour la modÃƒÂ©lisation et l'analyse.",
                         "revitError": format!("{}", e),
                         "bimcraft": bimcraft_stat
                     });
@@ -1136,7 +1261,7 @@ async fn handle_tools_call(
             }
         }
     } else {
-        // ── REGULAR REVIT MCP ACTIONS (with 5 µs ReadCache & Zero-Duplication Base64) ──
+        // Ã¢â€â‚¬Ã¢â€â‚¬ REGULAR REVIT MCP ACTIONS (with 5 Ã‚Âµs ReadCache & Zero-Duplication Base64) Ã¢â€â‚¬Ã¢â€â‚¬
         let is_cacheable = matches!(
             tool.action.as_str(),
             "model/info" | "categories/list" | "levels/get" | "phases/get" | "documents/list"
@@ -1182,7 +1307,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let cmd = args[1].as_str();
         match cmd {
             "doctor" => {
-                println!("ARC System Diagnostic Doctor (v3.0.0)");
+                println!("ARC System Diagnostic Doctor (v3.1.0)");
                 println!("------------------------------------");
                 println!("OS: {} ({})", env::consts::OS, env::consts::ARCH);
                 #[cfg(windows)]
@@ -1233,8 +1358,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let manifest: ManifestRoot = serde_json::from_str(TOOLS_MANIFEST_RAW)
         .expect("Failed to parse embedded tools manifest");
 
-    let profile = env::var("ARC_TOOL_PROFILE").unwrap_or_else(|_| "all".to_string()).to_lowercase();
-    eprintln!("[INFO] ARC Active Tool Profile: '{}' (options: all, compact, bimcraft)", profile);
+    let is_cad_mode = args.len() > 1 && (args[1] == "cad-mcp" || args[1] == "--cad-mcp");
+    let default_profile = if is_cad_mode { "cad" } else { "compact" };
+    let profile = env::var("ARC_TOOL_PROFILE").unwrap_or_else(|_| default_profile.to_string()).to_lowercase();
+    eprintln!("[INFO] ARC Active Tool Profile: '{}' (options: compact, all, cad, bimcraft)", profile);
 
     let mut tools_map = HashMap::new();
     let mut tools_list_vec = Vec::new();
@@ -1246,6 +1373,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
 
         let is_included = match profile.as_str() {
+            "cad" => t.name.starts_with("dxf_") || t.name == "bimcraft_export_dxf",
             "compact" => is_core_tool(&t.name),
             "bimcraft" => is_bimcraft_tool(&t.name),
             _ => true,
@@ -1265,7 +1393,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Always ensure revit_dispatch is registered in tools_map & exposed in compact/bimcraft
     let dispatch_tool = ManifestTool {
         name: "revit_dispatch".to_string(),
-        description: "Exécute n'importe quelle action ou outil ARC parmi les 248 du catalogue Dual-Engine (Revit/BIMcraft).".to_string(),
+        description: "ExÃ©cute n'importe quelle action ou outil ARC parmi les 268 du catalogue Dual-Engine (Revit/BIMcraft).".to_string(),
         input_schema: json!({
             "type": "object",
             "properties": {
@@ -1301,6 +1429,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         tools_list_json: json!(tools_list_vec),
         read_cache: tokio::sync::RwLock::new(HashMap::new()),
         snapshot_store: tokio::sync::RwLock::new(snapshot_engine::SnapshotStore::new()),
+        revit_circuit_breaker: tokio::sync::RwLock::new(None),
     });
 
     let stdin = tokio::io::stdin();

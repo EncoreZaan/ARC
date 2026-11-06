@@ -1,6 +1,6 @@
 # 🏛️ ARC (ARCHITECTURE & REVIT COPILOT) — MASTER PROJECT STATE & ARCHITECTURE BIBLE
-> **Statut global du système :** Opérationnel & Ultra-Performant (v3.0.0 — 264 Outils, Pure Rust Native CAD [Zero-Python], SafeModalInterceptor Anti-Crash, Tokens -97%, Macro-Batching & Dual-Engine Revit/BIMcraft)  
-> **Dernière mise à jour :** 5 Novembre 2026  
+> **Statut global du système :** Opérationnel & Ultra-Performant (v3.1.0 — 268 Outils, Pure Rust Omni-Architecture [Zero-Python], Circuit Breaker Universel, Tokens -90.5%, Fallback BIMcraft Transparent macOS/Linux/Win & SafeModalInterceptor)  
+> **Dernière mise à jour :** 6 Novembre 2026  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/ARC.git](https://github.com/EncoreZaan/ARC.git)  
 > **Site officiel (Landing Page 3D) :** [https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)  
 > **Auteur & Propriétaire :** @EncoreZaan  
@@ -29,7 +29,7 @@
 | **Fichiers Maquettes Actifs** | `...\06_Revit\REFLET_00_EXISTANT.rvt` & `REFLET_00_EXISTANT.bimcraft`<br>+ Variantes V1, V2, V3 converties et synchronisées |
 | **Gabarit Officiel (.rte)** | `...\DOUBLE-BAY_gabarit.rte` (issu du gabarit architectural FRA RVT 2027) |
 | **Bibliothèque Familles FRA** | `C:\ProgramData\Autodesk\RVT 2027\Libraries\French\` |
-| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v3.0.0 — 264 outils (avec moteur CAD natif pur Rust & Progressive Discovery))<br>2. `cad-mcp` (ezdxf + PyMuPDF)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
+| **Serveurs MCP Actifs** | 1. `revit` (Serveur Rust ARC v3.1.0 — 268 outils natifs, profil compact par défaut)<br>2. `cad-mcp` (Serveur Rust ARC en mode CAD pur `revit-mcp-server cad-mcp` — 0 Python)<br>3. `bimcraft` / `bimcraft-gui` (Pont CLI 0.9.0 & Agent interactif)<br>4. `revit-officiel` (Tech Preview stdio) |
 
 ---
 
@@ -42,8 +42,8 @@
                                     │ stdio (JSON-RPC)
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│             SERVEUR MCP RUST UNIFIÉ (revit-mcp-server v3.0.0)          │
-│  - Dispatcher haute performance (264 outils répertoriés)               │
+│             SERVEUR MCP RUST UNIFIÉ (revit-mcp-server v3.1.0)          │
+│  - Dispatcher haute performance (268 outils répertoriés)               │
 │  - Moteur Géométrique Déporté Multithread (rayon)                       │
 │    • AABB Clash Detection parallélisée en mémoire vive                 │
 │    • Calculs surfaciques exacts Shoelace (Loi Carrez, PMR)             │

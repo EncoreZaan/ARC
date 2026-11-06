@@ -64,14 +64,14 @@ pub fn generate_auto_dimensions(input: &Value) -> Value {
 
     let mut clean_x: Vec<f64> = Vec::new();
     for x in x_points {
-        if clean_x.is_empty() || (clean_x.last().unwrap() - x).abs() > 0.05 {
+        if clean_x.is_empty() || clean_x.last().map_or(true, |last_x| (last_x - x).abs() > 0.05) {
             clean_x.push((x * 100.0).round() / 100.0);
         }
     }
 
     let mut clean_y: Vec<f64> = Vec::new();
     for y in y_points {
-        if clean_y.is_empty() || (clean_y.last().unwrap() - y).abs() > 0.05 {
+        if clean_y.is_empty() || clean_y.last().map_or(true, |last_y| (last_y - y).abs() > 0.05) {
             clean_y.push((y * 100.0).round() / 100.0);
         }
     }
@@ -113,8 +113,8 @@ pub fn generate_auto_dimensions(input: &Value) -> Value {
     });
 
     // 2. Ligne Horizontale 2 : Cote générale hors-tout
-    let x_first = *clean_x.first().unwrap();
-    let x_last = *clean_x.last().unwrap();
+    let x_first = *clean_x.first().unwrap_or(&0.0);
+    let x_last = *clean_x.last().unwrap_or(&x_first);
     let total_h_mm = ((x_last - x_first) * 1000.0).round();
     chains.push(DimensionChain {
         chain_type: "OverallTotal".into(),
@@ -153,8 +153,8 @@ pub fn generate_auto_dimensions(input: &Value) -> Value {
     });
 
     // 4. Ligne Verticale 2 : Cote générale hors-tout
-    let y_first = *clean_y.first().unwrap();
-    let y_last = *clean_y.last().unwrap();
+    let y_first = *clean_y.first().unwrap_or(&0.0);
+    let y_last = *clean_y.last().unwrap_or(&y_first);
     let total_v_mm = ((y_last - y_first) * 1000.0).round();
     chains.push(DimensionChain {
         chain_type: "OverallTotal".into(),
