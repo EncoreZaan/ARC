@@ -141,15 +141,23 @@ public partial class RevitEventHandler : IExternalEventHandler
     [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
     private static extern bool PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
     private const uint WM_NULL = 0x0000;
+    private static IntPtr _cachedMainWindowHandle = IntPtr.Zero;
 
     public static void WakeUpRevit()
     {
         try
         {
-            var hwnd = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
-            if (hwnd != IntPtr.Zero)
+            if (_cachedMainWindowHandle == IntPtr.Zero)
             {
-                PostMessage(hwnd, WM_NULL, IntPtr.Zero, IntPtr.Zero);
+                _cachedMainWindowHandle = App.UiApp?.MainWindowHandle ?? IntPtr.Zero;
+                if (_cachedMainWindowHandle == IntPtr.Zero)
+                {
+                    _cachedMainWindowHandle = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
+                }
+            }
+            if (_cachedMainWindowHandle != IntPtr.Zero)
+            {
+                PostMessage(_cachedMainWindowHandle, WM_NULL, IntPtr.Zero, IntPtr.Zero);
             }
         }
         catch { }

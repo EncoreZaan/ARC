@@ -115,6 +115,10 @@ public partial class RevitEventHandler
         var totalCount = col.GetElementCount();
         var paged = matched.Skip(offset).Take(limit);
 
+        // O(1) memoization caches to eliminate N+1 doc.GetElement() C++ interop calls
+        var typeNameCache = new Dictionary<ElementId, string?>();
+        var levelNameCache = new Dictionary<ElementId, string?>();
+
         var elements = paged.Select(e =>
         {
             var item = new JObject
@@ -125,16 +129,41 @@ public partial class RevitEventHandler
             if (WantField("uniqueId")) item["uniqueId"] = e.UniqueId;
             if (WantField("name")) item["name"] = e.Name;
             if (WantField("category")) item["category"] = e.Category?.Name;
-            if (WantField("typeName")) item["typeName"] = doc.GetElement(e.GetTypeId())?.Name;
+            if (WantField("typeName"))
+            {
+                var tid = e.GetTypeId();
+                if (tid != null && tid != ElementId.InvalidElementId)
+                {
+                    if (!typeNameCache.TryGetValue(tid, out var tName))
+                    {
+                        tName = doc.GetElement(tid)?.Name;
+                        typeNameCache[tid] = tName;
+                    }
+                    item["typeName"] = tName;
+                }
+            }
             if (WantField("typeId")) item["typeId"] = e.GetTypeId()?.Value ?? -1L;
 
             if (WantField("levelName"))
             {
-                var lvl = doc.GetElement(e.LevelId) as Level;
-                var lvlParam = e.get_Parameter(BuiltInParameter.FAMILY_LEVEL_PARAM)
-                             ?? e.get_Parameter(BuiltInParameter.LEVEL_PARAM)
-                             ?? e.get_Parameter(BuiltInParameter.INSTANCE_REFERENCE_LEVEL_PARAM);
-                item["levelName"] = lvl?.Name ?? lvlParam?.AsValueString();
+                string? resolvedLevelName = null;
+                var lid = e.LevelId;
+                if (lid != null && lid != ElementId.InvalidElementId)
+                {
+                    if (!levelNameCache.TryGetValue(lid, out resolvedLevelName))
+                    {
+                        resolvedLevelName = (doc.GetElement(lid) as Level)?.Name;
+                        levelNameCache[lid] = resolvedLevelName;
+                    }
+                }
+                if (resolvedLevelName == null)
+                {
+                    var lvlParam = e.get_Parameter(BuiltInParameter.FAMILY_LEVEL_PARAM)
+                                 ?? e.get_Parameter(BuiltInParameter.LEVEL_PARAM)
+                                 ?? e.get_Parameter(BuiltInParameter.INSTANCE_REFERENCE_LEVEL_PARAM);
+                    resolvedLevelName = lvlParam?.AsValueString();
+                }
+                item["levelName"] = resolvedLevelName;
             }
 
             // Location and BBox (D2)

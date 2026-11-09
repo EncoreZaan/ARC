@@ -1,6 +1,6 @@
 [package]
 name = "revit-mcp-installer"
-version = "2.6.0"
+version = "3.2.0"
 edition = "2021"
 authors = ["UV Techs"]
 description = "Universal standalone installer for ARC (Architecture & Revit Copilot)"

@@ -1773,8 +1773,8 @@
       "args": ["mcp", "--connect"]
     },
     "cad-mcp": {
-      "command": "python",
-      "args": ["-m", "cad_mcp.server"]
+      "command": "C:\\\\Users\\\\%USERNAME%\\\\AppData\\\\Local\\\\Programs\\\\RevitMCP\\\\revit-mcp-server.exe",
+      "args": ["cad-mcp"]
     }
   }
 }`,
@@ -1788,13 +1788,12 @@
     "revit-core": {
       "command": "/Users/%USERNAME%/.cargo/bin/revit-mcp-server",
       "env": {
-        "REVIT_HOST": "http://localhost:6543",
-        "REVIT_ALLOW_REMOTE": "1"
+        "ARC_TOOL_PROFILE": "compact"
       }
     },
     "cad-mcp": {
-      "command": "python3",
-      "args": ["/Users/%USERNAME%/ARC/cad-mcp/server.py"]
+      "command": "/Users/%USERNAME%/.cargo/bin/revit-mcp-server",
+      "args": ["cad-mcp"]
     }
   }
 }`,
@@ -1810,8 +1809,8 @@
       "args": ["--pipe", "/tmp/revit_mcp_ipc.sock"]
     },
     "cad-mcp": {
-      "command": "python3",
-      "args": ["/opt/ARC/cad-mcp/server.py"]
+      "command": "/usr/local/bin/revit-mcp-server",
+      "args": ["cad-mcp"]
     }
   }
 }`,
@@ -1821,15 +1820,18 @@
   "command": "C:\\\\Users\\\\%USERNAME%\\\\AppData\\\\Local\\\\Programs\\\\RevitMCP\\\\revit-mcp-server.exe",
   "args": ["--pipe", "\\\\.\\\\pipe\\\\revit_mcp_ipc"],
   "env": {
-    "REVIT_MCP_IPC": "\\\\.\\\\pipe\\\\revit_mcp_ipc",
-    "REVIT_MCP_PORT": "6543"
+    "ARC_TOOL_PROFILE": "compact",
+    "REVIT_MCP_IPC": "\\\\.\\\\pipe\\\\revit_mcp_ipc"
   }
 }`,
-    cli: `# Lancement direct en ligne de commande ou script PowerShell
-revit-mcp-server.exe --pipe "\\\\.\\pipe\\revit_mcp_ipc" --fallback-port 6543
+    cli: `# Diagnostic instantané du système & du Pool IPC Named Pipe
+revit-mcp-server.exe doctor
 
-# Vérification instantanée de l'état du serveur Named Pipe
-curl http://localhost:6543/health`
+# Exécution du benchmark matériel SIMD / LBVH (10 000 éléments)
+revit-mcp-server.exe bench
+
+# Rendu vectoriel 1:1 DXF -> SVG en pur Rust (0 Python)
+revit-mcp-server.exe cad render plan_rdc.dxf`
   };
 
   if (configTabs && codePre) {

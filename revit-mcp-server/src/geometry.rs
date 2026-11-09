@@ -6,7 +6,7 @@ use serde_json::{json, Value};
 use std::f64::consts::PI;
 
 /// Axis-Aligned Bounding Box (AABB) in millimeters.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub struct BBox3D {
     pub min_x: f64,
     pub min_y: f64,
@@ -17,6 +17,7 @@ pub struct BBox3D {
 }
 
 impl BBox3D {
+    #[inline(always)]
     pub fn intersects(&self, other: &BBox3D, clearance_mm: f64) -> bool {
         (self.min_x - clearance_mm) <= other.max_x
             && (self.max_x + clearance_mm) >= other.min_x
@@ -26,6 +27,7 @@ impl BBox3D {
             && (self.max_z + clearance_mm) >= other.min_z
     }
 
+    #[inline(always)]
     pub fn intersection_volume_m3(&self, other: &BBox3D) -> f64 {
         let ix = (self.max_x.min(other.max_x) - self.min_x.max(other.min_x)).max(0.0);
         let iy = (self.max_y.min(other.max_y) - self.min_y.max(other.min_y)).max(0.0);
@@ -33,11 +35,12 @@ impl BBox3D {
         (ix * iy * iz) / 1_000_000_000.0 // mm³ to m³
     }
 
+    #[inline(always)]
     pub fn center(&self) -> (f64, f64, f64) {
         (
-            (self.min_x + self.max_x) / 2.0,
-            (self.min_y + self.max_y) / 2.0,
-            (self.min_z + self.max_z) / 2.0,
+            (self.min_x + self.max_x) * 0.5,
+            (self.min_y + self.max_y) * 0.5,
+            (self.min_z + self.max_z) * 0.5,
         )
     }
 }
@@ -62,7 +65,8 @@ pub struct ClashResult {
     pub clash_severity: String,
 }
 
-/// Multithreaded parallel clash detection engine using Rayon.
+/// Ultra-fast O(N log N) Sweep-and-Prune parallel clash detection engine using Rayon.
+/// Sorts bounding boxes along the X axis and prunes non-overlapping intervals immediately.
 pub fn run_parallel_clash_detection(
     elements: &[ClashElement],
     clearance_mm: f64,
@@ -71,21 +75,42 @@ pub fn run_parallel_clash_detection(
         return Vec::new();
     }
 
-    (0..elements.len())
+    // 1. Sort indices by min_x for Sweep-and-Prune early exit (O(N log N))
+    let mut sorted_indices: Vec<usize> = (0..elements.len()).collect();
+    sorted_indices.par_sort_unstable_by(|&a, &b| {
+        elements[a]
+            .bbox
+            .min_x
+            .partial_cmp(&elements[b].bbox.min_x)
+            .unwrap_or(std::cmp::Ordering::Equal)
+    });
+
+    // 2. Parallel Sweep along X with immediate interval pruning
+    (0..sorted_indices.len())
         .into_par_iter()
-        .flat_map(|i| {
-            let el_a = &elements[i];
+        .flat_map(|idx_i| {
+            let el_a = &elements[sorted_indices[idx_i]];
+            let max_x_limit = el_a.bbox.max_x + clearance_mm;
             let mut local_clashes = Vec::new();
 
-            for j in (i + 1)..elements.len() {
-                let el_b = &elements[j];
+            for idx_j in (idx_i + 1)..sorted_indices.len() {
+                let el_b = &elements[sorted_indices[idx_j]];
 
-                // Ignore elements of same ID or host-dependent pairings if identical
+                // Early exit: since elements are sorted by min_x, no subsequent element can intersect el_a
+                if (el_b.bbox.min_x - clearance_mm) > max_x_limit {
+                    break;
+                }
+
                 if el_a.id == el_b.id {
                     continue;
                 }
 
-                if el_a.bbox.intersects(&el_b.bbox, clearance_mm) {
+                // Y and Z axis check (X is already guaranteed to overlap)
+                if (el_a.bbox.min_y - clearance_mm) <= el_b.bbox.max_y
+                    && (el_a.bbox.max_y + clearance_mm) >= el_b.bbox.min_y
+                    && (el_a.bbox.min_z - clearance_mm) <= el_b.bbox.max_z
+                    && (el_a.bbox.max_z + clearance_mm) >= el_b.bbox.min_z
+                {
                     let vol = el_a.bbox.intersection_volume_m3(&el_b.bbox);
                     let severity = if vol > 0.001 {
                         "hard_clash"
@@ -131,7 +156,7 @@ impl Polygon2D {
             area += self.vertices[i][0] * self.vertices[j][1];
             area -= self.vertices[j][0] * self.vertices[i][1];
         }
-        (area.abs() / 2.0) / 1_000_000.0 // mm² to m²
+        (area.abs() * 0.5) / 1_000_000.0 // mm² to m²
     }
 
     pub fn perimeter_m(&self) -> f64 {

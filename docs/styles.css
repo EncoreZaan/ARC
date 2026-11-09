@@ -1876,6 +1876,173 @@ img, svg, video {
 }
 
 /* --------------------------------------------------------------------------
+   8b. Section: Télémétrie & Benchmarks Bento Grid (v3.2.0 Apple Pro Titanium)
+   -------------------------------------------------------------------------- */
+.telemetry-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.telemetry-card {
+  position: relative;
+  background: linear-gradient(165deg, rgba(22, 24, 34, 0.85) 0%, rgba(10, 11, 16, 0.94) 100%);
+  backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 22px;
+  padding: 2rem 1.85rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--duration-med) var(--ease-cinematic);
+  overflow: hidden;
+}
+
+.telemetry-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(41, 151, 255, 0.55), transparent);
+  opacity: 0.75;
+}
+
+.telemetry-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(41, 151, 255, 0.38);
+  box-shadow: 0 22px 50px -12px rgba(0, 0, 0, 0.9), 0 0 32px rgba(41, 151, 255, 0.16);
+}
+
+.telemetry-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.telemetry-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.telemetry-gain-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(48, 209, 88, 0.12);
+  border: 1px solid rgba(48, 209, 88, 0.32);
+  color: #30D158;
+}
+
+.telemetry-metric {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 3.8vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  line-height: 1.05;
+  margin-bottom: 0.6rem;
+  background: linear-gradient(180deg, #FFFFFF 30%, #64D2FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.telemetry-metric small {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  opacity: 0.85;
+}
+
+.telemetry-title {
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--text-pearl);
+  margin-bottom: 0.55rem;
+}
+
+.telemetry-desc {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 1.5rem;
+}
+
+.telemetry-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.telemetry-bar-row {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr auto;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.76rem;
+}
+
+.bar-label {
+  color: var(--text-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.bar-fill-cyan {
+  background: linear-gradient(90deg, #2997FF, #64D2FF);
+  box-shadow: 0 0 10px rgba(41, 151, 255, 0.65);
+}
+
+.bar-fill-emerald {
+  background: linear-gradient(90deg, #30D158, #64D2FF);
+  box-shadow: 0 0 10px rgba(48, 209, 88, 0.65);
+}
+
+.bar-fill-muted {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.bar-val {
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+  color: var(--text-pearl);
+  text-align: right;
+  min-width: 48px;
+}
+
+@media (max-width: 1080px) {
+  .telemetry-bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
    Responsive Media Queries (100% Zero-Overlap Rigidity)
    -------------------------------------------------------------------------- */
 @media (max-width: 1080px) {

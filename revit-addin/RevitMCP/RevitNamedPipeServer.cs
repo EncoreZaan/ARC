@@ -24,6 +24,17 @@ public class RevitNamedPipeServer
     private readonly CancellationTokenSource _cts = new();
     private Thread? _listenerThread;
     private bool _running;
+    private static readonly PipeSecurity CachedPipeSecurity = CreateDefaultPipeSecurity();
+
+    private static PipeSecurity CreateDefaultPipeSecurity()
+    {
+        var pipeSecurity = new PipeSecurity();
+        pipeSecurity.AddAccessRule(new PipeAccessRule(
+            WindowsIdentity.GetCurrent().User!,
+            PipeAccessRights.ReadWrite | PipeAccessRights.CreateNewInstance,
+            AccessControlType.Allow));
+        return pipeSecurity;
+    }
 
     public RevitNamedPipeServer(UIControlledApplication uiApp, RevitEventHandler eventHandler, ExternalEvent externalEvent)
     {
@@ -60,12 +71,6 @@ public class RevitNamedPipeServer
         {
             try
             {
-                var pipeSecurity = new PipeSecurity();
-                pipeSecurity.AddAccessRule(new PipeAccessRule(
-                    WindowsIdentity.GetCurrent().User!,
-                    PipeAccessRights.ReadWrite | PipeAccessRights.CreateNewInstance,
-                    AccessControlType.Allow));
-
                 var pipeServer = NamedPipeServerStreamAcl.Create(
                     targetPipeName,
                     PipeDirection.InOut,
@@ -74,7 +79,7 @@ public class RevitNamedPipeServer
                     PipeOptions.Asynchronous,
                     inBufferSize: 1024 * 1024,
                     outBufferSize: 1024 * 1024,
-                    pipeSecurity);
+                    CachedPipeSecurity);
 
                 pipeServer.WaitForConnection();
 
@@ -138,8 +143,8 @@ public class RevitNamedPipeServer
                     {
                         ["ok"] = true,
                         ["service"] = "RevitMCP",
-                        ["version"] = "2.6.0",
-                        ["transport"] = "named_pipe",
+                        ["version"] = "3.2.0",
+                        ["transport"] = "named_pipe_pooled",
                         ["openDocuments"] = JArray.FromObject(OpenDocumentsCache.GetList())
                     };
                     try { writer.WriteLine(healthObj.ToString(Formatting.None)); } catch { break; }
