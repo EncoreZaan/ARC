@@ -7,7 +7,7 @@
 [![Rust](https://img.shields.io/badge/Server-Rust%20100%25%20Natif%20SIMD-orange.svg)](https://www.rust-lang.org/)
 [![MCP](https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-green.svg)](https://modelcontextprotocol.io/)
 
-> **Site web officiel & Expérience 3D interactive :** **[https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)** ([Variante Blueprint Studio](https://encorezaan.github.io/ARC/variant-blueprint.html))  
+> **Site web officiel :** **[https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)**  
 > **Documentation d'architecture complète :** **[`docs/revit_architecture_guide.md`](./docs/revit_architecture_guide.md)**
 
 > **ARC (Architecture & Revit Copilot)** connecte **Claude (Claude Desktop, Cursor, Claude Code, Antigravity)** et vos assistants IA directement à **Autodesk Revit** et **BIMcraft** via le protocole ouvert **Model Context Protocol (MCP)**.
@@ -34,8 +34,8 @@ ARC brise l'enfermement Windows historique du monde BIM :
   - **`cargo clippy -- -D warnings` (0 avertissement) :** Code Rust assaini sur l'ensemble des 38 modules.
   - **Boucle JSON-RPC Zero-Allocation (`write_jsonrpc_line`) :** Sérialisation directe dans un buffer `Vec<u8>` réutilisable (64 Ko) pour éliminer les allocations `String` sur `stdout`.
   - **Suite de Tests Unitaires Rust (`cargo test`) :** 5 tests unitaires vérifiant le solveur paramétrique, Sweep-and-Prune, Shoelace RE2020, INIES ACV et le parseur vocal NLP.
-- **Nouvelle Variante Landing Page « Blueprint Studio » :**
-  - Ajout de [`docs/variant-blueprint.html`](./docs/variant-blueprint.html) (esthétique *Swiss Architectural Blueprint & Copper Studio*, grille CAD 24/96 px, plan SVG paramétrique avec balayage LBVH, explorateur des 268 outils et bascule instantanée avec *Obsidian Pro*).
+- **Landing Page « Blueprint Studio » (Simplifiée & Directe) :**
+  - Refonte de [`docs/index.html`](./docs/index.html) avec l'esthétique *Swiss Architectural Blueprint & Copper Studio* (`variant-blueprint.css`), grille CAD 24/96 px, plan SVG paramétrique avec balayage LBVH, explorateur des 268 outils et tous les liens essentiels accessibles directement.
 
 ---
 
