@@ -26,7 +26,7 @@ pub fn resolve_mep_clash_offline(params: &Value) -> Result<Value, String> {
     // Coordonnées du point de clash
     let clash_point = if let Some(arr) = params.get("clash_point").and_then(|v| v.as_array()) {
         [
-            arr.get(0).and_then(|v| v.as_f64()).unwrap_or(12.5),
+            arr.first().and_then(|v| v.as_f64()).unwrap_or(12.5),
             arr.get(1).and_then(|v| v.as_f64()).unwrap_or(8.2),
             arr.get(2).and_then(|v| v.as_f64()).unwrap_or(2.8),
         ]

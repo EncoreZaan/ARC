@@ -64,14 +64,14 @@ pub fn generate_auto_dimensions(input: &Value) -> Value {
 
     let mut clean_x: Vec<f64> = Vec::new();
     for x in x_points {
-        if clean_x.is_empty() || clean_x.last().map_or(true, |last_x| (last_x - x).abs() > 0.05) {
+        if clean_x.is_empty() || clean_x.last().is_none_or(|last_x| (last_x - x).abs() > 0.05) {
             clean_x.push((x * 100.0).round() / 100.0);
         }
     }
 
     let mut clean_y: Vec<f64> = Vec::new();
     for y in y_points {
-        if clean_y.is_empty() || clean_y.last().map_or(true, |last_y| (last_y - y).abs() > 0.05) {
+        if clean_y.is_empty() || clean_y.last().is_none_or(|last_y| (last_y - y).abs() > 0.05) {
             clean_y.push((y * 100.0).round() / 100.0);
         }
     }

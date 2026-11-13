@@ -1,6 +1,6 @@
 # 🏛️ ARC (ARCHITECTURE & REVIT COPILOT) — MASTER PROJECT STATE & ARCHITECTURE BIBLE
-> **Statut global du système :** Opérationnel & Ultra-Performant (v3.2.0 — 268 Outils, Architecture Rust SIMD LBVH Sweep-and-Prune $O(N \log N)$, Persistent Pipe Pool 0.02 ms, Vectorized Shared Memory `memmap2`, Offloading 100% Rust LCA/NLP/Branching, Tokens -90.5% & Landing Page v3.2.0 Télémétrie)  
-> **Dernière mise à jour :** 9 Novembre 2026  
+> **Statut global du système :** Opérationnel & Ultra-Performant (v3.3.0 — 268 Outils [267 manifest + `revit_dispatch`], 0-Warning Clippy Rust, Buffer JSON-RPC Réutilisable, Suite de Tests Unitaires Rust, Landing Page Obsidian Pro v3.3.0 + Nouvelle Variante Blueprint Studio)  
+> **Dernière mise à jour :** 14 Novembre 2026  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/ARC.git](https://github.com/EncoreZaan/ARC.git)  
 > **Site officiel (Landing Page 3D) :** [https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)  
 > **Auteur & Propriétaire :** @EncoreZaan  
@@ -240,6 +240,15 @@
   - Activation de `lto = "fat"`, réduction des features Tokio au strict nécessaire, et `rustflags = ["-C", "target-cpu=native"]` (instructions matérielles AVX2/AVX-512 et Apple Silicon NEON).
 
 ## 4. Historique Chronologique des Versions
+
+### [v3.3.0] - 2026-11-14
+- **Optimisations & Qualité Rust (`revit-mcp-server`) :**
+  - **0-Warning `cargo clippy -- -D warnings` :** Correction intégrale des 28 avertissements Clippy sur 13 modules Rust (`solver.rs`, `spatial_index.rs`, `dxf_engine.rs`, `ifc_engine.rs`, `solar_raytracer.rs`, `artisan_takeoff.rs`, `clash_matrix.rs`, etc.).
+  - **Boucle JSON-RPC Zero-Allocation (`main.rs`) :** Ajout du helper `write_jsonrpc_line` écrivant directement via `serde_json::to_writer` dans un buffer `Vec<u8>` pré-alloué réutilisable (64 Ko) pour éliminer les allocations `String` répétitives sur `tools/list` et `tools/call`.
+  - **Suite de Tests Unitaires Rust (`cargo test`) :** Extension de 1 à 5 tests unitaires vérifiant le solveur paramétrique (`solver`), Sweep-and-Prune & Shoelace RE2020 (`geometry`), base INIES & ACV (`carbon_lca`), et parseur vocal NLP (`voice_nlp`).
+- **Landing Page v3.3.0 & Nouvelle Variante « Blueprint Studio » (`docs/`) :**
+  - Mise à jour de [`docs/index.html`](./docs/index.html) vers **v3.3.0** avec sélecteur de variante dans la barre de navigation.
+  - Création de la nouvelle variante **Swiss Architectural Blueprint & Copper Studio** ([`docs/variant-blueprint.html`](./docs/variant-blueprint.html) + [`docs/variant-blueprint.css`](./docs/variant-blueprint.css)) : papier calque architectural, grille CAD 24/96px, plan paramétrique SVG interactif avec balayage LBVH animé, Bento télémétrie, explorateur des 268 outils et sync GitHub Releases BIMcraft.
 
 ### [v3.2.0] - 2026-11-09
 - **Optimisation Matérielle Extrême (Rust SIMD + C# Zero-Overhead) & Landing Page v3.2.0 :**

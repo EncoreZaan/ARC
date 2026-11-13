@@ -4,6 +4,19 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 
 ---
 
+## [3.3.0] - 2026-11-14
+
+### 🦀 Rust Zero-Warning, Buffer JSON-RPC Réutilisable & Variante Landing Page « Blueprint Studio »
+- **Qualité & Fiabilité Rust (`revit-mcp-server`) :**
+  - Résolution complète des 28 avertissements `cargo clippy` (`cargo clippy -- -D warnings` passe sans aucun avertissement).
+  - Extraction de `write_jsonrpc_line` dans `main.rs` avec buffer `Vec<u8>` pré-alloué (64 Ko) et `serde_json::to_writer` pour supprimer les allocations `String` par requête sur `stdout`.
+  - Ajout de 4 nouveaux tests unitaires Rust (`geometry`, `carbon_lca`, `voice_nlp`) portant la suite `cargo test` à 5 tests passants.
+- **Landing Page v3.3.0 & Nouvelle Variante (`docs/`) :**
+  - Mise à jour de `docs/index.html` en v3.3.0 avec bouton de bascule vers la nouvelle variante.
+  - Création de **`docs/variant-blueprint.html`** et **`docs/variant-blueprint.css`** (esthétique *Swiss Architectural Blueprint & Copper Studio*, grille CAD, plan SVG paramétrique avec animation LBVH, explorateur des 268 outils et sync BIMcraft).
+
+---
+
 ## [3.2.0] - 2026-11-09
 
 ### ⚡ Optimisation Matérielle Extrême (Rust SIMD + C# Zero-Overhead), Déport 100% Rust Zero-IPC & Refonte Landing Page Télémétrie

@@ -238,3 +238,56 @@ pub fn analyze_spatial_metrics(
         }
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_sweep_and_prune_clash_detection() {
+        let elements = vec![
+            ClashElement {
+                id: 1,
+                category: "Walls".into(),
+                name: "Wall A".into(),
+                bbox: BBox3D {
+                    min_x: 0.0, min_y: 0.0, min_z: 0.0,
+                    max_x: 5000.0, max_y: 300.0, max_z: 3000.0,
+                },
+            },
+            ClashElement {
+                id: 2,
+                category: "Ducts".into(),
+                name: "Duct B".into(),
+                bbox: BBox3D {
+                    min_x: 2000.0, min_y: -500.0, min_z: 1500.0,
+                    max_x: 2400.0, max_y: 1000.0, max_z: 1900.0,
+                },
+            },
+            ClashElement {
+                id: 3,
+                category: "Pipes".into(),
+                name: "Pipe C".into(),
+                bbox: BBox3D {
+                    min_x: 10000.0, min_y: 10000.0, min_z: 0.0,
+                    max_x: 11000.0, max_y: 11000.0, max_z: 1000.0,
+                },
+            },
+        ];
+        let clashes = run_parallel_clash_detection(&elements, 0.0);
+        assert_eq!(clashes.len(), 1);
+        assert_eq!(clashes[0].element_a_id, 1);
+        assert_eq!(clashes[0].element_b_id, 2);
+    }
+
+    #[test]
+    fn test_shoelace_room_metrics_re2020() {
+        let room = Polygon2D {
+            vertices: vec![[0.0, 0.0], [5000.0, 0.0], [5000.0, 4000.0], [0.0, 4000.0]],
+        };
+        let res = analyze_spatial_metrics(&room, &[4.0], &["Sud".into()]);
+        assert_eq!(res["success"], true);
+        assert_eq!(res["metrics"]["floorAreaM2"], 20.0);
+        assert_eq!(res["metrics"]["re2020BioclimaticCompliant"], true);
+    }
+}

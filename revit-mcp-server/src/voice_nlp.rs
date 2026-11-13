@@ -95,3 +95,18 @@ pub fn parse_voice_intent(params: &Value) -> Value {
         "nlpParseMicroseconds": elapsed_us
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_voice_command_multilingual_parsing() {
+        let res = parse_voice_intent(&json!({ "command": "Passe en vue 3D et fais une capture" }));
+        assert_eq!(res["success"], true);
+        let intents = res["parsedIntents"].as_array().unwrap();
+        assert_eq!(intents.len(), 2);
+        assert_eq!(intents[0]["intent"], "activate_3d");
+        assert_eq!(intents[1]["intent"], "screenshot");
+    }
+}

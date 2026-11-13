@@ -62,10 +62,10 @@ impl BoundingBox {
 pub fn detect_clash_matrix(args: &Value) -> Value {
     let tolerance_mm = args.get("toleranceMm").and_then(|v| v.as_f64()).unwrap_or(10.0);
     let tolerance_m = tolerance_mm / 1000.0;
-    let hard_only = args.get("severityFilter").and_then(|v| v.as_str()).map_or(false, |s| s == "hard_only");
+    let hard_only = args.get("severityFilter").and_then(|v| v.as_str()) == Some("hard_only");
 
     // Realistic spatial set for testing / fast evaluation
-    let elements = vec![
+    let elements = [
         BoundingBox { id: 3401, category: "Structural Framing".into(), level: "R+1".into(), min: [0.0, 4.0, 2.7], max: [6.0, 4.3, 3.0] },
         BoundingBox { id: 8912, category: "Ducts".into(), level: "R+1".into(), min: [2.5, 3.8, 2.75], max: [2.8, 4.5, 2.95] }, // Hard clash MEP/Structure
         BoundingBox { id: 1022, category: "Walls".into(), level: "RDC".into(), min: [0.0, 0.0, 0.0], max: [8.0, 0.2, 2.8] },

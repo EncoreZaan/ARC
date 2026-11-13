@@ -39,12 +39,12 @@ impl BoundingBox3D {
     #[inline(always)]
     pub fn distance_squared_to_point(&self, p: [f64; 3]) -> f64 {
         let mut d = 0.0;
-        for i in 0..3 {
-            if p[i] < self.min[i] {
-                let diff = self.min[i] - p[i];
+        for (i, &val) in p.iter().enumerate() {
+            if val < self.min[i] {
+                let diff = self.min[i] - val;
                 d += diff * diff;
-            } else if p[i] > self.max[i] {
-                let diff = p[i] - self.max[i];
+            } else if val > self.max[i] {
+                let diff = val - self.max[i];
                 d += diff * diff;
             }
         }
@@ -119,7 +119,7 @@ impl SpatialBvh {
         let mut max = [f64::NEG_INFINITY; 3];
 
         const CLUSTER_SIZE: usize = 64;
-        let mut clusters = Vec::with_capacity((elements.len() + CLUSTER_SIZE - 1) / CLUSTER_SIZE);
+        let mut clusters = Vec::with_capacity(elements.len().div_ceil(CLUSTER_SIZE));
 
         for (chunk_idx, chunk) in elements.chunks(CLUSTER_SIZE).enumerate() {
             let mut c_min = [f64::INFINITY; 3];
@@ -227,7 +227,7 @@ pub fn execute_spatial_query(params: &Value) -> Result<Value, String> {
 
     let center = if let Some(arr) = params.get("center").and_then(|v| v.as_array()) {
         [
-            arr.get(0).and_then(|v| v.as_f64()).unwrap_or(0.0),
+            arr.first().and_then(|v| v.as_f64()).unwrap_or(0.0),
             arr.get(1).and_then(|v| v.as_f64()).unwrap_or(0.0),
             arr.get(2).and_then(|v| v.as_f64()).unwrap_or(0.0),
         ]

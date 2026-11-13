@@ -115,39 +115,40 @@ pub fn generate_artisan_takeoff(input: &Value) -> Value {
         });
     }
 
-    let mut joinery: Vec<JoineryTakeoffItem> = Vec::new();
-    joinery.push(JoineryTakeoffItem {
-        tag: "P-01".into(),
-        host_room: "Entrée".into(),
-        opening_type: "Porte Paliers Blindée A2P BP1".into(),
-        dimensions: "930 x 2040 mm (Passage utile 830mm)".into(),
-        swing_direction: "Tirant Droit".into(),
-        fire_rating: "EI 30 / Coupe-Feu 1/2h".into(),
-    });
-    joinery.push(JoineryTakeoffItem {
-        tag: "P-02".into(),
-        host_room: "Chambre Principale".into(),
-        opening_type: "Bloc-Porte Âme Pleine Isophonique 34dB".into(),
-        dimensions: "830 x 2040 mm".into(),
-        swing_direction: "Tirant Gauche".into(),
-        fire_rating: "Standard".into(),
-    });
-    joinery.push(JoineryTakeoffItem {
-        tag: "P-03".into(),
-        host_room: "Salle d'Eau".into(),
-        opening_type: "Porte Coulissante à Galandage 83cm".into(),
-        dimensions: "830 x 2040 mm".into(),
-        swing_direction: "Coulissant".into(),
-        fire_rating: "Standard".into(),
-    });
-    joinery.push(JoineryTakeoffItem {
-        tag: "F-01".into(),
-        host_room: "Séjour".into(),
-        opening_type: "Baie Vitrée Coulissante 2 Vantaux Alu".into(),
-        dimensions: "2400 x 2150 mm".into(),
-        swing_direction: "Coulissant Double".into(),
-        fire_rating: "Double vitrage acoustique 44.2/16/4".into(),
-    });
+    let joinery: Vec<JoineryTakeoffItem> = vec![
+        JoineryTakeoffItem {
+            tag: "P-01".into(),
+            host_room: "Entrée".into(),
+            opening_type: "Porte Paliers Blindée A2P BP1".into(),
+            dimensions: "930 x 2040 mm (Passage utile 830mm)".into(),
+            swing_direction: "Tirant Droit".into(),
+            fire_rating: "EI 30 / Coupe-Feu 1/2h".into(),
+        },
+        JoineryTakeoffItem {
+            tag: "P-02".into(),
+            host_room: "Chambre Principale".into(),
+            opening_type: "Bloc-Porte Âme Pleine Isophonique 34dB".into(),
+            dimensions: "830 x 2040 mm".into(),
+            swing_direction: "Tirant Gauche".into(),
+            fire_rating: "Standard".into(),
+        },
+        JoineryTakeoffItem {
+            tag: "P-03".into(),
+            host_room: "Salle d'Eau".into(),
+            opening_type: "Porte Coulissante à Galandage 83cm".into(),
+            dimensions: "830 x 2040 mm".into(),
+            swing_direction: "Coulissant".into(),
+            fire_rating: "Standard".into(),
+        },
+        JoineryTakeoffItem {
+            tag: "F-01".into(),
+            host_room: "Séjour".into(),
+            opening_type: "Baie Vitrée Coulissante 2 Vantaux Alu".into(),
+            dimensions: "2400 x 2150 mm".into(),
+            swing_direction: "Coulissant Double".into(),
+            fire_rating: "Double vitrage acoustique 44.2/16/4".into(),
+        },
+    ];
 
     // Totaux
     let total_carrez: f64 = rooms.iter().map(|r| r.carrez_area_m2).sum();

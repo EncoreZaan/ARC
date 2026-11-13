@@ -1,13 +1,13 @@
 # ARC (Architecture & Revit Copilot) — Pont MCP Haute Précision pour Autodesk Revit & BIMcraft
 
 [![Site Officiel](https://img.shields.io/badge/Site%20Officiel-encorezaan.github.io%2FARC-2997FF?style=flat&logo=safari&logoColor=white)](https://encorezaan.github.io/ARC/)
-[![Release](https://img.shields.io/github/v/release/EncoreZaan/ARC?color=00d2ff&label=Version)](https://github.com/EncoreZaan/ARC/releases/tag/v3.2.0)
+[![Release](https://img.shields.io/github/v/release/EncoreZaan/ARC?color=00d2ff&label=Version)](https://github.com/EncoreZaan/ARC/releases/tag/v3.3.0)
 [![Platforms](https://img.shields.io/badge/Platforms-macOS%20(Apple%20Silicon)%20%7C%20Linux%20%7C%20Windows-brightgreen.svg)](#-disponibilité-multi-plateforme--macos-linux--windows)
 [![Revit & BIMcraft](https://img.shields.io/badge/Engines-Revit%202027%20%7C%20BIMcraft%200.9.0-blue.svg)](#-architecture-dual-engine)
 [![Rust](https://img.shields.io/badge/Server-Rust%20100%25%20Natif%20SIMD-orange.svg)](https://www.rust-lang.org/)
 [![MCP](https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-green.svg)](https://modelcontextprotocol.io/)
 
-> **Site web officiel & Expérience 3D interactive :** **[https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)**  
+> **Site web officiel & Expérience 3D interactive :** **[https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)** ([Variante Blueprint Studio](https://encorezaan.github.io/ARC/variant-blueprint.html))  
 > **Documentation d'architecture complète :** **[`docs/revit_architecture_guide.md`](./docs/revit_architecture_guide.md)**
 
 > **ARC (Architecture & Revit Copilot)** connecte **Claude (Claude Desktop, Cursor, Claude Code, Antigravity)** et vos assistants IA directement à **Autodesk Revit** et **BIMcraft** via le protocole ouvert **Model Context Protocol (MCP)**.
@@ -25,6 +25,17 @@ ARC brise l'enfermement Windows historique du monde BIM :
 
 ---
 
+
+---
+
+## 🦀 Nouveautés v3.3.0 (Rust Zero-Warning, Buffer JSON-RPC & Variante Landing Page « Blueprint Studio »)
+
+- **Qualité & Performance Rust (`revit-mcp-server`) :**
+  - **`cargo clippy -- -D warnings` (0 avertissement) :** Code Rust assaini sur l'ensemble des 38 modules.
+  - **Boucle JSON-RPC Zero-Allocation (`write_jsonrpc_line`) :** Sérialisation directe dans un buffer `Vec<u8>` réutilisable (64 Ko) pour éliminer les allocations `String` sur `stdout`.
+  - **Suite de Tests Unitaires Rust (`cargo test`) :** 5 tests unitaires vérifiant le solveur paramétrique, Sweep-and-Prune, Shoelace RE2020, INIES ACV et le parseur vocal NLP.
+- **Nouvelle Variante Landing Page « Blueprint Studio » :**
+  - Ajout de [`docs/variant-blueprint.html`](./docs/variant-blueprint.html) (esthétique *Swiss Architectural Blueprint & Copper Studio*, grille CAD 24/96 px, plan SVG paramétrique avec balayage LBVH, explorateur des 268 outils et bascule instantanée avec *Obsidian Pro*).
 
 ---
 

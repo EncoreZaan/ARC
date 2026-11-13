@@ -90,8 +90,8 @@ pub fn diagnose_and_heal_geometry(input: &Value) -> Value {
                     auto_healed: true,
                 });
             }
-        } else if (angle_deg - 90.0).abs() < angle_tol_deg {
-            if (angle_deg - 90.0).abs() > 0.001 {
+        } else if (angle_deg - 90.0).abs() < angle_tol_deg
+            && (angle_deg - 90.0).abs() > 0.001 {
                 let avg_x = (p1[0] + p2[0]) / 2.0;
                 let orig_angle = angle_deg;
                 p1[0] = avg_x;
@@ -107,7 +107,6 @@ pub fn diagnose_and_heal_geometry(input: &Value) -> Value {
                     auto_healed: true,
                 });
             }
-        }
 
         healed_walls.push(HealedWall {
             id,

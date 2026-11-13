@@ -280,7 +280,7 @@ fn format_tool_response(mut clean_body: Value, post_body: &Value) -> (Value, boo
         || post_body
             .get("format")
             .and_then(|v| v.as_str())
-            .map_or(false, |s| s == "columnar" || s == "compact");
+            .is_some_and(|s| s == "columnar" || s == "compact");
     if compact_requested {
         convert_to_columnar(&mut clean_body);
     }
@@ -1699,6 +1699,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut stdout = tokio::io::stdout();
     let reader = BufReader::new(stdin);
     let mut lines = reader.lines();
+    let mut write_buf: Vec<u8> = Vec::with_capacity(65_536);
+
+    async fn write_jsonrpc_line(
+        stdout: &mut tokio::io::Stdout,
+        buf: &mut Vec<u8>,
+        resp: &Value,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        buf.clear();
+        serde_json::to_writer(&mut *buf, resp)?;
+        buf.push(b'\n');
+        stdout.write_all(buf).await?;
+        stdout.flush().await?;
+        Ok(())
+    }
 
     while let Ok(Some(line)) = lines.next_line().await {
         let trimmed = line.trim();
@@ -1728,14 +1742,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         },
                         "serverInfo": {
                             "name": "revit-claude-mcp",
-                            "version": "3.2.0"
+                            "version": "3.3.0"
                         }
                     }
                 });
-                let mut out = serde_json::to_string(&resp)?;
-                out.push('\n');
-                stdout.write_all(out.as_bytes()).await?;
-                stdout.flush().await?;
+                write_jsonrpc_line(&mut stdout, &mut write_buf, &resp).await?;
             }
 
             "notifications/initialized" => {
@@ -1749,10 +1760,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         "id": id,
                         "result": {}
                     });
-                    let mut out = serde_json::to_string(&resp)?;
-                    out.push('\n');
-                    stdout.write_all(out.as_bytes()).await?;
-                    stdout.flush().await?;
+                    write_jsonrpc_line(&mut stdout, &mut write_buf, &resp).await?;
                 }
             }
 
@@ -1764,10 +1772,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         "tools": &state.tools_list_json
                     }
                 });
-                let mut out = serde_json::to_string(&resp)?;
-                out.push('\n');
-                stdout.write_all(out.as_bytes()).await?;
-                stdout.flush().await?;
+                write_jsonrpc_line(&mut stdout, &mut write_buf, &resp).await?;
             }
 
             "tools/call" => {
@@ -1782,10 +1787,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     "id": req.id,
                     "result": call_result
                 });
-                let mut out = serde_json::to_string(&resp)?;
-                out.push('\n');
-                stdout.write_all(out.as_bytes()).await?;
-                stdout.flush().await?;
+                write_jsonrpc_line(&mut stdout, &mut write_buf, &resp).await?;
             }
 
             unknown => {
@@ -1799,10 +1801,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                             "message": format!("Method '{}' not found", unknown)
                         }
                     });
-                    let mut out = serde_json::to_string(&resp)?;
-                    out.push('\n');
-                    stdout.write_all(out.as_bytes()).await?;
-                    stdout.flush().await?;
+                    write_jsonrpc_line(&mut stdout, &mut write_buf, &resp).await?;
                 }
             }
         }

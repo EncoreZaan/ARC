@@ -43,7 +43,7 @@ pub fn export_fast_ifc_buffer(params: &Value) -> Result<Value, String> {
     ifc.push_str("#11=IFCGEOMETRICREPRESENTATIONCONTEXT($,'Model',3,1.E-05,#12,$);\n");
     ifc.push_str("#12=IFCAXIS2PLACEMENT3D(#13,$,$);\n");
     ifc.push_str("#13=IFCCARTESIANPOINT((0.,0.,0.));\n");
-    ifc.push_str(&format!("#14=IFCSITE('1SiteGUID00000000000002',#5,'Terrain',$,$,#15,$,$,.ELEMENT.,$,$,$,$,$);\n"));
+    ifc.push_str("#14=IFCSITE('1SiteGUID00000000000002',#5,'Terrain',$,$,#15,$,$,.ELEMENT.,$,$,$,$,$);\n");
     ifc.push_str("#15=IFCLOCALPLACEMENT($,#12);\n");
     ifc.push_str(&format!("#16=IFCBUILDING('1BldgGUID00000000000003',#5,'{}',$,$,#17,$,$,.ELEMENT.,$,$,$);\n", building_name));
     ifc.push_str("#17=IFCLOCALPLACEMENT(#15,#12);\n");

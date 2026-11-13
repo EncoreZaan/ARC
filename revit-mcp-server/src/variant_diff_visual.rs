@@ -18,7 +18,9 @@ pub struct DiffElement {
     pub length_m: f64,
 }
 
-fn parse_line_element(val: &Value) -> Option<(String, String, String, f64, f64, f64, f64, f64)> {
+type ParsedLineElement = (String, String, String, f64, f64, f64, f64, f64);
+
+fn parse_line_element(val: &Value) -> Option<ParsedLineElement> {
     let id = val.get("id")
         .or_else(|| val.get("elementId"))
         .and_then(|v| v.as_str().map(|s| s.to_string()).or_else(|| v.as_i64().map(|n| n.to_string())))?;

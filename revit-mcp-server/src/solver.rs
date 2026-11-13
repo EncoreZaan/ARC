@@ -293,7 +293,7 @@ pub fn solve_parametric_layout(params: &Value) -> Value {
             let desk_d = 800.0;
 
             // Generate desks in 2 columns
-            let desks_per_col = (num_workstations + 1) / 2;
+            let desks_per_col = num_workstations.div_ceil(2);
             for i in 0..num_workstations {
                 let col = i % 2;
                 let row = i / 2;

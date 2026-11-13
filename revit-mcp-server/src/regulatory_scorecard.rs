@@ -9,9 +9,9 @@ pub fn audit_regulatory_scorecard(args: &Value) -> Value {
     let target_level = args.get("level").and_then(|v| v.as_str()).unwrap_or("Active Level");
     let requested_standards = args.get("standards").and_then(|v| v.as_array());
 
-    let check_pmr = requested_standards.map_or(true, |arr| arr.iter().any(|s| s == "PMR" || s == "all"));
-    let check_fire = requested_standards.map_or(true, |arr| arr.iter().any(|s| s == "SECURITE_INCENDIE" || s == "FIRE" || s == "all"));
-    let check_re2020 = requested_standards.map_or(true, |arr| arr.iter().any(|s| s == "RE2020" || s == "ENERGY" || s == "all"));
+    let check_pmr = requested_standards.is_none_or(|arr| arr.iter().any(|s| s == "PMR" || s == "all"));
+    let check_fire = requested_standards.is_none_or(|arr| arr.iter().any(|s| s == "SECURITE_INCENDIE" || s == "FIRE" || s == "all"));
+    let check_re2020 = requested_standards.is_none_or(|arr| arr.iter().any(|s| s == "RE2020" || s == "ENERGY" || s == "all"));
 
     let mut checks = Vec::new();
     let total_violations = 0;

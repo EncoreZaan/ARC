@@ -212,8 +212,8 @@ pub fn parse_dxf_file(path_str: &str) -> Result<DxfDocument, String> {
                 } else if val_str == "ENDTAB" {
                     current_table_type.clear();
                     continue;
-                } else if current_table_type == "LAYER" {
-                    if !temp_layer_name.is_empty() {
+                } else if current_table_type == "LAYER"
+                    && !temp_layer_name.is_empty() {
                         doc.layers.insert(
                             temp_layer_name.clone(),
                             DxfLayer {
@@ -228,7 +228,6 @@ pub fn parse_dxf_file(path_str: &str) -> Result<DxfDocument, String> {
                         temp_layer_color = 7;
                         temp_layer_flags = 0;
                     }
-                }
             }
 
             if in_entities {
@@ -667,9 +666,9 @@ pub fn export_bimcraft_to_dxf(elements: &[Value], output_dxf_path: &str) -> Resu
 
         if let Some(coords) = el.get("start").and_then(|v| v.as_array()) {
             if let Some(coords2) = el.get("end").and_then(|v| v.as_array()) {
-                let x1 = coords.get(0).and_then(|v| v.as_f64()).unwrap_or(0.0);
+                let x1 = coords.first().and_then(|v| v.as_f64()).unwrap_or(0.0);
                 let y1 = coords.get(1).and_then(|v| v.as_f64()).unwrap_or(0.0);
-                let x2 = coords2.get(0).and_then(|v| v.as_f64()).unwrap_or(0.0);
+                let x2 = coords2.first().and_then(|v| v.as_f64()).unwrap_or(0.0);
                 let y2 = coords2.get(1).and_then(|v| v.as_f64()).unwrap_or(0.0);
 
                 writeln!(f, "0\nLINE\n8\n{}\n10\n{:.3}\n20\n{:.3}\n30\n0.0\n11\n{:.3}\n21\n{:.3}\n31\n0.0",

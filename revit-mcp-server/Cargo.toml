@@ -1,6 +1,6 @@
 [package]
 name = "revit-mcp-server"
-version = "3.2.0"
+version = "3.3.0"
 edition = "2021"
 authors = ["EncoreZaan"]
 description = "ARC (Architecture & Revit Copilot) - Native standalone Rust MCP server for Autodesk Revit & BIMcraft"

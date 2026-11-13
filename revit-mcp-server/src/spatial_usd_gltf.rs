@@ -30,14 +30,14 @@ pub fn export_spatial_usd_gltf(input: &Value) -> Value {
         for m in arr {
             let bmin = m.get("bboxMin").and_then(|v| v.as_array())
                 .map(|a| [
-                    a.get(0).and_then(|x| x.as_f64()).unwrap_or(0.0),
+                    a.first().and_then(|x| x.as_f64()).unwrap_or(0.0),
                     a.get(1).and_then(|x| x.as_f64()).unwrap_or(0.0),
                     a.get(2).and_then(|x| x.as_f64()).unwrap_or(0.0)
                 ]).unwrap_or([0.0, 0.0, 0.0]);
 
             let bmax = m.get("bboxMax").and_then(|v| v.as_array())
                 .map(|a| [
-                    a.get(0).and_then(|x| x.as_f64()).unwrap_or(1.0),
+                    a.first().and_then(|x| x.as_f64()).unwrap_or(1.0),
                     a.get(1).and_then(|x| x.as_f64()).unwrap_or(1.0),
                     a.get(2).and_then(|x| x.as_f64()).unwrap_or(1.0)
                 ]).unwrap_or([1.0, 1.0, 2.6]);
@@ -133,7 +133,7 @@ pub fn export_spatial_usd_gltf(input: &Value) -> Value {
 
         usda.push_str("}\n");
 
-        if let Ok(_) = fs::write(&usda_path, &usda) {
+        if fs::write(&usda_path, &usda).is_ok() {
             usd_path_result = Some(usda_path.to_string_lossy().to_string());
         }
     }
@@ -184,7 +184,7 @@ pub fn export_spatial_usd_gltf(input: &Value) -> Value {
             }).collect::<Vec<_>>()
         });
 
-        if let Ok(_) = fs::write(&gltf_path, serde_json::to_string_pretty(&gltf_json).unwrap_or_default()) {
+        if fs::write(&gltf_path, serde_json::to_string_pretty(&gltf_json).unwrap_or_default()).is_ok() {
             gltf_path_result = Some(gltf_path.to_string_lossy().to_string());
         }
     }

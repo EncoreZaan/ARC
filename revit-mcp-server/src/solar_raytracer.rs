@@ -104,13 +104,13 @@ pub fn compute_solar_daylight(params: &Value) -> Result<Value, String> {
 
             // Formule photométrique analytique validée CIE Ciel Couvert + Monte Carlo
             let solid_angle = (window_area_sqm / (dist_to_window * dist_to_window + 1.0)).min(1.2);
-            let flj = ((solid_angle / PI) * 100.0 * (1.0 - angle_factor * 0.4)).max(0.2).min(8.5);
+            let flj = ((solid_angle / PI) * 100.0 * (1.0 - angle_factor * 0.4)).clamp(0.2, 8.5);
 
             // Ensoleillement direct en heures d'équivalent plein soleil
-            let _solar_hours = if orientation_deg >= 135.0 && orientation_deg <= 225.0 {
+            let _solar_hours = if (135.0..=225.0).contains(&orientation_deg) {
                 // Plein Sud
                 (6.5 * (1.0 - (dist_to_window / room_length) * 0.6)).max(0.5)
-            } else if orientation_deg >= 45.0 && orientation_deg < 135.0 {
+            } else if (45.0..135.0).contains(&orientation_deg) {
                 // Est
                 (3.8 * (1.0 - (dist_to_window / room_length) * 0.5)).max(0.2)
             } else if orientation_deg > 225.0 && orientation_deg <= 315.0 {

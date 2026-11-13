@@ -63,9 +63,7 @@ pub fn generate_semantic_digest(args: &Value) -> Value {
     };
 
     let envelope_summary = if include_envelope {
-        format!(
-            "\n**Enveloppe Thermique :** Murs périphériques: 124.0 m² (U=0.18 W/m²K) | Plancher bas: 80.0 m² | Déperdition globale H_T: 42 W/K"
-        )
+        "\n**Enveloppe Thermique :** Murs périphériques: 124.0 m² (U=0.18 W/m²K) | Plancher bas: 80.0 m² | Déperdition globale H_T: 42 W/K".to_string()
     } else {
         String::new()
     };

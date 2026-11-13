@@ -374,3 +374,26 @@ pub fn compute_lca_from_quantities(params: &Value) -> Value {
         ]
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_inies_lookup_and_lca_footprint() {
+        let lookup = inies_database_lookup(&json!({ "query": "béton" }));
+        assert_eq!(lookup["success"], true);
+        assert!(lookup["resultsCount"].as_u64().unwrap_or(0) >= 1);
+
+        let lca = compute_lca_from_quantities(&json!({
+            "sdpM2": 100.0,
+            "concreteVolumeM3": 20.0,
+            "partitionAreaM2": 80.0,
+            "windowAreaM2": 15.0,
+            "doorsCount": 6
+        }));
+        assert_eq!(lca["success"], true);
+        assert!(lca["icConstructionKgCO2eqM2"].as_f64().unwrap_or(0.0) > 0.0);
+        assert_eq!(lca["re2020Compliance"]["compliantWithSeuil2025"], true);
+    }
+}
