@@ -2107,17 +2107,17 @@ revit-mcp-server.exe cad render plan_rdc.dxf`
 
     try {
       let releases = null;
-      const cached = sessionStorage.getItem('arc_releases_cache');
-      const cachedTime = sessionStorage.getItem('arc_releases_time');
+      const cached = sessionStorage.getItem('arc_releases_cache_v2');
+      const cachedTime = sessionStorage.getItem('arc_releases_time_v2');
 
-      if (cached && cachedTime && (Date.now() - parseInt(cachedTime, 10) < 600000)) {
+      if (cached && cachedTime && (Date.now() - parseInt(cachedTime, 10) < 120000)) {
         releases = JSON.parse(cached);
       } else {
         const resp = await fetch(API_URL, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
         if (resp.ok) {
           releases = await resp.json();
-          sessionStorage.setItem('arc_releases_cache', JSON.stringify(releases));
-          sessionStorage.setItem('arc_releases_time', Date.now().toString());
+          sessionStorage.setItem('arc_releases_cache_v2', JSON.stringify(releases));
+          sessionStorage.setItem('arc_releases_time_v2', Date.now().toString());
         }
       }
 
