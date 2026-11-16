@@ -2096,4 +2096,86 @@ revit-mcp-server.exe cad render plan_rdc.dxf`
 
   initBimcraftReleaseSync();
 
+  // ---------------------------------------------------------------------------
+  // 8. Live Real-Time GitHub Release Sync for ARC (.exe Direct Installer)
+  // Finds the newest release with an .exe asset so download buttons always
+  // trigger a direct .exe download instead of opening the Releases page.
+  // ---------------------------------------------------------------------------
+  async function initArcReleaseSync() {
+    const GITHUB_REPO = 'EncoreZaan/ARC';
+    const API_URL = `https://api.github.com/repos/${GITHUB_REPO}/releases?per_page=10`;
+
+    try {
+      let releases = null;
+      const cached = sessionStorage.getItem('arc_releases_cache');
+      const cachedTime = sessionStorage.getItem('arc_releases_time');
+
+      if (cached && cachedTime && (Date.now() - parseInt(cachedTime, 10) < 600000)) {
+        releases = JSON.parse(cached);
+      } else {
+        const resp = await fetch(API_URL, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+        if (resp.ok) {
+          releases = await resp.json();
+          sessionStorage.setItem('arc_releases_cache', JSON.stringify(releases));
+          sessionStorage.setItem('arc_releases_time', Date.now().toString());
+        }
+      }
+
+      if (!Array.isArray(releases)) return;
+
+      let bestRelease = null;
+      let exeAsset = null;
+      for (const rel of releases) {
+        if (rel.draft) continue;
+        const assets = rel.assets || [];
+        const found = assets.find(a => a.name && /^ARC-Setup-.*\.exe$/i.test(a.name))
+          || assets.find(a => a.name && a.name.toLowerCase().endsWith('.exe'));
+        if (found) {
+          bestRelease = rel;
+          exeAsset = found;
+          break;
+        }
+      }
+
+      if (!bestRelease || !exeAsset) return;
+
+      const tag = bestRelease.tag_name;
+      const url = exeAsset.browser_download_url;
+      const sizeMb = exeAsset.size ? (exeAsset.size / (1024 * 1024)).toFixed(1) : '';
+
+      const navBtn = document.getElementById('nav-btn-arc');
+      if (navBtn) {
+        navBtn.href = url;
+        navBtn.setAttribute('download', exeAsset.name);
+        navBtn.setAttribute('title', `Télécharger ${exeAsset.name} (${tag})`);
+      }
+
+      const heroBtn = document.getElementById('hero-btn-arc');
+      const heroText = document.getElementById('hero-arc-btn-text');
+      if (heroBtn) {
+        heroBtn.href = url;
+        heroBtn.setAttribute('download', exeAsset.name);
+        heroBtn.setAttribute('title', `Télécharger directement ${exeAsset.name}`);
+      }
+      if (heroText) {
+        heroText.textContent = `Télécharger ARC ${tag} (.exe)`;
+      }
+
+      const winBtn = document.getElementById('arc-btn-win');
+      const winLabel = document.getElementById('arc-label-win');
+      if (winBtn) {
+        winBtn.href = url;
+        winBtn.setAttribute('download', exeAsset.name);
+        winBtn.setAttribute('title', `Télécharger ${exeAsset.name}`);
+      }
+      if (winLabel) {
+        winLabel.textContent = sizeMb ? `ARC ${tag} .exe (${sizeMb} Mo)` : `ARC ${tag} (.exe Windows)`;
+      }
+    } catch (err) {
+      console.warn('[ARC Sync] GitHub API listener fallback active:', err);
+    }
+  }
+
+  initArcReleaseSync();
+
 })();

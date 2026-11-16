@@ -241,6 +241,11 @@
 
 ## 4. Historique Chronologique des Versions
 
+### [v3.3.1] - 2026-11-16
+- **Corrections Landing Page & Confidentialité (`docs/`) :**
+  - **Téléchargement direct `.exe` ARC (`docs/app.js` & `docs/index.html`) :** Ajout de `initArcReleaseSync()` qui interroge l'API GitHub `EncoreZaan/ARC/releases` pour récupérer le `browser_download_url` du dernier installeur `.exe` disponible et configurer les boutons `#nav-btn-arc`, `#hero-btn-arc` et `#arc-btn-win` en téléchargement direct (avec repli statique vers `ARC-Setup-v2.6.0.exe` tant qu'un `.exe` v3.3.0 n'est pas attaché à la release GitHub).
+  - **Anonymisation complète de `docs/` :** Suppression de `REFLET_LONDON_PARAMETRIC.RVT` dans `docs/index.html` (remplacé par `DEMO_BIM_PARAMETRIC.RVT`) et des références personnelles dans `docs/revit_architecture_guide.md` et `docs/mcp_tools_reference.md`. Cache-busting `v=3.3.1`.
+
 ### [v3.3.0] - 2026-11-14
 - **Optimisations & Qualité Rust (`revit-mcp-server`) :**
   - **0-Warning `cargo clippy -- -D warnings` :** Correction intégrale des 28 avertissements Clippy sur 13 modules Rust (`solver.rs`, `spatial_index.rs`, `dxf_engine.rs`, `ifc_engine.rs`, `solar_raytracer.rs`, `artisan_takeoff.rs`, `clash_matrix.rs`, etc.).

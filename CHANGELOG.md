@@ -4,6 +4,18 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 
 ---
 
+## [3.3.1] - 2026-11-16
+
+### 🌐 Landing Page (`docs/`) : Téléchargement Direct `.exe` & Confidentialité
+- **Téléchargement Direct `.exe` ARC (`docs/index.html`, `docs/app.js`) :**
+  - Ajout de `initArcReleaseSync()` dans `docs/app.js` interrogeant l'API GitHub `EncoreZaan/ARC/releases` pour résoudre automatiquement le dernier installeur `.exe` publié (`browser_download_url`) et l'injecter dans `#nav-btn-arc`, `#hero-btn-arc` et `#arc-btn-win` avec attribut `download` (et repli direct sur `ARC-Setup-v2.6.0.exe`).
+- **Suppression des références personnelles (`docs/`) :**
+  - Remplacement de `REFLET_LONDON_PARAMETRIC.RVT` par `DEMO_BIM_PARAMETRIC.RVT` dans la carte Blueprint Hero de `docs/index.html`.
+  - Anonymisation des exemples de projets dans `docs/revit_architecture_guide.md` et `docs/mcp_tools_reference.md`.
+  - Cache-busting `v=3.3.1` sur `variant-blueprint.css` et `app.js`.
+
+---
+
 ## [3.3.0] - 2026-11-14
 
 ### 🦀 Rust Zero-Warning, Buffer JSON-RPC Réutilisable & Variante Landing Page « Blueprint Studio »

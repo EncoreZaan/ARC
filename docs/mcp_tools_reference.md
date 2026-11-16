@@ -1421,7 +1421,7 @@ Cette catégorie introduit les 5 super-pouvoirs majeurs de la version 2.2.0, con
   - `project_name` (chaîne, nom du projet).
   - `total_area_m2` (nombre, surface de plancher totale).
   - `floor_count` (entier, nombre de niveaux).
-- **Exemple** : `revit_run_multi_agent_swarm({ project_name: "Résidence Londonienne", total_area_m2: 180.0, floor_count: 2 })`.
+- **Exemple** : `revit_run_multi_agent_swarm({ project_name: "Résidence Demo", total_area_m2: 180.0, floor_count: 2 })`.
 
 ### `revit_generate_complete_floorplan`
 - **Description** : Synthétiseur génératif d'agencement Text-to-BIM par graphe dual topologique. Génère l'empreinte complète d'un logement (T2, T3, T4, T5), les murs porteurs extérieurs, cloisons distributives intérieures, portes et fenêtres prêtes pour création Revit.
@@ -1449,7 +1449,7 @@ Cette catégorie introduit les 5 super-pouvoirs majeurs de la version 2.2.0, con
   - `output_path` (chaîne, chemin du fichier `.ifc`).
   - `project_name` (chaîne, nom du projet IFC).
   - `building_name` (chaîne, nom du bâtiment).
-- **Exemple** : `revit_export_fast_ifc({ output_path: "Projet_Export_IFC4.ifc", project_name: "Appart_Londonien" })`.
+- **Exemple** : `revit_export_fast_ifc({ output_path: "Projet_Export_IFC4.ifc", project_name: "Projet_Demo_BIM" })`.
 
 ### `revit_get_live_stream_status`
 - **Description** : Statut du flux de synchronisation continue en direct (Delta-Sync événementiel `DocumentChangedEventArgs` et stream binaire 60 FPS vers Three.js via Shared Memory Ring Buffer).

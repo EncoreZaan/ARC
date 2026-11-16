@@ -135,12 +135,12 @@ Microservice Python autonome combinant `ezdxf` et `PyMuPDF` :
 | **Optimisation agencement** | **100 000 permutations en 36 ms** | Plusieurs minutes |
 | **Conversion RVT -> BIMcraft** | **< 0.5 s sans ouvrir Revit** | N/A (impossible sans Revit) |
 
-### 🏢 Cas d'Usage Réel : Le Projet « Appartement Londonien »
-Situé dans `C:\Users\teoba\Documents\Projet Appart Londonien\06_Revit\`, le projet a servi de banc de test de validation globale :
-- `REFLET_00_EXISTANT.rvt` $\rightarrow$ Converti avec succès en `REFLET_00_EXISTANT.bimcraft` et rendu en `REFLET_00_EXISTANT.svg`.
-- `REFLET_V1_ECLIPSE_MIROIR-G.rvt` $\rightarrow$ Converti en `.bimcraft` et `.svg`.
-- `REFLET_V2_ORBITE_MIROIR-D.rvt` $\rightarrow$ Converti en `.bimcraft` et `.svg`.
-- `REFLET_V3_PASSAGE_MIROIR-G.rvt` $\rightarrow$ Converti en `.bimcraft` et `.svg`.
+### 🏢 Cas d'Usage Réel : Projet Pilote Résidentiel (Appartement T3)
+Dans un projet architectural type (`C:\Projets\Demo_Appartement\06_Revit\`), la chaîne complète a servi de banc de test de validation globale :
+- `DEMO_00_EXISTANT.rvt` $\rightarrow$ Converti avec succès en `DEMO_00_EXISTANT.bimcraft` et rendu en `DEMO_00_EXISTANT.svg`.
+- `DEMO_V1_VARIANTE_A.rvt` $\rightarrow$ Converti en `.bimcraft` et `.svg`.
+- `DEMO_V2_VARIANTE_B.rvt` $\rightarrow$ Converti en `.bimcraft` et `.svg`.
+- `DEMO_V3_VARIANTE_C.rvt` $\rightarrow$ Converti en `.bimcraft` et `.svg`.
 Toutes les variantes architecturales sont immédiatement inspectables, éditables et rendues en vectoriel sur n'importe quel ordinateur Mac ou Windows.
 
 ---
@@ -163,7 +163,7 @@ Toutes les variantes architecturales sont immédiatement inspectables, éditable
    }
    ```
 2. Demandez simplement à l'IA :
-   > *"Lance BIMcraft, ouvre la maquette existante londonienne et génère un aménagement optimal pour un T3 avec calcul des surfaces Loi Carrez."*
+   > *"Lance BIMcraft, ouvre la maquette existante et génère un aménagement optimal pour un T3 avec calcul des surfaces Loi Carrez."*
 3. L'IA exécute `bimcraft_launch`, ouvre le fichier converti et modélise en direct sous vos yeux.
 
 ### 🪟 Scénario 2 : Architecte / BIM Manager sous Windows 11 avec Revit 2027

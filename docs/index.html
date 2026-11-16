@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./variant-blueprint.css?v=3.3.0">
+  <link rel="stylesheet" href="./variant-blueprint.css?v=3.3.1">
 </head>
 <body>
   <!-- Header Simple & Direct -->
@@ -33,7 +33,7 @@
       </ul>
 
       <div class="bp-nav-actions">
-        <a href="https://github.com/EncoreZaan/ARC/releases/latest" target="_blank" rel="noopener noreferrer" class="bp-btn-primary">
+        <a id="nav-btn-arc" href="https://github.com/EncoreZaan/ARC/releases/download/v2.6.0/ARC-Setup-v2.6.0.exe" download class="bp-btn-primary">
           Télécharger ARC
         </a>
       </div>
@@ -60,8 +60,8 @@
             <a id="hero-btn-bimcraft" href="https://github.com/IPedrax/BIMCraft/releases/latest" class="bp-btn-primary">
               <span id="hero-bimcraft-btn-text">Installer BIMcraft Live</span>
             </a>
-            <a href="https://github.com/EncoreZaan/ARC/releases/latest" target="_blank" rel="noopener noreferrer" class="bp-btn-secondary bp-btn-copper">
-              Télécharger ARC v3.3.0
+            <a id="hero-btn-arc" href="https://github.com/EncoreZaan/ARC/releases/download/v2.6.0/ARC-Setup-v2.6.0.exe" download class="bp-btn-secondary bp-btn-copper">
+              <span id="hero-arc-btn-text">Télécharger ARC (.exe)</span>
             </a>
             <a href="#outils" class="bp-btn-secondary">
               Explorer les 268 outils
@@ -88,7 +88,7 @@
         <!-- Plan Blueprint Paramétrique -->
         <div class="bp-draft-card">
           <div class="bp-draft-header">
-            <span>PLANCHE A1 · REFLET_LONDON_PARAMETRIC.RVT</span>
+            <span>PLANCHE A1 · DEMO_BIM_PARAMETRIC.RVT</span>
             <span>ÉCHELLE 1:50 · SIMD LBVH</span>
           </div>
           <div class="bp-draft-body">
@@ -317,8 +317,8 @@
             <a id="bimcraft-btn-linux" href="https://github.com/IPedrax/BIMCraft/releases/latest" class="btn-dl-platform">
               <span id="bimcraft-label-linux">Linux .AppImage</span>
             </a>
-            <a href="https://github.com/EncoreZaan/ARC/releases/latest" target="_blank" rel="noopener noreferrer" class="btn-dl-platform">
-              <span>ARC Setup (Windows)</span>
+            <a id="arc-btn-win" href="https://github.com/EncoreZaan/ARC/releases/download/v2.6.0/ARC-Setup-v2.6.0.exe" download class="btn-dl-platform">
+              <span id="arc-label-win">ARC Setup (.exe Windows)</span>
             </a>
           </div>
 
@@ -350,6 +350,6 @@
     </div>
   </footer>
 
-  <script src="./app.js?v=3.3.0"></script>
+  <script src="./app.js?v=3.3.1"></script>
 </body>
 </html>
