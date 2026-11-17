@@ -6,11 +6,42 @@ use studio_orchestrator::{
     run_autonomous_architecture_pipeline, run_local_studio_api_server, sync_unified_arc_ui_snapshot,
 };
 
+fn resolve_repo_root() -> PathBuf {
+    if let Ok(home) = env::var("ARC_HOME") {
+        let p = PathBuf::from(home);
+        if p.join("arc-autonomous-studio").exists() {
+            return p;
+        }
+    }
+    if let Ok(cwd) = env::current_dir() {
+        if cwd.join("arc-autonomous-studio").exists() {
+            return cwd;
+        }
+        if cwd.parent().map(|p| p.join("arc-autonomous-studio").exists()).unwrap_or(false) {
+            return cwd.parent().unwrap().to_path_buf();
+        }
+    }
+    if let Ok(exe) = env::current_exe() {
+        for anc in exe.ancestors() {
+            if anc.join("arc-autonomous-studio").exists() {
+                return anc.to_path_buf();
+            }
+        }
+    }
+    let default_dev = PathBuf::from(r"c:\Users\teoba\Documents\Devs\MCP Revit");
+    if default_dev.join("arc-autonomous-studio").exists() {
+        return default_dev;
+    }
+    env::var("LOCALAPPDATA")
+        .map(|d| PathBuf::from(d).join("ARC-Studio"))
+        .unwrap_or(default_dev)
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
     let cmd = args.get(1).map(|s| s.as_str()).unwrap_or("run-cabane-e2e");
 
-    let repo_root = PathBuf::from(r"c:\Users\teoba\Documents\Devs\MCP Revit");
+    let repo_root = resolve_repo_root();
     let studio_root = repo_root.join("arc-autonomous-studio");
 
     match cmd {

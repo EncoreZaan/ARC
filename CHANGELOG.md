@@ -29,6 +29,7 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
   - Ajout de la commande Rust instantanée `arc-studio launch [fichier.bimcraft]` (`~/.cargo/bin/arc-studio.exe`) : lance `bimcraft.exe` sans délai (`BIMCRAFT_NO_UPDATE_CHECK=1 --control 0`) et démarre le démon Studio en arrière-plan détaché (0 ms d'impact sur le démarrage de BIMcraft).
   - Ajout de l'endpoint `POST /api/studio/bimcraft/open` dans `server.rs` et du bouton **« ⚡ Ouvrir dans BIMcraft Live »** dans l'interface ARC unifiée.
   - Ajout du bouton lazy-launch **« ⚡ Ouvrir ARC Autonomous Studio »** dans le panneau Revit 2027 ([`RevitAiDockablePanel.cs`](revit-addin/RevitMCP/UI/RevitAiDockablePanel.cs)), compilé et déployé dans `%APPDATA%\Autodesk\Revit\Addins\2027\` (0 ms d'impact au démarrage de Revit).
+  - Ajout du binaire natif sans console [`arc-bimcraft-ext.exe`](arc-autonomous-studio/crates/studio-orchestrator/src/ext_launcher.rs) (`~/.cargo/bin/arc-bimcraft-ext.exe`) et raccordement des raccourcis `BIMCraft.lnk` (Bureau & Menu Démarrer) : démarrage instantané de `bimcraft.exe` + lancement autonome détaché de `arc-studio.exe serve 7878` (zéro dépendance à Antigravity, PowerShell ou tout client externe).
 
 ---
 

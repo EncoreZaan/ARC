@@ -7,6 +7,10 @@ edition.workspace = true
 name = "arc-studio"
 path = "src/main.rs"
 
+[[bin]]
+name = "arc-bimcraft-ext"
+path = "src/ext_launcher.rs"
+
 [dependencies]
 studio-apm = { path = "../studio-apm" }
 studio-ai-runtime = { path = "../studio-ai-runtime" }
