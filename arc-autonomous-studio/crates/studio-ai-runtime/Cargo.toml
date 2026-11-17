@@ -1,0 +1,9 @@
+[package]
+name = "studio-ai-runtime"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+reqwest.workspace = true

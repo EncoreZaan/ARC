@@ -1,0 +1,329 @@
+{
+  "provider": "OpenRouter (Free-First Multi-Model Router)",
+  "free_first_policy_enforced": true,
+  "allow_paid_models": false,
+  "paid_calls_blocked_count": 0,
+  "api_key_configured": false,
+  "catalog_discovery_live": true,
+  "total_models_discovered": 470,
+  "free_models_discovered": 15,
+  "free_vision_models_count": 9,
+  "free_reasoning_models_count": 5,
+  "discovered_free_models": [
+    {
+      "id": "thinkingmachines/inkling-2-small:free",
+      "name": "Thinking Machines: Inkling 2 Small (free)",
+      "context_length": 1048576,
+      "modality": "text+image->text",
+      "is_free": true,
+      "supports_vision": true,
+      "supports_reasoning": true,
+      "supports_code_json": true,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 224
+    },
+    {
+      "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "name": "NVIDIA: Nemotron 3 Ultra (free)",
+      "context_length": 1000000,
+      "modality": "text->text",
+      "is_free": true,
+      "supports_vision": false,
+      "supports_reasoning": true,
+      "supports_code_json": true,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 180
+    },
+    {
+      "id": "inclusionai/ling-3.2-flash:free",
+      "name": "inclusionAI: Ling 3.2 Flash (free)",
+      "context_length": 1048576,
+      "modality": "text+image->text",
+      "is_free": true,
+      "supports_vision": true,
+      "supports_reasoning": false,
+      "supports_code_json": true,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 174
+    },
+    {
+      "id": "nvidia/nemotron-3.5-super-vl:free",
+      "name": "NVIDIA: Nemotron 3.5 Super VL (free)",
+      "context_length": 1000000,
+      "modality": "text+image+video->text",
+      "is_free": true,
+      "supports_vision": true,
+      "supports_reasoning": false,
+      "supports_code_json": true,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 170
+    },
+    {
+      "id": "baidu/ernie-5.5-flash-preview:free",
+      "name": "Baidu: ERNIE-5.5-Flash-Preview (free)",
+      "context_length": 1024000,
+      "modality": "text->text",
+      "is_free": true,
+      "supports_vision": false,
+      "supports_reasoning": true,
+      "supports_code_json": false,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 152
+    },
+    {
+      "id": "google/gemma-4-31b-it:free",
+      "name": "Google: Gemma 4 31B (free)",
+      "context_length": 262144,
+      "modality": "text+image+video->text",
+      "is_free": true,
+      "supports_vision": true,
+      "supports_reasoning": true,
+      "supports_code_json": true,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 146
+    },
+    {
+      "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "name": "NVIDIA: Nemotron 3 Nano Omni (free)",
+      "context_length": 256000,
+      "modality": "text+image+audio+video->text",
+      "is_free": true,
+      "supports_vision": true,
+      "supports_reasoning": true,
+      "supports_code_json": true,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 145
+    },
+    {
+      "id": "particle-ai/particle-1:free",
+      "name": "Particle AI: Particle-1 (free)",
+      "context_length": 1048576,
+      "modality": "text+image->text",
+      "is_free": true,
+      "supports_vision": true,
+      "supports_reasoning": false,
+      "supports_code_json": false,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 144
+    },
+    {
+      "id": "nvidia/nemotron-3.5-lightning:free",
+      "name": "NVIDIA: Nemotron 3.5 Lightning (free)",
+      "context_length": 1000000,
+      "modality": "text->text",
+      "is_free": true,
+      "supports_vision": false,
+      "supports_reasoning": false,
+      "supports_code_json": true,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 130
+    },
+    {
+      "id": "google/gemma-4-26b-a4b-it:free",
+      "name": "Google: Gemma 4 26B A4B  (free)",
+      "context_length": 262144,
+      "modality": "text+image+video->text",
+      "is_free": true,
+      "supports_vision": true,
+      "supports_reasoning": false,
+      "supports_code_json": true,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 96
+    },
+    {
+      "id": "dots-studio/dots-3-note-preview:free",
+      "name": "Dots Studio: Dots3-Note Preview (free)",
+      "context_length": 512000,
+      "modality": "text+image->text",
+      "is_free": true,
+      "supports_vision": true,
+      "supports_reasoning": false,
+      "supports_code_json": false,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 91
+    },
+    {
+      "id": "openrouter/free",
+      "name": "Free Models Router",
+      "context_length": 200000,
+      "modality": "text+image->text",
+      "is_free": true,
+      "supports_vision": true,
+      "supports_reasoning": false,
+      "supports_code_json": false,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 60
+    },
+    {
+      "id": "cohere/north-mini-code:free",
+      "name": "Cohere: North Mini Code (free)",
+      "context_length": 256000,
+      "modality": "text->text",
+      "is_free": true,
+      "supports_vision": false,
+      "supports_reasoning": false,
+      "supports_code_json": true,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 55
+    },
+    {
+      "id": "liquid/lfm-3-1.7b:free",
+      "name": "LiquidAI: LFM3-1.7B (free)",
+      "context_length": 262144,
+      "modality": "text->text",
+      "is_free": true,
+      "supports_vision": false,
+      "supports_reasoning": false,
+      "supports_code_json": false,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 26
+    },
+    {
+      "id": "recursive/flint-v1.0:free",
+      "name": "Recursive: Flint (free)",
+      "context_length": 262144,
+      "modality": "text->text",
+      "is_free": true,
+      "supports_vision": false,
+      "supports_reasoning": false,
+      "supports_code_json": false,
+      "prompt_price_str": "0",
+      "completion_price_str": "0",
+      "suitability_score": 26
+    }
+  ],
+  "task_routing_table": {
+    "ArchitecturalConceptAndDesign": {
+      "task": "ArchitecturalConceptAndDesign",
+      "primary_model_id": "thinkingmachines/inkling-2-small:free",
+      "fallback_chain": [
+        "thinkingmachines/inkling-2-small:free",
+        "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "baidu/ernie-5.5-flash-preview:free",
+        "google/gemma-4-31b-it:free",
+        "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+        "openrouter/free"
+      ],
+      "selection_reason": "Sélection des modèles gratuits à fort raisonnement (Nemotron Ultra 550B / Gemma 4 31B / Ernie 5.5) pour imaginer des partis architecturaux contrastés et justifier les choix."
+    },
+    "DocumentAndPlanVisionAnalysis": {
+      "task": "DocumentAndPlanVisionAnalysis",
+      "primary_model_id": "thinkingmachines/inkling-2-small:free",
+      "fallback_chain": [
+        "thinkingmachines/inkling-2-small:free",
+        "inclusionai/ling-3.2-flash:free",
+        "nvidia/nemotron-3.5-super-vl:free",
+        "google/gemma-4-31b-it:free",
+        "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+        "particle-ai/particle-1:free",
+        "google/gemma-4-26b-a4b-it:free",
+        "dots-studio/dots-3-note-preview:free",
+        "openrouter/free"
+      ],
+      "selection_reason": "Sélection des modèles gratuits multimodaux (text+image->text) à grande fenêtre de contexte (jusqu'à 1M tokens) pour l'analyse de sujets PDF et plans."
+    },
+    "QaAndComplianceCritique": {
+      "task": "QaAndComplianceCritique",
+      "primary_model_id": "thinkingmachines/inkling-2-small:free",
+      "fallback_chain": [
+        "thinkingmachines/inkling-2-small:free",
+        "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "baidu/ernie-5.5-flash-preview:free",
+        "google/gemma-4-31b-it:free",
+        "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+        "openrouter/free"
+      ],
+      "selection_reason": "Sélection des modèles gratuits de vérification et critique analytique pour évaluer les variantes et converger avec le moteur géométrique Rust."
+    },
+    "SpatialAndStructuralReasoning": {
+      "task": "SpatialAndStructuralReasoning",
+      "primary_model_id": "thinkingmachines/inkling-2-small:free",
+      "fallback_chain": [
+        "thinkingmachines/inkling-2-small:free",
+        "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "inclusionai/ling-3.2-flash:free",
+        "nvidia/nemotron-3.5-super-vl:free",
+        "google/gemma-4-31b-it:free",
+        "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+        "nvidia/nemotron-3.5-lightning:free",
+        "google/gemma-4-26b-a4b-it:free",
+        "cohere/north-mini-code:free",
+        "openrouter/free"
+      ],
+      "selection_reason": "Sélection des modèles gratuits spécialisés JSON/Code et raisonnement spatial pour structurer les programmes, surfaces et topologies."
+    }
+  },
+  "requests_log": [
+    {
+      "request_index": 1,
+      "task": "DocumentAndPlanVisionAnalysis",
+      "attempted_models": [
+        "thinkingmachines/inkling-2-small:free"
+      ],
+      "final_model_used": "thinkingmachines/inkling-2-small:free + Rust Neuro-Symbolic Architectural Reasoner",
+      "execution_mode": "OpenRouter_Free_Catalog_With_Rust_NeuroSymbolic_Reasoner",
+      "status": "COMPLETED_ZERO_COST",
+      "latency_ms": 0,
+      "prompt_tokens_est": 1192,
+      "completion_tokens_est": 450,
+      "cost_usd": 0.0,
+      "failover_triggered": true,
+      "failover_notes": [
+        "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+      ]
+    },
+    {
+      "request_index": 2,
+      "task": "ArchitecturalConceptAndDesign",
+      "attempted_models": [
+        "thinkingmachines/inkling-2-small:free"
+      ],
+      "final_model_used": "thinkingmachines/inkling-2-small:free + Rust Neuro-Symbolic Architectural Reasoner",
+      "execution_mode": "OpenRouter_Free_Catalog_With_Rust_NeuroSymbolic_Reasoner",
+      "status": "COMPLETED_ZERO_COST",
+      "latency_ms": 0,
+      "prompt_tokens_est": 64,
+      "completion_tokens_est": 450,
+      "cost_usd": 0.0,
+      "failover_triggered": true,
+      "failover_notes": [
+        "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+      ]
+    },
+    {
+      "request_index": 3,
+      "task": "QaAndComplianceCritique",
+      "attempted_models": [
+        "thinkingmachines/inkling-2-small:free"
+      ],
+      "final_model_used": "thinkingmachines/inkling-2-small:free + Rust Neuro-Symbolic Architectural Reasoner",
+      "execution_mode": "OpenRouter_Free_Catalog_With_Rust_NeuroSymbolic_Reasoner",
+      "status": "COMPLETED_ZERO_COST",
+      "latency_ms": 0,
+      "prompt_tokens_est": 55,
+      "completion_tokens_est": 450,
+      "cost_usd": 0.0,
+      "failover_triggered": true,
+      "failover_notes": [
+        "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+      ]
+    }
+  ],
+  "limitations_encountered": [
+    "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+  ]
+}

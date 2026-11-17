@@ -1,0 +1,204 @@
+modify {"id":100000,"name":"N0 - Appartement"}
+modify {"elevation":3050,"id":100001,"name":"N+1 - Sous-face dalle haute (HSP 280 + 25)"}
+units {"length":"cm"}
+room_area {"at":"finish"}
+type {"category":"wall","name":"EXI_Mur porteur 35","thickness":350}
+type {"category":"wall","name":"EXI_Mur palier 20","thickness":200}
+type {"category":"wall","name":"EXI_Mur mitoyen 105","thickness":1050}
+type {"category":"wall","name":"EXI_Cloison 7","thickness":70}
+type {"category":"wall","name":"PRJ_Cloison 7","thickness":70}
+type {"category":"wall","name":"PRJ_Rebouchage 20","thickness":200}
+type {"category":"wall","name":"PRJ_Rebouchage 35","thickness":350}
+type {"category":"wall","name":"PRJ_Meuble-cloison 60","thickness":600}
+type {"category":"floor","name":"EXI_Plancher existant 25","thickness":250}
+type {"category":"door","height":2040,"name":"Porte 73 x 204","width":730}
+type {"category":"door","height":2040,"name":"Porte 80 x 204","width":800}
+type {"category":"window","height":1700,"name":"Fenêtre 80 x 170","sill":800,"width":800}
+type {"category":"window","height":1700,"name":"Fenêtre 200 x 170","sill":800,"width":2000}
+type {"category":"beam","depth":400,"material":"Concrete","name":"PRJ_Poutre 35 x 40","width":350}
+line_style {"color":"#c8281e","name":"Démolition","pattern":"Dash","pen":3}
+floor {"boundary":[[1950,-750],[1950,200],[-350,200],[-350,-6990],[105,-6990],[455,-7450],[1440,-7450],[1810,-7110],[2210,-7110],[2580,-7450],[4760,-7450],[5110,-6990],[6040,-6990],[6390,-7450],[8570,-7450],[8940,-7110],[9340,-7110],[9710,-7450],[10695,-7450],[11045,-6990],[11500,-6990],[11500,200],[9200,200],[9200,-750],[8350,-750],[8350,200],[2800,200],[2800,-750]],"type":"EXI_Plancher existant 25"}
+wall {"height":2800,"points":[[-175,100],[-175,-6825]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[-175,100],[1850,100]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[1850,100],[1850,-740]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[2900,100],[2900,-740]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[1750,-840],[3000,-840]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[2900,100],[5225,100]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[-175,-3275],[650,-3275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[1650,-3275],[2300,-3275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[4450,-3275],[5575,-3275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[5575,-3275],[5575,-3850]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[5575,-6250],[5575,-6825]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[-175,-6825],[114,-6825]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[114,-6825],[464,-7275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[464,-7275],[1418,-7275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[1418,-7275],[1768,-6955]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[1768,-6955],[2232,-6955]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[2232,-6955],[2582,-7275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[2582,-7275],[4736,-7275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[4736,-7275],[5086,-6825]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[5086,-6825],[5575,-6825]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[1785,-930],[1785,-3100]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[2965,-930],[2965,-1080]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[2965,-2280],[2965,-2465]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[3465,-4120],[3465,-5235]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[3465,-5235],[1770,-6780]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[650,-3135],[750,-3135]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[11325,100],[11325,-6825]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[11325,100],[9300,100]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[9300,100],[9300,-740]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[8250,100],[8250,-740]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[9400,-840],[9175,-840]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[8375,-840],[8150,-840]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[8250,100],[5925,100]],"type":"EXI_Mur palier 20"}
+wall {"height":2800,"points":[[11325,-3275],[10500,-3275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[9500,-3275],[8850,-3275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[6700,-3275],[5575,-3275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[11325,-6825],[11036,-6825]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[11036,-6825],[10686,-7275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[10686,-7275],[9732,-7275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[9732,-7275],[9382,-6955]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[9382,-6955],[8918,-6955]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[8918,-6955],[8568,-7275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[8568,-7275],[6414,-7275]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[6414,-7275],[6064,-6825]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[6064,-6825],[5575,-6825]],"type":"EXI_Mur porteur 35"}
+wall {"height":2800,"points":[[9365,-930],[9365,-3100]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[8185,-930],[8185,-1080]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[7685,-4120],[7685,-5235]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[7685,-5235],[9380,-6780]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[10500,-3135],[10400,-3135]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[9600,-3135],[9500,-3135]],"type":"EXI_Cloison 7"}
+wall {"height":2800,"points":[[5575,200],[5575,-1000]],"type":"EXI_Mur mitoyen 105"}
+wall {"height":2800,"points":[[5575,-2400],[5575,-3275]],"type":"EXI_Mur mitoyen 105"}
+window {"at":[950,-7275],"type":"Fenêtre 80 x 170"}
+window {"at":[3650,-7275],"type":"Fenêtre 200 x 170"}
+window {"at":[10200,-7275],"type":"Fenêtre 80 x 170"}
+window {"at":[7500,-7275],"type":"Fenêtre 200 x 170"}
+door {"at":[2375,-840],"flip_facing":true,"flip_hand":true,"type":"Porte 80 x 204"}
+door {"at":[1785,-1480],"flip_facing":true,"flip_hand":true,"type":"Porte 80 x 204"}
+door {"at":[9365,-1480],"flip_facing":false,"flip_hand":false,"type":"Porte 80 x 204"}
+phase {"now":"New Construction"}
+wall {"height":2800,"points":[[3465,-3450],[3465,-4120]],"type":"PRJ_Cloison 7"}
+wall {"height":2800,"points":[[750,-3135],[1650,-3135]],"type":"PRJ_Cloison 7"}
+wall {"height":2800,"points":[[9175,-840],[8375,-840]],"type":"PRJ_Rebouchage 20"}
+wall {"height":2800,"points":[[8185,-1080],[8185,-1650]],"type":"PRJ_Cloison 7"}
+wall {"height":2800,"points":[[7685,-3450],[7685,-4120]],"type":"PRJ_Cloison 7"}
+wall {"height":2800,"points":[[10400,-3135],[9600,-3135]],"type":"PRJ_Cloison 7"}
+wall {"height":2800,"points":[[2300,-3415],[3500,-3415]],"type":"PRJ_Cloison 7"}
+wall {"height":2800,"points":[[7650,-3415],[8850,-3415]],"type":"PRJ_Cloison 7"}
+wall {"height":2800,"points":[[0,-965],[1750,-965]],"type":"PRJ_Cloison 7"}
+wall {"height":2800,"points":[[0,-1985],[1750,-1985]],"type":"PRJ_Cloison 7"}
+door {"at":[1315,-965],"flip_facing":false,"flip_hand":true,"type":"Porte 73 x 204"}
+door {"at":[1285,-3135],"flip_facing":true,"flip_hand":true,"type":"Porte 73 x 204"}
+door {"at":[2900,-3415],"flip_facing":true,"flip_hand":false,"type":"Porte 80 x 204"}
+door {"at":[8250,-3415],"flip_facing":true,"flip_hand":true,"type":"Porte 80 x 204"}
+beam {"offset":2800,"points":[[5575,-800],[5575,-2600]],"type":"PRJ_Poutre 35 x 40"}
+beam {"offset":2800,"points":[[5575,-3650],[5575,-6450]],"type":"PRJ_Poutre 35 x 40"}
+family {"category":"plumbing","forms":[{"from":0,"material":"Gypsum board","plane":"xy","profile":[[0,0],[400,0],[400,-160],[0,-160]],"to":1100},{"from":200,"material":"Porcelain","plane":"xy","profile":[[368,-405],[355.2,-498.8],[318.8,-578.2],[264.3,-631.4],[200,-650],[135.7,-631.4],[81.2,-578.2],[44.8,-498.8],[32,-405],[44.8,-311.2],[81.2,-231.8],[135.7,-178.6],[200,-160],[264.3,-178.6],[318.8,-231.8],[355.2,-311.2]],"to":400}],"kind":"wc","name":"V2 - WC suspendu 40x65","types":{"REFLET":{}}}
+family {"category":"plumbing","forms":[{"from":720,"material":"Porcelain","plane":"xy","profile":[[0,0],[400,0],[400,-260],[0,-260]],"to":850},{"circle":{"centre":[200,-30],"radius":12},"from":850,"material":"Metal","plane":"xy","to":980}],"kind":"lav","name":"V2 - Lave-mains 40x26","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":0,"material":"Gypsum board","plane":"xy","profile":[[0,0],[600,0],[600,-620],[0,-620]],"to":1800}],"name":"V2 - Lave-linge + sèche-linge en colonne 60x62","types":{"REFLET":{}}}
+family {"category":"casework","forms":[{"from":0,"material":"Gypsum board","plane":"xy","profile":[[0,0],[950,0],[950,-320],[0,-320]],"to":2200}],"name":"V2 - Rangement buanderie 95x32","types":{"REFLET":{}}}
+family {"category":"plumbing","forms":[{"from":0,"material":"Porcelain","plane":"xy","profile":[[0,0],[1080,0],[1080,-880],[0,-880]],"to":30}],"kind":"shower","name":"V2 - Douche à l'italienne 108x88","types":{"REFLET":{}}}
+family {"category":"plumbing","forms":[{"from":300,"material":"Timber","plane":"xy","profile":[[0,0],[630,0],[630,-440],[0,-440]],"to":870},{"circle":{"centre":[315,-40],"radius":14},"from":870,"material":"Metal","plane":"xy","to":1050}],"kind":"lav","name":"V2 - Meuble vasque 63x44","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":0,"material":"Timber","plane":"xy","profile":[[0,0],[900,0],[900,-350],[0,-350]],"to":450},{"from":1500,"material":"Timber","plane":"xy","profile":[[0,0],[900,0],[900,-20],[0,-20]],"to":1750},{"circle":{"centre":[120,-40],"radius":15},"from":1620,"material":"Metal","plane":"xy","to":1640},{"circle":{"centre":[340,-40],"radius":15},"from":1620,"material":"Metal","plane":"xy","to":1640},{"circle":{"centre":[560,-40],"radius":15},"from":1620,"material":"Metal","plane":"xy","to":1640},{"circle":{"centre":[780,-40],"radius":15},"from":1620,"material":"Metal","plane":"xy","to":1640}],"name":"V2 - Banc à chaussures + patères 90x35","types":{"REFLET":{}}}
+family {"category":"casework","forms":[{"from":0,"material":"Timber","plane":"xy","profile":[[0,0],[2050,0],[2050,-550],[0,-550]],"to":100},{"from":100,"material":"Timber","plane":"xy","profile":[[0,0],[2050,0],[2050,-590],[0,-590]],"to":870},{"from":870,"material":"Ceramic tile","plane":"xy","profile":[[0,0],[2050,0],[2050,-620],[0,-620]],"to":910},{"circle":{"centre":[305,-50],"radius":16},"from":910,"material":"Metal","plane":"xy","to":1180},{"from":1500,"material":"Metal","plane":"xy","profile":[[1500,0],[1950,0],[1950,-480],[1500,-480]],"to":1620},{"from":1620,"material":"Metal","plane":"xy","profile":[[1630,0],[1820,0],[1820,-250],[1630,-250]],"to":2800},{"from":1450,"material":"Timber","plane":"xy","profile":[[600,0],[1400,0],[1400,-350],[600,-350]],"to":2150}],"name":"V2 - Plan de travail cuisine 205x62","types":{"REFLET":{}}}
+family {"category":"casework","forms":[{"from":0,"material":"Timber","plane":"xy","profile":[[0,0],[600,0],[600,-600],[0,-600]],"to":2250}],"name":"V2 - Colonnes cuisine 60x63","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":0,"material":"Timber","plane":"xy","profile":[[0,0],[1050,0],[1050,-20],[0,-20]],"to":2400},{"from":0,"material":"Timber","plane":"xy","profile":[[0,-20],[15,-20],[15,-260],[0,-260]],"to":2400},{"from":0,"material":"Timber","plane":"xy","profile":[[510,-20],[540,-20],[540,-260],[510,-260]],"to":2400},{"from":0,"material":"Timber","plane":"xy","profile":[[1035,-20],[1050,-20],[1050,-260],[1035,-260]],"to":2400},{"from":0,"material":"Timber","plane":"xy","profile":[[0,-20],[1050,-20],[1050,-260],[0,-260]],"to":80},{"from":2370,"material":"Timber","plane":"xy","profile":[[0,-20],[1050,-20],[1050,-260],[0,-260]],"to":2400},{"from":449.7,"material":"Timber","plane":"xy","profile":[[0,-20],[1050,-20],[1050,-260],[0,-260]],"to":473.7},{"from":831.3,"material":"Timber","plane":"xy","profile":[[0,-20],[1050,-20],[1050,-260],[0,-260]],"to":855.3},{"from":1213,"material":"Timber","plane":"xy","profile":[[0,-20],[1050,-20],[1050,-260],[0,-260]],"to":1237},{"from":1594.7,"material":"Timber","plane":"xy","profile":[[0,-20],[1050,-20],[1050,-260],[0,-260]],"to":1618.7},{"from":1976.3,"material":"Timber","plane":"xy","profile":[[0,-20],[1050,-20],[1050,-260],[0,-260]],"to":2000.3},{"from":473.7,"material":"Fabric","plane":"xy","profile":[[20,-40],[480,-40],[480,-220],[20,-220]],"to":693.7},{"from":855.3,"material":"Fabric","plane":"xy","profile":[[20,-40],[300,-40],[300,-220],[20,-220]],"to":1095.3},{"from":2000.3,"material":"Fabric","plane":"xy","profile":[[80,-40],[420,-40],[420,-220],[80,-220]],"to":2260.3},{"from":92,"material":"Fabric","plane":"xy","profile":[[665,-40],[885,-40],[885,-220],[665,-220]],"to":312},{"from":855.3,"material":"Fabric","plane":"xy","profile":[[545,-40],[1005,-40],[1005,-220],[545,-220]],"to":1075.3},{"from":1237,"material":"Fabric","plane":"xy","profile":[[545,-40],[825,-40],[825,-220],[545,-220]],"to":1477}],"name":"V2 - Bibliothèque de passage 105x26","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":0,"material":"Timber","plane":"xy","profile":[[0,0],[1600,0],[1600,-50],[0,-50]],"to":950},{"from":0,"material":"Timber","plane":"xy","profile":[[0,-50],[1600,-50],[1600,-2000],[0,-2000]],"to":250},{"from":250,"material":"Fabric","plane":"xy","profile":[[10,-60],[1590,-60],[1590,-1990],[10,-1990]],"to":450},{"from":450,"material":"Fabric","plane":"xy","profile":[[70,-90],[770,-90],[770,-290],[70,-290]],"to":580},{"from":450,"material":"Fabric","plane":"xy","profile":[[830,-90],[1530,-90],[1530,-290],[830,-290]],"to":580},{"from":450,"material":"Fabric","plane":"xy","profile":[[5,-480],[1595,-480],[1595,-1995],[5,-1995]],"to":500}],"name":"V2 - Lit 160 x 200","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":0,"material":"Timber","plane":"xy","profile":[[0,0],[340,0],[340,-400],[0,-400]],"to":500},{"circle":{"centre":[170,-200],"radius":60},"from":500,"material":"Porcelain","plane":"xy","to":530},{"circle":{"centre":[170,-200],"radius":12},"from":530,"material":"Metal","plane":"xy","to":720},{"circle":{"centre":[170,-200],"radius":100},"from":720,"material":"Fabric","plane":"xy","to":900}],"name":"V2 - Chevet 34x40","types":{"REFLET":{}}}
+family {"category":"casework","forms":[{"from":0,"material":"Gypsum board","plane":"xy","profile":[[0,0],[950,0],[950,-600],[0,-600]],"to":2500}],"name":"V2 - Dressing 95x60","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":0,"material":"Timber","plane":"xy","profile":[[0,0],[700,0],[700,-370],[0,-370]],"to":380},{"from":380,"material":"Fabric","plane":"xy","profile":[[10,-10],[690,-10],[690,-360],[10,-360]],"to":450},{"from":450,"material":"Fabric","plane":"xy","profile":[[30,-10],[670,-10],[670,-120],[30,-120]],"to":750}],"name":"V2 - Banquette-coffre 70x37","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":720,"material":"Timber","plane":"xy","profile":[[0,0],[1600,0],[1600,-800],[0,-800]],"to":750},{"from":0,"material":"Timber","plane":"xy","profile":[[30,-30],[80,-30],[80,-80],[30,-80]],"to":720},{"from":0,"material":"Timber","plane":"xy","profile":[[1520,-30],[1570,-30],[1570,-80],[1520,-80]],"to":720},{"from":0,"material":"Timber","plane":"xy","profile":[[30,-720],[80,-720],[80,-770],[30,-770]],"to":720},{"from":0,"material":"Timber","plane":"xy","profile":[[1520,-720],[1570,-720],[1570,-770],[1520,-770]],"to":720}],"name":"V2 - Table 160 x 80 (6 couverts)","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":0,"material":"Timber","plane":"xy","profile":[[30,-10],[60,-10],[60,-40],[30,-40]],"to":440},{"from":0,"material":"Timber","plane":"xy","profile":[[360,-10],[390,-10],[390,-40],[360,-40]],"to":440},{"from":0,"material":"Timber","plane":"xy","profile":[[30,-410],[60,-410],[60,-440],[30,-440]],"to":440},{"from":0,"material":"Timber","plane":"xy","profile":[[360,-410],[390,-410],[390,-440],[360,-440]],"to":440},{"from":440,"material":"Timber","plane":"xy","profile":[[10,-10],[410,-10],[410,-450],[10,-450]],"to":470},{"from":470,"material":"Timber","plane":"xy","profile":[[10,0],[410,0],[410,-30],[10,-30]],"to":850},{"from":0,"material":"Timber","plane":"xy","profile":[[30,0],[60,0],[60,-30],[30,-30]],"to":470},{"from":0,"material":"Timber","plane":"xy","profile":[[360,0],[390,0],[390,-30],[360,-30]],"to":470}],"name":"V2 - Chaise 42x45","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":80,"material":"Timber","plane":"xy","profile":[[0,0],[950,0],[950,-420],[0,-420]],"to":850},{"from":0,"material":"Timber","plane":"xy","profile":[[30,-30],[920,-30],[920,-390],[30,-390]],"to":80}],"name":"V2 - Buffet sur mesure 95x42","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"circle":{"centre":[200,-200],"radius":110},"from":0,"material":"Porcelain","plane":"xy","to":320}],"name":"V2 - Plante en pot 40x40","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":60,"material":"Timber","plane":"xy","profile":[[0,0],[900,0],[900,-430],[0,-430]],"to":500},{"from":0,"material":"Timber","plane":"xy","profile":[[40,-40],[860,-40],[860,-390],[40,-390]],"to":60},{"from":500,"material":"Metal","plane":"xy","profile":[[330,-70],[570,-70],[570,-170],[330,-170]],"to":520},{"from":520,"material":"Metal","plane":"xy","profile":[[135,-90],[765,-90],[765,-120],[135,-120]],"to":879.1}],"name":"V2 - Meuble TV 90x43","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":340,"material":"Timber","plane":"xy","profile":[[0,0],[800,0],[800,-550],[0,-550]],"to":380},{"from":0,"material":"Timber","plane":"xy","profile":[[40,-40],[760,-40],[760,-510],[40,-510]],"to":340}],"name":"V2 - Table basse 80x55","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":0,"material":"Fabric","plane":"xy","profile":[[0,0],[180,0],[180,-840],[0,-840]],"to":620},{"from":0,"material":"Fabric","plane":"xy","profile":[[1720,0],[1900,0],[1900,-840],[1720,-840]],"to":620},{"from":0,"material":"Fabric","plane":"xy","profile":[[180,0],[1720,0],[1720,-220],[180,-220]],"to":820},{"from":0,"material":"Fabric","plane":"xy","profile":[[180,-220],[1720,-220],[1720,-820],[180,-820]],"to":300},{"from":300,"material":"Fabric","plane":"xy","profile":[[185,-220],[945,-220],[945,-820],[185,-820]],"to":440},{"from":300,"material":"Fabric","plane":"xy","profile":[[955,-220],[1715,-220],[1715,-820],[955,-820]],"to":440}],"name":"V2 - Canapé 190x84","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":720,"material":"Timber","plane":"xy","profile":[[0,0],[2010,0],[2010,-600],[0,-600]],"to":750},{"from":0,"material":"Timber","plane":"xy","profile":[[30,-30],[80,-30],[80,-80],[30,-80]],"to":720},{"from":0,"material":"Timber","plane":"xy","profile":[[1930,-30],[1980,-30],[1980,-80],[1930,-80]],"to":720},{"from":0,"material":"Timber","plane":"xy","profile":[[30,-520],[80,-520],[80,-570],[30,-570]],"to":720},{"from":0,"material":"Timber","plane":"xy","profile":[[1930,-520],[1980,-520],[1980,-570],[1930,-570]],"to":720},{"from":400,"material":"Timber","plane":"xy","profile":[[0,0],[2010,0],[2010,-20],[0,-20]],"to":720},{"from":1400,"material":"Timber","plane":"xy","profile":[[0,0],[2010,0],[2010,-250],[0,-250]],"to":1430}],"name":"V2 - Bureau 2 postes + étagère 201x60","types":{"REFLET":{}}}
+family {"category":"casework","forms":[{"from":0,"material":"Gypsum board","plane":"xy","profile":[[0,0],[600,0],[600,-630],[0,-630]],"to":2200}],"name":"V2 - Rangement 60x63","types":{"REFLET":{}}}
+family {"category":"casework","forms":[{"from":0,"material":"Gypsum board","plane":"xy","profile":[[0,0],[1110,0],[1110,-620],[0,-620]],"to":2500}],"name":"V2 - Placard 111x62","types":{"REFLET":{}}}
+family {"category":"plumbing","forms":[{"from":0,"material":"Porcelain","plane":"xy","profile":[[0,0],[1700,0],[1700,-750],[0,-750]],"to":550},{"circle":{"centre":[1580,-30],"radius":14},"from":550,"material":"Metal","plane":"xy","to":700}],"kind":"bath","name":"V2 - Baignoire 170x75","types":{"REFLET":{}}}
+family {"category":"plumbing","forms":[{"from":300,"material":"Timber","plane":"xy","profile":[[0,0],[1000,0],[1000,-500],[0,-500]],"to":870},{"circle":{"centre":[250,-40],"radius":14},"from":870,"material":"Metal","plane":"xy","to":1050},{"circle":{"centre":[750,-40],"radius":14},"from":870,"material":"Metal","plane":"xy","to":1050}],"kind":"lav","name":"V2 - Meuble double vasque 100x50","types":{"REFLET":{}}}
+family {"category":"plumbing","forms":[{"from":0,"material":"Porcelain","plane":"xy","profile":[[0,0],[880,0],[880,-880],[0,-880]],"to":30}],"kind":"shower","name":"V2 - Douche à l'italienne 88x88","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":0,"material":"Timber","plane":"xy","profile":[[0,0],[900,0],[900,-50],[0,-50]],"to":950},{"from":0,"material":"Timber","plane":"xy","profile":[[0,-50],[900,-50],[900,-2000],[0,-2000]],"to":250},{"from":250,"material":"Fabric","plane":"xy","profile":[[10,-60],[890,-60],[890,-1990],[10,-1990]],"to":450},{"from":450,"material":"Fabric","plane":"xy","profile":[[90,-90],[810,-90],[810,-290],[90,-290]],"to":580},{"from":450,"material":"Fabric","plane":"xy","profile":[[5,-480],[895,-480],[895,-1995],[5,-1995]],"to":500}],"name":"V2 - Lit 90 x 200","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":0,"material":"Timber","plane":"xy","profile":[[0,0],[350,0],[350,-350],[0,-350]],"to":500},{"circle":{"centre":[175,-175],"radius":60},"from":500,"material":"Porcelain","plane":"xy","to":530},{"circle":{"centre":[175,-175],"radius":12},"from":530,"material":"Metal","plane":"xy","to":720},{"circle":{"centre":[175,-175],"radius":100},"from":720,"material":"Fabric","plane":"xy","to":900}],"name":"V2 - Chevet 35x35","types":{"REFLET":{}}}
+family {"category":"casework","forms":[{"from":0,"material":"Gypsum board","plane":"xy","profile":[[0,0],[880,0],[880,-600],[0,-600]],"to":2500}],"name":"V2 - Placard 88x60","types":{"REFLET":{}}}
+family {"category":"furniture","forms":[{"from":720,"material":"Timber","plane":"xy","profile":[[0,0],[1100,0],[1100,-370],[0,-370]],"to":750},{"from":0,"material":"Timber","plane":"xy","profile":[[30,-30],[80,-30],[80,-80],[30,-80]],"to":720},{"from":0,"material":"Timber","plane":"xy","profile":[[1020,-30],[1070,-30],[1070,-80],[1020,-80]],"to":720},{"from":0,"material":"Timber","plane":"xy","profile":[[30,-290],[80,-290],[80,-340],[30,-340]],"to":720},{"from":0,"material":"Timber","plane":"xy","profile":[[1020,-290],[1070,-290],[1070,-340],[1020,-340]],"to":720},{"from":400,"material":"Timber","plane":"xy","profile":[[0,0],[1100,0],[1100,-20],[0,-20]],"to":720}],"name":"V2 - Bureau 110x37","types":{"REFLET":{}}}
+component {"angle":90,"at":[0,-680],"family":"V2 - WC suspendu 40x65"}
+component {"angle":0,"at":[600,0],"family":"V2 - Lave-mains 40x26"}
+component {"angle":90,"at":[0,-1600],"family":"V2 - Lave-linge + sèche-linge en colonne 60x62"}
+component {"angle":180,"at":[950,-1950],"family":"V2 - Rangement buanderie 95x32"}
+component {"angle":90,"at":[0,-3100],"family":"V2 - Douche à l'italienne 108x88"}
+component {"angle":0,"at":[1120,-2020],"family":"V2 - Meuble vasque 63x44"}
+component {"angle":90,"at":[1820,-2950],"family":"V2 - Banc à chaussures + patères 90x35"}
+component {"angle":0,"at":[3000,0],"family":"V2 - Plan de travail cuisine 205x62"}
+component {"angle":180,"at":[5050,-3100],"family":"V2 - Colonnes cuisine 60x63"}
+component {"angle":0,"at":[5050,-1000],"family":"V2 - Bibliothèque de passage 105x26"}
+component {"angle":90,"at":[0,-6150],"family":"V2 - Lit 160 x 200"}
+component {"angle":90,"at":[0,-4520],"family":"V2 - Chevet 34x40"}
+component {"angle":90,"at":[0,-6520],"family":"V2 - Chevet 34x40"}
+component {"angle":270,"at":[3430,-4250],"family":"V2 - Dressing 95x60"}
+component {"angle":180,"at":[1300,-7050],"family":"V2 - Banquette-coffre 70x37"}
+component {"angle":0,"at":[3300,-5750],"family":"V2 - Table 160 x 80 (6 couverts)"}
+component {"angle":0,"at":[3360,-5300],"family":"V2 - Chaise 42x45"}
+component {"angle":0,"at":[3890,-5300],"family":"V2 - Chaise 42x45"}
+component {"angle":0,"at":[4420,-5300],"family":"V2 - Chaise 42x45"}
+component {"angle":180,"at":[4040,-7000],"family":"V2 - Chaise 42x45"}
+component {"angle":180,"at":[4580,-7000],"family":"V2 - Chaise 42x45"}
+component {"angle":270,"at":[5350,-5820],"family":"V2 - Chaise 42x45"}
+component {"angle":90,"at":[3500,-5200],"family":"V2 - Buffet sur mesure 95x42"}
+component {"angle":0,"at":[4500,-3520],"family":"V2 - Plante en pot 40x40"}
+component {"angle":0,"at":[5770,-3470],"family":"V2 - Meuble TV 90x43"}
+component {"angle":0,"at":[6400,-4700],"family":"V2 - Table basse 80x55"}
+component {"angle":180,"at":[7750,-6620],"family":"V2 - Canapé 190x84"}
+component {"angle":0,"at":[6120,0],"family":"V2 - Bureau 2 postes + étagère 201x60"}
+component {"angle":180,"at":[6710,-1090],"family":"V2 - Chaise 42x45"}
+component {"angle":180,"at":[7610,-1090],"family":"V2 - Chaise 42x45"}
+component {"angle":180,"at":[6700,-3100],"family":"V2 - Rangement 60x63"}
+component {"angle":0,"at":[8220,-930],"family":"V2 - Placard 111x62"}
+component {"angle":0,"at":[9420,-20],"family":"V2 - Baignoire 170x75"}
+component {"angle":270,"at":[11150,-1450],"family":"V2 - WC suspendu 40x65"}
+component {"angle":270,"at":[11150,-2050],"family":"V2 - Meuble double vasque 100x50"}
+component {"angle":180,"at":[10280,-3100],"family":"V2 - Douche à l'italienne 88x88"}
+component {"angle":0,"at":[10250,-3520],"family":"V2 - Lit 90 x 200"}
+component {"angle":0,"at":[9000,-3520],"family":"V2 - Lit 90 x 200"}
+component {"angle":0,"at":[9900,-3520],"family":"V2 - Chevet 35x35"}
+component {"angle":90,"at":[7720,-5180],"family":"V2 - Placard 88x60"}
+component {"angle":180,"at":[10750,-7050],"family":"V2 - Bureau 110x37"}
+component {"angle":0,"at":[9990,-6220],"family":"V2 - Chaise 42x45"}
+room_separator {"points":[[2965,-1000],[2965,-3180]]}
+room_separator {"points":[[2220,-3100],[4530,-3100]]}
+room_separator {"points":[[5050,-920],[5050,-2480]]}
+room_separator {"points":[[6100,-920],[6100,-2480]]}
+room_separator {"points":[[5575,-3770],[5575,-6330]]}
+room_separator {"points":[[8185,-1570],[8185,-3180]]}
+room_separator {"points":[[6620,-3100],[8930,-3100]]}
+room {"name":"ENTRÉE","number":"01","point":[2550,-2450]}
+room {"name":"WC","number":"02","point":[1100,-550]}
+room {"name":"BUANDERIE","number":"03","point":[800,-1350]}
+room {"name":"SALLE D'EAU","number":"04","point":[1330,-2820]}
+room {"name":"CUISINE","number":"05","point":[4000,-1650]}
+room {"name":"CHAMBRE PARENTS","number":"06","point":[1100,-3980]}
+room {"name":"REPAS","number":"07","point":[4550,-4700]}
+room {"name":"SALON","number":"08","point":[6500,-4100]}
+room {"name":"BUREAU - BIBLIO.","number":"09","point":[7120,-1750]}
+room {"name":"DÉGAGEMENT","number":"10","point":[8770,-2250]}
+room {"name":"SDB","number":"11","point":[10400,-1350]}
+room {"name":"CHAMBRE ENFANTS","number":"12","point":[9450,-6050]}
+detail_line {"closed":true,"points":[[2930,-1880],[3000,-1880],[3000,-2280],[2930,-2280]],"style":"Démolition"}
+detail_line {"closed":true,"points":[[3000,-2430],[3500,-2430],[3500,-2500],[3000,-2500]],"style":"Démolition"}
+detail_line {"closed":true,"points":[[3430,-2500],[3500,-2500],[3500,-3320],[3430,-3320]],"style":"Démolition"}
+detail_line {"closed":true,"points":[[3500,-3100],[4450,-3100],[4450,-3170],[3500,-3170]],"style":"Démolition"}
+detail_line {"closed":true,"points":[[7650,-2430],[8150,-2430],[8150,-2500],[7650,-2500]],"style":"Démolition"}
+detail_line {"closed":true,"points":[[7650,-2500],[7720,-2500],[7720,-3320],[7650,-3320]],"style":"Démolition"}
+detail_line {"closed":true,"points":[[6700,-3100],[7650,-3100],[7650,-3170],[6700,-3170]],"style":"Démolition"}
+detail_line {"closed":true,"points":[[8150,-1880],[8220,-1880],[8220,-2500],[8150,-2500]],"style":"Démolition"}
+detail_line {"closed":true,"points":[[5050,-1000],[6100,-1000],[6100,-2400],[5050,-2400]],"style":"Démolition"}
+detail_line {"closed":true,"points":[[5400,-3850],[5750,-3850],[5750,-6250],[5400,-6250]],"style":"Démolition"}
+scale {"scale":50,"view":"N0 - Appartement"}
+graphics {"phase":"New Construction","phase_filter":"Show Previous + New","view":"N0 - Appartement"}
+sheet {"name":"REFLET - V2_ORBITE - Plan projet 1:50","number":"A101","size":"A3"}
+place {"scale":50,"sheet":"A101","view":"N0 - Appartement"}
+schedule {"category":"rooms","fields":["Number","Name",{"name":"Area","total":true}],"name":"Surfaces des pièces"}

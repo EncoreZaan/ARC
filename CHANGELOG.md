@@ -4,6 +4,65 @@ Toutes les modifications notables apportées au projet ARC sont documentées dan
 
 ---
 
+## [ARC v4.0.0 / Autonomous Studio 0.3.0 — Interface Unifiée & Service API Local Indépendant] - 2026-11-16
+
+### 🖥️ Unification de l'Interface ARC (6 Sections) & Démon Rust Indépendant (`arc-studio serve 7878`)
+- **Interface ARC Unifiée (`docs/index.html`, `docs/variant-blueprint.css`, `docs/app.js`, `docs/studio-projects-snapshot.js`) :**
+  - Intégration directe d'**Autonomous Studio** au sein de l'application ARC existante sans créer de deuxième logiciel ni d'interface concurrente.
+  - Barre de navigation unifiée à **6 sections** :
+    1. **Dashboard ARC** (Vue globale, état temps réel des moteurs indépendants et benchmarks matériels)
+    2. **Autonomous Studio** (Import PDF, lancement du pipeline autonome 9 étapes, suivi temps réel des 6 agents IA, comparateur des 3 variantes, visionneuse intégrée Plans/Zoning/Coupe A-A/Notice, contrôle QA mathématique et téléchargement des livrables `.bimcraft`, `.ifc`, `.glb`, `.dxf`, `.svg`, `.pdf`, `.md`)
+    3. **BIMcraft** (Modeleur principal Rust 0.11.0, pipeline `.bcs` $\rightarrow$ `.ifc`/`.glb`/`.svg`/`.pdf` et téléchargements multi-OS)
+    4. **MCP Tools (268)** (Explorateur interactif des 268 outils MCP préservé à 100%)
+    5. **Revit** (Architecture Dual-Engine C# .NET 10, Named Pipe `0.02 ms` et payload batch optionnel)
+    6. **Paramètres & Configuration IA** (Clé API unique OpenRouter, verrou strict `FREE-FIRST` à `0.00 $`, table de routage automatique par tâche et générateur `claude_desktop_config.json`)
+- **Service API Local Indépendant (`arc-autonomous-studio/crates/studio-orchestrator/src/server.rs`) :**
+  - Ajout des commandes `arc-studio serve [port]` (par défaut `127.0.0.1:7878`) et `arc-studio sync-ui`.
+  - Endpoints REST JSON sécurisés localement : `GET /api/studio/health`, `GET /api/studio/snapshot`, `GET /api/studio/models`, `POST /api/studio/config`, `POST /api/studio/projects/run`, `GET /api/studio/download`, `POST /api/studio/service/stop`.
+  - Cycle de vie 100% découplé : le démarrage ou l'arrêt du service Studio n'affecte jamais `revit-mcp-server.exe`, Claude Desktop ni le reste de l'application ARC (qui bascule automatiquement sur le snapshot local synchronisé `docs/studio-projects-snapshot.js`).
+- **Upload PDF Binaire & Synthèse Paramétrique Générique (`CustomParametricBuilding`) :**
+  - Correction de la table de routage OpenRouter dans [`docs/app.js`](docs/app.js) (`task_routing_table`, `primary_model_id`, `fallback_chain`).
+  - Support complet de l'upload PDF depuis le navigateur en Base64 (`POST /api/studio/projects/run` avec lecture HTTP `Content-Length` jusqu'à 50 Mo dans `server.rs`).
+  - Extraction dynamique des dimensions (`L × l`, `m²`, `HSP`) et des espaces requis dans `studio-doc-intel` pour tout sujet PDF inédit, couplée à une génération géométrique paramétrique multi-variantes (`CUSTOM_V1_AXIAL`, `CUSTOM_V2_GALERIE`, `CUSTOM_V3_MODULAIRE`) dans `studio-spatial` et validation dans `studio-qa` + `bimcraft-cli 0.11.0`.
+  - Ajout du lanceur 1-clic [`Start-ARC.ps1`](Start-ARC.ps1).
+- **Mode Extension Zéro-Latence BIMcraft & Revit 2027 :**
+  - Ajout de la commande Rust instantanée `arc-studio launch [fichier.bimcraft]` (`~/.cargo/bin/arc-studio.exe`) : lance `bimcraft.exe` sans délai (`BIMCRAFT_NO_UPDATE_CHECK=1 --control 0`) et démarre le démon Studio en arrière-plan détaché (0 ms d'impact sur le démarrage de BIMcraft).
+  - Ajout de l'endpoint `POST /api/studio/bimcraft/open` dans `server.rs` et du bouton **« ⚡ Ouvrir dans BIMcraft Live »** dans l'interface ARC unifiée.
+  - Ajout du bouton lazy-launch **« ⚡ Ouvrir ARC Autonomous Studio »** dans le panneau Revit 2027 ([`RevitAiDockablePanel.cs`](revit-addin/RevitMCP/UI/RevitAiDockablePanel.cs)), compilé et déployé dans `%APPDATA%\Autodesk\Revit\Addins\2027\` (0 ms d'impact au démarrage de Revit).
+
+---
+
+## [ARC Autonomous Studio 0.2.0 — OpenRouter Free-First & Conception Générique] - 2026-11-16
+
+### 🧠 Routeur IA OpenRouter Free-First (`studio-ai-runtime`) & Validation Multi-Sujets PDF (`La Cabane` + `Appartement Londonien`)
+- **OpenRouter Free-First Multi-Model Engine (`crates/studio-ai-runtime/`) :**
+  - Découverte en direct des 468 modèles OpenRouter et qualification automatique des **15 modèles gratuits** (`pricing.prompt == "0"` et `pricing.completion == "0"`), avec analyse des modalités Vision (`text+image->text`), Raisonnement et Code/JSON.
+  - Blocage strict de tout modèle payant (`allow_paid_models = false`), routage spécialisé par tâche architecturale et failover automatique entre modèles gratuits.
+  - Génération systématique du rapport d'audit IA `openrouter_ai_telemetry_report.json`.
+- **Conception Architecturale Générique & Autocorrection Réelle (`studio-doc-intel`, `studio-spatial`, `studio-qa`) :**
+  - Extension de `studio-doc-intel` et `studio-spatial` pour comprendre et concevoir des projets à partir de sujets PDF variés sans se limiter à l'Appartement Londonien.
+  - Ajout du détecteur et correcteur automatique de collision baie/baie (`QA-CLASH-01B`) dans `studio-qa`, validé par la correction automatique en direct d'une collision Porte/Fenêtre sur la façade Sud de *La Cabane*.
+  - Validation E2E complète sur le sujet PDF **La Cabane** (`workspace_projects/LA_CABANE_AUTONOMOUS/`) en **859 ms** (score QA **100%**, 8/8 règles validées) tout en maintenant **100% de non-régression** sur `revit-mcp-server.exe` et sur le projet de l'Appartement Londonien.
+
+---
+
+## [ARC Autonomous Studio 0.1.0 — Sous-Système Isolé] - 2026-11-16
+
+### 🏛️ Système d'Architecture Autonome en Rust (`arc-autonomous-studio/`) & Garantie Zéro Régression MCP
+- **Isolation Stricte de l'Existant :**
+  - Création du workspace Rust indépendant `arc-autonomous-studio/` avec son propre cycle de build, sa propre configuration (`config/studio_config.toml`) et son propre répertoire de projets (`workspace_projects/`).
+  - Aucune modification apportée aux binaires historiques (`revit-mcp-server.exe`, `RevitMCP.dll`) ni à `%APPDATA%\Claude\claude_desktop_config.json` (vérifié automatiquement par empreinte SHA-256 et test JSON-RPC `stdio` dans `studio-mcp-bridge`).
+- **8 Crates Rust Spécialisées :**
+  - `studio-apm` : Modèle Architectural Intermédiaire (**ARC Project Model**) typé, versionné et signé par SHA-256.
+  - `studio-doc-intel` : **Agent 01 (Document Intelligence)** — lecture native des sujets PDF (`lopdf`) et extraction structurée du programme et des contraintes.
+  - `studio-spatial` : **Agents 02, 03 & 04 (Design, Spatial & BIM Intelligence)** — génération des 3 propositions architecturales (`V1_ECLIPSE`, `V2_ORBITE`, `V3_PASSAGE`), réunion des 2 lots en miroir, percement des murs porteurs avec têtes de 30 cm et poutres BA 35×40 cm, et génération des familles 3D de mobilier sur mesure.
+  - `studio-bimcraft` : **BIMcraft Autonomous Builder** — construction complète et autonome dans `bimcraft-cli 0.11.0` sans nécessiter Revit (exports `.bimcraft`, `.ifc`, `.glb`, `.svg`, `.pdf` et inspection `bimcraft-cli info`).
+  - `studio-qa` : **Agent 05 (Engineering & QA Autocorrection)** — moteur de contrôle géométrique, structurel et programmatique réel avec boucle d'autocorrection convergente.
+  - `studio-deliverables` : **Agent 06 (Presentation Intelligence)** — génération 100% Rust des plans DXF R12 multi-calques, planches SVG de Zoning/Circulation et Coupe Longitudinale A-A, Dossier PDF natif et Notice complète.
+  - `studio-mcp-bridge` & `studio-orchestrator` : CLI `arc-studio`, suite de tests E2E (`cargo test --release`) et génération du tableau de bord interactif `ARC_Autonomous_Studio_Workspace.html`.
+
+---
+
 ## [3.3.1] - 2026-11-16
 
 ### 🌐 Landing Page (`docs/`) : Téléchargement Direct `.exe` & Confidentialité

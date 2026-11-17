@@ -1,0 +1,21 @@
+[package]
+name = "studio-orchestrator"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "arc-studio"
+path = "src/main.rs"
+
+[dependencies]
+studio-apm = { path = "../studio-apm" }
+studio-ai-runtime = { path = "../studio-ai-runtime" }
+studio-doc-intel = { path = "../studio-doc-intel" }
+studio-spatial = { path = "../studio-spatial" }
+studio-bimcraft = { path = "../studio-bimcraft" }
+studio-qa = { path = "../studio-qa" }
+studio-deliverables = { path = "../studio-deliverables" }
+studio-mcp-bridge = { path = "../studio-mcp-bridge" }
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true

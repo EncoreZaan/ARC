@@ -1,0 +1,28 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/studio-apm",
+    "crates/studio-ai-runtime",
+    "crates/studio-doc-intel",
+    "crates/studio-spatial",
+    "crates/studio-bimcraft",
+    "crates/studio-qa",
+    "crates/studio-deliverables",
+    "crates/studio-mcp-bridge",
+    "crates/studio-orchestrator",
+]
+
+[workspace.package]
+version = "0.2.0"
+edition = "2021"
+authors = ["EncoreZaan"]
+license = "MIT"
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.40", features = ["rt-multi-thread", "io-util", "io-std", "net", "sync", "time", "macros", "fs", "process"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "blocking"] }
+rayon = "1.10"
+sha2 = "0.10"
+lopdf = "0.34"

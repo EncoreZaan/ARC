@@ -1,0 +1,12 @@
+[package]
+name = "studio-spatial"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+studio-apm = { path = "../studio-apm" }
+studio-ai-runtime = { path = "../studio-ai-runtime" }
+studio-doc-intel = { path = "../studio-doc-intel" }
+serde.workspace = true
+serde_json.workspace = true
+rayon.workspace = true

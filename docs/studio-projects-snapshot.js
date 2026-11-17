@@ -1,0 +1,20265 @@
+// Généré automatiquement par ARC Autonomous Studio (Rust)
+window.ARC_STUDIO_SNAPSHOT = {
+  "allow_paid_models": false,
+  "api_key_configured": false,
+  "mcp_non_regression": {
+    "all_tools_count": 230,
+    "binary_intact": true,
+    "cad_tools_count": 10,
+    "compact_tools_count": 31,
+    "details": [
+      "Cargo.toml SHA-256 intact : true",
+      "tools_manifest.json SHA-256 intact : true",
+      "revit-mcp-server.exe SHA-256 intact : true",
+      "JSON-RPC stdio 'compact' profile : init=true, tools=31",
+      "JSON-RPC stdio 'all' profile : tools=230",
+      "JSON-RPC stdio 'cad-mcp' mode : init=true"
+    ],
+    "initialize_ok": true,
+    "manifest_intact": true,
+    "passed": true
+  },
+  "openrouter_report": {
+    "allow_paid_models": false,
+    "api_key_configured": false,
+    "catalog_discovery_live": true,
+    "discovered_free_models": [
+      {
+        "completion_price_str": "0",
+        "context_length": 1048576,
+        "id": "thinkingmachines/inkling-2-small:free",
+        "is_free": true,
+        "modality": "text+image->text",
+        "name": "Thinking Machines: Inkling 2 Small (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 224,
+        "supports_code_json": true,
+        "supports_reasoning": true,
+        "supports_vision": true
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 1000000,
+        "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "is_free": true,
+        "modality": "text->text",
+        "name": "NVIDIA: Nemotron 3 Ultra (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 180,
+        "supports_code_json": true,
+        "supports_reasoning": true,
+        "supports_vision": false
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 1048576,
+        "id": "inclusionai/ling-3.2-flash:free",
+        "is_free": true,
+        "modality": "text+image->text",
+        "name": "inclusionAI: Ling 3.2 Flash (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 174,
+        "supports_code_json": true,
+        "supports_reasoning": false,
+        "supports_vision": true
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 1000000,
+        "id": "nvidia/nemotron-3.5-super-vl:free",
+        "is_free": true,
+        "modality": "text+image+video->text",
+        "name": "NVIDIA: Nemotron 3.5 Super VL (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 170,
+        "supports_code_json": true,
+        "supports_reasoning": false,
+        "supports_vision": true
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 1024000,
+        "id": "baidu/ernie-5.5-flash-preview:free",
+        "is_free": true,
+        "modality": "text->text",
+        "name": "Baidu: ERNIE-5.5-Flash-Preview (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 152,
+        "supports_code_json": false,
+        "supports_reasoning": true,
+        "supports_vision": false
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 262144,
+        "id": "google/gemma-4-31b-it:free",
+        "is_free": true,
+        "modality": "text+image+video->text",
+        "name": "Google: Gemma 4 31B (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 146,
+        "supports_code_json": true,
+        "supports_reasoning": true,
+        "supports_vision": true
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 256000,
+        "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+        "is_free": true,
+        "modality": "text+image+audio+video->text",
+        "name": "NVIDIA: Nemotron 3 Nano Omni (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 145,
+        "supports_code_json": true,
+        "supports_reasoning": true,
+        "supports_vision": true
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 1048576,
+        "id": "particle-ai/particle-1:free",
+        "is_free": true,
+        "modality": "text+image->text",
+        "name": "Particle AI: Particle-1 (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 144,
+        "supports_code_json": false,
+        "supports_reasoning": false,
+        "supports_vision": true
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 1000000,
+        "id": "nvidia/nemotron-3.5-lightning:free",
+        "is_free": true,
+        "modality": "text->text",
+        "name": "NVIDIA: Nemotron 3.5 Lightning (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 130,
+        "supports_code_json": true,
+        "supports_reasoning": false,
+        "supports_vision": false
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 262144,
+        "id": "google/gemma-4-26b-a4b-it:free",
+        "is_free": true,
+        "modality": "text+image+video->text",
+        "name": "Google: Gemma 4 26B A4B  (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 96,
+        "supports_code_json": true,
+        "supports_reasoning": false,
+        "supports_vision": true
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 512000,
+        "id": "dots-studio/dots-3-note-preview:free",
+        "is_free": true,
+        "modality": "text+image->text",
+        "name": "Dots Studio: Dots3-Note Preview (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 91,
+        "supports_code_json": false,
+        "supports_reasoning": false,
+        "supports_vision": true
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 200000,
+        "id": "openrouter/free",
+        "is_free": true,
+        "modality": "text+image->text",
+        "name": "Free Models Router",
+        "prompt_price_str": "0",
+        "suitability_score": 60,
+        "supports_code_json": false,
+        "supports_reasoning": false,
+        "supports_vision": true
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 256000,
+        "id": "cohere/north-mini-code:free",
+        "is_free": true,
+        "modality": "text->text",
+        "name": "Cohere: North Mini Code (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 55,
+        "supports_code_json": true,
+        "supports_reasoning": false,
+        "supports_vision": false
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 262144,
+        "id": "liquid/lfm-3-1.7b:free",
+        "is_free": true,
+        "modality": "text->text",
+        "name": "LiquidAI: LFM3-1.7B (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 26,
+        "supports_code_json": false,
+        "supports_reasoning": false,
+        "supports_vision": false
+      },
+      {
+        "completion_price_str": "0",
+        "context_length": 262144,
+        "id": "recursive/flint-v1.0:free",
+        "is_free": true,
+        "modality": "text->text",
+        "name": "Recursive: Flint (free)",
+        "prompt_price_str": "0",
+        "suitability_score": 26,
+        "supports_code_json": false,
+        "supports_reasoning": false,
+        "supports_vision": false
+      }
+    ],
+    "free_first_policy_enforced": true,
+    "free_models_discovered": 15,
+    "free_reasoning_models_count": 5,
+    "free_vision_models_count": 9,
+    "limitations_encountered": [],
+    "paid_calls_blocked_count": 0,
+    "provider": "OpenRouter (Free-First Multi-Model Router)",
+    "requests_log": [],
+    "task_routing_table": {
+      "ArchitecturalConceptAndDesign": {
+        "fallback_chain": [
+          "thinkingmachines/inkling-2-small:free",
+          "nvidia/nemotron-3-ultra-550b-a55b:free",
+          "baidu/ernie-5.5-flash-preview:free",
+          "google/gemma-4-31b-it:free",
+          "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "openrouter/free"
+        ],
+        "primary_model_id": "thinkingmachines/inkling-2-small:free",
+        "selection_reason": "Sélection des modèles gratuits à fort raisonnement (Nemotron Ultra 550B / Gemma 4 31B / Ernie 5.5) pour imaginer des partis architecturaux contrastés et justifier les choix.",
+        "task": "ArchitecturalConceptAndDesign"
+      },
+      "DocumentAndPlanVisionAnalysis": {
+        "fallback_chain": [
+          "thinkingmachines/inkling-2-small:free",
+          "inclusionai/ling-3.2-flash:free",
+          "nvidia/nemotron-3.5-super-vl:free",
+          "google/gemma-4-31b-it:free",
+          "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "particle-ai/particle-1:free",
+          "google/gemma-4-26b-a4b-it:free",
+          "dots-studio/dots-3-note-preview:free",
+          "openrouter/free"
+        ],
+        "primary_model_id": "thinkingmachines/inkling-2-small:free",
+        "selection_reason": "Sélection des modèles gratuits multimodaux (text+image->text) à grande fenêtre de contexte (jusqu'à 1M tokens) pour l'analyse de sujets PDF et plans.",
+        "task": "DocumentAndPlanVisionAnalysis"
+      },
+      "QaAndComplianceCritique": {
+        "fallback_chain": [
+          "thinkingmachines/inkling-2-small:free",
+          "nvidia/nemotron-3-ultra-550b-a55b:free",
+          "baidu/ernie-5.5-flash-preview:free",
+          "google/gemma-4-31b-it:free",
+          "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "openrouter/free"
+        ],
+        "primary_model_id": "thinkingmachines/inkling-2-small:free",
+        "selection_reason": "Sélection des modèles gratuits de vérification et critique analytique pour évaluer les variantes et converger avec le moteur géométrique Rust.",
+        "task": "QaAndComplianceCritique"
+      },
+      "SpatialAndStructuralReasoning": {
+        "fallback_chain": [
+          "thinkingmachines/inkling-2-small:free",
+          "nvidia/nemotron-3-ultra-550b-a55b:free",
+          "inclusionai/ling-3.2-flash:free",
+          "nvidia/nemotron-3.5-super-vl:free",
+          "google/gemma-4-31b-it:free",
+          "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "nvidia/nemotron-3.5-lightning:free",
+          "google/gemma-4-26b-a4b-it:free",
+          "cohere/north-mini-code:free",
+          "openrouter/free"
+        ],
+        "primary_model_id": "thinkingmachines/inkling-2-small:free",
+        "selection_reason": "Sélection des modèles gratuits spécialisés JSON/Code et raisonnement spatial pour structurer les programmes, surfaces et topologies.",
+        "task": "SpatialAndStructuralReasoning"
+      }
+    },
+    "total_models_discovered": 470
+  },
+  "projects": [
+    {
+      "apm": {
+        "brief": {
+          "constraints": {
+            "ceiling_height_mm": 2400.0,
+            "forbid_new_exterior_openings": true,
+            "lot_duplication_mirror": false,
+            "max_load_bearing_opening_mm": 0.0,
+            "min_load_bearing_pier_mm": 200.0,
+            "preserve_entry_door_strictly": true,
+            "require_lintel_beam": false,
+            "slab_thickness_mm": 200.0,
+            "target_total_area_m2": 35.1
+          },
+          "context_summary": "Sujet 1 MJM Architecture d'Intérieur — 'LA CABANE' : Concevoir un micro-habitat / atelier polyvalent dans un module existant de 6.40 × 6.20 m hors-tout (surface intérieure 35.1 m², murs extérieurs 20 cm, plancher chauffant, toit plat HSP 2.40 m, terrasse bois Ouest de 1.22 m), capable de fonctionner en Atelier/Bureau de création la semaine et en Chambre d'amis / Réception le week-end tout en conservant les ouvertures existantes.",
+          "deliverables_apd": [
+            "Maquette BIM 3D complète (.bimcraft, .ifc, .glb) + Planches A4/A3 1:50 + Dossier PDF"
+          ],
+          "deliverables_aps": [
+            "Plan coté complet 1:50 (cotes extérieures 640×620 cm et intérieures 600×580 cm)",
+            "Coupes A-A et B-B montrant la hauteur sous plafond (240 cm) et le dispositif sur mesure"
+          ],
+          "deliverables_esq": [
+            "3 Propositions architecturales contrastées (V1 Bande Servante, V2 Meuble Habité, V3 Plancher Habité)",
+            "Double Zoning Semaine (Atelier) & Week-end (Chambre d'amis)",
+            "Plans d'aménagement 1:50 Semaine & Week-end"
+          ],
+          "deliverables_jury": [
+            "Dossier complet 6 planches 1:50 + Maquette + Rapport de vérification QA"
+          ],
+          "design_objectives": [
+            "Double usage réversible Semaine (Atelier de création & télétravail fluide) / Week-end (Accueil d'amis avec vrai couchage 140×200 cm)",
+            "Conservation stricte de l'enveloppe existante (640 × 620 cm ext., 600 × 580 cm int., murs de 20 cm) et de l'emplacement des baies en façade",
+            "Création d'architectures intérieures sur mesure (plancher habité / estrade +35 cm avec lit-tiroir escamotable, ou bande servante, ou meuble habité)",
+            "Optimisation de la lumière naturelle et du lien avec la terrasse bois à l'Ouest (profondeur 122 cm)"
+          ],
+          "detected_ambiguities": [
+            {
+              "description": "Avec une hauteur sous plafond sous toit plat de 2,40 m (planche APS 1:50), une mezzanine haute est contrainte verticalement, tandis qu'une estrade de +35 cm laisse 2,05 m libres au-dessus tout en logeant un lit-tiroir de 140×200 cm en dessous.",
+              "id": "CAB-AMB-01",
+              "requires_user_arbitration": false,
+              "resolution_strategy": "Le moteur d'IA architecturale compare les 3 concepts (Bande Servante, Module Central, Plancher Habité +35 cm) et sélectionne 'Le Plancher Habité' (estrade +35 cm + bancs-marches +17,5 cm) qui respecte rigoureusement la HSP de 240 cm.",
+              "topic": "Dispositif de mutabilité Semaine / Week-end sous HSP 240 cm"
+            }
+          ],
+          "required_spaces": [
+            {
+              "category": "Atelier / Bureau de création",
+              "description": "Espace de travail calme et lumineux avec grand bureau sur mesure (230×60 cm) et rangements matériel",
+              "mandatory": true,
+              "max_count": 1,
+              "min_count": 1
+            },
+            {
+              "category": "Espace Nuit Modulable (Week-end)",
+              "description": "Couchage double confortable (140×200 cm) escamotable (lit-tiroir sous estrade ou lit rabattable) isolable par rideau",
+              "mandatory": true,
+              "max_count": 1,
+              "min_count": 1
+            },
+            {
+              "category": "Salon & Coin Lecture",
+              "description": "Canapé, table basse et banquette de lecture en relation avec les baies vitrées et la terrasse",
+              "mandatory": true,
+              "max_count": 1,
+              "min_count": 1
+            },
+            {
+              "category": "Kitchenette & Repas",
+              "description": "Kitchenette linéaire équipée (évier, 2 feux, frigo sous plan) + table repas 4 personnes",
+              "mandatory": true,
+              "max_count": 2,
+              "min_count": 1
+            },
+            {
+              "category": "Salle d'Eau / WC",
+              "description": "Salle d'eau complète (~4.8 m² : douche 120×90 cm, WC, vasque) cloisonnée en 8 cm avec porte coulissante à galandage",
+              "mandatory": true,
+              "max_count": 1,
+              "min_count": 1
+            },
+            {
+              "category": "Terrasse Bois Extérieure",
+              "description": "Terrasse bois longitudinale à l'Ouest (122 × 620 cm) et marche d'entrée au Sud",
+              "mandatory": true,
+              "max_count": 1,
+              "min_count": 1
+            }
+          ]
+        },
+        "history": [
+          {
+            "sha256_digest": "b450bfe9c4b2dfc8ba128dccb49506abdf5e7a28441a839b9ca3044df35ad766",
+            "step_name": "01_DOCUMENT_INTELLIGENCE",
+            "summary": "Analyse du sujet PDF (6 pages, archétype ModularMicroHabitatCabane { ext_width_mm: 6400.0, ext_length_mm: 6200.0, wall_thickness_mm: 200.0, hsp_mm: 2400.0, terrace_depth_mm: 1220.0, interior_area_m2: 35.1 }), extraction du programme et des contraintes",
+            "version": 1
+          },
+          {
+            "sha256_digest": "64e32cdeb4b45a5239c4d312a9a4c7ca1580a5f8e63c0c7007b5aa9b34c659ed",
+            "step_name": "02_03_04_DESIGN_SPATIAL_BIM",
+            "summary": "Conception autonome de 3 propositions architecturales et sélection de CAB_V3_PLANCHER_HABITE",
+            "version": 2
+          },
+          {
+            "sha256_digest": "45bd76d1ed0121bc05d10f19ceafaf84f4d0e7e6225c3c02705ea3f32156fb41",
+            "step_name": "04_BIMCRAFT_BUILD",
+            "summary": "Construction autonome des maquettes 3D dans BIMcraft 0.11.0 (.bimcraft, .ifc, .glb, .svg, .pdf)",
+            "version": 3
+          },
+          {
+            "sha256_digest": "3244ce963b5fb0243d3bee2c16e7b21fd1bb7fa4ce2942dada48ea6811aaca50",
+            "step_name": "05_QA_AUTOCORRECTION",
+            "summary": "Validation mathématique et critique IA de la boucle CONSTRUCTION -> ANALYSE -> DÉTECTION -> CORRECTION -> VALIDATION",
+            "version": 4
+          }
+        ],
+        "metadata": {
+          "canonical_unit": "mm",
+          "client_profile": "Élise / Alex / Camille — Créatifs indépendants en télétravail & accueil week-end",
+          "project_id": "ARC-AUTO-CABANE-2026",
+          "reference_scale": "1:50",
+          "source_brief_pdf": "C:\\Users\\teoba\\Downloads\\LA_CABANE_V3_Planches_A4_1-50.pdf",
+          "source_plan_pdf": null,
+          "subtitle": "Module 6,40 × 6,20 m (34,8 m², HSP 240 cm, Terrasse Ouest 1,22 m)",
+          "title": "LA CABANE — Micro-Habitat & Atelier Polyvalent",
+          "version": 4
+        },
+        "qa_reports": {
+          "CAB_V1_BANDE_SERVANTE": {
+            "bimcraft_elements_count": 29,
+            "bimcraft_verified": true,
+            "checks": [
+              {
+                "auto_corrected": false,
+                "category": "Gabarit & Volumétrie",
+                "correction_note": null,
+                "description": "Respect de la Hauteur Sous Plafond réglementaire du sujet (HSP = 280 cm)",
+                "expected_bound": "= 2400 mm",
+                "measured_value": "6 murs à 2400 mm (écarts détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-HSP-01"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Collisions Baies (Porte / Fenêtre)",
+                "correction_note": null,
+                "description": "Absence de chevauchement entre portes et fenêtres sur un même mur hôte (trumeau >= 15 cm)",
+                "expected_bound": "0 collision baie/baie",
+                "measured_value": "2 portes et 6 fenêtres inspectées (chevauchements détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-CLASH-01B"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Structure & Murs Porteurs",
+                "correction_note": null,
+                "description": "Ouverture mur porteur <= 4.00 m + têtes de mur >= 30 cm de part et d'autre + poutre BA",
+                "expected_bound": "Portée <= 4000 mm & Têtes >= 300 mm",
+                "measured_value": "0 percement(s) : portée max = 0 mm, tête de mur min = 0 mm, poutre 35x40 cm active",
+                "passed": true,
+                "rule_id": "QA-STRUCT-02"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Accès & Enveloppe",
+                "correction_note": null,
+                "description": "Présence et conformité de la porte d'entrée principale (+ rebouchage 2nd accès si réunion de lots)",
+                "expected_bound": "Porte d'entrée conforme au sujet",
+                "measured_value": "Porte d'entrée principale = true, Conformité accès = true",
+                "passed": true,
+                "rule_id": "QA-ENTRY-03"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Façades & Ouvertures Extérieures",
+                "correction_note": null,
+                "description": "Conservation des ouvertures existantes en façade (0 nouvelle ouverture extérieure créée)",
+                "expected_bound": "0 nouvelle ouverture extérieure",
+                "measured_value": "6 baies existantes, 0 baies neuves (total 6)",
+                "passed": true,
+                "rule_id": "QA-FACADE-04"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Programme Architectural",
+                "correction_note": null,
+                "description": "Présence vérifiée de tous les espaces exigés par le sujet PDF et du mobilier dessiné sur mesure",
+                "expected_bound": "100% des espaces du programme + mobilier sur mesure",
+                "measured_value": "6 espaces fonctionnels modélisés, SDB=true, Cuisine=true, Salon/Séjour=true, 9 composants 3D sur mesure (9 familles)",
+                "passed": true,
+                "rule_id": "QA-PROG-05"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Surfaces & Équilibre Spatial",
+                "correction_note": null,
+                "description": "Surface habitable conforme au gabarit du sujet (cible 35.1 m²)",
+                "expected_bound": "35.1 m² ± 8.0 m²",
+                "measured_value": "Total Habitable = 35.1 m² (Zone Jour/Atelier = 26.5 m², Zone Nuit = 8.3 m²)",
+                "passed": true,
+                "rule_id": "QA-AREA-06"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Intégrité Modèle BIMcraft",
+                "correction_note": null,
+                "description": "Compilation sans erreur dans BIMcraft 0.11.0 et validation des éléments 2D/3D générés",
+                "expected_bound": "Modèle .bimcraft + .ifc + .glb + .svg valides",
+                "measured_value": "29 objets BIM compilés et vérifiés sur disque",
+                "passed": true,
+                "rule_id": "QA-BIM-07"
+              }
+            ],
+            "converged": true,
+            "iteration": 1,
+            "score_100": 100.0,
+            "variant_id": "CAB_V1_BANDE_SERVANTE"
+          },
+          "CAB_V2_MEUBLE_HABITE": {
+            "bimcraft_elements_count": 29,
+            "bimcraft_verified": true,
+            "checks": [
+              {
+                "auto_corrected": false,
+                "category": "Gabarit & Volumétrie",
+                "correction_note": null,
+                "description": "Respect de la Hauteur Sous Plafond réglementaire du sujet (HSP = 280 cm)",
+                "expected_bound": "= 2400 mm",
+                "measured_value": "6 murs à 2400 mm (écarts détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-HSP-01"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Collisions Baies (Porte / Fenêtre)",
+                "correction_note": null,
+                "description": "Absence de chevauchement entre portes et fenêtres sur un même mur hôte (trumeau >= 15 cm)",
+                "expected_bound": "0 collision baie/baie",
+                "measured_value": "2 portes et 6 fenêtres inspectées (chevauchements détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-CLASH-01B"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Structure & Murs Porteurs",
+                "correction_note": null,
+                "description": "Ouverture mur porteur <= 4.00 m + têtes de mur >= 30 cm de part et d'autre + poutre BA",
+                "expected_bound": "Portée <= 4000 mm & Têtes >= 300 mm",
+                "measured_value": "0 percement(s) : portée max = 0 mm, tête de mur min = 0 mm, poutre 35x40 cm active",
+                "passed": true,
+                "rule_id": "QA-STRUCT-02"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Accès & Enveloppe",
+                "correction_note": null,
+                "description": "Présence et conformité de la porte d'entrée principale (+ rebouchage 2nd accès si réunion de lots)",
+                "expected_bound": "Porte d'entrée conforme au sujet",
+                "measured_value": "Porte d'entrée principale = true, Conformité accès = true",
+                "passed": true,
+                "rule_id": "QA-ENTRY-03"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Façades & Ouvertures Extérieures",
+                "correction_note": null,
+                "description": "Conservation des ouvertures existantes en façade (0 nouvelle ouverture extérieure créée)",
+                "expected_bound": "0 nouvelle ouverture extérieure",
+                "measured_value": "6 baies existantes, 0 baies neuves (total 6)",
+                "passed": true,
+                "rule_id": "QA-FACADE-04"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Programme Architectural",
+                "correction_note": null,
+                "description": "Présence vérifiée de tous les espaces exigés par le sujet PDF et du mobilier dessiné sur mesure",
+                "expected_bound": "100% des espaces du programme + mobilier sur mesure",
+                "measured_value": "6 espaces fonctionnels modélisés, SDB=true, Cuisine=true, Salon/Séjour=true, 9 composants 3D sur mesure (9 familles)",
+                "passed": true,
+                "rule_id": "QA-PROG-05"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Surfaces & Équilibre Spatial",
+                "correction_note": null,
+                "description": "Surface habitable conforme au gabarit du sujet (cible 35.1 m²)",
+                "expected_bound": "35.1 m² ± 8.0 m²",
+                "measured_value": "Total Habitable = 35.1 m² (Zone Jour/Atelier = 25.0 m², Zone Nuit = 9.8 m²)",
+                "passed": true,
+                "rule_id": "QA-AREA-06"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Intégrité Modèle BIMcraft",
+                "correction_note": null,
+                "description": "Compilation sans erreur dans BIMcraft 0.11.0 et validation des éléments 2D/3D générés",
+                "expected_bound": "Modèle .bimcraft + .ifc + .glb + .svg valides",
+                "measured_value": "29 objets BIM compilés et vérifiés sur disque",
+                "passed": true,
+                "rule_id": "QA-BIM-07"
+              }
+            ],
+            "converged": true,
+            "iteration": 1,
+            "score_100": 100.0,
+            "variant_id": "CAB_V2_MEUBLE_HABITE"
+          },
+          "CAB_V3_PLANCHER_HABITE": {
+            "bimcraft_elements_count": 29,
+            "bimcraft_verified": true,
+            "checks": [
+              {
+                "auto_corrected": false,
+                "category": "Gabarit & Volumétrie",
+                "correction_note": null,
+                "description": "Respect de la Hauteur Sous Plafond réglementaire du sujet (HSP = 280 cm)",
+                "expected_bound": "= 2400 mm",
+                "measured_value": "6 murs à 2400 mm (écarts détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-HSP-01"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Collisions Baies (Porte / Fenêtre)",
+                "correction_note": null,
+                "description": "Absence de chevauchement entre portes et fenêtres sur un même mur hôte (trumeau >= 15 cm)",
+                "expected_bound": "0 collision baie/baie",
+                "measured_value": "2 portes et 6 fenêtres inspectées (chevauchements détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-CLASH-01B"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Structure & Murs Porteurs",
+                "correction_note": null,
+                "description": "Ouverture mur porteur <= 4.00 m + têtes de mur >= 30 cm de part et d'autre + poutre BA",
+                "expected_bound": "Portée <= 4000 mm & Têtes >= 300 mm",
+                "measured_value": "0 percement(s) : portée max = 0 mm, tête de mur min = 0 mm, poutre 35x40 cm active",
+                "passed": true,
+                "rule_id": "QA-STRUCT-02"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Accès & Enveloppe",
+                "correction_note": null,
+                "description": "Présence et conformité de la porte d'entrée principale (+ rebouchage 2nd accès si réunion de lots)",
+                "expected_bound": "Porte d'entrée conforme au sujet",
+                "measured_value": "Porte d'entrée principale = true, Conformité accès = true",
+                "passed": true,
+                "rule_id": "QA-ENTRY-03"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Façades & Ouvertures Extérieures",
+                "correction_note": null,
+                "description": "Conservation des ouvertures existantes en façade (0 nouvelle ouverture extérieure créée)",
+                "expected_bound": "0 nouvelle ouverture extérieure",
+                "measured_value": "6 baies existantes, 0 baies neuves (total 6)",
+                "passed": true,
+                "rule_id": "QA-FACADE-04"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Programme Architectural",
+                "correction_note": null,
+                "description": "Présence vérifiée de tous les espaces exigés par le sujet PDF et du mobilier dessiné sur mesure",
+                "expected_bound": "100% des espaces du programme + mobilier sur mesure",
+                "measured_value": "6 espaces fonctionnels modélisés, SDB=true, Cuisine=true, Salon/Séjour=true, 9 composants 3D sur mesure (9 familles)",
+                "passed": true,
+                "rule_id": "QA-PROG-05"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Surfaces & Équilibre Spatial",
+                "correction_note": null,
+                "description": "Surface habitable conforme au gabarit du sujet (cible 35.1 m²)",
+                "expected_bound": "35.1 m² ± 8.0 m²",
+                "measured_value": "Total Habitable = 35.1 m² (Zone Jour/Atelier = 25.4 m², Zone Nuit = 9.4 m²)",
+                "passed": true,
+                "rule_id": "QA-AREA-06"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Intégrité Modèle BIMcraft",
+                "correction_note": null,
+                "description": "Compilation sans erreur dans BIMcraft 0.11.0 et validation des éléments 2D/3D générés",
+                "expected_bound": "Modèle .bimcraft + .ifc + .glb + .svg valides",
+                "measured_value": "29 objets BIM compilés et vérifiés sur disque",
+                "passed": true,
+                "rule_id": "QA-BIM-07"
+              }
+            ],
+            "converged": true,
+            "iteration": 1,
+            "score_100": 100.0,
+            "variant_id": "CAB_V3_PLANCHER_HABITE"
+          }
+        },
+        "selected_variant_id": "CAB_V3_PLANCHER_HABITE",
+        "variants": {
+          "CAB_V1_BANDE_SERVANTE": {
+            "architectural_concept": "Parti 'Bande Servante' : Concentration des fonctions techniques (kitchenette, rangements, salle d'eau) au Nord et d'un lit escamotable vertical contre la paroi Est pour libérer le plateau central.",
+            "components": [
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  200.0,
+                  -200.0
+                ],
+                "family_name": "CAB - Estrade-Atelier Habitee 390x240 (+35cm)"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  1600.0,
+                  -500.0
+                ],
+                "family_name": "CAB - Lit-Tiroir Escamotable 140x200"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  400.0,
+                  -250.0
+                ],
+                "family_name": "CAB - Bureau Atelier Sur Mesure 230x60"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  5550.0,
+                  -2800.0
+                ],
+                "family_name": "CAB - Kitchenette Lineaire 260x60"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4300.0,
+                  -3400.0
+                ],
+                "family_name": "CAB - Table Repas 135x85 + Chaises"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  250.0,
+                  -4000.0
+                ],
+                "family_name": "CAB - Canape 2 Places 165x85 + Table Basse"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4980.0,
+                  -220.0
+                ],
+                "family_name": "CAB - Douche Italienne 120x90"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4350.0,
+                  -220.0
+                ],
+                "family_name": "CAB - WC Suspendu 40x65"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4200.0,
+                  -1450.0
+                ],
+                "family_name": "CAB - Meuble Vasque 65x48"
+              }
+            ],
+            "day_area_m2": 26.5,
+            "demolished_polygons_mm": [],
+            "doors": [
+              {
+                "at_mm": [
+                  3275.0,
+                  -6100.0
+                ],
+                "flip_facing": true,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "CAB_V1_DOOR_ENTREE",
+                "is_entry_door": true,
+                "is_existing": true,
+                "type_name": "Porte 83 x 204",
+                "width_mm": 830.0
+              },
+              {
+                "at_mm": [
+                  5100.0,
+                  -2600.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "CAB_V1_DOOR_SDB",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              }
+            ],
+            "existing_walls_kept": [
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  6300.0,
+                  -100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V1_W_NORD",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  100.0,
+                  -100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  6300.0,
+                  -6100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V1_W_EST",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  6300.0,
+                  -100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  100.0,
+                  -6100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V1_W_SUD",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  6300.0,
+                  -6100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  100.0,
+                  -100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V1_W_OUEST",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  100.0,
+                  -6100.0
+                ]
+              }
+            ],
+            "families": [
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Estrade-Atelier Habitee 390x240 (+35cm)",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          3900.0,
+                          0.0
+                        ],
+                        [
+                          3900.0,
+                          -2400.0
+                        ],
+                        [
+                          0.0,
+                          -2400.0
+                        ]
+                      ],
+                      "to": 350.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          -2400.0
+                        ],
+                        [
+                          1300.0,
+                          -2400.0
+                        ],
+                        [
+                          1300.0,
+                          -2700.0
+                        ],
+                        [
+                          0.0,
+                          -2700.0
+                        ]
+                      ],
+                      "to": 175.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          2900.0,
+                          -2400.0
+                        ],
+                        [
+                          3900.0,
+                          -2400.0
+                        ],
+                        [
+                          3900.0,
+                          -2700.0
+                        ],
+                        [
+                          2900.0,
+                          -2700.0
+                        ]
+                      ],
+                      "to": 175.0
+                    }
+                  ],
+                  "name": "CAB - Estrade-Atelier Habitee 390x240 (+35cm)",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Lit-Tiroir Escamotable 140x200",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 20.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          1400.0,
+                          0.0
+                        ],
+                        [
+                          1400.0,
+                          -2000.0
+                        ],
+                        [
+                          0.0,
+                          -2000.0
+                        ]
+                      ],
+                      "to": 220.0
+                    },
+                    {
+                      "from": 220.0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          20.0,
+                          -20.0
+                        ],
+                        [
+                          1380.0,
+                          -20.0
+                        ],
+                        [
+                          1380.0,
+                          -1980.0
+                        ],
+                        [
+                          20.0,
+                          -1980.0
+                        ]
+                      ],
+                      "to": 330.0
+                    }
+                  ],
+                  "name": "CAB - Lit-Tiroir Escamotable 140x200",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Bureau Atelier Sur Mesure 230x60",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 1070.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          -600.0
+                        ],
+                        [
+                          0.0,
+                          -600.0
+                        ]
+                      ],
+                      "to": 1100.0
+                    },
+                    {
+                      "from": 350.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1850.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          -600.0
+                        ],
+                        [
+                          1850.0,
+                          -600.0
+                        ]
+                      ],
+                      "to": 2400.0
+                    }
+                  ],
+                  "name": "CAB - Bureau Atelier Sur Mesure 230x60",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "CAB - Kitchenette Lineaire 260x60",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          -600.0
+                        ],
+                        [
+                          0.0,
+                          -600.0
+                        ]
+                      ],
+                      "to": 900.0
+                    },
+                    {
+                      "from": 900.0,
+                      "material": "Ceramic tile",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          -620.0
+                        ],
+                        [
+                          0.0,
+                          -620.0
+                        ]
+                      ],
+                      "to": 930.0
+                    }
+                  ],
+                  "name": "CAB - Kitchenette Lineaire 260x60",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Table Repas 135x85 + Chaises",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          -1350.0
+                        ],
+                        [
+                          0.0,
+                          -1350.0
+                        ]
+                      ],
+                      "to": 750.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          -450.0,
+                          -200.0
+                        ],
+                        [
+                          -30.0,
+                          -200.0
+                        ],
+                        [
+                          -30.0,
+                          -620.0
+                        ],
+                        [
+                          -450.0,
+                          -620.0
+                        ]
+                      ],
+                      "to": 450.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          -450.0,
+                          -750.0
+                        ],
+                        [
+                          -30.0,
+                          -750.0
+                        ],
+                        [
+                          -30.0,
+                          -1170.0
+                        ],
+                        [
+                          -450.0,
+                          -1170.0
+                        ]
+                      ],
+                      "to": 450.0
+                    }
+                  ],
+                  "name": "CAB - Table Repas 135x85 + Chaises",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Canape 2 Places 165x85 + Table Basse",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          -1650.0
+                        ],
+                        [
+                          0.0,
+                          -1650.0
+                        ]
+                      ],
+                      "to": 420.0
+                    },
+                    {
+                      "from": 420.0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          200.0,
+                          0.0
+                        ],
+                        [
+                          200.0,
+                          -1650.0
+                        ],
+                        [
+                          0.0,
+                          -1650.0
+                        ]
+                      ],
+                      "to": 820.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1050.0,
+                          -300.0
+                        ],
+                        [
+                          1650.0,
+                          -300.0
+                        ],
+                        [
+                          1650.0,
+                          -1350.0
+                        ],
+                        [
+                          1050.0,
+                          -1350.0
+                        ]
+                      ],
+                      "to": 360.0
+                    }
+                  ],
+                  "name": "CAB - Canape 2 Places 165x85 + Table Basse",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "shower",
+                "name": "CAB - Douche Italienne 120x90",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          1200.0,
+                          0.0
+                        ],
+                        [
+                          1200.0,
+                          -900.0
+                        ],
+                        [
+                          0.0,
+                          -900.0
+                        ]
+                      ],
+                      "to": 40.0
+                    }
+                  ],
+                  "kind": "shower",
+                  "name": "CAB - Douche Italienne 120x90",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "lav",
+                "name": "CAB - Meuble Vasque 65x48",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 300.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          480.0,
+                          0.0
+                        ],
+                        [
+                          480.0,
+                          -650.0
+                        ],
+                        [
+                          0.0,
+                          -650.0
+                        ]
+                      ],
+                      "to": 860.0
+                    }
+                  ],
+                  "kind": "lav",
+                  "name": "CAB - Meuble Vasque 65x48",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "wc",
+                "name": "CAB - WC Suspendu 40x65",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          400.0,
+                          0.0
+                        ],
+                        [
+                          400.0,
+                          -650.0
+                        ],
+                        [
+                          0.0,
+                          -650.0
+                        ]
+                      ],
+                      "to": 420.0
+                    }
+                  ],
+                  "kind": "wc",
+                  "name": "CAB - WC Suspendu 40x65",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              }
+            ],
+            "floor_boundary_mm": [
+              [
+                -1220.0,
+                0.0
+              ],
+              [
+                6400.0,
+                0.0
+              ],
+              [
+                6400.0,
+                -6200.0
+              ],
+              [
+                -1220.0,
+                -6200.0
+              ]
+            ],
+            "materials_palette": [
+              {
+                "color_hex": "#D4B483",
+                "element": "Structure & Plateau",
+                "finish_description": "Façade ajourée acoustique + trappe lit-tiroir de 160 cm",
+                "material_name": "Contreplaqué Bouleau Multiplis & Pin Douglas",
+                "space_category": "Estrade-Atelier (+35 cm) & Bancs-Marches (+17,5 cm)"
+              },
+              {
+                "color_hex": "#E2DCD3",
+                "element": "Plancher chauffant",
+                "finish_description": "Sol continu sur plancher chauffant basse température",
+                "material_name": "Béton Ciré Minéral Chaud & Chêne Brossé",
+                "space_category": "Séjour / Kitchenette (±0,00 m)"
+              },
+              {
+                "color_hex": "#8CA092",
+                "element": "Cloisons 8 cm & Douche 120×90",
+                "finish_description": "Faïence toute hauteur 240 cm + porte à galandage",
+                "material_name": "Grès Cérame Vert Sauge & Terrazzo Clair",
+                "space_category": "Salle d'eau (4,8 m²)"
+              },
+              {
+                "color_hex": "#B68D60",
+                "element": "Platelage extérieur",
+                "finish_description": "Lames longitudinales sur lambourdes avec marche d'accueil Sud",
+                "material_name": "Mélèze Naturel Raboté",
+                "space_category": "Terrasse Extérieure Ouest (1,22 × 6,20 m)"
+              }
+            ],
+            "mirror_mode": "LeftMirrorG",
+            "name": "Variante 1 — LA BANDE SERVANTE (Atelier-Bureau Alex)",
+            "new_walls": [
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  4140.0,
+                  -2600.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V1_CLOISON_SDB_V",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  4140.0,
+                  -200.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  6200.0,
+                  -2600.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V1_CLOISON_SDB_H",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  4140.0,
+                  -2600.0
+                ]
+              }
+            ],
+            "night_area_m2": 8.3,
+            "room_separators_mm": [
+              [
+                [
+                  200.0,
+                  -2600.0
+                ],
+                [
+                  4140.0,
+                  -2600.0
+                ]
+              ],
+              [
+                [
+                  2500.0,
+                  -2600.0
+                ],
+                [
+                  2500.0,
+                  -6000.0
+                ]
+              ],
+              [
+                [
+                  3800.0,
+                  -2600.0
+                ],
+                [
+                  3800.0,
+                  -6000.0
+                ]
+              ]
+            ],
+            "rooms": [
+              {
+                "name": "ESTRADE-ATELIER (+0.35m)",
+                "number": "01",
+                "point_mm": [
+                  1800.0,
+                  -1300.0
+                ],
+                "target_area_m2": 9.4,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "SALLE D'EAU / WC",
+                "number": "02",
+                "point_mm": [
+                  5150.0,
+                  -1300.0
+                ],
+                "target_area_m2": 4.8,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "SALON & LECTURE",
+                "number": "03",
+                "point_mm": [
+                  1400.0,
+                  -4400.0
+                ],
+                "target_area_m2": 7.3,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)",
+                "number": "04",
+                "point_mm": [
+                  2200.0,
+                  -3600.0
+                ],
+                "target_area_m2": 2.8,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "CUISINE & REPAS",
+                "number": "05",
+                "point_mm": [
+                  4800.0,
+                  -4400.0
+                ],
+                "target_area_m2": 6.5,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "ENTRÉE / CIRCULATION",
+                "number": "06",
+                "point_mm": [
+                  3000.0,
+                  -5200.0
+                ],
+                "target_area_m2": 4.0,
+                "zone_type": "Services/Circulation"
+              }
+            ],
+            "spatial_justification": "Libère un volume central unifié en semaine, mais le lit abattant vertical neutralise la façade Est le week-end.",
+            "structural_openings": [],
+            "total_habitable_area_m2": 35.1,
+            "variant_id": "CAB_V1_BANDE_SERVANTE",
+            "windows": [
+              {
+                "at_mm": [
+                  100.0,
+                  -1400.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V1_WIN_OUEST_190",
+                "is_existing": true,
+                "label": "Baie Atelier Ouest sur Terrasse",
+                "sill_mm": 450.0,
+                "type_name": "Fenêtre 200 x 170",
+                "width_mm": 2000.0
+              },
+              {
+                "at_mm": [
+                  100.0,
+                  -3100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V1_WIN_OUEST_70A",
+                "is_existing": true,
+                "label": "Fenêtre Ouest 1",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  100.0,
+                  -4100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V1_WIN_OUEST_70B",
+                "is_existing": true,
+                "label": "Fenêtre Ouest 2",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  6300.0,
+                  -1950.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V1_WIN_EST_SDB",
+                "is_existing": true,
+                "label": "Fenêtre Est Salle d'eau",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  1320.0,
+                  -6100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V1_WIN_SUD_70A",
+                "is_existing": true,
+                "label": "Fenêtre Sud Salon 1",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  2260.0,
+                  -6100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V1_WIN_SUD_70B",
+                "is_existing": true,
+                "label": "Fenêtre Sud Salon 2",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              }
+            ]
+          },
+          "CAB_V2_MEUBLE_HABITE": {
+            "architectural_concept": "Parti 'Meuble Habité' : Un bloc menuisé central intègre la salle d'eau, la cuisine et un couchage en hauteur accessible par échelle meunière.",
+            "components": [
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  200.0,
+                  -200.0
+                ],
+                "family_name": "CAB - Estrade-Atelier Habitee 390x240 (+35cm)"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  1600.0,
+                  -500.0
+                ],
+                "family_name": "CAB - Lit-Tiroir Escamotable 140x200"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  400.0,
+                  -250.0
+                ],
+                "family_name": "CAB - Bureau Atelier Sur Mesure 230x60"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  5550.0,
+                  -2800.0
+                ],
+                "family_name": "CAB - Kitchenette Lineaire 260x60"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4300.0,
+                  -3400.0
+                ],
+                "family_name": "CAB - Table Repas 135x85 + Chaises"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  250.0,
+                  -4000.0
+                ],
+                "family_name": "CAB - Canape 2 Places 165x85 + Table Basse"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4980.0,
+                  -220.0
+                ],
+                "family_name": "CAB - Douche Italienne 120x90"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4350.0,
+                  -220.0
+                ],
+                "family_name": "CAB - WC Suspendu 40x65"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4200.0,
+                  -1450.0
+                ],
+                "family_name": "CAB - Meuble Vasque 65x48"
+              }
+            ],
+            "day_area_m2": 25.0,
+            "demolished_polygons_mm": [],
+            "doors": [
+              {
+                "at_mm": [
+                  3275.0,
+                  -6100.0
+                ],
+                "flip_facing": true,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "CAB_V2_DOOR_ENTREE",
+                "is_entry_door": true,
+                "is_existing": true,
+                "type_name": "Porte 83 x 204",
+                "width_mm": 830.0
+              },
+              {
+                "at_mm": [
+                  5100.0,
+                  -2600.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "CAB_V2_DOOR_SDB",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              }
+            ],
+            "existing_walls_kept": [
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  6300.0,
+                  -100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V2_W_NORD",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  100.0,
+                  -100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  6300.0,
+                  -6100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V2_W_EST",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  6300.0,
+                  -100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  100.0,
+                  -6100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V2_W_SUD",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  6300.0,
+                  -6100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  100.0,
+                  -100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V2_W_OUEST",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  100.0,
+                  -6100.0
+                ]
+              }
+            ],
+            "families": [
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Estrade-Atelier Habitee 390x240 (+35cm)",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          3900.0,
+                          0.0
+                        ],
+                        [
+                          3900.0,
+                          -2400.0
+                        ],
+                        [
+                          0.0,
+                          -2400.0
+                        ]
+                      ],
+                      "to": 350.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          -2400.0
+                        ],
+                        [
+                          1300.0,
+                          -2400.0
+                        ],
+                        [
+                          1300.0,
+                          -2700.0
+                        ],
+                        [
+                          0.0,
+                          -2700.0
+                        ]
+                      ],
+                      "to": 175.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          2900.0,
+                          -2400.0
+                        ],
+                        [
+                          3900.0,
+                          -2400.0
+                        ],
+                        [
+                          3900.0,
+                          -2700.0
+                        ],
+                        [
+                          2900.0,
+                          -2700.0
+                        ]
+                      ],
+                      "to": 175.0
+                    }
+                  ],
+                  "name": "CAB - Estrade-Atelier Habitee 390x240 (+35cm)",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Lit-Tiroir Escamotable 140x200",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 20.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          1400.0,
+                          0.0
+                        ],
+                        [
+                          1400.0,
+                          -2000.0
+                        ],
+                        [
+                          0.0,
+                          -2000.0
+                        ]
+                      ],
+                      "to": 220.0
+                    },
+                    {
+                      "from": 220.0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          20.0,
+                          -20.0
+                        ],
+                        [
+                          1380.0,
+                          -20.0
+                        ],
+                        [
+                          1380.0,
+                          -1980.0
+                        ],
+                        [
+                          20.0,
+                          -1980.0
+                        ]
+                      ],
+                      "to": 330.0
+                    }
+                  ],
+                  "name": "CAB - Lit-Tiroir Escamotable 140x200",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Bureau Atelier Sur Mesure 230x60",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 1070.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          -600.0
+                        ],
+                        [
+                          0.0,
+                          -600.0
+                        ]
+                      ],
+                      "to": 1100.0
+                    },
+                    {
+                      "from": 350.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1850.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          -600.0
+                        ],
+                        [
+                          1850.0,
+                          -600.0
+                        ]
+                      ],
+                      "to": 2400.0
+                    }
+                  ],
+                  "name": "CAB - Bureau Atelier Sur Mesure 230x60",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "CAB - Kitchenette Lineaire 260x60",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          -600.0
+                        ],
+                        [
+                          0.0,
+                          -600.0
+                        ]
+                      ],
+                      "to": 900.0
+                    },
+                    {
+                      "from": 900.0,
+                      "material": "Ceramic tile",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          -620.0
+                        ],
+                        [
+                          0.0,
+                          -620.0
+                        ]
+                      ],
+                      "to": 930.0
+                    }
+                  ],
+                  "name": "CAB - Kitchenette Lineaire 260x60",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Table Repas 135x85 + Chaises",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          -1350.0
+                        ],
+                        [
+                          0.0,
+                          -1350.0
+                        ]
+                      ],
+                      "to": 750.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          -450.0,
+                          -200.0
+                        ],
+                        [
+                          -30.0,
+                          -200.0
+                        ],
+                        [
+                          -30.0,
+                          -620.0
+                        ],
+                        [
+                          -450.0,
+                          -620.0
+                        ]
+                      ],
+                      "to": 450.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          -450.0,
+                          -750.0
+                        ],
+                        [
+                          -30.0,
+                          -750.0
+                        ],
+                        [
+                          -30.0,
+                          -1170.0
+                        ],
+                        [
+                          -450.0,
+                          -1170.0
+                        ]
+                      ],
+                      "to": 450.0
+                    }
+                  ],
+                  "name": "CAB - Table Repas 135x85 + Chaises",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Canape 2 Places 165x85 + Table Basse",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          -1650.0
+                        ],
+                        [
+                          0.0,
+                          -1650.0
+                        ]
+                      ],
+                      "to": 420.0
+                    },
+                    {
+                      "from": 420.0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          200.0,
+                          0.0
+                        ],
+                        [
+                          200.0,
+                          -1650.0
+                        ],
+                        [
+                          0.0,
+                          -1650.0
+                        ]
+                      ],
+                      "to": 820.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1050.0,
+                          -300.0
+                        ],
+                        [
+                          1650.0,
+                          -300.0
+                        ],
+                        [
+                          1650.0,
+                          -1350.0
+                        ],
+                        [
+                          1050.0,
+                          -1350.0
+                        ]
+                      ],
+                      "to": 360.0
+                    }
+                  ],
+                  "name": "CAB - Canape 2 Places 165x85 + Table Basse",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "shower",
+                "name": "CAB - Douche Italienne 120x90",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          1200.0,
+                          0.0
+                        ],
+                        [
+                          1200.0,
+                          -900.0
+                        ],
+                        [
+                          0.0,
+                          -900.0
+                        ]
+                      ],
+                      "to": 40.0
+                    }
+                  ],
+                  "kind": "shower",
+                  "name": "CAB - Douche Italienne 120x90",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "lav",
+                "name": "CAB - Meuble Vasque 65x48",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 300.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          480.0,
+                          0.0
+                        ],
+                        [
+                          480.0,
+                          -650.0
+                        ],
+                        [
+                          0.0,
+                          -650.0
+                        ]
+                      ],
+                      "to": 860.0
+                    }
+                  ],
+                  "kind": "lav",
+                  "name": "CAB - Meuble Vasque 65x48",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "wc",
+                "name": "CAB - WC Suspendu 40x65",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          400.0,
+                          0.0
+                        ],
+                        [
+                          400.0,
+                          -650.0
+                        ],
+                        [
+                          0.0,
+                          -650.0
+                        ]
+                      ],
+                      "to": 420.0
+                    }
+                  ],
+                  "kind": "wc",
+                  "name": "CAB - WC Suspendu 40x65",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              }
+            ],
+            "floor_boundary_mm": [
+              [
+                -1220.0,
+                0.0
+              ],
+              [
+                6400.0,
+                0.0
+              ],
+              [
+                6400.0,
+                -6200.0
+              ],
+              [
+                -1220.0,
+                -6200.0
+              ]
+            ],
+            "materials_palette": [
+              {
+                "color_hex": "#D4B483",
+                "element": "Structure & Plateau",
+                "finish_description": "Façade ajourée acoustique + trappe lit-tiroir de 160 cm",
+                "material_name": "Contreplaqué Bouleau Multiplis & Pin Douglas",
+                "space_category": "Estrade-Atelier (+35 cm) & Bancs-Marches (+17,5 cm)"
+              },
+              {
+                "color_hex": "#E2DCD3",
+                "element": "Plancher chauffant",
+                "finish_description": "Sol continu sur plancher chauffant basse température",
+                "material_name": "Béton Ciré Minéral Chaud & Chêne Brossé",
+                "space_category": "Séjour / Kitchenette (±0,00 m)"
+              },
+              {
+                "color_hex": "#8CA092",
+                "element": "Cloisons 8 cm & Douche 120×90",
+                "finish_description": "Faïence toute hauteur 240 cm + porte à galandage",
+                "material_name": "Grès Cérame Vert Sauge & Terrazzo Clair",
+                "space_category": "Salle d'eau (4,8 m²)"
+              },
+              {
+                "color_hex": "#B68D60",
+                "element": "Platelage extérieur",
+                "finish_description": "Lames longitudinales sur lambourdes avec marche d'accueil Sud",
+                "material_name": "Mélèze Naturel Raboté",
+                "space_category": "Terrasse Extérieure Ouest (1,22 × 6,20 m)"
+              }
+            ],
+            "mirror_mode": "LeftMirrorG",
+            "name": "Variante 2 — LE MEUBLE HABITÉ (Micro-Habitat Modulable Camille)",
+            "new_walls": [
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  4140.0,
+                  -2600.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V2_CLOISON_SDB_V",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  4140.0,
+                  -200.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  6200.0,
+                  -2600.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V2_CLOISON_SDB_H",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  4140.0,
+                  -2600.0
+                ]
+              }
+            ],
+            "night_area_m2": 9.8,
+            "room_separators_mm": [
+              [
+                [
+                  200.0,
+                  -2600.0
+                ],
+                [
+                  4140.0,
+                  -2600.0
+                ]
+              ],
+              [
+                [
+                  2500.0,
+                  -2600.0
+                ],
+                [
+                  2500.0,
+                  -6000.0
+                ]
+              ],
+              [
+                [
+                  3800.0,
+                  -2600.0
+                ],
+                [
+                  3800.0,
+                  -6000.0
+                ]
+              ]
+            ],
+            "rooms": [
+              {
+                "name": "ESTRADE-ATELIER (+0.35m)",
+                "number": "01",
+                "point_mm": [
+                  1800.0,
+                  -1300.0
+                ],
+                "target_area_m2": 9.4,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "SALLE D'EAU / WC",
+                "number": "02",
+                "point_mm": [
+                  5150.0,
+                  -1300.0
+                ],
+                "target_area_m2": 4.8,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "SALON & LECTURE",
+                "number": "03",
+                "point_mm": [
+                  1400.0,
+                  -4400.0
+                ],
+                "target_area_m2": 7.3,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)",
+                "number": "04",
+                "point_mm": [
+                  2200.0,
+                  -3600.0
+                ],
+                "target_area_m2": 2.8,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "CUISINE & REPAS",
+                "number": "05",
+                "point_mm": [
+                  4800.0,
+                  -4400.0
+                ],
+                "target_area_m2": 6.5,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "ENTRÉE / CIRCULATION",
+                "number": "06",
+                "point_mm": [
+                  3000.0,
+                  -5200.0
+                ],
+                "target_area_m2": 4.0,
+                "zone_type": "Services/Circulation"
+              }
+            ],
+            "spatial_justification": "Très sculptural lorsque la toiture à deux pans (+5.10 m) est autorisée, mais sous la contrainte de toit plat HSP 2,40 m du plan coté 1:50, le couchage haut manque de garde d'air.",
+            "structural_openings": [],
+            "total_habitable_area_m2": 35.1,
+            "variant_id": "CAB_V2_MEUBLE_HABITE",
+            "windows": [
+              {
+                "at_mm": [
+                  100.0,
+                  -1400.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V2_WIN_OUEST_190",
+                "is_existing": true,
+                "label": "Baie Atelier Ouest sur Terrasse",
+                "sill_mm": 450.0,
+                "type_name": "Fenêtre 200 x 170",
+                "width_mm": 2000.0
+              },
+              {
+                "at_mm": [
+                  100.0,
+                  -3100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V2_WIN_OUEST_70A",
+                "is_existing": true,
+                "label": "Fenêtre Ouest 1",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  100.0,
+                  -4100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V2_WIN_OUEST_70B",
+                "is_existing": true,
+                "label": "Fenêtre Ouest 2",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  6300.0,
+                  -1950.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V2_WIN_EST_SDB",
+                "is_existing": true,
+                "label": "Fenêtre Est Salle d'eau",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  1320.0,
+                  -6100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V2_WIN_SUD_70A",
+                "is_existing": true,
+                "label": "Fenêtre Sud Salon 1",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  2260.0,
+                  -6100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V2_WIN_SUD_70B",
+                "is_existing": true,
+                "label": "Fenêtre Sud Salon 2",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              }
+            ]
+          },
+          "CAB_V3_PLANCHER_HABITE": {
+            "architectural_concept": "Parti 'Le Plancher Habité' : Création d'une estrade-atelier à +35 cm au Nord-Ouest (3,90 × 2,40 m = 9,4 m²) bordée de bancs-marches à +17,5 cm. En semaine, le lit 140×200 cm disparaît intégralement sous l'estrade et libère tout le séjour. Le week-end, le lit-tiroir coulisse par la fente de 160 cm et s'isole par un rideau en U sur rail plafond.",
+            "components": [
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  200.0,
+                  -200.0
+                ],
+                "family_name": "CAB - Estrade-Atelier Habitee 390x240 (+35cm)"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  1600.0,
+                  -2650.0
+                ],
+                "family_name": "CAB - Lit-Tiroir Escamotable 140x200"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  400.0,
+                  -250.0
+                ],
+                "family_name": "CAB - Bureau Atelier Sur Mesure 230x60"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  5550.0,
+                  -2800.0
+                ],
+                "family_name": "CAB - Kitchenette Lineaire 260x60"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4300.0,
+                  -3400.0
+                ],
+                "family_name": "CAB - Table Repas 135x85 + Chaises"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  250.0,
+                  -4000.0
+                ],
+                "family_name": "CAB - Canape 2 Places 165x85 + Table Basse"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4980.0,
+                  -220.0
+                ],
+                "family_name": "CAB - Douche Italienne 120x90"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4350.0,
+                  -220.0
+                ],
+                "family_name": "CAB - WC Suspendu 40x65"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4200.0,
+                  -1450.0
+                ],
+                "family_name": "CAB - Meuble Vasque 65x48"
+              }
+            ],
+            "day_area_m2": 25.4,
+            "demolished_polygons_mm": [],
+            "doors": [
+              {
+                "at_mm": [
+                  3275.0,
+                  -6100.0
+                ],
+                "flip_facing": true,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "CAB_V3_DOOR_ENTREE",
+                "is_entry_door": true,
+                "is_existing": true,
+                "type_name": "Porte 83 x 204",
+                "width_mm": 830.0
+              },
+              {
+                "at_mm": [
+                  5100.0,
+                  -2600.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "CAB_V3_DOOR_SDB",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              }
+            ],
+            "existing_walls_kept": [
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  6300.0,
+                  -100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V3_W_NORD",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  100.0,
+                  -100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  6300.0,
+                  -6100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V3_W_EST",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  6300.0,
+                  -100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  100.0,
+                  -6100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V3_W_SUD",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  6300.0,
+                  -6100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  100.0,
+                  -100.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V3_W_OUEST",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  100.0,
+                  -6100.0
+                ]
+              }
+            ],
+            "families": [
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Estrade-Atelier Habitee 390x240 (+35cm)",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          3900.0,
+                          0.0
+                        ],
+                        [
+                          3900.0,
+                          -2400.0
+                        ],
+                        [
+                          0.0,
+                          -2400.0
+                        ]
+                      ],
+                      "to": 350.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          -2400.0
+                        ],
+                        [
+                          1300.0,
+                          -2400.0
+                        ],
+                        [
+                          1300.0,
+                          -2700.0
+                        ],
+                        [
+                          0.0,
+                          -2700.0
+                        ]
+                      ],
+                      "to": 175.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          2900.0,
+                          -2400.0
+                        ],
+                        [
+                          3900.0,
+                          -2400.0
+                        ],
+                        [
+                          3900.0,
+                          -2700.0
+                        ],
+                        [
+                          2900.0,
+                          -2700.0
+                        ]
+                      ],
+                      "to": 175.0
+                    }
+                  ],
+                  "name": "CAB - Estrade-Atelier Habitee 390x240 (+35cm)",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Lit-Tiroir Escamotable 140x200",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 20.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          1400.0,
+                          0.0
+                        ],
+                        [
+                          1400.0,
+                          -2000.0
+                        ],
+                        [
+                          0.0,
+                          -2000.0
+                        ]
+                      ],
+                      "to": 220.0
+                    },
+                    {
+                      "from": 220.0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          20.0,
+                          -20.0
+                        ],
+                        [
+                          1380.0,
+                          -20.0
+                        ],
+                        [
+                          1380.0,
+                          -1980.0
+                        ],
+                        [
+                          20.0,
+                          -1980.0
+                        ]
+                      ],
+                      "to": 330.0
+                    }
+                  ],
+                  "name": "CAB - Lit-Tiroir Escamotable 140x200",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Bureau Atelier Sur Mesure 230x60",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 1070.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          -600.0
+                        ],
+                        [
+                          0.0,
+                          -600.0
+                        ]
+                      ],
+                      "to": 1100.0
+                    },
+                    {
+                      "from": 350.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1850.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          0.0
+                        ],
+                        [
+                          2300.0,
+                          -600.0
+                        ],
+                        [
+                          1850.0,
+                          -600.0
+                        ]
+                      ],
+                      "to": 2400.0
+                    }
+                  ],
+                  "name": "CAB - Bureau Atelier Sur Mesure 230x60",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "CAB - Kitchenette Lineaire 260x60",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          -600.0
+                        ],
+                        [
+                          0.0,
+                          -600.0
+                        ]
+                      ],
+                      "to": 900.0
+                    },
+                    {
+                      "from": 900.0,
+                      "material": "Ceramic tile",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          0.0
+                        ],
+                        [
+                          2600.0,
+                          -620.0
+                        ],
+                        [
+                          0.0,
+                          -620.0
+                        ]
+                      ],
+                      "to": 930.0
+                    }
+                  ],
+                  "name": "CAB - Kitchenette Lineaire 260x60",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Table Repas 135x85 + Chaises",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          -1350.0
+                        ],
+                        [
+                          0.0,
+                          -1350.0
+                        ]
+                      ],
+                      "to": 750.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          -450.0,
+                          -200.0
+                        ],
+                        [
+                          -30.0,
+                          -200.0
+                        ],
+                        [
+                          -30.0,
+                          -620.0
+                        ],
+                        [
+                          -450.0,
+                          -620.0
+                        ]
+                      ],
+                      "to": 450.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          -450.0,
+                          -750.0
+                        ],
+                        [
+                          -30.0,
+                          -750.0
+                        ],
+                        [
+                          -30.0,
+                          -1170.0
+                        ],
+                        [
+                          -450.0,
+                          -1170.0
+                        ]
+                      ],
+                      "to": 450.0
+                    }
+                  ],
+                  "name": "CAB - Table Repas 135x85 + Chaises",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "CAB - Canape 2 Places 165x85 + Table Basse",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          0.0
+                        ],
+                        [
+                          850.0,
+                          -1650.0
+                        ],
+                        [
+                          0.0,
+                          -1650.0
+                        ]
+                      ],
+                      "to": 420.0
+                    },
+                    {
+                      "from": 420.0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          200.0,
+                          0.0
+                        ],
+                        [
+                          200.0,
+                          -1650.0
+                        ],
+                        [
+                          0.0,
+                          -1650.0
+                        ]
+                      ],
+                      "to": 820.0
+                    },
+                    {
+                      "from": 0.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1050.0,
+                          -300.0
+                        ],
+                        [
+                          1650.0,
+                          -300.0
+                        ],
+                        [
+                          1650.0,
+                          -1350.0
+                        ],
+                        [
+                          1050.0,
+                          -1350.0
+                        ]
+                      ],
+                      "to": 360.0
+                    }
+                  ],
+                  "name": "CAB - Canape 2 Places 165x85 + Table Basse",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "shower",
+                "name": "CAB - Douche Italienne 120x90",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          1200.0,
+                          0.0
+                        ],
+                        [
+                          1200.0,
+                          -900.0
+                        ],
+                        [
+                          0.0,
+                          -900.0
+                        ]
+                      ],
+                      "to": 40.0
+                    }
+                  ],
+                  "kind": "shower",
+                  "name": "CAB - Douche Italienne 120x90",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "lav",
+                "name": "CAB - Meuble Vasque 65x48",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 300.0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          480.0,
+                          0.0
+                        ],
+                        [
+                          480.0,
+                          -650.0
+                        ],
+                        [
+                          0.0,
+                          -650.0
+                        ]
+                      ],
+                      "to": 860.0
+                    }
+                  ],
+                  "kind": "lav",
+                  "name": "CAB - Meuble Vasque 65x48",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "wc",
+                "name": "CAB - WC Suspendu 40x65",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0.0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0.0,
+                          0.0
+                        ],
+                        [
+                          400.0,
+                          0.0
+                        ],
+                        [
+                          400.0,
+                          -650.0
+                        ],
+                        [
+                          0.0,
+                          -650.0
+                        ]
+                      ],
+                      "to": 420.0
+                    }
+                  ],
+                  "kind": "wc",
+                  "name": "CAB - WC Suspendu 40x65",
+                  "types": {
+                    "CABANE": {}
+                  }
+                }
+              }
+            ],
+            "floor_boundary_mm": [
+              [
+                -1220.0,
+                0.0
+              ],
+              [
+                6400.0,
+                0.0
+              ],
+              [
+                6400.0,
+                -6200.0
+              ],
+              [
+                -1220.0,
+                -6200.0
+              ]
+            ],
+            "materials_palette": [
+              {
+                "color_hex": "#D4B483",
+                "element": "Structure & Plateau",
+                "finish_description": "Façade ajourée acoustique + trappe lit-tiroir de 160 cm",
+                "material_name": "Contreplaqué Bouleau Multiplis & Pin Douglas",
+                "space_category": "Estrade-Atelier (+35 cm) & Bancs-Marches (+17,5 cm)"
+              },
+              {
+                "color_hex": "#E2DCD3",
+                "element": "Plancher chauffant",
+                "finish_description": "Sol continu sur plancher chauffant basse température",
+                "material_name": "Béton Ciré Minéral Chaud & Chêne Brossé",
+                "space_category": "Séjour / Kitchenette (±0,00 m)"
+              },
+              {
+                "color_hex": "#8CA092",
+                "element": "Cloisons 8 cm & Douche 120×90",
+                "finish_description": "Faïence toute hauteur 240 cm + porte à galandage",
+                "material_name": "Grès Cérame Vert Sauge & Terrazzo Clair",
+                "space_category": "Salle d'eau (4,8 m²)"
+              },
+              {
+                "color_hex": "#B68D60",
+                "element": "Platelage extérieur",
+                "finish_description": "Lames longitudinales sur lambourdes avec marche d'accueil Sud",
+                "material_name": "Mélèze Naturel Raboté",
+                "space_category": "Terrasse Extérieure Ouest (1,22 × 6,20 m)"
+              }
+            ],
+            "mirror_mode": "LeftMirrorG",
+            "name": "Variante 3 — LE PLANCHER HABITÉ (Estrade +35 cm & Lit-Tiroir — Élise)",
+            "new_walls": [
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  4140.0,
+                  -2600.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V3_CLOISON_SDB_V",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  4140.0,
+                  -200.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  6200.0,
+                  -2600.0
+                ],
+                "height_mm": 2400.0,
+                "id": "CAB_V3_CLOISON_SDB_H",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  4140.0,
+                  -2600.0
+                ]
+              }
+            ],
+            "night_area_m2": 9.4,
+            "room_separators_mm": [
+              [
+                [
+                  200.0,
+                  -2600.0
+                ],
+                [
+                  4140.0,
+                  -2600.0
+                ]
+              ],
+              [
+                [
+                  2500.0,
+                  -2600.0
+                ],
+                [
+                  2500.0,
+                  -6000.0
+                ]
+              ],
+              [
+                [
+                  3800.0,
+                  -2600.0
+                ],
+                [
+                  3800.0,
+                  -6000.0
+                ]
+              ]
+            ],
+            "rooms": [
+              {
+                "name": "ESTRADE-ATELIER (+0.35m)",
+                "number": "01",
+                "point_mm": [
+                  1800.0,
+                  -1300.0
+                ],
+                "target_area_m2": 9.4,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "SALLE D'EAU / WC",
+                "number": "02",
+                "point_mm": [
+                  5150.0,
+                  -1300.0
+                ],
+                "target_area_m2": 4.8,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "SALON & LECTURE",
+                "number": "03",
+                "point_mm": [
+                  1400.0,
+                  -4400.0
+                ],
+                "target_area_m2": 7.3,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)",
+                "number": "04",
+                "point_mm": [
+                  2200.0,
+                  -3600.0
+                ],
+                "target_area_m2": 2.8,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "CUISINE & REPAS",
+                "number": "05",
+                "point_mm": [
+                  4800.0,
+                  -4400.0
+                ],
+                "target_area_m2": 6.5,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "ENTRÉE / CIRCULATION",
+                "number": "06",
+                "point_mm": [
+                  3000.0,
+                  -5200.0
+                ],
+                "target_area_m2": 4.0,
+                "zone_type": "Services/Circulation"
+              }
+            ],
+            "spatial_justification": "Solution mathématiquement et ergonomiquement optimale sous HSP 2,40 m : conserve 2,05 m de hauteur libre sur l'estrade-atelier, offre une salle d'eau confortable de 4,8 m² avec douche 120×90 cm et porte à galandage, et permet la bascule Semaine/Week-end en 10 secondes sans déplacer aucun meuble du salon ni de la salle à manger.",
+            "structural_openings": [],
+            "total_habitable_area_m2": 35.1,
+            "variant_id": "CAB_V3_PLANCHER_HABITE",
+            "windows": [
+              {
+                "at_mm": [
+                  100.0,
+                  -1400.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V3_WIN_OUEST_190",
+                "is_existing": true,
+                "label": "Baie Atelier Ouest sur Terrasse",
+                "sill_mm": 450.0,
+                "type_name": "Fenêtre 200 x 170",
+                "width_mm": 2000.0
+              },
+              {
+                "at_mm": [
+                  100.0,
+                  -3100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V3_WIN_OUEST_70A",
+                "is_existing": true,
+                "label": "Fenêtre Ouest 1",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  100.0,
+                  -4100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V3_WIN_OUEST_70B",
+                "is_existing": true,
+                "label": "Fenêtre Ouest 2",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  6300.0,
+                  -1950.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V3_WIN_EST_SDB",
+                "is_existing": true,
+                "label": "Fenêtre Est Salle d'eau",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  1320.0,
+                  -6100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V3_WIN_SUD_70A",
+                "is_existing": true,
+                "label": "Fenêtre Sud Salon 1",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  2260.0,
+                  -6100.0
+                ],
+                "height_mm": 1700.0,
+                "id": "CAB_V3_WIN_SUD_70B",
+                "is_existing": true,
+                "label": "Fenêtre Sud Salon 2",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              }
+            ]
+          }
+        }
+      },
+      "project_folder": "LA_CABANE_AUTONOMOUS",
+      "run_summary": {
+        "agent_logs": [
+          {
+            "action": "Découverte live du catalogue OpenRouter, filtrage des modèles 100% gratuits et table de routage",
+            "agent_id": "00_OPENROUTER_FREE_ROUTER",
+            "agent_name": "00 — OpenRouter Free-First AI Router",
+            "details": "468 modèles découverts au total, 15 modèles GRATUITS qualifiés (9 Vision, 5 Raisonnement). Coût autorisé : 0.00 $ (Free-First strict).",
+            "duration_ms": 129,
+            "status": "COMPLETED",
+            "step_index": 1
+          },
+          {
+            "action": "Extraction PDF, détection des cotes/contraintes et structuration du cahier des charges",
+            "agent_id": "01_DOCUMENT_INTEL",
+            "agent_name": "01 — Document & Plan Intelligence",
+            "details": "6 pages PDF lues, 0 cotes numériques extraites, 6 espaces requis, HSP = 2400 mm.",
+            "duration_ms": 2,
+            "status": "COMPLETED",
+            "step_index": 2
+          },
+          {
+            "action": "Raisonnement architectural IA, génération des 3 propositions, organisation spatiale & familles 3D",
+            "agent_id": "02_03_04_SPATIAL_BIM",
+            "agent_name": "02/03/04 — Design, Spatial & BIM Intelligence",
+            "details": "3 propositions conçues ([\"CAB_V1_BANDE_SERVANTE\", \"CAB_V2_MEUBLE_HABITE\", \"CAB_V3_PLANCHER_HABITE\"]). Solution retenue : CAB_V3_PLANCHER_HABITE.",
+            "duration_ms": 0,
+            "status": "COMPLETED",
+            "step_index": 3
+          },
+          {
+            "action": "Construction autonome des maquettes BIM et exports multi-formats sans Revit",
+            "agent_id": "04_BIMCRAFT_BUILDER",
+            "agent_name": "BIMcraft Autonomous Builder (Rust 0.11.0)",
+            "details": "3 maquettes .bimcraft, .ifc (IFC4), .glb (glTF 2.0 3D), .svg et .pdf générées et vérifiées.",
+            "duration_ms": 703,
+            "status": "COMPLETED",
+            "step_index": 4
+          },
+          {
+            "action": "Contrôle géométrique, structurel, programme, validation BIMcraft & critique IA",
+            "agent_id": "05_ENGINEERING_QA",
+            "agent_name": "05 — Engineering & QA Autocorrection",
+            "details": "7/7 règles critiques validées à 100.0% sur la variante retenue CAB_V3_PLANCHER_HABITE.",
+            "duration_ms": 0,
+            "status": "COMPLETED",
+            "step_index": 5
+          },
+          {
+            "action": "Génération des plans DXF, Zoning SVG, Coupes A-A, Dossiers PDF, Rapport IA et Workspace Studio",
+            "agent_id": "06_PRESENTATION_INTEL",
+            "agent_name": "06 — Presentation Intelligence",
+            "details": "Dossiers complets générés dans \"c:\\\\Users\\\\teoba\\\\Documents\\\\Devs\\\\MCP Revit\\\\arc-autonomous-studio\\\\workspace_projects\\\\LA_CABANE_AUTONOMOUS\". APM v4 sauvegardé.",
+            "duration_ms": 8,
+            "status": "COMPLETED",
+            "step_index": 6
+          }
+        ],
+        "ai_telemetry": {
+          "allow_paid_models": false,
+          "api_key_configured": false,
+          "catalog_discovery_live": true,
+          "discovered_free_models": [
+            {
+              "completion_price_str": "0",
+              "context_length": 1048576,
+              "id": "thinkingmachines/inkling-2-small:free",
+              "is_free": true,
+              "modality": "text+image->text",
+              "name": "Thinking Machines: Inkling 2 Small (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 224,
+              "supports_code_json": true,
+              "supports_reasoning": true,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1000000,
+              "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "NVIDIA: Nemotron 3 Ultra (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 180,
+              "supports_code_json": true,
+              "supports_reasoning": true,
+              "supports_vision": false
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1048576,
+              "id": "inclusionai/ling-3.2-flash:free",
+              "is_free": true,
+              "modality": "text+image->text",
+              "name": "inclusionAI: Ling 3.2 Flash (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 174,
+              "supports_code_json": true,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1000000,
+              "id": "nvidia/nemotron-3.5-super-vl:free",
+              "is_free": true,
+              "modality": "text+image+video->text",
+              "name": "NVIDIA: Nemotron 3.5 Super VL (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 170,
+              "supports_code_json": true,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1024000,
+              "id": "baidu/ernie-5.5-flash-preview:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "Baidu: ERNIE-5.5-Flash-Preview (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 152,
+              "supports_code_json": false,
+              "supports_reasoning": true,
+              "supports_vision": false
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 262144,
+              "id": "google/gemma-4-31b-it:free",
+              "is_free": true,
+              "modality": "text+image+video->text",
+              "name": "Google: Gemma 4 31B (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 146,
+              "supports_code_json": true,
+              "supports_reasoning": true,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 256000,
+              "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+              "is_free": true,
+              "modality": "text+image+audio+video->text",
+              "name": "NVIDIA: Nemotron 3 Nano Omni (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 145,
+              "supports_code_json": true,
+              "supports_reasoning": true,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1048576,
+              "id": "particle-ai/particle-1:free",
+              "is_free": true,
+              "modality": "text+image->text",
+              "name": "Particle AI: Particle-1 (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 144,
+              "supports_code_json": false,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1000000,
+              "id": "nvidia/nemotron-3.5-lightning:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "NVIDIA: Nemotron 3.5 Lightning (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 130,
+              "supports_code_json": true,
+              "supports_reasoning": false,
+              "supports_vision": false
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 262144,
+              "id": "google/gemma-4-26b-a4b-it:free",
+              "is_free": true,
+              "modality": "text+image+video->text",
+              "name": "Google: Gemma 4 26B A4B  (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 96,
+              "supports_code_json": true,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 512000,
+              "id": "dots-studio/dots-3-note-preview:free",
+              "is_free": true,
+              "modality": "text+image->text",
+              "name": "Dots Studio: Dots3-Note Preview (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 91,
+              "supports_code_json": false,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 200000,
+              "id": "openrouter/free",
+              "is_free": true,
+              "modality": "text+image->text",
+              "name": "Free Models Router",
+              "prompt_price_str": "0",
+              "suitability_score": 60,
+              "supports_code_json": false,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 256000,
+              "id": "cohere/north-mini-code:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "Cohere: North Mini Code (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 55,
+              "supports_code_json": true,
+              "supports_reasoning": false,
+              "supports_vision": false
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 262144,
+              "id": "liquid/lfm-3-1.7b:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "LiquidAI: LFM3-1.7B (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 26,
+              "supports_code_json": false,
+              "supports_reasoning": false,
+              "supports_vision": false
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 262144,
+              "id": "recursive/flint-v1.0:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "Recursive: Flint (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 26,
+              "supports_code_json": false,
+              "supports_reasoning": false,
+              "supports_vision": false
+            }
+          ],
+          "free_first_policy_enforced": true,
+          "free_models_discovered": 15,
+          "free_reasoning_models_count": 5,
+          "free_vision_models_count": 9,
+          "limitations_encountered": [
+            "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+          ],
+          "paid_calls_blocked_count": 0,
+          "provider": "OpenRouter (Free-First Multi-Model Router)",
+          "requests_log": [
+            {
+              "attempted_models": [
+                "thinkingmachines/inkling-2-small:free"
+              ],
+              "completion_tokens_est": 450,
+              "cost_usd": 0.0,
+              "execution_mode": "OpenRouter_Free_Catalog_With_Rust_NeuroSymbolic_Reasoner",
+              "failover_notes": [
+                "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+              ],
+              "failover_triggered": true,
+              "final_model_used": "thinkingmachines/inkling-2-small:free + Rust Neuro-Symbolic Architectural Reasoner",
+              "latency_ms": 0,
+              "prompt_tokens_est": 96,
+              "request_index": 1,
+              "status": "COMPLETED_ZERO_COST",
+              "task": "DocumentAndPlanVisionAnalysis"
+            },
+            {
+              "attempted_models": [
+                "thinkingmachines/inkling-2-small:free"
+              ],
+              "completion_tokens_est": 450,
+              "cost_usd": 0.0,
+              "execution_mode": "OpenRouter_Free_Catalog_With_Rust_NeuroSymbolic_Reasoner",
+              "failover_notes": [
+                "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+              ],
+              "failover_triggered": true,
+              "final_model_used": "thinkingmachines/inkling-2-small:free + Rust Neuro-Symbolic Architectural Reasoner",
+              "latency_ms": 0,
+              "prompt_tokens_est": 107,
+              "request_index": 2,
+              "status": "COMPLETED_ZERO_COST",
+              "task": "ArchitecturalConceptAndDesign"
+            },
+            {
+              "attempted_models": [
+                "thinkingmachines/inkling-2-small:free"
+              ],
+              "completion_tokens_est": 450,
+              "cost_usd": 0.0,
+              "execution_mode": "OpenRouter_Free_Catalog_With_Rust_NeuroSymbolic_Reasoner",
+              "failover_notes": [
+                "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+              ],
+              "failover_triggered": true,
+              "final_model_used": "thinkingmachines/inkling-2-small:free + Rust Neuro-Symbolic Architectural Reasoner",
+              "latency_ms": 0,
+              "prompt_tokens_est": 83,
+              "request_index": 3,
+              "status": "COMPLETED_ZERO_COST",
+              "task": "SpatialAndStructuralReasoning"
+            },
+            {
+              "attempted_models": [
+                "thinkingmachines/inkling-2-small:free"
+              ],
+              "completion_tokens_est": 450,
+              "cost_usd": 0.0,
+              "execution_mode": "OpenRouter_Free_Catalog_With_Rust_NeuroSymbolic_Reasoner",
+              "failover_notes": [
+                "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+              ],
+              "failover_triggered": true,
+              "final_model_used": "thinkingmachines/inkling-2-small:free + Rust Neuro-Symbolic Architectural Reasoner",
+              "latency_ms": 0,
+              "prompt_tokens_est": 58,
+              "request_index": 4,
+              "status": "COMPLETED_ZERO_COST",
+              "task": "QaAndComplianceCritique"
+            }
+          ],
+          "task_routing_table": {
+            "ArchitecturalConceptAndDesign": {
+              "fallback_chain": [
+                "thinkingmachines/inkling-2-small:free",
+                "nvidia/nemotron-3-ultra-550b-a55b:free",
+                "baidu/ernie-5.5-flash-preview:free",
+                "google/gemma-4-31b-it:free",
+                "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+                "openrouter/free"
+              ],
+              "primary_model_id": "thinkingmachines/inkling-2-small:free",
+              "selection_reason": "Sélection des modèles gratuits à fort raisonnement (Nemotron Ultra 550B / Gemma 4 31B / Ernie 5.5) pour imaginer des partis architecturaux contrastés et justifier les choix.",
+              "task": "ArchitecturalConceptAndDesign"
+            },
+            "DocumentAndPlanVisionAnalysis": {
+              "fallback_chain": [
+                "thinkingmachines/inkling-2-small:free",
+                "inclusionai/ling-3.2-flash:free",
+                "nvidia/nemotron-3.5-super-vl:free",
+                "google/gemma-4-31b-it:free",
+                "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+                "particle-ai/particle-1:free",
+                "google/gemma-4-26b-a4b-it:free",
+                "dots-studio/dots-3-note-preview:free",
+                "openrouter/free"
+              ],
+              "primary_model_id": "thinkingmachines/inkling-2-small:free",
+              "selection_reason": "Sélection des modèles gratuits multimodaux (text+image->text) à grande fenêtre de contexte (jusqu'à 1M tokens) pour l'analyse de sujets PDF et plans.",
+              "task": "DocumentAndPlanVisionAnalysis"
+            },
+            "QaAndComplianceCritique": {
+              "fallback_chain": [
+                "thinkingmachines/inkling-2-small:free",
+                "nvidia/nemotron-3-ultra-550b-a55b:free",
+                "baidu/ernie-5.5-flash-preview:free",
+                "google/gemma-4-31b-it:free",
+                "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+                "openrouter/free"
+              ],
+              "primary_model_id": "thinkingmachines/inkling-2-small:free",
+              "selection_reason": "Sélection des modèles gratuits de vérification et critique analytique pour évaluer les variantes et converger avec le moteur géométrique Rust.",
+              "task": "QaAndComplianceCritique"
+            },
+            "SpatialAndStructuralReasoning": {
+              "fallback_chain": [
+                "thinkingmachines/inkling-2-small:free",
+                "nvidia/nemotron-3-ultra-550b-a55b:free",
+                "inclusionai/ling-3.2-flash:free",
+                "nvidia/nemotron-3.5-super-vl:free",
+                "google/gemma-4-31b-it:free",
+                "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+                "nvidia/nemotron-3.5-lightning:free",
+                "google/gemma-4-26b-a4b-it:free",
+                "cohere/north-mini-code:free",
+                "openrouter/free"
+              ],
+              "primary_model_id": "thinkingmachines/inkling-2-small:free",
+              "selection_reason": "Sélection des modèles gratuits spécialisés JSON/Code et raisonnement spatial pour structurer les programmes, surfaces et topologies.",
+              "task": "SpatialAndStructuralReasoning"
+            }
+          },
+          "total_models_discovered": 468
+        },
+        "ai_telemetry_report_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\openrouter_ai_telemetry_report.json",
+        "apm_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\arc_project_model.apm.json",
+        "bimcraft_builds": {
+          "CAB_V1_BANDE_SERVANTE": {
+            "bimcraft_model_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\01_BIMcraft_Model\\CAB_V1_BANDE_SERVANTE.bimcraft",
+            "build_duration_ms": 237,
+            "cli_version": "bimcraft-cli 0.11.0",
+            "elements_verified": true,
+            "glb_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\01_BIMcraft_Model\\CAB_V1_BANDE_SERVANTE.glb",
+            "ifc_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\01_BIMcraft_Model\\CAB_V1_BANDE_SERVANTE.ifc",
+            "inspection_raw": "{\n  \"counts\": {\n    \"component\": 9,\n    \"door\": 2,\n    \"floor\": 1,\n    \"level\": 2,\n    \"room\": 6,\n    \"roomseparator\": 3,\n    \"schedule\": 1,\n    \"sheet\": 1,\n    \"viewport\": 1,\n    \"wall\": 6,\n    \"window\": 6\n  },\n  \"distribution_systems\": {\n    \"127/220 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"127 V\",\n      \"l_l\": \"220 V\",\n      \"l_n\": \"127 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"220/380 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"220 V\",\n      \"l_l\": \"380 V\",\n      \"l_n\": \"220 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"230/400 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"230 V\",\n      \"l_l\": \"400 V\",\n      \"l_n\": \"230 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"277/480 V\": {\n      \"l_g\": \"277 V\",\n      \"l_l\": \"480 V\",\n      \"l_n\": \"277 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    }\n  },\n  \"families\": {\n    \"Air Terminal\": {\n      \"category\": \"airterminal\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1000\",\n        \"2000\",\n        \"500\"\n      ]\n    },\n    \"Base Cabinet\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\",\n        \"Worktop\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1800 x 600\",\n        \"600 x 600\"\n      ]\n    },\n    \"Bathtub\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Length\",\n        \"Width\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"1500 x 700\",\n        \"1700 x 750\"\n      ]\n    },\n    \"Bed\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Length\",\n        \"Height\",\n        \"Headboard Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 2000\",\n        \"1800 x 2000\",\n        \"900 x 2000\"\n      ]\n    },\n    \"CAB - Bureau Atelier Sur Mesure 230x60\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Canape 2 Places 165x85 + Table Basse\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Douche Italienne 120x90\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Estrade-Atelier Habitee 390x240 (+35cm)\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Kitchenette Lineaire 260x60\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Lit-Tiroir Escamotable 140x200\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Meuble Vasque 65x48\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Table Repas 135x85 + Chaises\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - WC Suspendu 40x65\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"Casement Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Ceiling Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Diameter\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"300\",\n        \"400\"\n      ]\n    },\n    \"Chair\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"450 x 450\"\n      ]\n    },\n    \"Data Outlet\": {\n      \"category\": \"dataoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Desk\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1400 x 700\"\n      ]\n    },\n    \"Distribution Board\": {\n      \"category\": \"equipment\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"12 circuits\",\n        \"24 circuits\",\n        \"36 circuits\"\n      ]\n    },\n    \"Double Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1200 x 2100\",\n        \"1500 x 2100\",\n        \"1800 x 2100\"\n      ]\n    },\n    \"Earthing Electrode\": {\n      \"category\": \"earthing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"2400\",\n        \"3000\"\n      ]\n    },\n    \"Elbow 90\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Fixed Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Floor Drain\": {\n      \"category\": \"drain\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\"\n      ],\n      \"types\": [\n        \"100 x 100\",\n        \"150 x 150\"\n      ]\n    },\n    \"Gate Valve\": {\n      \"category\": \"pipeaccessory\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Inspection Box\": {\n      \"category\": \"inspectionbox\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"250\",\n        \"300\"\n      ]\n    },\n    \"Kitchen Sink\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 550\",\n        \"800 x 500\"\n      ]\n    },\n    \"Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"High 2100\",\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Patch Panel\": {\n      \"category\": \"patchpanel\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"24 ports\",\n        \"48 ports\"\n      ]\n    },\n    \"Rack\": {\n      \"category\": \"rack\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"600 x 1000\",\n        \"600 x 800\",\n        \"800 x 1000\"\n      ]\n    },\n    \"Recessed Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"1200 x 300\",\n        \"600 x 600\"\n      ]\n    },\n    \"Shower\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\"\n      ],\n      \"types\": [\n        \"800 x 800\",\n        \"900 x 900\"\n      ]\n    },\n    \"Single Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1000 x 2100\",\n        \"800 x 2100\",\n        \"900 x 2100\"\n      ]\n    },\n    \"Sliding Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1500 x 2100\",\n        \"2000 x 2100\",\n        \"2400 x 2100\"\n      ]\n    },\n    \"Sliding Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Sofa\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Arm Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 900\",\n        \"2000 x 900\"\n      ]\n    },\n    \"Switch\": {\n      \"category\": \"switch\",\n      \"connectors\": [\n        {\n          \"kind\": \"switch\",\n          \"system\": \"switch\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Table\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 800\",\n        \"1600 x 900\",\n        \"2000 x 1000\"\n      ]\n    },\n    \"Tee\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Three-Phase Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-unbalanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load L1\",\n        \"Load L2\",\n        \"Load L3\"\n      ],\n      \"types\": [\n        \"Balanced 1100\",\n        \"Unbalanced 1100\"\n      ]\n    },\n    \"Voice Outlet\": {\n      \"category\": \"voiceoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"WC\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"400 x 650\"\n      ]\n    },\n    \"Wardrobe\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"900 x 600\"\n      ]\n    },\n    \"Washbasin\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"500 x 400\",\n        \"600 x 450\"\n      ]\n    }\n  },\n  \"history\": [],\n  \"images\": {},\n  \"language\": \"en\",\n  \"levels\": [\n    {\n      \"elevation\": 0.0,\n      \"id\": 100000,\n      \"name\": \"N0 - Appartement\"\n    },\n    {\n      \"elevation\": 2600.0,\n      \"id\": 100001,\n      \"name\": \"N+1 - Sous-face dalle haute (HSP 240 + 20)\"\n    }\n  ],\n  \"materials\": {\n    \"Brick\": {\n      \"color\": [\n        178,\n        92,\n        70\n      ],\n      \"cut\": \"brick\",\n      \"surface\": \"brick\",\n      \"texture\": {\n        \"kind\": \"brick\",\n        \"size\": [\n          900.0,\n          600.0\n        ]\n      }\n    },\n    \"Ceramic tile\": {\n      \"color\": [\n        222,\n        220,\n        210\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"grid\",\n      \"texture\": {\n        \"kind\": \"tile\",\n        \"size\": [\n          1200.0,\n          1200.0\n        ]\n      }\n    },\n    \"Concrete\": {\n      \"color\": [\n        188,\n        188,\n        182\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Concrete block\": {\n      \"color\": [\n        176,\n        176,\n        170\n      ],\n      \"cut\": \"crosshatch\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"block\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Copper\": {\n      \"color\": [\n        184,\n        115,\n        51\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Fabric\": {\n      \"color\": [\n        176,\n        160,\n        136\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"fabric\",\n        \"size\": [\n          100.0,\n          100.0\n        ]\n      }\n    },\n    \"Glass\": {\n      \"color\": [\n        166,\n        200,\n        228\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"transparency\": 70\n    },\n    \"Gypsum board\": {\n      \"color\": [\n        242,\n        242,\n        238\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Insulation\": {\n      \"color\": [\n        232,\n        214,\n        140\n      ],\n      \"cut\": \"insulation\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"insulation\",\n        \"size\": [\n          600.0,\n          600.0\n        ]\n      }\n    },\n    \"Membrane\": {\n      \"color\": [\n        70,\n        70,\n        74\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Metal\": {\n      \"color\": [\n        150,\n        152,\n        158\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"PVC\": {\n      \"color\": [\n        226,\n        226,\n        214\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Plaster\": {\n      \"color\": [\n        238,\n        234,\n        224\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"plaster\",\n        \"size\": [\n          500.0,\n          500.0\n        ]\n      }\n    },\n    \"Porcelain\": {\n      \"color\": [\n        244,\n        244,\n        240\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Roof tiles\": {\n      \"color\": [\n        170,\n        86,\n        64\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"roof\",\n        \"size\": [\n          1320.0,\n          1000.0\n        ]\n      }\n    },\n    \"Screed\": {\n      \"color\": [\n        206,\n        200,\n        188\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Timber\": {\n      \"color\": [\n        196,\n        154,\n        102\n      ],\n      \"cut\": \"diagonal\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"boards\",\n        \"size\": [\n          1200.0,\n          1120.0\n        ]\n      }\n    }\n  },\n  \"name\": \"Project\",\n  \"option_sets\": {},\n  \"parameters\": {},\n  \"path\": \"c:\\\\Users\\\\teoba\\\\Documents\\\\Devs\\\\MCP Revit\\\\arc-autonomous-studio\\\\workspace_projects\\\\LA_CABANE_AUTONOMOUS\\\\CAB_V1_BANDE_SERVANTE\\\\01_BIMcraft_Model\\\\CAB_V1_BANDE_SERVANTE.bimcraft\",\n  \"phase_filters\": {\n    \"Show All\": {\n      \"demolished\": \"by-category\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show Complete\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"not-displayed\",\n      \"new\": \"by-category\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + Demolished\": {\n      \"demolished\": \"overridden\",\n      \"existing\": \"by-category\",\n      \"new\": \"not-displayed\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"overridden\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    }\n  },\n  \"phase_overrides\": {\n    \"demolished\": {\n      \"cut\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      },\n      \"projection\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      }\n    },\n    \"existing\": {\n      \"halftone\": true\n    }\n  },\n  \"phases\": [\n    \"Existing\",\n    \"New Construction\"\n  ],\n  \"project_units\": \"cm\",\n  \"room_area\": \"finish\",\n  \"standard\": \"iso\",\n  \"types\": {\n    \"ceiling\": {\n      \"Generic - 20mm\": {\n        \"grid\": 0.0,\n        \"thickness\": 20.0\n      },\n      \"Tile 600 x 600\": {\n        \"grid\": 600.0,\n        \"thickness\": 20.0\n      }\n    },\n    \"column\": {\n      \"Rectangular 400 x 400\": {\n        \"depth\": 400.0,\n        \"round\": false,\n        \"width\": 400.0\n      },\n      \"Round 300\": {\n        \"depth\": 300.0,\n        \"round\": true,\n        \"width\": 300.0\n      }\n    },\n    \"door\": {\n      \"Porte 80 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Porte 83 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 830.0\n      },\n      \"Single 800 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Single 900 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 900.0\n      }\n    },\n    \"floor\": {\n      \"EXI_Plancher existant 25\": {\n        \"thickness\": 200.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      }\n    },\n    \"footing\": {\n      \"Footing 1200 x 1200\": {\n        \"depth\": 1200.0,\n        \"round\": false,\n        \"width\": 1200.0\n      },\n      \"Footing 1500 x 1500\": {\n        \"depth\": 1500.0,\n        \"round\": false,\n        \"width\": 1500.0\n      }\n    },\n    \"railing\": {\n      \"Railing - 1000mm\": {\n        \"height\": 1000.0,\n        \"spacing\": 120.0\n      }\n    },\n    \"roof\": {\n      \"Generic - 300mm\": {\n        \"thickness\": 300.0\n      }\n    },\n    \"runs\": {\n      \"beam\": {\n        \"Beam 150 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 150.0\n        },\n        \"Beam 200 x 500\": {\n          \"depth\": 500.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"PRJ_Poutre 35 x 40\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 350.0\n        },\n        \"Steel Tube 150\": {\n          \"depth\": 150.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 150.0\n        }\n      },\n      \"cable\": {\n        \"Cat6\": {\n          \"depth\": 6.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 6.0\n        },\n        \"Cat6A\": {\n          \"depth\": 7.5,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 7.5\n        },\n        \"Optical 3\": {\n          \"depth\": 3.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 3.0\n        }\n      },\n      \"cabletray\": {\n        \"Perforated 100 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 100.0\n        },\n        \"Perforated 200 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"Perforated 300 x 100\": {\n          \"depth\": 100.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 300.0\n        }\n      },\n      \"conduit\": {\n        \"PVC 20\": {\n          \"depth\": 20.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 20.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 32\": {\n          \"depth\": 32.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 32.0\n        },\n        \"Steel 25\": {\n          \"depth\": 25.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 25.0\n        }\n      },\n      \"downconductor\": {\n        \"Copper 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 8.0\n        },\n        \"Flat 25 x 3\": {\n          \"depth\": 3.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 25.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"duct\": {\n        \"Rectangular 400 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 400.0\n        },\n        \"Rectangular 600 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 600.0\n        },\n        \"Round 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 300.0\n        }\n      },\n      \"groundconductor\": {\n        \"Copper 9\": {\n          \"depth\": 9.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 9.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"pipe\": {\n        \"Copper 22\": {\n          \"depth\": 22.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 22.0\n        },\n        \"PVC 110\": {\n          \"depth\": 110.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 110.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 50\": {\n          \"depth\": 50.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 50.0\n        }\n      },\n      \"stripfooting\": {\n        \"Strip 600 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 600.0\n        }\n      },\n      \"wire\": {\n        \"Wire 2.5\": {\n          \"depth\": 4.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 4.0\n        },\n        \"Wire 4\": {\n          \"depth\": 5.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 5.0\n        },\n        \"Wire 6\": {\n          \"depth\": 6.5,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 6.5\n        }\n      }\n    },\n    \"structural_column\": {\n      \"Concrete 200 x 500\": {\n        \"depth\": 500.0,\n        \"round\": false,\n        \"width\": 200.0\n      },\n      \"Concrete 300 x 300\": {\n        \"depth\": 300.0,\n        \"round\": false,\n        \"width\": 300.0\n      },\n      \"Concrete Round 400\": {\n        \"depth\": 400.0,\n        \"round\": true,\n        \"width\": 400.0\n      }\n    },\n    \"wall\": {\n      \"EXI_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"EXI_Mur mitoyen 105\": {\n        \"thickness\": 1050.0\n      },\n      \"EXI_Mur palier 20\": {\n        \"thickness\": 200.0\n      },\n      \"EXI_Mur porteur 35\": {\n        \"thickness\": 350.0\n      },\n      \"Exterior - 300mm\": {\n        \"layers\": [\n          {\n            \"function\": \"finish\",\n            \"guid\": \"9b89b6a7-39c1-4f6e-8337-30f7b1ee2449\",\n            \"id\": 999628,\n            \"material\": \"Brick\",\n            \"thickness\": 100.0\n          },\n          {\n            \"function\": \"thermal\",\n            \"guid\": \"5e0849cf-e7ce-4866-97c2-4800edf27992\",\n            \"id\": 999627,\n            \"material\": \"Insulation\",\n            \"thickness\": 50.0\n          },\n          {\n            \"function\": \"structure\",\n            \"guid\": \"8a4a6027-0013-4da8-adbe-3cbdb930e2c1\",\n            \"id\": 999626,\n            \"material\": \"Concrete block\",\n            \"thickness\": 140.0\n          },\n          {\n            \"function\": \"finish\",\n            \"guid\": \"b3b44eca-b8fa-44ef-8543-9c449a38478a\",\n            \"id\": 999625,\n            \"material\": \"Plaster\",\n            \"thickness\": 10.0\n          }\n        ],\n        \"thickness\": 300.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      },\n      \"Interior - 100mm\": {\n        \"thickness\": 100.0\n      },\n      \"PRJ_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"PRJ_Meuble-cloison 60\": {\n        \"thickness\": 600.0\n      },\n      \"PRJ_Rebouchage 20\": {\n        \"thickness\": 200.0\n      },\n      \"PRJ_Rebouchage 35\": {\n        \"thickness\": 350.0\n      }\n    },\n    \"window\": {\n      \"Fenêtre 200 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 2000.0\n      },\n      \"Fenêtre 80 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 800.0\n      },\n      \"Fixed 1200 x 1500\": {\n        \"height\": 1500.0,\n        \"sill\": 900.0,\n        \"width\": 1200.0\n      },\n      \"Fixed 600 x 900\": {\n        \"height\": 900.0,\n        \"sill\": 1100.0,\n        \"width\": 600.0\n      }\n    }\n  },\n  \"units\": \"mm\",\n  \"view_filters\": {},\n  \"view_templates\": {\n    \"Electrical Ceiling\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"dataoutlet\": {\n            \"hidden\": true\n          },\n          \"equipment\": {\n            \"hidden\": true\n          },\n          \"outlet\": {\n            \"hidden\": true\n          },\n          \"patchpanel\": {\n            \"hidden\": true\n          },\n          \"rack\": {\n            \"hidden\": true\n          },\n          \"switch\": {\n            \"hidden\": true\n          },\n          \"voiceoutlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Lighting\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"outlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Power\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"lighting\": {\n            \"halftone\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    }\n  },\n  \"voltages\": {\n    \"127 V\": {\n      \"max\": 139.7,\n      \"min\": 114.3,\n      \"nominal\": 127.0\n    },\n    \"220 V\": {\n      \"max\": 242.0,\n      \"min\": 198.0,\n      \"nominal\": 220.0\n    },\n    \"230 V\": {\n      \"max\": 253.0,\n      \"min\": 207.0,\n      \"nominal\": 230.0\n    },\n    \"277 V\": {\n      \"max\": 304.7,\n      \"min\": 249.3,\n      \"nominal\": 277.0\n    },\n    \"380 V\": {\n      \"max\": 418.0,\n      \"min\": 342.0,\n      \"nominal\": 380.0\n    },\n    \"400 V\": {\n      \"max\": 440.0,\n      \"min\": 360.0,\n      \"nominal\": 400.0\n    },\n    \"480 V\": {\n      \"max\": 528.0,\n      \"min\": 432.0,\n      \"nominal\": 480.0\n    }\n  },\n  \"warnings\": [\n    \"room 100032 (04 CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)) is in the space room 100031 has; two rooms can't share one, so it is unbounded: delete one, or part them with a room separation line\"\n  ],\n  \"wire_types\": {\n    \"Cu PVC 70 °C\": {\n      \"insulation\": \"PVC\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 36, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 9.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 11.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 14.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 17.5,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 24.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 32.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 41.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 57.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 76.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 101.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 125.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 151.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 192.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 232.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 269.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 309.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 353.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 415.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 477.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 571.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 656.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 758.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 881.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1012.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 70.0\n    },\n    \"Cu THHN 90 °C\": {\n      \"insulation\": \"THHN\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 90 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 30.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 40.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 55.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 75.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 95.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 145.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 170.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 195.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 225.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 260.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 290.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 320.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 350.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 430.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 535.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 555.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 585.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 615.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 90.0\n    },\n    \"Cu THW 75 °C\": {\n      \"insulation\": \"THW\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 75 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 20.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 35.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 50.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 65.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 85.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 100.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 150.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 175.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 200.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 230.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 255.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 285.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 310.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 335.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 420.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 460.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 490.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 545.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 75.0\n    },\n    \"Cu XLPE/EPR 90 °C\": {\n      \"insulation\": \"XLPE/EPR\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 37, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 12.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 15.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 18.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 23.0,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 31.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 42.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 54.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 75.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 100.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 133.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 164.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 198.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 253.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 306.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 354.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 407.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 464.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 546.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 628.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 751.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 864.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 998.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 1158.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1332.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 90.0\n    }\n  }\n}",
+            "pdf_sheet_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\01_BIMcraft_Model\\CAB_V1_BANDE_SERVANTE_sheet_A3.pdf",
+            "script_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\01_BIMcraft_Model\\CAB_V1_BANDE_SERVANTE.bimscript",
+            "svg_plan_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\01_BIMcraft_Model\\CAB_V1_BANDE_SERVANTE_plan.svg",
+            "variant_id": "CAB_V1_BANDE_SERVANTE"
+          },
+          "CAB_V2_MEUBLE_HABITE": {
+            "bimcraft_model_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\01_BIMcraft_Model\\CAB_V2_MEUBLE_HABITE.bimcraft",
+            "build_duration_ms": 233,
+            "cli_version": "bimcraft-cli 0.11.0",
+            "elements_verified": true,
+            "glb_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\01_BIMcraft_Model\\CAB_V2_MEUBLE_HABITE.glb",
+            "ifc_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\01_BIMcraft_Model\\CAB_V2_MEUBLE_HABITE.ifc",
+            "inspection_raw": "{\n  \"counts\": {\n    \"component\": 9,\n    \"door\": 2,\n    \"floor\": 1,\n    \"level\": 2,\n    \"room\": 6,\n    \"roomseparator\": 3,\n    \"schedule\": 1,\n    \"sheet\": 1,\n    \"viewport\": 1,\n    \"wall\": 6,\n    \"window\": 6\n  },\n  \"distribution_systems\": {\n    \"127/220 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"127 V\",\n      \"l_l\": \"220 V\",\n      \"l_n\": \"127 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"220/380 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"220 V\",\n      \"l_l\": \"380 V\",\n      \"l_n\": \"220 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"230/400 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"230 V\",\n      \"l_l\": \"400 V\",\n      \"l_n\": \"230 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"277/480 V\": {\n      \"l_g\": \"277 V\",\n      \"l_l\": \"480 V\",\n      \"l_n\": \"277 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    }\n  },\n  \"families\": {\n    \"Air Terminal\": {\n      \"category\": \"airterminal\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1000\",\n        \"2000\",\n        \"500\"\n      ]\n    },\n    \"Base Cabinet\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\",\n        \"Worktop\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1800 x 600\",\n        \"600 x 600\"\n      ]\n    },\n    \"Bathtub\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Length\",\n        \"Width\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"1500 x 700\",\n        \"1700 x 750\"\n      ]\n    },\n    \"Bed\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Length\",\n        \"Height\",\n        \"Headboard Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 2000\",\n        \"1800 x 2000\",\n        \"900 x 2000\"\n      ]\n    },\n    \"CAB - Bureau Atelier Sur Mesure 230x60\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Canape 2 Places 165x85 + Table Basse\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Douche Italienne 120x90\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Estrade-Atelier Habitee 390x240 (+35cm)\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Kitchenette Lineaire 260x60\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Lit-Tiroir Escamotable 140x200\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Meuble Vasque 65x48\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Table Repas 135x85 + Chaises\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - WC Suspendu 40x65\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"Casement Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Ceiling Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Diameter\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"300\",\n        \"400\"\n      ]\n    },\n    \"Chair\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"450 x 450\"\n      ]\n    },\n    \"Data Outlet\": {\n      \"category\": \"dataoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Desk\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1400 x 700\"\n      ]\n    },\n    \"Distribution Board\": {\n      \"category\": \"equipment\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"12 circuits\",\n        \"24 circuits\",\n        \"36 circuits\"\n      ]\n    },\n    \"Double Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1200 x 2100\",\n        \"1500 x 2100\",\n        \"1800 x 2100\"\n      ]\n    },\n    \"Earthing Electrode\": {\n      \"category\": \"earthing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"2400\",\n        \"3000\"\n      ]\n    },\n    \"Elbow 90\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Fixed Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Floor Drain\": {\n      \"category\": \"drain\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\"\n      ],\n      \"types\": [\n        \"100 x 100\",\n        \"150 x 150\"\n      ]\n    },\n    \"Gate Valve\": {\n      \"category\": \"pipeaccessory\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Inspection Box\": {\n      \"category\": \"inspectionbox\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"250\",\n        \"300\"\n      ]\n    },\n    \"Kitchen Sink\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 550\",\n        \"800 x 500\"\n      ]\n    },\n    \"Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"High 2100\",\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Patch Panel\": {\n      \"category\": \"patchpanel\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"24 ports\",\n        \"48 ports\"\n      ]\n    },\n    \"Rack\": {\n      \"category\": \"rack\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"600 x 1000\",\n        \"600 x 800\",\n        \"800 x 1000\"\n      ]\n    },\n    \"Recessed Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"1200 x 300\",\n        \"600 x 600\"\n      ]\n    },\n    \"Shower\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\"\n      ],\n      \"types\": [\n        \"800 x 800\",\n        \"900 x 900\"\n      ]\n    },\n    \"Single Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1000 x 2100\",\n        \"800 x 2100\",\n        \"900 x 2100\"\n      ]\n    },\n    \"Sliding Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1500 x 2100\",\n        \"2000 x 2100\",\n        \"2400 x 2100\"\n      ]\n    },\n    \"Sliding Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Sofa\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Arm Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 900\",\n        \"2000 x 900\"\n      ]\n    },\n    \"Switch\": {\n      \"category\": \"switch\",\n      \"connectors\": [\n        {\n          \"kind\": \"switch\",\n          \"system\": \"switch\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Table\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 800\",\n        \"1600 x 900\",\n        \"2000 x 1000\"\n      ]\n    },\n    \"Tee\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Three-Phase Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-unbalanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load L1\",\n        \"Load L2\",\n        \"Load L3\"\n      ],\n      \"types\": [\n        \"Balanced 1100\",\n        \"Unbalanced 1100\"\n      ]\n    },\n    \"Voice Outlet\": {\n      \"category\": \"voiceoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"WC\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"400 x 650\"\n      ]\n    },\n    \"Wardrobe\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"900 x 600\"\n      ]\n    },\n    \"Washbasin\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"500 x 400\",\n        \"600 x 450\"\n      ]\n    }\n  },\n  \"history\": [],\n  \"images\": {},\n  \"language\": \"en\",\n  \"levels\": [\n    {\n      \"elevation\": 0.0,\n      \"id\": 100000,\n      \"name\": \"N0 - Appartement\"\n    },\n    {\n      \"elevation\": 2600.0,\n      \"id\": 100001,\n      \"name\": \"N+1 - Sous-face dalle haute (HSP 240 + 20)\"\n    }\n  ],\n  \"materials\": {\n    \"Brick\": {\n      \"color\": [\n        178,\n        92,\n        70\n      ],\n      \"cut\": \"brick\",\n      \"surface\": \"brick\",\n      \"texture\": {\n        \"kind\": \"brick\",\n        \"size\": [\n          900.0,\n          600.0\n        ]\n      }\n    },\n    \"Ceramic tile\": {\n      \"color\": [\n        222,\n        220,\n        210\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"grid\",\n      \"texture\": {\n        \"kind\": \"tile\",\n        \"size\": [\n          1200.0,\n          1200.0\n        ]\n      }\n    },\n    \"Concrete\": {\n      \"color\": [\n        188,\n        188,\n        182\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Concrete block\": {\n      \"color\": [\n        176,\n        176,\n        170\n      ],\n      \"cut\": \"crosshatch\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"block\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Copper\": {\n      \"color\": [\n        184,\n        115,\n        51\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Fabric\": {\n      \"color\": [\n        176,\n        160,\n        136\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"fabric\",\n        \"size\": [\n          100.0,\n          100.0\n        ]\n      }\n    },\n    \"Glass\": {\n      \"color\": [\n        166,\n        200,\n        228\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"transparency\": 70\n    },\n    \"Gypsum board\": {\n      \"color\": [\n        242,\n        242,\n        238\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Insulation\": {\n      \"color\": [\n        232,\n        214,\n        140\n      ],\n      \"cut\": \"insulation\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"insulation\",\n        \"size\": [\n          600.0,\n          600.0\n        ]\n      }\n    },\n    \"Membrane\": {\n      \"color\": [\n        70,\n        70,\n        74\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Metal\": {\n      \"color\": [\n        150,\n        152,\n        158\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"PVC\": {\n      \"color\": [\n        226,\n        226,\n        214\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Plaster\": {\n      \"color\": [\n        238,\n        234,\n        224\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"plaster\",\n        \"size\": [\n          500.0,\n          500.0\n        ]\n      }\n    },\n    \"Porcelain\": {\n      \"color\": [\n        244,\n        244,\n        240\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Roof tiles\": {\n      \"color\": [\n        170,\n        86,\n        64\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"roof\",\n        \"size\": [\n          1320.0,\n          1000.0\n        ]\n      }\n    },\n    \"Screed\": {\n      \"color\": [\n        206,\n        200,\n        188\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Timber\": {\n      \"color\": [\n        196,\n        154,\n        102\n      ],\n      \"cut\": \"diagonal\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"boards\",\n        \"size\": [\n          1200.0,\n          1120.0\n        ]\n      }\n    }\n  },\n  \"name\": \"Project\",\n  \"option_sets\": {},\n  \"parameters\": {},\n  \"path\": \"c:\\\\Users\\\\teoba\\\\Documents\\\\Devs\\\\MCP Revit\\\\arc-autonomous-studio\\\\workspace_projects\\\\LA_CABANE_AUTONOMOUS\\\\CAB_V2_MEUBLE_HABITE\\\\01_BIMcraft_Model\\\\CAB_V2_MEUBLE_HABITE.bimcraft\",\n  \"phase_filters\": {\n    \"Show All\": {\n      \"demolished\": \"by-category\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show Complete\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"not-displayed\",\n      \"new\": \"by-category\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + Demolished\": {\n      \"demolished\": \"overridden\",\n      \"existing\": \"by-category\",\n      \"new\": \"not-displayed\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"overridden\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    }\n  },\n  \"phase_overrides\": {\n    \"demolished\": {\n      \"cut\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      },\n      \"projection\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      }\n    },\n    \"existing\": {\n      \"halftone\": true\n    }\n  },\n  \"phases\": [\n    \"Existing\",\n    \"New Construction\"\n  ],\n  \"project_units\": \"cm\",\n  \"room_area\": \"finish\",\n  \"standard\": \"iso\",\n  \"types\": {\n    \"ceiling\": {\n      \"Generic - 20mm\": {\n        \"grid\": 0.0,\n        \"thickness\": 20.0\n      },\n      \"Tile 600 x 600\": {\n        \"grid\": 600.0,\n        \"thickness\": 20.0\n      }\n    },\n    \"column\": {\n      \"Rectangular 400 x 400\": {\n        \"depth\": 400.0,\n        \"round\": false,\n        \"width\": 400.0\n      },\n      \"Round 300\": {\n        \"depth\": 300.0,\n        \"round\": true,\n        \"width\": 300.0\n      }\n    },\n    \"door\": {\n      \"Porte 80 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Porte 83 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 830.0\n      },\n      \"Single 800 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Single 900 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 900.0\n      }\n    },\n    \"floor\": {\n      \"EXI_Plancher existant 25\": {\n        \"thickness\": 200.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      }\n    },\n    \"footing\": {\n      \"Footing 1200 x 1200\": {\n        \"depth\": 1200.0,\n        \"round\": false,\n        \"width\": 1200.0\n      },\n      \"Footing 1500 x 1500\": {\n        \"depth\": 1500.0,\n        \"round\": false,\n        \"width\": 1500.0\n      }\n    },\n    \"railing\": {\n      \"Railing - 1000mm\": {\n        \"height\": 1000.0,\n        \"spacing\": 120.0\n      }\n    },\n    \"roof\": {\n      \"Generic - 300mm\": {\n        \"thickness\": 300.0\n      }\n    },\n    \"runs\": {\n      \"beam\": {\n        \"Beam 150 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 150.0\n        },\n        \"Beam 200 x 500\": {\n          \"depth\": 500.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"PRJ_Poutre 35 x 40\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 350.0\n        },\n        \"Steel Tube 150\": {\n          \"depth\": 150.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 150.0\n        }\n      },\n      \"cable\": {\n        \"Cat6\": {\n          \"depth\": 6.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 6.0\n        },\n        \"Cat6A\": {\n          \"depth\": 7.5,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 7.5\n        },\n        \"Optical 3\": {\n          \"depth\": 3.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 3.0\n        }\n      },\n      \"cabletray\": {\n        \"Perforated 100 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 100.0\n        },\n        \"Perforated 200 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"Perforated 300 x 100\": {\n          \"depth\": 100.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 300.0\n        }\n      },\n      \"conduit\": {\n        \"PVC 20\": {\n          \"depth\": 20.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 20.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 32\": {\n          \"depth\": 32.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 32.0\n        },\n        \"Steel 25\": {\n          \"depth\": 25.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 25.0\n        }\n      },\n      \"downconductor\": {\n        \"Copper 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 8.0\n        },\n        \"Flat 25 x 3\": {\n          \"depth\": 3.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 25.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"duct\": {\n        \"Rectangular 400 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 400.0\n        },\n        \"Rectangular 600 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 600.0\n        },\n        \"Round 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 300.0\n        }\n      },\n      \"groundconductor\": {\n        \"Copper 9\": {\n          \"depth\": 9.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 9.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"pipe\": {\n        \"Copper 22\": {\n          \"depth\": 22.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 22.0\n        },\n        \"PVC 110\": {\n          \"depth\": 110.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 110.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 50\": {\n          \"depth\": 50.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 50.0\n        }\n      },\n      \"stripfooting\": {\n        \"Strip 600 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 600.0\n        }\n      },\n      \"wire\": {\n        \"Wire 2.5\": {\n          \"depth\": 4.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 4.0\n        },\n        \"Wire 4\": {\n          \"depth\": 5.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 5.0\n        },\n        \"Wire 6\": {\n          \"depth\": 6.5,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 6.5\n        }\n      }\n    },\n    \"structural_column\": {\n      \"Concrete 200 x 500\": {\n        \"depth\": 500.0,\n        \"round\": false,\n        \"width\": 200.0\n      },\n      \"Concrete 300 x 300\": {\n        \"depth\": 300.0,\n        \"round\": false,\n        \"width\": 300.0\n      },\n      \"Concrete Round 400\": {\n        \"depth\": 400.0,\n        \"round\": true,\n        \"width\": 400.0\n      }\n    },\n    \"wall\": {\n      \"EXI_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"EXI_Mur mitoyen 105\": {\n        \"thickness\": 1050.0\n      },\n      \"EXI_Mur palier 20\": {\n        \"thickness\": 200.0\n      },\n      \"EXI_Mur porteur 35\": {\n        \"thickness\": 350.0\n      },\n      \"Exterior - 300mm\": {\n        \"layers\": [\n          {\n            \"function\": \"finish\",\n            \"guid\": \"6bdb55f6-4b2c-4f0f-9ef0-01ce2273ea81\",\n            \"id\": 999628,\n            \"material\": \"Brick\",\n            \"thickness\": 100.0\n          },\n          {\n            \"function\": \"thermal\",\n            \"guid\": \"4b4b13d5-4841-4be0-bbc3-a07bc29c4484\",\n            \"id\": 999627,\n            \"material\": \"Insulation\",\n            \"thickness\": 50.0\n          },\n          {\n            \"function\": \"structure\",\n            \"guid\": \"09988a2d-ea88-4216-b8c1-56a1ebe062c0\",\n            \"id\": 999626,\n            \"material\": \"Concrete block\",\n            \"thickness\": 140.0\n          },\n          {\n            \"function\": \"finish\",\n            \"guid\": \"ab81821c-d7e7-49f2-8f67-7ec3876578e5\",\n            \"id\": 999625,\n            \"material\": \"Plaster\",\n            \"thickness\": 10.0\n          }\n        ],\n        \"thickness\": 300.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      },\n      \"Interior - 100mm\": {\n        \"thickness\": 100.0\n      },\n      \"PRJ_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"PRJ_Meuble-cloison 60\": {\n        \"thickness\": 600.0\n      },\n      \"PRJ_Rebouchage 20\": {\n        \"thickness\": 200.0\n      },\n      \"PRJ_Rebouchage 35\": {\n        \"thickness\": 350.0\n      }\n    },\n    \"window\": {\n      \"Fenêtre 200 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 2000.0\n      },\n      \"Fenêtre 80 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 800.0\n      },\n      \"Fixed 1200 x 1500\": {\n        \"height\": 1500.0,\n        \"sill\": 900.0,\n        \"width\": 1200.0\n      },\n      \"Fixed 600 x 900\": {\n        \"height\": 900.0,\n        \"sill\": 1100.0,\n        \"width\": 600.0\n      }\n    }\n  },\n  \"units\": \"mm\",\n  \"view_filters\": {},\n  \"view_templates\": {\n    \"Electrical Ceiling\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"dataoutlet\": {\n            \"hidden\": true\n          },\n          \"equipment\": {\n            \"hidden\": true\n          },\n          \"outlet\": {\n            \"hidden\": true\n          },\n          \"patchpanel\": {\n            \"hidden\": true\n          },\n          \"rack\": {\n            \"hidden\": true\n          },\n          \"switch\": {\n            \"hidden\": true\n          },\n          \"voiceoutlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Lighting\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"outlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Power\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"lighting\": {\n            \"halftone\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    }\n  },\n  \"voltages\": {\n    \"127 V\": {\n      \"max\": 139.7,\n      \"min\": 114.3,\n      \"nominal\": 127.0\n    },\n    \"220 V\": {\n      \"max\": 242.0,\n      \"min\": 198.0,\n      \"nominal\": 220.0\n    },\n    \"230 V\": {\n      \"max\": 253.0,\n      \"min\": 207.0,\n      \"nominal\": 230.0\n    },\n    \"277 V\": {\n      \"max\": 304.7,\n      \"min\": 249.3,\n      \"nominal\": 277.0\n    },\n    \"380 V\": {\n      \"max\": 418.0,\n      \"min\": 342.0,\n      \"nominal\": 380.0\n    },\n    \"400 V\": {\n      \"max\": 440.0,\n      \"min\": 360.0,\n      \"nominal\": 400.0\n    },\n    \"480 V\": {\n      \"max\": 528.0,\n      \"min\": 432.0,\n      \"nominal\": 480.0\n    }\n  },\n  \"warnings\": [\n    \"room 100032 (04 CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)) is in the space room 100031 has; two rooms can't share one, so it is unbounded: delete one, or part them with a room separation line\"\n  ],\n  \"wire_types\": {\n    \"Cu PVC 70 °C\": {\n      \"insulation\": \"PVC\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 36, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 9.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 11.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 14.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 17.5,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 24.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 32.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 41.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 57.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 76.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 101.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 125.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 151.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 192.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 232.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 269.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 309.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 353.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 415.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 477.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 571.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 656.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 758.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 881.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1012.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 70.0\n    },\n    \"Cu THHN 90 °C\": {\n      \"insulation\": \"THHN\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 90 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 30.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 40.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 55.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 75.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 95.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 145.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 170.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 195.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 225.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 260.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 290.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 320.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 350.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 430.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 535.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 555.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 585.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 615.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 90.0\n    },\n    \"Cu THW 75 °C\": {\n      \"insulation\": \"THW\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 75 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 20.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 35.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 50.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 65.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 85.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 100.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 150.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 175.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 200.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 230.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 255.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 285.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 310.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 335.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 420.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 460.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 490.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 545.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 75.0\n    },\n    \"Cu XLPE/EPR 90 °C\": {\n      \"insulation\": \"XLPE/EPR\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 37, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 12.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 15.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 18.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 23.0,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 31.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 42.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 54.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 75.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 100.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 133.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 164.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 198.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 253.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 306.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 354.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 407.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 464.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 546.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 628.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 751.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 864.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 998.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 1158.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1332.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 90.0\n    }\n  }\n}",
+            "pdf_sheet_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\01_BIMcraft_Model\\CAB_V2_MEUBLE_HABITE_sheet_A3.pdf",
+            "script_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\01_BIMcraft_Model\\CAB_V2_MEUBLE_HABITE.bimscript",
+            "svg_plan_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\01_BIMcraft_Model\\CAB_V2_MEUBLE_HABITE_plan.svg",
+            "variant_id": "CAB_V2_MEUBLE_HABITE"
+          },
+          "CAB_V3_PLANCHER_HABITE": {
+            "bimcraft_model_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\01_BIMcraft_Model\\CAB_V3_PLANCHER_HABITE.bimcraft",
+            "build_duration_ms": 232,
+            "cli_version": "bimcraft-cli 0.11.0",
+            "elements_verified": true,
+            "glb_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\01_BIMcraft_Model\\CAB_V3_PLANCHER_HABITE.glb",
+            "ifc_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\01_BIMcraft_Model\\CAB_V3_PLANCHER_HABITE.ifc",
+            "inspection_raw": "{\n  \"counts\": {\n    \"component\": 9,\n    \"door\": 2,\n    \"floor\": 1,\n    \"level\": 2,\n    \"room\": 6,\n    \"roomseparator\": 3,\n    \"schedule\": 1,\n    \"sheet\": 1,\n    \"viewport\": 1,\n    \"wall\": 6,\n    \"window\": 6\n  },\n  \"distribution_systems\": {\n    \"127/220 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"127 V\",\n      \"l_l\": \"220 V\",\n      \"l_n\": \"127 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"220/380 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"220 V\",\n      \"l_l\": \"380 V\",\n      \"l_n\": \"220 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"230/400 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"230 V\",\n      \"l_l\": \"400 V\",\n      \"l_n\": \"230 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"277/480 V\": {\n      \"l_g\": \"277 V\",\n      \"l_l\": \"480 V\",\n      \"l_n\": \"277 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    }\n  },\n  \"families\": {\n    \"Air Terminal\": {\n      \"category\": \"airterminal\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1000\",\n        \"2000\",\n        \"500\"\n      ]\n    },\n    \"Base Cabinet\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\",\n        \"Worktop\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1800 x 600\",\n        \"600 x 600\"\n      ]\n    },\n    \"Bathtub\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Length\",\n        \"Width\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"1500 x 700\",\n        \"1700 x 750\"\n      ]\n    },\n    \"Bed\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Length\",\n        \"Height\",\n        \"Headboard Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 2000\",\n        \"1800 x 2000\",\n        \"900 x 2000\"\n      ]\n    },\n    \"CAB - Bureau Atelier Sur Mesure 230x60\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Canape 2 Places 165x85 + Table Basse\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Douche Italienne 120x90\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Estrade-Atelier Habitee 390x240 (+35cm)\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Kitchenette Lineaire 260x60\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Lit-Tiroir Escamotable 140x200\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Meuble Vasque 65x48\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - Table Repas 135x85 + Chaises\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"CAB - WC Suspendu 40x65\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"CABANE\"\n      ]\n    },\n    \"Casement Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Ceiling Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Diameter\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"300\",\n        \"400\"\n      ]\n    },\n    \"Chair\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"450 x 450\"\n      ]\n    },\n    \"Data Outlet\": {\n      \"category\": \"dataoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Desk\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1400 x 700\"\n      ]\n    },\n    \"Distribution Board\": {\n      \"category\": \"equipment\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"12 circuits\",\n        \"24 circuits\",\n        \"36 circuits\"\n      ]\n    },\n    \"Double Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1200 x 2100\",\n        \"1500 x 2100\",\n        \"1800 x 2100\"\n      ]\n    },\n    \"Earthing Electrode\": {\n      \"category\": \"earthing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"2400\",\n        \"3000\"\n      ]\n    },\n    \"Elbow 90\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Fixed Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Floor Drain\": {\n      \"category\": \"drain\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\"\n      ],\n      \"types\": [\n        \"100 x 100\",\n        \"150 x 150\"\n      ]\n    },\n    \"Gate Valve\": {\n      \"category\": \"pipeaccessory\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Inspection Box\": {\n      \"category\": \"inspectionbox\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"250\",\n        \"300\"\n      ]\n    },\n    \"Kitchen Sink\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 550\",\n        \"800 x 500\"\n      ]\n    },\n    \"Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"High 2100\",\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Patch Panel\": {\n      \"category\": \"patchpanel\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"24 ports\",\n        \"48 ports\"\n      ]\n    },\n    \"Rack\": {\n      \"category\": \"rack\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"600 x 1000\",\n        \"600 x 800\",\n        \"800 x 1000\"\n      ]\n    },\n    \"Recessed Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"1200 x 300\",\n        \"600 x 600\"\n      ]\n    },\n    \"Shower\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\"\n      ],\n      \"types\": [\n        \"800 x 800\",\n        \"900 x 900\"\n      ]\n    },\n    \"Single Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1000 x 2100\",\n        \"800 x 2100\",\n        \"900 x 2100\"\n      ]\n    },\n    \"Sliding Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1500 x 2100\",\n        \"2000 x 2100\",\n        \"2400 x 2100\"\n      ]\n    },\n    \"Sliding Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Sofa\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Arm Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 900\",\n        \"2000 x 900\"\n      ]\n    },\n    \"Switch\": {\n      \"category\": \"switch\",\n      \"connectors\": [\n        {\n          \"kind\": \"switch\",\n          \"system\": \"switch\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Table\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 800\",\n        \"1600 x 900\",\n        \"2000 x 1000\"\n      ]\n    },\n    \"Tee\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Three-Phase Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-unbalanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load L1\",\n        \"Load L2\",\n        \"Load L3\"\n      ],\n      \"types\": [\n        \"Balanced 1100\",\n        \"Unbalanced 1100\"\n      ]\n    },\n    \"Voice Outlet\": {\n      \"category\": \"voiceoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"WC\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"400 x 650\"\n      ]\n    },\n    \"Wardrobe\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"900 x 600\"\n      ]\n    },\n    \"Washbasin\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"500 x 400\",\n        \"600 x 450\"\n      ]\n    }\n  },\n  \"history\": [],\n  \"images\": {},\n  \"language\": \"en\",\n  \"levels\": [\n    {\n      \"elevation\": 0.0,\n      \"id\": 100000,\n      \"name\": \"N0 - Appartement\"\n    },\n    {\n      \"elevation\": 2600.0,\n      \"id\": 100001,\n      \"name\": \"N+1 - Sous-face dalle haute (HSP 240 + 20)\"\n    }\n  ],\n  \"materials\": {\n    \"Brick\": {\n      \"color\": [\n        178,\n        92,\n        70\n      ],\n      \"cut\": \"brick\",\n      \"surface\": \"brick\",\n      \"texture\": {\n        \"kind\": \"brick\",\n        \"size\": [\n          900.0,\n          600.0\n        ]\n      }\n    },\n    \"Ceramic tile\": {\n      \"color\": [\n        222,\n        220,\n        210\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"grid\",\n      \"texture\": {\n        \"kind\": \"tile\",\n        \"size\": [\n          1200.0,\n          1200.0\n        ]\n      }\n    },\n    \"Concrete\": {\n      \"color\": [\n        188,\n        188,\n        182\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Concrete block\": {\n      \"color\": [\n        176,\n        176,\n        170\n      ],\n      \"cut\": \"crosshatch\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"block\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Copper\": {\n      \"color\": [\n        184,\n        115,\n        51\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Fabric\": {\n      \"color\": [\n        176,\n        160,\n        136\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"fabric\",\n        \"size\": [\n          100.0,\n          100.0\n        ]\n      }\n    },\n    \"Glass\": {\n      \"color\": [\n        166,\n        200,\n        228\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"transparency\": 70\n    },\n    \"Gypsum board\": {\n      \"color\": [\n        242,\n        242,\n        238\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Insulation\": {\n      \"color\": [\n        232,\n        214,\n        140\n      ],\n      \"cut\": \"insulation\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"insulation\",\n        \"size\": [\n          600.0,\n          600.0\n        ]\n      }\n    },\n    \"Membrane\": {\n      \"color\": [\n        70,\n        70,\n        74\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Metal\": {\n      \"color\": [\n        150,\n        152,\n        158\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"PVC\": {\n      \"color\": [\n        226,\n        226,\n        214\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Plaster\": {\n      \"color\": [\n        238,\n        234,\n        224\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"plaster\",\n        \"size\": [\n          500.0,\n          500.0\n        ]\n      }\n    },\n    \"Porcelain\": {\n      \"color\": [\n        244,\n        244,\n        240\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Roof tiles\": {\n      \"color\": [\n        170,\n        86,\n        64\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"roof\",\n        \"size\": [\n          1320.0,\n          1000.0\n        ]\n      }\n    },\n    \"Screed\": {\n      \"color\": [\n        206,\n        200,\n        188\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Timber\": {\n      \"color\": [\n        196,\n        154,\n        102\n      ],\n      \"cut\": \"diagonal\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"boards\",\n        \"size\": [\n          1200.0,\n          1120.0\n        ]\n      }\n    }\n  },\n  \"name\": \"Project\",\n  \"option_sets\": {},\n  \"parameters\": {},\n  \"path\": \"c:\\\\Users\\\\teoba\\\\Documents\\\\Devs\\\\MCP Revit\\\\arc-autonomous-studio\\\\workspace_projects\\\\LA_CABANE_AUTONOMOUS\\\\CAB_V3_PLANCHER_HABITE\\\\01_BIMcraft_Model\\\\CAB_V3_PLANCHER_HABITE.bimcraft\",\n  \"phase_filters\": {\n    \"Show All\": {\n      \"demolished\": \"by-category\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show Complete\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"not-displayed\",\n      \"new\": \"by-category\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + Demolished\": {\n      \"demolished\": \"overridden\",\n      \"existing\": \"by-category\",\n      \"new\": \"not-displayed\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"overridden\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    }\n  },\n  \"phase_overrides\": {\n    \"demolished\": {\n      \"cut\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      },\n      \"projection\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      }\n    },\n    \"existing\": {\n      \"halftone\": true\n    }\n  },\n  \"phases\": [\n    \"Existing\",\n    \"New Construction\"\n  ],\n  \"project_units\": \"cm\",\n  \"room_area\": \"finish\",\n  \"standard\": \"iso\",\n  \"types\": {\n    \"ceiling\": {\n      \"Generic - 20mm\": {\n        \"grid\": 0.0,\n        \"thickness\": 20.0\n      },\n      \"Tile 600 x 600\": {\n        \"grid\": 600.0,\n        \"thickness\": 20.0\n      }\n    },\n    \"column\": {\n      \"Rectangular 400 x 400\": {\n        \"depth\": 400.0,\n        \"round\": false,\n        \"width\": 400.0\n      },\n      \"Round 300\": {\n        \"depth\": 300.0,\n        \"round\": true,\n        \"width\": 300.0\n      }\n    },\n    \"door\": {\n      \"Porte 80 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Porte 83 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 830.0\n      },\n      \"Single 800 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Single 900 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 900.0\n      }\n    },\n    \"floor\": {\n      \"EXI_Plancher existant 25\": {\n        \"thickness\": 200.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      }\n    },\n    \"footing\": {\n      \"Footing 1200 x 1200\": {\n        \"depth\": 1200.0,\n        \"round\": false,\n        \"width\": 1200.0\n      },\n      \"Footing 1500 x 1500\": {\n        \"depth\": 1500.0,\n        \"round\": false,\n        \"width\": 1500.0\n      }\n    },\n    \"railing\": {\n      \"Railing - 1000mm\": {\n        \"height\": 1000.0,\n        \"spacing\": 120.0\n      }\n    },\n    \"roof\": {\n      \"Generic - 300mm\": {\n        \"thickness\": 300.0\n      }\n    },\n    \"runs\": {\n      \"beam\": {\n        \"Beam 150 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 150.0\n        },\n        \"Beam 200 x 500\": {\n          \"depth\": 500.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"PRJ_Poutre 35 x 40\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 350.0\n        },\n        \"Steel Tube 150\": {\n          \"depth\": 150.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 150.0\n        }\n      },\n      \"cable\": {\n        \"Cat6\": {\n          \"depth\": 6.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 6.0\n        },\n        \"Cat6A\": {\n          \"depth\": 7.5,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 7.5\n        },\n        \"Optical 3\": {\n          \"depth\": 3.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 3.0\n        }\n      },\n      \"cabletray\": {\n        \"Perforated 100 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 100.0\n        },\n        \"Perforated 200 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"Perforated 300 x 100\": {\n          \"depth\": 100.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 300.0\n        }\n      },\n      \"conduit\": {\n        \"PVC 20\": {\n          \"depth\": 20.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 20.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 32\": {\n          \"depth\": 32.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 32.0\n        },\n        \"Steel 25\": {\n          \"depth\": 25.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 25.0\n        }\n      },\n      \"downconductor\": {\n        \"Copper 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 8.0\n        },\n        \"Flat 25 x 3\": {\n          \"depth\": 3.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 25.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"duct\": {\n        \"Rectangular 400 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 400.0\n        },\n        \"Rectangular 600 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 600.0\n        },\n        \"Round 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 300.0\n        }\n      },\n      \"groundconductor\": {\n        \"Copper 9\": {\n          \"depth\": 9.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 9.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"pipe\": {\n        \"Copper 22\": {\n          \"depth\": 22.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 22.0\n        },\n        \"PVC 110\": {\n          \"depth\": 110.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 110.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 50\": {\n          \"depth\": 50.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 50.0\n        }\n      },\n      \"stripfooting\": {\n        \"Strip 600 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 600.0\n        }\n      },\n      \"wire\": {\n        \"Wire 2.5\": {\n          \"depth\": 4.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 4.0\n        },\n        \"Wire 4\": {\n          \"depth\": 5.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 5.0\n        },\n        \"Wire 6\": {\n          \"depth\": 6.5,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 6.5\n        }\n      }\n    },\n    \"structural_column\": {\n      \"Concrete 200 x 500\": {\n        \"depth\": 500.0,\n        \"round\": false,\n        \"width\": 200.0\n      },\n      \"Concrete 300 x 300\": {\n        \"depth\": 300.0,\n        \"round\": false,\n        \"width\": 300.0\n      },\n      \"Concrete Round 400\": {\n        \"depth\": 400.0,\n        \"round\": true,\n        \"width\": 400.0\n      }\n    },\n    \"wall\": {\n      \"EXI_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"EXI_Mur mitoyen 105\": {\n        \"thickness\": 1050.0\n      },\n      \"EXI_Mur palier 20\": {\n        \"thickness\": 200.0\n      },\n      \"EXI_Mur porteur 35\": {\n        \"thickness\": 350.0\n      },\n      \"Exterior - 300mm\": {\n        \"layers\": [\n          {\n            \"function\": \"finish\",\n            \"guid\": \"4085c91a-7f77-4996-a3fe-b0841105696d\",\n            \"id\": 999628,\n            \"material\": \"Brick\",\n            \"thickness\": 100.0\n          },\n          {\n            \"function\": \"thermal\",\n            \"guid\": \"7ee22184-7b16-4cac-93bb-c0f974fd1e42\",\n            \"id\": 999627,\n            \"material\": \"Insulation\",\n            \"thickness\": 50.0\n          },\n          {\n            \"function\": \"structure\",\n            \"guid\": \"e912c8f5-eac3-4b72-a507-318e6184d076\",\n            \"id\": 999626,\n            \"material\": \"Concrete block\",\n            \"thickness\": 140.0\n          },\n          {\n            \"function\": \"finish\",\n            \"guid\": \"0945a8e9-02c5-4d84-9e45-38177498c381\",\n            \"id\": 999625,\n            \"material\": \"Plaster\",\n            \"thickness\": 10.0\n          }\n        ],\n        \"thickness\": 300.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      },\n      \"Interior - 100mm\": {\n        \"thickness\": 100.0\n      },\n      \"PRJ_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"PRJ_Meuble-cloison 60\": {\n        \"thickness\": 600.0\n      },\n      \"PRJ_Rebouchage 20\": {\n        \"thickness\": 200.0\n      },\n      \"PRJ_Rebouchage 35\": {\n        \"thickness\": 350.0\n      }\n    },\n    \"window\": {\n      \"Fenêtre 200 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 2000.0\n      },\n      \"Fenêtre 80 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 800.0\n      },\n      \"Fixed 1200 x 1500\": {\n        \"height\": 1500.0,\n        \"sill\": 900.0,\n        \"width\": 1200.0\n      },\n      \"Fixed 600 x 900\": {\n        \"height\": 900.0,\n        \"sill\": 1100.0,\n        \"width\": 600.0\n      }\n    }\n  },\n  \"units\": \"mm\",\n  \"view_filters\": {},\n  \"view_templates\": {\n    \"Electrical Ceiling\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"dataoutlet\": {\n            \"hidden\": true\n          },\n          \"equipment\": {\n            \"hidden\": true\n          },\n          \"outlet\": {\n            \"hidden\": true\n          },\n          \"patchpanel\": {\n            \"hidden\": true\n          },\n          \"rack\": {\n            \"hidden\": true\n          },\n          \"switch\": {\n            \"hidden\": true\n          },\n          \"voiceoutlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Lighting\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"outlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Power\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"lighting\": {\n            \"halftone\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    }\n  },\n  \"voltages\": {\n    \"127 V\": {\n      \"max\": 139.7,\n      \"min\": 114.3,\n      \"nominal\": 127.0\n    },\n    \"220 V\": {\n      \"max\": 242.0,\n      \"min\": 198.0,\n      \"nominal\": 220.0\n    },\n    \"230 V\": {\n      \"max\": 253.0,\n      \"min\": 207.0,\n      \"nominal\": 230.0\n    },\n    \"277 V\": {\n      \"max\": 304.7,\n      \"min\": 249.3,\n      \"nominal\": 277.0\n    },\n    \"380 V\": {\n      \"max\": 418.0,\n      \"min\": 342.0,\n      \"nominal\": 380.0\n    },\n    \"400 V\": {\n      \"max\": 440.0,\n      \"min\": 360.0,\n      \"nominal\": 400.0\n    },\n    \"480 V\": {\n      \"max\": 528.0,\n      \"min\": 432.0,\n      \"nominal\": 480.0\n    }\n  },\n  \"warnings\": [\n    \"room 100032 (04 CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)) is in the space room 100031 has; two rooms can't share one, so it is unbounded: delete one, or part them with a room separation line\"\n  ],\n  \"wire_types\": {\n    \"Cu PVC 70 °C\": {\n      \"insulation\": \"PVC\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 36, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 9.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 11.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 14.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 17.5,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 24.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 32.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 41.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 57.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 76.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 101.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 125.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 151.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 192.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 232.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 269.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 309.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 353.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 415.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 477.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 571.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 656.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 758.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 881.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1012.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 70.0\n    },\n    \"Cu THHN 90 °C\": {\n      \"insulation\": \"THHN\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 90 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 30.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 40.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 55.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 75.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 95.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 145.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 170.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 195.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 225.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 260.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 290.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 320.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 350.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 430.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 535.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 555.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 585.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 615.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 90.0\n    },\n    \"Cu THW 75 °C\": {\n      \"insulation\": \"THW\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 75 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 20.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 35.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 50.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 65.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 85.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 100.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 150.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 175.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 200.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 230.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 255.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 285.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 310.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 335.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 420.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 460.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 490.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 545.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 75.0\n    },\n    \"Cu XLPE/EPR 90 °C\": {\n      \"insulation\": \"XLPE/EPR\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 37, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 12.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 15.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 18.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 23.0,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 31.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 42.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 54.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 75.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 100.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 133.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 164.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 198.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 253.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 306.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 354.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 407.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 464.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 546.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 628.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 751.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 864.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 998.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 1158.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1332.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 90.0\n    }\n  }\n}",
+            "pdf_sheet_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\01_BIMcraft_Model\\CAB_V3_PLANCHER_HABITE_sheet_A3.pdf",
+            "script_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\01_BIMcraft_Model\\CAB_V3_PLANCHER_HABITE.bimscript",
+            "svg_plan_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\01_BIMcraft_Model\\CAB_V3_PLANCHER_HABITE_plan.svg",
+            "variant_id": "CAB_V3_PLANCHER_HABITE"
+          }
+        },
+        "deliverables": {
+          "CAB_V1_BANDE_SERVANTE": {
+            "dxf_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\02_Deliverables\\CAB_V1_BANDE_SERVANTE_plan_1-50.dxf",
+            "markdown_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\02_Deliverables\\CAB_V1_BANDE_SERVANTE_NOTICE_ET_CONFORMITE.md",
+            "pdf_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\02_Deliverables\\CAB_V1_BANDE_SERVANTE_DOSSIER_ARCHITECTURAL_COMPLET.pdf",
+            "qa_report_json_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\02_Deliverables\\CAB_V1_BANDE_SERVANTE_qa_compliance_report.json",
+            "svg_section_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\02_Deliverables\\CAB_V1_BANDE_SERVANTE_coupe_AA.svg",
+            "svg_zoning_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V1_BANDE_SERVANTE\\02_Deliverables\\CAB_V1_BANDE_SERVANTE_zoning_circulation.svg",
+            "variant_id": "CAB_V1_BANDE_SERVANTE"
+          },
+          "CAB_V2_MEUBLE_HABITE": {
+            "dxf_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\02_Deliverables\\CAB_V2_MEUBLE_HABITE_plan_1-50.dxf",
+            "markdown_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\02_Deliverables\\CAB_V2_MEUBLE_HABITE_NOTICE_ET_CONFORMITE.md",
+            "pdf_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\02_Deliverables\\CAB_V2_MEUBLE_HABITE_DOSSIER_ARCHITECTURAL_COMPLET.pdf",
+            "qa_report_json_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\02_Deliverables\\CAB_V2_MEUBLE_HABITE_qa_compliance_report.json",
+            "svg_section_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\02_Deliverables\\CAB_V2_MEUBLE_HABITE_coupe_AA.svg",
+            "svg_zoning_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V2_MEUBLE_HABITE\\02_Deliverables\\CAB_V2_MEUBLE_HABITE_zoning_circulation.svg",
+            "variant_id": "CAB_V2_MEUBLE_HABITE"
+          },
+          "CAB_V3_PLANCHER_HABITE": {
+            "dxf_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\02_Deliverables\\CAB_V3_PLANCHER_HABITE_plan_1-50.dxf",
+            "markdown_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\02_Deliverables\\CAB_V3_PLANCHER_HABITE_NOTICE_ET_CONFORMITE.md",
+            "pdf_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\02_Deliverables\\CAB_V3_PLANCHER_HABITE_DOSSIER_ARCHITECTURAL_COMPLET.pdf",
+            "qa_report_json_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\02_Deliverables\\CAB_V3_PLANCHER_HABITE_qa_compliance_report.json",
+            "svg_section_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\02_Deliverables\\CAB_V3_PLANCHER_HABITE_coupe_AA.svg",
+            "svg_zoning_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\CAB_V3_PLANCHER_HABITE\\02_Deliverables\\CAB_V3_PLANCHER_HABITE_zoning_circulation.svg",
+            "variant_id": "CAB_V3_PLANCHER_HABITE"
+          }
+        },
+        "detected_archetype": "ModularMicroHabitatCabane { ext_width_mm: 6400.0, ext_length_mm: 6200.0, wall_thickness_mm: 200.0, hsp_mm: 2400.0, terrace_depth_mm: 1220.0, interior_area_m2: 35.1 }",
+        "non_regression_check": {
+          "all_tools_count": 230,
+          "binary_intact": true,
+          "cad_tools_count": 10,
+          "compact_tools_count": 31,
+          "details": [
+            "Cargo.toml SHA-256 intact : true",
+            "tools_manifest.json SHA-256 intact : true",
+            "revit-mcp-server.exe SHA-256 intact : true",
+            "JSON-RPC stdio 'compact' profile : init=true, tools=31",
+            "JSON-RPC stdio 'all' profile : tools=230",
+            "JSON-RPC stdio 'cad-mcp' mode : init=true"
+          ],
+          "initialize_ok": true,
+          "manifest_intact": true,
+          "passed": true
+        },
+        "revit_adapter_payload_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\revit_2027_optional_batch_payload.json",
+        "selected_variant_id": "CAB_V3_PLANCHER_HABITE",
+        "studio_dashboard_html_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\LA_CABANE_AUTONOMOUS\\ARC_Autonomous_Studio_Workspace.html",
+        "success": true,
+        "total_duration_ms": 876,
+        "variants_comparison": {
+          "evaluatedVariants": [
+            "CAB_V1_BANDE_SERVANTE",
+            "CAB_V2_MEUBLE_HABITE",
+            "CAB_V3_PLANCHER_HABITE"
+          ],
+          "scores": {
+            "CAB_V1_BANDE_SERVANTE": {
+              "ergonomicsUnder240cm": 90,
+              "reversibilitySpeed": 88,
+              "spatialFluidity": 89,
+              "total": 89.0
+            },
+            "CAB_V2_MEUBLE_HABITE": {
+              "ergonomicsUnder240cm": 78,
+              "reversibilitySpeed": 85,
+              "spatialFluidity": 90,
+              "total": 84.3
+            },
+            "CAB_V3_PLANCHER_HABITE": {
+              "ergonomicsUnder240cm": 99,
+              "reversibilitySpeed": 98,
+              "spatialFluidity": 98,
+              "total": 98.3
+            }
+          },
+          "selectedBestVariant": "CAB_V3_PLANCHER_HABITE",
+          "selectionRationale": "Généré dynamiquement à partir du sujet 'LA CABANE' : sous une HSP de 2,40 m (2400 mm), la Variante 3 ('Le Plancher Habité') résout parfaitement la double temporalité Semaine (Atelier 9,4 m² à +35 cm + Séjour libre) / Week-end (Lit-tiroir 140×200 cm sorti par la fente de 160 cm + rideau en U) tout en respectant les murs extérieurs de 20 cm, les 6 baies existantes et la salle d'eau de 4,8 m².",
+          "subjectArchetype": "ModularMicroHabitatCabane (6.40 x 6.20 m, HSP 2.40 m, 34.8 m²)"
+        }
+      },
+      "variant_svgs": {
+        "CAB_V1_BANDE_SERVANTE": {
+          "bimcraft_floorplan_svg": "",
+          "notice_markdown": "",
+          "section_aa_svg": "",
+          "zoning_circulation_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-2120 -900 9420 8360\" style=\"background:#FAF8F5;font-family:'Inter','Segoe UI',sans-serif;\">\n<text x=\"-1870\" y=\"-520\" fill=\"#18181B\" font-size=\"240\" font-weight=\"700\">Variante 1 — LA BANDE SERVANTE (Atelier-Bureau Alex) — ZONING &amp; SCHÉMA DE CIRCULATION (Échelle 1:50)</text><text x=\"-1870\" y=\"-280\" fill=\"#52525B\" font-size=\"150\">Zone Jour : 26.5 m² (Ambre) | Zone Nuit : 8.3 m² (Bleu Cobalt) | Total Habitable : 35.1 m² | HSP : 280 cm</text><polygon points=\"-1220,-0 6400,-0 6400,6200 -1220,6200\" fill=\"#F4F1EA\" stroke=\"#27272A\" stroke-width=\"25\" /><circle cx=\"1800\" cy=\"1300\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1800\" y=\"1270\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">01 — ESTRADE-ATELIER (+0.35m)</text><text x=\"1800\" y=\"1440\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"5150\" cy=\"1300\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"5150\" y=\"1270\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">02 — SALLE D'EAU / WC</text><text x=\"5150\" y=\"1440\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"1400\" cy=\"4400\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1400\" y=\"4370\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">03 — SALON & LECTURE</text><text x=\"1400\" y=\"4540\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"2200\" cy=\"3600\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"2200\" y=\"3570\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">04 — CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)</text><text x=\"2200\" y=\"3740\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"4800\" cy=\"4400\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"4800\" y=\"4370\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">05 — CUISINE & REPAS</text><text x=\"4800\" y=\"4540\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"3000\" cy=\"5200\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"3000\" y=\"5170\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">06 — ENTRÉE / CIRCULATION</text><text x=\"3000\" y=\"5340\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><line x1=\"100\" y1=\"100\" x2=\"6300\" y2=\"100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"6300\" y1=\"100\" x2=\"6300\" y2=\"6100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"6300\" y1=\"6100\" x2=\"100\" y2=\"6100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"100\" y1=\"6100\" x2=\"100\" y2=\"100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"4140\" y1=\"200\" x2=\"4140\" y2=\"2600\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"4140\" y1=\"2600\" x2=\"6200\" y2=\"2600\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /></svg>\n"
+        },
+        "CAB_V2_MEUBLE_HABITE": {
+          "bimcraft_floorplan_svg": "",
+          "notice_markdown": "",
+          "section_aa_svg": "",
+          "zoning_circulation_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-2120 -900 9420 8360\" style=\"background:#FAF8F5;font-family:'Inter','Segoe UI',sans-serif;\">\n<text x=\"-1870\" y=\"-520\" fill=\"#18181B\" font-size=\"240\" font-weight=\"700\">Variante 2 — LE MEUBLE HABITÉ (Micro-Habitat Modulable Camille) — ZONING &amp; SCHÉMA DE CIRCULATION (Échelle 1:50)</text><text x=\"-1870\" y=\"-280\" fill=\"#52525B\" font-size=\"150\">Zone Jour : 25.0 m² (Ambre) | Zone Nuit : 9.8 m² (Bleu Cobalt) | Total Habitable : 35.1 m² | HSP : 280 cm</text><polygon points=\"-1220,-0 6400,-0 6400,6200 -1220,6200\" fill=\"#F4F1EA\" stroke=\"#27272A\" stroke-width=\"25\" /><circle cx=\"1800\" cy=\"1300\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1800\" y=\"1270\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">01 — ESTRADE-ATELIER (+0.35m)</text><text x=\"1800\" y=\"1440\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"5150\" cy=\"1300\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"5150\" y=\"1270\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">02 — SALLE D'EAU / WC</text><text x=\"5150\" y=\"1440\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"1400\" cy=\"4400\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1400\" y=\"4370\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">03 — SALON & LECTURE</text><text x=\"1400\" y=\"4540\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"2200\" cy=\"3600\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"2200\" y=\"3570\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">04 — CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)</text><text x=\"2200\" y=\"3740\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"4800\" cy=\"4400\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"4800\" y=\"4370\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">05 — CUISINE & REPAS</text><text x=\"4800\" y=\"4540\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"3000\" cy=\"5200\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"3000\" y=\"5170\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">06 — ENTRÉE / CIRCULATION</text><text x=\"3000\" y=\"5340\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><line x1=\"100\" y1=\"100\" x2=\"6300\" y2=\"100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"6300\" y1=\"100\" x2=\"6300\" y2=\"6100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"6300\" y1=\"6100\" x2=\"100\" y2=\"6100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"100\" y1=\"6100\" x2=\"100\" y2=\"100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"4140\" y1=\"200\" x2=\"4140\" y2=\"2600\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"4140\" y1=\"2600\" x2=\"6200\" y2=\"2600\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /></svg>\n"
+        },
+        "CAB_V3_PLANCHER_HABITE": {
+          "bimcraft_floorplan_svg": "",
+          "notice_markdown": "",
+          "section_aa_svg": "",
+          "zoning_circulation_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-2120 -900 9420 8360\" style=\"background:#FAF8F5;font-family:'Inter','Segoe UI',sans-serif;\">\n<text x=\"-1870\" y=\"-520\" fill=\"#18181B\" font-size=\"240\" font-weight=\"700\">Variante 3 — LE PLANCHER HABITÉ (Estrade +35 cm & Lit-Tiroir — Élise) — ZONING &amp; SCHÉMA DE CIRCULATION (Échelle 1:50)</text><text x=\"-1870\" y=\"-280\" fill=\"#52525B\" font-size=\"150\">Zone Jour : 25.4 m² (Ambre) | Zone Nuit : 9.4 m² (Bleu Cobalt) | Total Habitable : 35.1 m² | HSP : 280 cm</text><polygon points=\"-1220,-0 6400,-0 6400,6200 -1220,6200\" fill=\"#F4F1EA\" stroke=\"#27272A\" stroke-width=\"25\" /><circle cx=\"1800\" cy=\"1300\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1800\" y=\"1270\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">01 — ESTRADE-ATELIER (+0.35m)</text><text x=\"1800\" y=\"1440\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"5150\" cy=\"1300\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"5150\" y=\"1270\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">02 — SALLE D'EAU / WC</text><text x=\"5150\" y=\"1440\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"1400\" cy=\"4400\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1400\" y=\"4370\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">03 — SALON & LECTURE</text><text x=\"1400\" y=\"4540\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"2200\" cy=\"3600\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"2200\" y=\"3570\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">04 — CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)</text><text x=\"2200\" y=\"3740\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"4800\" cy=\"4400\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"4800\" y=\"4370\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">05 — CUISINE & REPAS</text><text x=\"4800\" y=\"4540\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"3000\" cy=\"5200\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"3000\" y=\"5170\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">06 — ENTRÉE / CIRCULATION</text><text x=\"3000\" y=\"5340\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><line x1=\"100\" y1=\"100\" x2=\"6300\" y2=\"100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"6300\" y1=\"100\" x2=\"6300\" y2=\"6100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"6300\" y1=\"6100\" x2=\"100\" y2=\"6100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"100\" y1=\"6100\" x2=\"100\" y2=\"100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"4140\" y1=\"200\" x2=\"4140\" y2=\"2600\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"4140\" y1=\"2600\" x2=\"6200\" y2=\"2600\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /></svg>\n"
+        }
+      }
+    },
+    {
+      "apm": {
+        "brief": {
+          "constraints": {
+            "ceiling_height_mm": 2800.0,
+            "forbid_new_exterior_openings": true,
+            "lot_duplication_mirror": true,
+            "max_load_bearing_opening_mm": 4000.0,
+            "min_load_bearing_pier_mm": 300.0,
+            "preserve_entry_door_strictly": true,
+            "require_lintel_beam": true,
+            "slab_thickness_mm": 250.0,
+            "target_total_area_m2": 70.0
+          },
+          "context_summary": "Réinvention contemporaine d'un appartement familial londonien par réunion de 2 lots en miroir (~70 m² au sol, HSP 280 cm), conciliant intimité individuelle, convivialité familiale, lumière traversante et mobilier dessiné sur mesure.",
+          "deliverables_apd": [
+            "1 Projet finalisé 1:50"
+          ],
+          "deliverables_aps": [
+            "2 Propositions affinées"
+          ],
+          "deliverables_esq": [
+            "3 Propositions architecturales distinctes (V1, V2, V3)"
+          ],
+          "deliverables_jury": [
+            "Dossier complet 1:50"
+          ],
+          "design_objectives": [
+            "Équilibre entre intimité individuelle (zone nuit isolée) et convivialité familiale (pièce de vie généreuse)",
+            "Intention spatiale forte sur les volumes, les circulations et la lumière naturelle des bow-windows",
+            "Mobilier intégralement dessiné sur mesure (banquettes bow-windows, bibliothèques, meubles-cloisons, dressings)",
+            "Respect absolu de la structure porteuse (ouverture max 4.00 m, têtes de mur >= 30 cm, poutre de reprise)"
+          ],
+          "detected_ambiguities": [
+            {
+              "description": "Le sujet stipule 'proposer un lot supplémentaire en miroir par rapport au plan fourni' sans imposer le côté du mur mitoyen (axe gauche x = -17.5 cm ou axe droit x = 557.5 cm).",
+              "id": "AMB-01",
+              "requires_user_arbitration": false,
+              "resolution_strategy": "Explorer les deux implantations dans les 3 propositions ESQ : Miroir Gauche pour V1 (Éclipse) et V3 (Passage), Miroir Droite pour V2 (Orbite).",
+              "topic": "Axe de duplication en miroir du 2nd lot (Gauche vs Droite)"
+            },
+            {
+              "description": "Le programme demande '2 ou 3 chambres' selon le profil de la famille cliente choisie.",
+              "id": "AMB-02",
+              "requires_user_arbitration": false,
+              "resolution_strategy": "Proposer 3 chambres franches dans V1 et V3, et 2 grandes chambres + 1 bureau/chambre d'appoint évolutif dans V2.",
+              "topic": "Arbitrage entre 2 chambres + bureau évolutif vs 3 chambres"
+            }
+          ],
+          "required_spaces": [
+            {
+              "category": "Chambres",
+              "description": "2 ou 3 chambres (chambre parentale + 1 à 2 chambres enfants / bureau évolutif)",
+              "mandatory": true,
+              "max_count": 3,
+              "min_count": 2
+            },
+            {
+              "category": "Salle de bain familiale",
+              "description": "Salle de bain familiale complète (+ salle d'eau / WC séparés)",
+              "mandatory": true,
+              "max_count": 2,
+              "min_count": 1
+            },
+            {
+              "category": "Cuisine",
+              "description": "Cuisine fonctionnelle ouverte ou semi-ouverte avec rangements",
+              "mandatory": true,
+              "max_count": 1,
+              "min_count": 1
+            },
+            {
+              "category": "Salon / Séjour",
+              "description": "Espace de vie familial convivial (salon + salle à manger)",
+              "mandatory": true,
+              "max_count": 1,
+              "min_count": 1
+            },
+            {
+              "category": "Buanderie",
+              "description": "Espace buanderie dédié (lave-linge / sèche-linge / linge)",
+              "mandatory": true,
+              "max_count": 1,
+              "min_count": 1
+            },
+            {
+              "category": "Rangements sur mesure",
+              "description": "Mobilier et rangements dessinés sur mesure (vestiaire entrée, dressings, bibliothèque)",
+              "mandatory": true,
+              "max_count": 10,
+              "min_count": 3
+            }
+          ]
+        },
+        "history": [
+          {
+            "sha256_digest": "befb5e11e25c2102014977aaca2ae20bbf89e1951ad07e83455a613d6b41ed7f",
+            "step_name": "01_DOCUMENT_INTELLIGENCE",
+            "summary": "Analyse du sujet PDF (4 pages, archétype LondonDualLotApartment { hsp_mm: 2800.0, target_area_m2: 70.0, max_load_bearing_span_mm: 4000.0, min_pier_mm: 300.0 }), extraction du programme et des contraintes",
+            "version": 1
+          },
+          {
+            "sha256_digest": "2792a65cf6a6280d27cac296f57222531b54a7f20e47dd607db9182e0be9c041",
+            "step_name": "02_03_04_DESIGN_SPATIAL_BIM",
+            "summary": "Conception autonome de 3 propositions architecturales et sélection de V1_ECLIPSE",
+            "version": 2
+          },
+          {
+            "sha256_digest": "a2cb62107ad0d3763e91071add78c6fba817bf242649828889e332e890be6380",
+            "step_name": "04_BIMCRAFT_BUILD",
+            "summary": "Construction autonome des maquettes 3D dans BIMcraft 0.11.0 (.bimcraft, .ifc, .glb, .svg, .pdf)",
+            "version": 3
+          },
+          {
+            "sha256_digest": "488feaee0e9e339f6fdcc4ec73eb98e5e9ce75056af16c8fa09f4021eb45bc1b",
+            "step_name": "05_QA_AUTOCORRECTION",
+            "summary": "Validation mathématique et critique IA de la boucle CONSTRUCTION -> ANALYSE -> DÉTECTION -> CORRECTION -> VALIDATION",
+            "version": 4
+          }
+        ],
+        "metadata": {
+          "canonical_unit": "mm",
+          "client_profile": "Famille contemporaine londonienne (parents + 2 enfants)",
+          "project_id": "ARC-AUTO-LONDON-2026",
+          "reference_scale": "1:50",
+          "source_brief_pdf": "C:\\Users\\teoba\\Documents\\Projet Appart Londonien\\00_Sources\\SUJET-2-l-appartement-londonien-2.pdf",
+          "source_plan_pdf": "C:\\Users\\teoba\\Documents\\Projet Appart Londonien\\00_Sources\\MJM-2026-27-PLAN.pdf",
+          "subtitle": "Réunion autonome de 2 lots en miroir (~70 m², HSP 280 cm)",
+          "title": "REFLET — L'Appartement Familial Londonien",
+          "version": 4
+        },
+        "qa_reports": {
+          "V1_ECLIPSE": {
+            "bimcraft_elements_count": 133,
+            "bimcraft_verified": true,
+            "checks": [
+              {
+                "auto_corrected": false,
+                "category": "Gabarit & Volumétrie",
+                "correction_note": null,
+                "description": "Respect de la Hauteur Sous Plafond réglementaire du sujet (HSP = 280 cm)",
+                "expected_bound": "= 2800 mm",
+                "measured_value": "64 murs à 2800 mm (écarts détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-HSP-01"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Collisions Baies (Porte / Fenêtre)",
+                "correction_note": null,
+                "description": "Absence de chevauchement entre portes et fenêtres sur un même mur hôte (trumeau >= 15 cm)",
+                "expected_bound": "0 collision baie/baie",
+                "measured_value": "7 portes et 8 fenêtres inspectées (chevauchements détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-CLASH-01B"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Structure & Murs Porteurs",
+                "correction_note": null,
+                "description": "Ouverture mur porteur <= 4.00 m + têtes de mur >= 30 cm de part et d'autre + poutre BA",
+                "expected_bound": "Portée <= 4000 mm & Têtes >= 300 mm",
+                "measured_value": "1 percement(s) : portée max = 930 mm, tête de mur min = 300 mm, poutre 35x40 cm active",
+                "passed": true,
+                "rule_id": "QA-STRUCT-02"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Accès & Enveloppe",
+                "correction_note": null,
+                "description": "Présence et conformité de la porte d'entrée principale (+ rebouchage 2nd accès si réunion de lots)",
+                "expected_bound": "Porte d'entrée conforme au sujet",
+                "measured_value": "Porte d'entrée principale = true, Conformité accès = true",
+                "passed": true,
+                "rule_id": "QA-ENTRY-03"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Façades & Ouvertures Extérieures",
+                "correction_note": null,
+                "description": "Conservation des ouvertures existantes en façade (0 nouvelle ouverture extérieure créée)",
+                "expected_bound": "0 nouvelle ouverture extérieure",
+                "measured_value": "8 baies existantes, 0 baies neuves (total 8)",
+                "passed": true,
+                "rule_id": "QA-FACADE-04"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Programme Architectural",
+                "correction_note": null,
+                "description": "Présence vérifiée de tous les espaces exigés par le sujet PDF et du mobilier dessiné sur mesure",
+                "expected_bound": "100% des espaces du programme + mobilier sur mesure",
+                "measured_value": "12 espaces fonctionnels modélisés, SDB=true, Cuisine=true, Salon/Séjour=true, 41 composants 3D sur mesure (30 familles)",
+                "passed": true,
+                "rule_id": "QA-PROG-05"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Surfaces & Équilibre Spatial",
+                "correction_note": null,
+                "description": "Surface habitable conforme au gabarit du sujet (cible 70.0 m²)",
+                "expected_bound": "70.0 m² ± 8.0 m²",
+                "measured_value": "Total Habitable = 65.9 m² (Zone Jour/Atelier = 33.0 m², Zone Nuit = 32.9 m²)",
+                "passed": true,
+                "rule_id": "QA-AREA-06"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Intégrité Modèle BIMcraft",
+                "correction_note": null,
+                "description": "Compilation sans erreur dans BIMcraft 0.11.0 et validation des éléments 2D/3D générés",
+                "expected_bound": "Modèle .bimcraft + .ifc + .glb + .svg valides",
+                "measured_value": "133 objets BIM compilés et vérifiés sur disque",
+                "passed": true,
+                "rule_id": "QA-BIM-07"
+              }
+            ],
+            "converged": true,
+            "iteration": 1,
+            "score_100": 100.0,
+            "variant_id": "V1_ECLIPSE"
+          },
+          "V2_ORBITE": {
+            "bimcraft_elements_count": 130,
+            "bimcraft_verified": true,
+            "checks": [
+              {
+                "auto_corrected": false,
+                "category": "Gabarit & Volumétrie",
+                "correction_note": null,
+                "description": "Respect de la Hauteur Sous Plafond réglementaire du sujet (HSP = 280 cm)",
+                "expected_bound": "= 2800 mm",
+                "measured_value": "63 murs à 2800 mm (écarts détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-HSP-01"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Collisions Baies (Porte / Fenêtre)",
+                "correction_note": null,
+                "description": "Absence de chevauchement entre portes et fenêtres sur un même mur hôte (trumeau >= 15 cm)",
+                "expected_bound": "0 collision baie/baie",
+                "measured_value": "7 portes et 4 fenêtres inspectées (chevauchements détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-CLASH-01B"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Structure & Murs Porteurs",
+                "correction_note": null,
+                "description": "Ouverture mur porteur <= 4.00 m + têtes de mur >= 30 cm de part et d'autre + poutre BA",
+                "expected_bound": "Portée <= 4000 mm & Têtes >= 300 mm",
+                "measured_value": "2 percement(s) : portée max = 2400 mm, tête de mur min = 575 mm, poutre 35x40 cm active",
+                "passed": true,
+                "rule_id": "QA-STRUCT-02"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Accès & Enveloppe",
+                "correction_note": null,
+                "description": "Présence et conformité de la porte d'entrée principale (+ rebouchage 2nd accès si réunion de lots)",
+                "expected_bound": "Porte d'entrée conforme au sujet",
+                "measured_value": "Porte d'entrée principale = true, Conformité accès = true",
+                "passed": true,
+                "rule_id": "QA-ENTRY-03"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Façades & Ouvertures Extérieures",
+                "correction_note": null,
+                "description": "Conservation des ouvertures existantes en façade (0 nouvelle ouverture extérieure créée)",
+                "expected_bound": "0 nouvelle ouverture extérieure",
+                "measured_value": "4 baies existantes, 0 baies neuves (total 4)",
+                "passed": true,
+                "rule_id": "QA-FACADE-04"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Programme Architectural",
+                "correction_note": null,
+                "description": "Présence vérifiée de tous les espaces exigés par le sujet PDF et du mobilier dessiné sur mesure",
+                "expected_bound": "100% des espaces du programme + mobilier sur mesure",
+                "measured_value": "12 espaces fonctionnels modélisés, SDB=true, Cuisine=true, Salon/Séjour=true, 42 composants 3D sur mesure (31 familles)",
+                "passed": true,
+                "rule_id": "QA-PROG-05"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Surfaces & Équilibre Spatial",
+                "correction_note": null,
+                "description": "Surface habitable conforme au gabarit du sujet (cible 70.0 m²)",
+                "expected_bound": "70.0 m² ± 8.0 m²",
+                "measured_value": "Total Habitable = 68.5 m² (Zone Jour/Atelier = 35.2 m², Zone Nuit = 33.3 m²)",
+                "passed": true,
+                "rule_id": "QA-AREA-06"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Intégrité Modèle BIMcraft",
+                "correction_note": null,
+                "description": "Compilation sans erreur dans BIMcraft 0.11.0 et validation des éléments 2D/3D générés",
+                "expected_bound": "Modèle .bimcraft + .ifc + .glb + .svg valides",
+                "measured_value": "130 objets BIM compilés et vérifiés sur disque",
+                "passed": true,
+                "rule_id": "QA-BIM-07"
+              }
+            ],
+            "converged": true,
+            "iteration": 1,
+            "score_100": 100.0,
+            "variant_id": "V2_ORBITE"
+          },
+          "V3_PASSAGE": {
+            "bimcraft_elements_count": 130,
+            "bimcraft_verified": true,
+            "checks": [
+              {
+                "auto_corrected": false,
+                "category": "Gabarit & Volumétrie",
+                "correction_note": null,
+                "description": "Respect de la Hauteur Sous Plafond réglementaire du sujet (HSP = 280 cm)",
+                "expected_bound": "= 2800 mm",
+                "measured_value": "64 murs à 2800 mm (écarts détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-HSP-01"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Collisions Baies (Porte / Fenêtre)",
+                "correction_note": null,
+                "description": "Absence de chevauchement entre portes et fenêtres sur un même mur hôte (trumeau >= 15 cm)",
+                "expected_bound": "0 collision baie/baie",
+                "measured_value": "9 portes et 8 fenêtres inspectées (chevauchements détectés: 0)",
+                "passed": true,
+                "rule_id": "QA-CLASH-01B"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Structure & Murs Porteurs",
+                "correction_note": null,
+                "description": "Ouverture mur porteur <= 4.00 m + têtes de mur >= 30 cm de part et d'autre + poutre BA",
+                "expected_bound": "Portée <= 4000 mm & Têtes >= 300 mm",
+                "measured_value": "1 percement(s) : portée max = 2400 mm, tête de mur min = 575 mm, poutre 35x40 cm active",
+                "passed": true,
+                "rule_id": "QA-STRUCT-02"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Accès & Enveloppe",
+                "correction_note": null,
+                "description": "Présence et conformité de la porte d'entrée principale (+ rebouchage 2nd accès si réunion de lots)",
+                "expected_bound": "Porte d'entrée conforme au sujet",
+                "measured_value": "Porte d'entrée principale = true, Conformité accès = true",
+                "passed": true,
+                "rule_id": "QA-ENTRY-03"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Façades & Ouvertures Extérieures",
+                "correction_note": null,
+                "description": "Conservation des ouvertures existantes en façade (0 nouvelle ouverture extérieure créée)",
+                "expected_bound": "0 nouvelle ouverture extérieure",
+                "measured_value": "8 baies existantes, 0 baies neuves (total 8)",
+                "passed": true,
+                "rule_id": "QA-FACADE-04"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Programme Architectural",
+                "correction_note": null,
+                "description": "Présence vérifiée de tous les espaces exigés par le sujet PDF et du mobilier dessiné sur mesure",
+                "expected_bound": "100% des espaces du programme + mobilier sur mesure",
+                "measured_value": "11 espaces fonctionnels modélisés, SDB=true, Cuisine=true, Salon/Séjour=true, 37 composants 3D sur mesure (25 familles)",
+                "passed": true,
+                "rule_id": "QA-PROG-05"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Surfaces & Équilibre Spatial",
+                "correction_note": null,
+                "description": "Surface habitable conforme au gabarit du sujet (cible 70.0 m²)",
+                "expected_bound": "70.0 m² ± 8.0 m²",
+                "measured_value": "Total Habitable = 65.9 m² (Zone Jour/Atelier = 25.9 m², Zone Nuit = 40.0 m²)",
+                "passed": true,
+                "rule_id": "QA-AREA-06"
+              },
+              {
+                "auto_corrected": false,
+                "category": "Intégrité Modèle BIMcraft",
+                "correction_note": null,
+                "description": "Compilation sans erreur dans BIMcraft 0.11.0 et validation des éléments 2D/3D générés",
+                "expected_bound": "Modèle .bimcraft + .ifc + .glb + .svg valides",
+                "measured_value": "130 objets BIM compilés et vérifiés sur disque",
+                "passed": true,
+                "rule_id": "QA-BIM-07"
+              }
+            ],
+            "converged": true,
+            "iteration": 1,
+            "score_100": 100.0,
+            "variant_id": "V3_PASSAGE"
+          }
+        },
+        "selected_variant_id": "V1_ECLIPSE",
+        "variants": {
+          "V1_ECLIPSE": {
+            "architectural_concept": "Parti 'Éclipse' : Dissociation acoustique et fonctionnelle totale entre le Lot A consacré au Jour (33.0 m², seule entrée conservée) et le Lot B consacré à la Nuit (32.9 m², 3 chambres + SDB familiale), articulés par un seuil ponctuel de 93 cm percé dans le mur porteur mitoyen.",
+            "components": [
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  2930.0,
+                  -1700.0
+                ],
+                "family_name": "V1 - Banc à chaussures + patères 80x35"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  1200.0,
+                  0.0
+                ],
+                "family_name": "V1 - WC suspendu 40x65"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  1750.0,
+                  -950.0
+                ],
+                "family_name": "V1 - Lave-mains 30x28"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  0.0,
+                  0.0
+                ],
+                "family_name": "V1 - Lave-linge + sèche-linge en colonne 62x62"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -1750.0
+                ],
+                "family_name": "V1 - Cellier 105x55"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  3000.0,
+                  0.0
+                ],
+                "family_name": "V1 - Plan de travail cuisine 205x62"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  3000.0,
+                  -2400.0
+                ],
+                "family_name": "V1 - Colonnes cuisine 178x62"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -6400.0
+                ],
+                "family_name": "V1 - Bibliothèque + TV 260x40"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  2850.0,
+                  -4100.0
+                ],
+                "family_name": "V1 - Canapé 220x95"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  950.0,
+                  -4700.0
+                ],
+                "family_name": "V1 - Table basse 60x100"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  600.0,
+                  -3520.0
+                ],
+                "family_name": "V1 - Fauteuil 80x80"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  1520.0,
+                  -3520.0
+                ],
+                "family_name": "V1 - Plante en pot 40x40"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  3500.0,
+                  -4700.0
+                ],
+                "family_name": "V1 - Table 180 x 90 (6 couverts)"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  3050.0,
+                  -5210.0
+                ],
+                "family_name": "V1 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  4850.0,
+                  -4790.0
+                ],
+                "family_name": "V1 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  3050.0,
+                  -5810.0
+                ],
+                "family_name": "V1 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  4850.0,
+                  -5390.0
+                ],
+                "family_name": "V1 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  3050.0,
+                  -6410.0
+                ],
+                "family_name": "V1 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  4850.0,
+                  -5990.0
+                ],
+                "family_name": "V1 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4450.0,
+                  -3450.0
+                ],
+                "family_name": "V1 - Buffet sur mesure 95x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  1300.0,
+                  -7050.0
+                ],
+                "family_name": "V1 - Banquette-coffre 70x37"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  4580.0,
+                  -7080.0
+                ],
+                "family_name": "V1 - Banquette-coffre 186x28"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  -2070.0,
+                  -20.0
+                ],
+                "family_name": "V1 - Baignoire 170x70"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  -2100.0,
+                  -1220.0
+                ],
+                "family_name": "V1 - WC suspendu 40x65"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  -2100.0,
+                  -1800.0
+                ],
+                "family_name": "V1 - Meuble vasque 55x48"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  -3280.0,
+                  -930.0
+                ],
+                "family_name": "V1 - Placard à linge 111x57"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  -5400.0,
+                  -920.0
+                ],
+                "family_name": "V1 - Lit 90 x 190"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  -5400.0,
+                  -2300.0
+                ],
+                "family_name": "V1 - Bureau 120x55"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  -4400.0,
+                  -1490.0
+                ],
+                "family_name": "V1 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  -3880.0,
+                  -3100.0
+                ],
+                "family_name": "V1 - Placard 152x60"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  -1250.0,
+                  -4300.0
+                ],
+                "family_name": "V1 - Lit 90 x 190"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  -1680.0,
+                  -4300.0
+                ],
+                "family_name": "V1 - Chevet 40x35"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  -2310.0,
+                  -5800.0
+                ],
+                "family_name": "V1 - Placard 140x60"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  -950.0,
+                  -7050.0
+                ],
+                "family_name": "V1 - Bureau 75x37"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  -1530.0,
+                  -6220.0
+                ],
+                "family_name": "V1 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  -2385.0,
+                  -4400.0
+                ],
+                "family_name": "V1 - Lit 160 x 200"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  -2385.0,
+                  -4000.0
+                ],
+                "family_name": "V1 - Chevet 36x40"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  -2385.0,
+                  -6040.0
+                ],
+                "family_name": "V1 - Chevet 36x40"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  -5750.0,
+                  -3450.0
+                ],
+                "family_name": "V1 - Dressing 175x60"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  -5700.0,
+                  -5450.0
+                ],
+                "family_name": "V1 - Fauteuil 75x75"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  -3070.0,
+                  -7080.0
+                ],
+                "family_name": "V1 - Banquette-coffre 186x28"
+              }
+            ],
+            "day_area_m2": 33.0,
+            "demolished_polygons_mm": [
+              [
+                [
+                  1750.0,
+                  -1880.0
+                ],
+                [
+                  1820.0,
+                  -1880.0
+                ],
+                [
+                  1820.0,
+                  -3100.0
+                ],
+                [
+                  1750.0,
+                  -3100.0
+                ]
+              ],
+              [
+                [
+                  3430.0,
+                  -4120.0
+                ],
+                [
+                  3500.0,
+                  -4120.0
+                ],
+                [
+                  3500.0,
+                  -5250.0
+                ],
+                [
+                  3430.0,
+                  -5250.0
+                ]
+              ],
+              [
+                [
+                  3430.0,
+                  -5220.0
+                ],
+                [
+                  3500.0,
+                  -5250.0
+                ],
+                [
+                  1820.0,
+                  -6780.0
+                ],
+                [
+                  1720.0,
+                  -6780.0
+                ]
+              ],
+              [
+                [
+                  3430.0,
+                  -3320.0
+                ],
+                [
+                  3500.0,
+                  -3320.0
+                ],
+                [
+                  3500.0,
+                  -4120.0
+                ],
+                [
+                  3430.0,
+                  -4120.0
+                ]
+              ],
+              [
+                [
+                  -2100.0,
+                  -1880.0
+                ],
+                [
+                  -2170.0,
+                  -1880.0
+                ],
+                [
+                  -2170.0,
+                  -3100.0
+                ],
+                [
+                  -2100.0,
+                  -3100.0
+                ]
+              ],
+              [
+                [
+                  -3780.0,
+                  -4120.0
+                ],
+                [
+                  -3850.0,
+                  -4120.0
+                ],
+                [
+                  -3850.0,
+                  -5250.0
+                ],
+                [
+                  -3780.0,
+                  -5250.0
+                ]
+              ],
+              [
+                [
+                  -3780.0,
+                  -5220.0
+                ],
+                [
+                  -3850.0,
+                  -5250.0
+                ],
+                [
+                  -2170.0,
+                  -6780.0
+                ],
+                [
+                  -2070.0,
+                  -6780.0
+                ]
+              ],
+              [
+                [
+                  -3780.0,
+                  -3320.0
+                ],
+                [
+                  -3850.0,
+                  -3320.0
+                ],
+                [
+                  -3850.0,
+                  -4120.0
+                ],
+                [
+                  -3780.0,
+                  -4120.0
+                ]
+              ],
+              [
+                [
+                  3000.0,
+                  -2430.0
+                ],
+                [
+                  3500.0,
+                  -2430.0
+                ],
+                [
+                  3500.0,
+                  -2500.0
+                ],
+                [
+                  3000.0,
+                  -2500.0
+                ]
+              ],
+              [
+                [
+                  3430.0,
+                  -2500.0
+                ],
+                [
+                  3500.0,
+                  -2500.0
+                ],
+                [
+                  3500.0,
+                  -3320.0
+                ],
+                [
+                  3430.0,
+                  -3320.0
+                ]
+              ],
+              [
+                [
+                  3500.0,
+                  -3100.0
+                ],
+                [
+                  4450.0,
+                  -3100.0
+                ],
+                [
+                  4450.0,
+                  -3170.0
+                ],
+                [
+                  3500.0,
+                  -3170.0
+                ]
+              ],
+              [
+                [
+                  -350.0,
+                  -1870.0
+                ],
+                [
+                  0.0,
+                  -1870.0
+                ],
+                [
+                  0.0,
+                  -2800.0
+                ],
+                [
+                  -350.0,
+                  -2800.0
+                ]
+              ]
+            ],
+            "doors": [
+              {
+                "at_mm": [
+                  2375.0,
+                  -840.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "V1_ECLIPSE_DOOR_01",
+                "is_entry_door": true,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  -1500.0,
+                  -3135.0
+                ],
+                "flip_facing": false,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V1_ECLIPSE_DOOR_02",
+                "is_entry_door": false,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  1785.0,
+                  -1380.0
+                ],
+                "flip_facing": true,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V1_ECLIPSE_DOOR_03",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 73 x 204",
+                "width_mm": 730.0
+              },
+              {
+                "at_mm": [
+                  450.0,
+                  -1835.0
+                ],
+                "flip_facing": true,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V1_ECLIPSE_DOOR_04",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 73 x 204",
+                "width_mm": 730.0
+              },
+              {
+                "at_mm": [
+                  -800.0,
+                  -1835.0
+                ],
+                "flip_facing": false,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V1_ECLIPSE_DOOR_05",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 73 x 204",
+                "width_mm": 730.0
+              },
+              {
+                "at_mm": [
+                  -3315.0,
+                  -1980.0
+                ],
+                "flip_facing": true,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V1_ECLIPSE_DOOR_06",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 83 x 204",
+                "width_mm": 830.0
+              },
+              {
+                "at_mm": [
+                  -3215.0,
+                  -3135.0
+                ],
+                "flip_facing": true,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V1_ECLIPSE_DOOR_07",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 83 x 204",
+                "width_mm": 830.0
+              }
+            ],
+            "existing_walls_kept": [
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -175.0,
+                  -1870.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_001",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -175.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_002",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -2800.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  1850.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_003",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -175.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  1850.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_004",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  1850.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  2900.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_005",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  2900.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  3000.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_006",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  1750.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  5225.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_007",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  2900.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5225.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_008",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  5225.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  650.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_009",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  2300.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_010",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  1650.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_011",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  4450.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_012",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  5575.0,
+                  -2900.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  114.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_013",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  464.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_014",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  114.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  1418.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_015",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  464.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  1768.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_016",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  1418.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  2232.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_017",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  1768.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  2582.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_018",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  2232.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  4736.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_019",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  2582.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5086.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_020",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  4736.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_021",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  5086.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1785.0,
+                  -1015.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_022",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  1785.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  2965.0,
+                  -1080.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_023",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  2965.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  2965.0,
+                  -2465.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_024",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  2965.0,
+                  -1880.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  750.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_025",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  650.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1650.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_026",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  1550.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -2200.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_027",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -175.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -2200.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_028",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -2200.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -3250.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_029",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -3250.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -2325.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_030",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -2100.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -3350.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_031",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -3125.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -5575.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_032",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -3250.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5575.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_033",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -5575.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -1000.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_034",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -2650.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_035",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -2000.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5925.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_036",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -4800.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5925.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_037",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -5925.0,
+                  -2900.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -464.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_038",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -814.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_039",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -464.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -1768.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_040",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -814.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -2118.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_041",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -1768.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -2582.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_042",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -2118.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -2932.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_043",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -2582.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5086.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_044",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -2932.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5436.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_045",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -5086.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5925.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_046",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -5436.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -2135.0,
+                  -1080.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_047",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -2135.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -3315.0,
+                  -1080.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_048",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -3315.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -3315.0,
+                  -2465.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_049",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -3315.0,
+                  -2395.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -3815.0,
+                  -2465.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_050",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -3315.0,
+                  -2465.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -3815.0,
+                  -3170.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_051",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -3815.0,
+                  -2465.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -4800.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_052",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -3815.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -2000.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_053",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -1000.0,
+                  -3135.0
+                ]
+              }
+            ],
+            "families": [
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Banc à chaussures + patères 80x35",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          800,
+                          0
+                        ],
+                        [
+                          800,
+                          -350
+                        ],
+                        [
+                          0,
+                          -350
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 1500,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          800,
+                          0
+                        ],
+                        [
+                          800,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 1750
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          120,
+                          -40
+                        ],
+                        "radius": 15
+                      },
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1640
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          340,
+                          -40
+                        ],
+                        "radius": 15
+                      },
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1640
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          560,
+                          -40
+                        ],
+                        "radius": 15
+                      },
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1640
+                    }
+                  ],
+                  "name": "V1 - Banc à chaussures + patères 80x35",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "wc",
+                "name": "V1 - WC suspendu 40x65",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          400,
+                          0
+                        ],
+                        [
+                          400,
+                          -160
+                        ],
+                        [
+                          0,
+                          -160
+                        ]
+                      ],
+                      "to": 1100
+                    },
+                    {
+                      "from": 200,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          368,
+                          -405
+                        ],
+                        [
+                          355.2,
+                          -498.8
+                        ],
+                        [
+                          318.8,
+                          -578.2
+                        ],
+                        [
+                          264.3,
+                          -631.4
+                        ],
+                        [
+                          200,
+                          -650
+                        ],
+                        [
+                          135.7,
+                          -631.4
+                        ],
+                        [
+                          81.2,
+                          -578.2
+                        ],
+                        [
+                          44.8,
+                          -498.8
+                        ],
+                        [
+                          32,
+                          -405
+                        ],
+                        [
+                          44.8,
+                          -311.2
+                        ],
+                        [
+                          81.2,
+                          -231.8
+                        ],
+                        [
+                          135.7,
+                          -178.6
+                        ],
+                        [
+                          200,
+                          -160
+                        ],
+                        [
+                          264.3,
+                          -178.6
+                        ],
+                        [
+                          318.8,
+                          -231.8
+                        ],
+                        [
+                          355.2,
+                          -311.2
+                        ]
+                      ],
+                      "to": 400
+                    }
+                  ],
+                  "kind": "wc",
+                  "name": "V1 - WC suspendu 40x65",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "lav",
+                "name": "V1 - Lave-mains 30x28",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 720,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          300,
+                          0
+                        ],
+                        [
+                          300,
+                          -280
+                        ],
+                        [
+                          0,
+                          -280
+                        ]
+                      ],
+                      "to": 850
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          150,
+                          -30
+                        ],
+                        "radius": 12
+                      },
+                      "from": 850,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 980
+                    }
+                  ],
+                  "kind": "lav",
+                  "name": "V1 - Lave-mains 30x28",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Lave-linge + sèche-linge en colonne 62x62",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          620,
+                          0
+                        ],
+                        [
+                          620,
+                          -620
+                        ],
+                        [
+                          0,
+                          -620
+                        ]
+                      ],
+                      "to": 1800
+                    }
+                  ],
+                  "name": "V1 - Lave-linge + sèche-linge en colonne 62x62",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V1 - Cellier 105x55",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1050,
+                          0
+                        ],
+                        [
+                          1050,
+                          -550
+                        ],
+                        [
+                          0,
+                          -550
+                        ]
+                      ],
+                      "to": 2500
+                    }
+                  ],
+                  "name": "V1 - Cellier 105x55",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V1 - Plan de travail cuisine 205x62",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2050,
+                          0
+                        ],
+                        [
+                          2050,
+                          -550
+                        ],
+                        [
+                          0,
+                          -550
+                        ]
+                      ],
+                      "to": 100
+                    },
+                    {
+                      "from": 100,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2050,
+                          0
+                        ],
+                        [
+                          2050,
+                          -590
+                        ],
+                        [
+                          0,
+                          -590
+                        ]
+                      ],
+                      "to": 870
+                    },
+                    {
+                      "from": 870,
+                      "material": "Ceramic tile",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2050,
+                          0
+                        ],
+                        [
+                          2050,
+                          -620
+                        ],
+                        [
+                          0,
+                          -620
+                        ]
+                      ],
+                      "to": 910
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          305,
+                          -50
+                        ],
+                        "radius": 16
+                      },
+                      "from": 910,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1180
+                    },
+                    {
+                      "from": 1500,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1500,
+                          0
+                        ],
+                        [
+                          1950,
+                          0
+                        ],
+                        [
+                          1950,
+                          -480
+                        ],
+                        [
+                          1500,
+                          -480
+                        ]
+                      ],
+                      "to": 1620
+                    },
+                    {
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1630,
+                          0
+                        ],
+                        [
+                          1820,
+                          0
+                        ],
+                        [
+                          1820,
+                          -250
+                        ],
+                        [
+                          1630,
+                          -250
+                        ]
+                      ],
+                      "to": 2800
+                    },
+                    {
+                      "from": 1450,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          600,
+                          0
+                        ],
+                        [
+                          1400,
+                          0
+                        ],
+                        [
+                          1400,
+                          -350
+                        ],
+                        [
+                          600,
+                          -350
+                        ]
+                      ],
+                      "to": 2150
+                    }
+                  ],
+                  "name": "V1 - Plan de travail cuisine 205x62",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V1 - Colonnes cuisine 178x62",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1780,
+                          0
+                        ],
+                        [
+                          1780,
+                          -590
+                        ],
+                        [
+                          0,
+                          -590
+                        ]
+                      ],
+                      "to": 2250
+                    }
+                  ],
+                  "name": "V1 - Colonnes cuisine 178x62",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Bibliothèque + TV 260x40",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2600,
+                          0
+                        ],
+                        [
+                          2600,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          15,
+                          -20
+                        ],
+                        [
+                          15,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          851.7,
+                          -20
+                        ],
+                        [
+                          881.7,
+                          -20
+                        ],
+                        [
+                          881.7,
+                          -400
+                        ],
+                        [
+                          851.7,
+                          -400
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1718.3,
+                          -20
+                        ],
+                        [
+                          1748.3,
+                          -20
+                        ],
+                        [
+                          1748.3,
+                          -400
+                        ],
+                        [
+                          1718.3,
+                          -400
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          2585,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -400
+                        ],
+                        [
+                          2585,
+                          -400
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 80
+                    },
+                    {
+                      "from": 2370,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 449.7,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 473.7
+                    },
+                    {
+                      "from": 831.3,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 855.3
+                    },
+                    {
+                      "from": 1213,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 1237
+                    },
+                    {
+                      "from": 1594.7,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 1618.7
+                    },
+                    {
+                      "from": 1976.3,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -20
+                        ],
+                        [
+                          2600,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 2000.3
+                    },
+                    {
+                      "from": 92,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          80,
+                          -40
+                        ],
+                        [
+                          420,
+                          -40
+                        ],
+                        [
+                          420,
+                          -260
+                        ],
+                        [
+                          80,
+                          -260
+                        ]
+                      ],
+                      "to": 352
+                    },
+                    {
+                      "from": 473.7,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          80,
+                          -40
+                        ],
+                        [
+                          540,
+                          -40
+                        ],
+                        [
+                          540,
+                          -260
+                        ],
+                        [
+                          80,
+                          -260
+                        ]
+                      ],
+                      "to": 673.7
+                    },
+                    {
+                      "from": 1237,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          140,
+                          -40
+                        ],
+                        [
+                          540,
+                          -40
+                        ],
+                        [
+                          540,
+                          -260
+                        ],
+                        [
+                          140,
+                          -260
+                        ]
+                      ],
+                      "to": 1437
+                    },
+                    {
+                      "from": 1618.7,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          140,
+                          -40
+                        ],
+                        [
+                          360,
+                          -40
+                        ],
+                        [
+                          360,
+                          -260
+                        ],
+                        [
+                          140,
+                          -260
+                        ]
+                      ],
+                      "to": 1838.7
+                    },
+                    {
+                      "from": 1618.7,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1006.7,
+                          -40
+                        ],
+                        [
+                          1406.7,
+                          -40
+                        ],
+                        [
+                          1406.7,
+                          -260
+                        ],
+                        [
+                          1006.7,
+                          -260
+                        ]
+                      ],
+                      "to": 1818.7
+                    },
+                    {
+                      "from": 2000.3,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1006.7,
+                          -40
+                        ],
+                        [
+                          1226.7,
+                          -40
+                        ],
+                        [
+                          1226.7,
+                          -260
+                        ],
+                        [
+                          1006.7,
+                          -260
+                        ]
+                      ],
+                      "to": 2220.3
+                    },
+                    {
+                      "from": 855.3,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1813.3,
+                          -40
+                        ],
+                        [
+                          2153.3,
+                          -40
+                        ],
+                        [
+                          2153.3,
+                          -260
+                        ],
+                        [
+                          1813.3,
+                          -260
+                        ]
+                      ],
+                      "to": 1115.3
+                    },
+                    {
+                      "from": 1237,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1813.3,
+                          -40
+                        ],
+                        [
+                          2273.3,
+                          -40
+                        ],
+                        [
+                          2273.3,
+                          -260
+                        ],
+                        [
+                          1813.3,
+                          -260
+                        ]
+                      ],
+                      "to": 1437
+                    },
+                    {
+                      "from": 2000.3,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1873.3,
+                          -40
+                        ],
+                        [
+                          2273.3,
+                          -40
+                        ],
+                        [
+                          2273.3,
+                          -260
+                        ],
+                        [
+                          1873.3,
+                          -260
+                        ]
+                      ],
+                      "to": 2200.3
+                    },
+                    {
+                      "from": 950,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          575,
+                          -30
+                        ],
+                        [
+                          1825,
+                          -30
+                        ],
+                        [
+                          1825,
+                          -60
+                        ],
+                        [
+                          575,
+                          -60
+                        ]
+                      ],
+                      "to": 1662.5
+                    }
+                  ],
+                  "name": "V1 - Bibliothèque + TV 260x40",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Canapé 220x95",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          180,
+                          -950
+                        ],
+                        [
+                          0,
+                          -950
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          2020,
+                          0
+                        ],
+                        [
+                          2200,
+                          0
+                        ],
+                        [
+                          2200,
+                          -950
+                        ],
+                        [
+                          2020,
+                          -950
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          2020,
+                          0
+                        ],
+                        [
+                          2020,
+                          -220
+                        ],
+                        [
+                          180,
+                          -220
+                        ]
+                      ],
+                      "to": 820
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          -220
+                        ],
+                        [
+                          2020,
+                          -220
+                        ],
+                        [
+                          2020,
+                          -930
+                        ],
+                        [
+                          180,
+                          -930
+                        ]
+                      ],
+                      "to": 300
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          185,
+                          -220
+                        ],
+                        [
+                          788.3,
+                          -220
+                        ],
+                        [
+                          788.3,
+                          -930
+                        ],
+                        [
+                          185,
+                          -930
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          798.3,
+                          -220
+                        ],
+                        [
+                          1401.7,
+                          -220
+                        ],
+                        [
+                          1401.7,
+                          -930
+                        ],
+                        [
+                          798.3,
+                          -930
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1411.7,
+                          -220
+                        ],
+                        [
+                          2015,
+                          -220
+                        ],
+                        [
+                          2015,
+                          -930
+                        ],
+                        [
+                          1411.7,
+                          -930
+                        ]
+                      ],
+                      "to": 440
+                    }
+                  ],
+                  "name": "V1 - Canapé 220x95",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Table basse 60x100",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 340,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          600,
+                          0
+                        ],
+                        [
+                          600,
+                          -1000
+                        ],
+                        [
+                          0,
+                          -1000
+                        ]
+                      ],
+                      "to": 380
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          40,
+                          -40
+                        ],
+                        [
+                          560,
+                          -40
+                        ],
+                        [
+                          560,
+                          -960
+                        ],
+                        [
+                          40,
+                          -960
+                        ]
+                      ],
+                      "to": 340
+                    }
+                  ],
+                  "name": "V1 - Table basse 60x100",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Fauteuil 80x80",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          180,
+                          -800
+                        ],
+                        [
+                          0,
+                          -800
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          620,
+                          0
+                        ],
+                        [
+                          800,
+                          0
+                        ],
+                        [
+                          800,
+                          -800
+                        ],
+                        [
+                          620,
+                          -800
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          620,
+                          0
+                        ],
+                        [
+                          620,
+                          -220
+                        ],
+                        [
+                          180,
+                          -220
+                        ]
+                      ],
+                      "to": 820
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          -220
+                        ],
+                        [
+                          620,
+                          -220
+                        ],
+                        [
+                          620,
+                          -780
+                        ],
+                        [
+                          180,
+                          -780
+                        ]
+                      ],
+                      "to": 300
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          185,
+                          -220
+                        ],
+                        [
+                          615,
+                          -220
+                        ],
+                        [
+                          615,
+                          -780
+                        ],
+                        [
+                          185,
+                          -780
+                        ]
+                      ],
+                      "to": 440
+                    }
+                  ],
+                  "name": "V1 - Fauteuil 80x80",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Plante en pot 40x40",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "circle": {
+                        "centre": [
+                          200,
+                          -200
+                        ],
+                        "radius": 110
+                      },
+                      "from": 0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "to": 320
+                    }
+                  ],
+                  "name": "V1 - Plante en pot 40x40",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Table 180 x 90 (6 couverts)",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          900,
+                          0
+                        ],
+                        [
+                          900,
+                          -1800
+                        ],
+                        [
+                          0,
+                          -1800
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          80,
+                          -30
+                        ],
+                        [
+                          80,
+                          -80
+                        ],
+                        [
+                          30,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          820,
+                          -30
+                        ],
+                        [
+                          870,
+                          -30
+                        ],
+                        [
+                          870,
+                          -80
+                        ],
+                        [
+                          820,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -1720
+                        ],
+                        [
+                          80,
+                          -1720
+                        ],
+                        [
+                          80,
+                          -1770
+                        ],
+                        [
+                          30,
+                          -1770
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          820,
+                          -1720
+                        ],
+                        [
+                          870,
+                          -1720
+                        ],
+                        [
+                          870,
+                          -1770
+                        ],
+                        [
+                          820,
+                          -1770
+                        ]
+                      ],
+                      "to": 720
+                    }
+                  ],
+                  "name": "V1 - Table 180 x 90 (6 couverts)",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Chaise 42x45",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -10
+                        ],
+                        [
+                          60,
+                          -10
+                        ],
+                        [
+                          60,
+                          -40
+                        ],
+                        [
+                          30,
+                          -40
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          360,
+                          -10
+                        ],
+                        [
+                          390,
+                          -10
+                        ],
+                        [
+                          390,
+                          -40
+                        ],
+                        [
+                          360,
+                          -40
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -410
+                        ],
+                        [
+                          60,
+                          -410
+                        ],
+                        [
+                          60,
+                          -440
+                        ],
+                        [
+                          30,
+                          -440
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          360,
+                          -410
+                        ],
+                        [
+                          390,
+                          -410
+                        ],
+                        [
+                          390,
+                          -440
+                        ],
+                        [
+                          360,
+                          -440
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 440,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -10
+                        ],
+                        [
+                          410,
+                          -10
+                        ],
+                        [
+                          410,
+                          -450
+                        ],
+                        [
+                          10,
+                          -450
+                        ]
+                      ],
+                      "to": 470
+                    },
+                    {
+                      "from": 470,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          0
+                        ],
+                        [
+                          410,
+                          0
+                        ],
+                        [
+                          410,
+                          -30
+                        ],
+                        [
+                          10,
+                          -30
+                        ]
+                      ],
+                      "to": 850
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          0
+                        ],
+                        [
+                          60,
+                          0
+                        ],
+                        [
+                          60,
+                          -30
+                        ],
+                        [
+                          30,
+                          -30
+                        ]
+                      ],
+                      "to": 470
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          360,
+                          0
+                        ],
+                        [
+                          390,
+                          0
+                        ],
+                        [
+                          390,
+                          -30
+                        ],
+                        [
+                          360,
+                          -30
+                        ]
+                      ],
+                      "to": 470
+                    }
+                  ],
+                  "name": "V1 - Chaise 42x45",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Buffet sur mesure 95x45",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 80,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          950,
+                          0
+                        ],
+                        [
+                          950,
+                          -450
+                        ],
+                        [
+                          0,
+                          -450
+                        ]
+                      ],
+                      "to": 850
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          920,
+                          -30
+                        ],
+                        [
+                          920,
+                          -420
+                        ],
+                        [
+                          30,
+                          -420
+                        ]
+                      ],
+                      "to": 80
+                    }
+                  ],
+                  "name": "V1 - Buffet sur mesure 95x45",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Banquette-coffre 70x37",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          700,
+                          0
+                        ],
+                        [
+                          700,
+                          -370
+                        ],
+                        [
+                          0,
+                          -370
+                        ]
+                      ],
+                      "to": 380
+                    },
+                    {
+                      "from": 380,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -10
+                        ],
+                        [
+                          690,
+                          -10
+                        ],
+                        [
+                          690,
+                          -360
+                        ],
+                        [
+                          10,
+                          -360
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -10
+                        ],
+                        [
+                          670,
+                          -10
+                        ],
+                        [
+                          670,
+                          -120
+                        ],
+                        [
+                          30,
+                          -120
+                        ]
+                      ],
+                      "to": 750
+                    }
+                  ],
+                  "name": "V1 - Banquette-coffre 70x37",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Banquette-coffre 186x28",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1860,
+                          0
+                        ],
+                        [
+                          1860,
+                          -280
+                        ],
+                        [
+                          0,
+                          -280
+                        ]
+                      ],
+                      "to": 380
+                    },
+                    {
+                      "from": 380,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -10
+                        ],
+                        [
+                          1850,
+                          -10
+                        ],
+                        [
+                          1850,
+                          -270
+                        ],
+                        [
+                          10,
+                          -270
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -10
+                        ],
+                        [
+                          616.7,
+                          -10
+                        ],
+                        [
+                          616.7,
+                          -120
+                        ],
+                        [
+                          30,
+                          -120
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          636.7,
+                          -10
+                        ],
+                        [
+                          1223.3,
+                          -10
+                        ],
+                        [
+                          1223.3,
+                          -120
+                        ],
+                        [
+                          636.7,
+                          -120
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1243.3,
+                          -10
+                        ],
+                        [
+                          1830,
+                          -10
+                        ],
+                        [
+                          1830,
+                          -120
+                        ],
+                        [
+                          1243.3,
+                          -120
+                        ]
+                      ],
+                      "to": 750
+                    }
+                  ],
+                  "name": "V1 - Banquette-coffre 186x28",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "bath",
+                "name": "V1 - Baignoire 170x70",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1700,
+                          0
+                        ],
+                        [
+                          1700,
+                          -700
+                        ],
+                        [
+                          0,
+                          -700
+                        ]
+                      ],
+                      "to": 550
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          1580,
+                          -30
+                        ],
+                        "radius": 14
+                      },
+                      "from": 550,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 700
+                    }
+                  ],
+                  "kind": "bath",
+                  "name": "V1 - Baignoire 170x70",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "lav",
+                "name": "V1 - Meuble vasque 55x48",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 300,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          550,
+                          0
+                        ],
+                        [
+                          550,
+                          -480
+                        ],
+                        [
+                          0,
+                          -480
+                        ]
+                      ],
+                      "to": 870
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          275,
+                          -40
+                        ],
+                        "radius": 14
+                      },
+                      "from": 870,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1050
+                    }
+                  ],
+                  "kind": "lav",
+                  "name": "V1 - Meuble vasque 55x48",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V1 - Placard à linge 111x57",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1110,
+                          0
+                        ],
+                        [
+                          1110,
+                          -570
+                        ],
+                        [
+                          0,
+                          -570
+                        ]
+                      ],
+                      "to": 2500
+                    }
+                  ],
+                  "name": "V1 - Placard à linge 111x57",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Lit 90 x 190",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          900,
+                          0
+                        ],
+                        [
+                          900,
+                          -50
+                        ],
+                        [
+                          0,
+                          -50
+                        ]
+                      ],
+                      "to": 950
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -50
+                        ],
+                        [
+                          900,
+                          -50
+                        ],
+                        [
+                          900,
+                          -1900
+                        ],
+                        [
+                          0,
+                          -1900
+                        ]
+                      ],
+                      "to": 250
+                    },
+                    {
+                      "from": 250,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -60
+                        ],
+                        [
+                          890,
+                          -60
+                        ],
+                        [
+                          890,
+                          -1890
+                        ],
+                        [
+                          10,
+                          -1890
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          90,
+                          -90
+                        ],
+                        [
+                          810,
+                          -90
+                        ],
+                        [
+                          810,
+                          -290
+                        ],
+                        [
+                          90,
+                          -290
+                        ]
+                      ],
+                      "to": 580
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          5,
+                          -480
+                        ],
+                        [
+                          895,
+                          -480
+                        ],
+                        [
+                          895,
+                          -1895
+                        ],
+                        [
+                          5,
+                          -1895
+                        ]
+                      ],
+                      "to": 500
+                    }
+                  ],
+                  "name": "V1 - Lit 90 x 190",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Bureau 120x55",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1200,
+                          0
+                        ],
+                        [
+                          1200,
+                          -550
+                        ],
+                        [
+                          0,
+                          -550
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          80,
+                          -30
+                        ],
+                        [
+                          80,
+                          -80
+                        ],
+                        [
+                          30,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1120,
+                          -30
+                        ],
+                        [
+                          1170,
+                          -30
+                        ],
+                        [
+                          1170,
+                          -80
+                        ],
+                        [
+                          1120,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -470
+                        ],
+                        [
+                          80,
+                          -470
+                        ],
+                        [
+                          80,
+                          -520
+                        ],
+                        [
+                          30,
+                          -520
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1120,
+                          -470
+                        ],
+                        [
+                          1170,
+                          -470
+                        ],
+                        [
+                          1170,
+                          -520
+                        ],
+                        [
+                          1120,
+                          -520
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 400,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1200,
+                          0
+                        ],
+                        [
+                          1200,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 720
+                    }
+                  ],
+                  "name": "V1 - Bureau 120x55",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V1 - Placard 152x60",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1520,
+                          0
+                        ],
+                        [
+                          1520,
+                          -600
+                        ],
+                        [
+                          0,
+                          -600
+                        ]
+                      ],
+                      "to": 2500
+                    }
+                  ],
+                  "name": "V1 - Placard 152x60",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Chevet 40x35",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          400,
+                          0
+                        ],
+                        [
+                          400,
+                          -350
+                        ],
+                        [
+                          0,
+                          -350
+                        ]
+                      ],
+                      "to": 500
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          200,
+                          -175
+                        ],
+                        "radius": 60
+                      },
+                      "from": 500,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "to": 530
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          200,
+                          -175
+                        ],
+                        "radius": 12
+                      },
+                      "from": 530,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 720
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          200,
+                          -175
+                        ],
+                        "radius": 100
+                      },
+                      "from": 720,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "to": 900
+                    }
+                  ],
+                  "name": "V1 - Chevet 40x35",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V1 - Placard 140x60",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1400,
+                          0
+                        ],
+                        [
+                          1400,
+                          -600
+                        ],
+                        [
+                          0,
+                          -600
+                        ]
+                      ],
+                      "to": 2500
+                    }
+                  ],
+                  "name": "V1 - Placard 140x60",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Bureau 75x37",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          750,
+                          0
+                        ],
+                        [
+                          750,
+                          -370
+                        ],
+                        [
+                          0,
+                          -370
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          80,
+                          -30
+                        ],
+                        [
+                          80,
+                          -80
+                        ],
+                        [
+                          30,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          670,
+                          -30
+                        ],
+                        [
+                          720,
+                          -30
+                        ],
+                        [
+                          720,
+                          -80
+                        ],
+                        [
+                          670,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -290
+                        ],
+                        [
+                          80,
+                          -290
+                        ],
+                        [
+                          80,
+                          -340
+                        ],
+                        [
+                          30,
+                          -340
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          670,
+                          -290
+                        ],
+                        [
+                          720,
+                          -290
+                        ],
+                        [
+                          720,
+                          -340
+                        ],
+                        [
+                          670,
+                          -340
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 400,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          750,
+                          0
+                        ],
+                        [
+                          750,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 720
+                    }
+                  ],
+                  "name": "V1 - Bureau 75x37",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Lit 160 x 200",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1600,
+                          0
+                        ],
+                        [
+                          1600,
+                          -50
+                        ],
+                        [
+                          0,
+                          -50
+                        ]
+                      ],
+                      "to": 950
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -50
+                        ],
+                        [
+                          1600,
+                          -50
+                        ],
+                        [
+                          1600,
+                          -2000
+                        ],
+                        [
+                          0,
+                          -2000
+                        ]
+                      ],
+                      "to": 250
+                    },
+                    {
+                      "from": 250,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -60
+                        ],
+                        [
+                          1590,
+                          -60
+                        ],
+                        [
+                          1590,
+                          -1990
+                        ],
+                        [
+                          10,
+                          -1990
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          70,
+                          -90
+                        ],
+                        [
+                          770,
+                          -90
+                        ],
+                        [
+                          770,
+                          -290
+                        ],
+                        [
+                          70,
+                          -290
+                        ]
+                      ],
+                      "to": 580
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          830,
+                          -90
+                        ],
+                        [
+                          1530,
+                          -90
+                        ],
+                        [
+                          1530,
+                          -290
+                        ],
+                        [
+                          830,
+                          -290
+                        ]
+                      ],
+                      "to": 580
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          5,
+                          -480
+                        ],
+                        [
+                          1595,
+                          -480
+                        ],
+                        [
+                          1595,
+                          -1995
+                        ],
+                        [
+                          5,
+                          -1995
+                        ]
+                      ],
+                      "to": 500
+                    }
+                  ],
+                  "name": "V1 - Lit 160 x 200",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Chevet 36x40",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          360,
+                          0
+                        ],
+                        [
+                          360,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 500
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          180,
+                          -200
+                        ],
+                        "radius": 60
+                      },
+                      "from": 500,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "to": 530
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          180,
+                          -200
+                        ],
+                        "radius": 12
+                      },
+                      "from": 530,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 720
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          180,
+                          -200
+                        ],
+                        "radius": 100
+                      },
+                      "from": 720,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "to": 900
+                    }
+                  ],
+                  "name": "V1 - Chevet 36x40",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V1 - Dressing 175x60",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1750,
+                          0
+                        ],
+                        [
+                          1750,
+                          -600
+                        ],
+                        [
+                          0,
+                          -600
+                        ]
+                      ],
+                      "to": 2500
+                    }
+                  ],
+                  "name": "V1 - Dressing 175x60",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V1 - Fauteuil 75x75",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          180,
+                          -750
+                        ],
+                        [
+                          0,
+                          -750
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          570,
+                          0
+                        ],
+                        [
+                          750,
+                          0
+                        ],
+                        [
+                          750,
+                          -750
+                        ],
+                        [
+                          570,
+                          -750
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          570,
+                          0
+                        ],
+                        [
+                          570,
+                          -220
+                        ],
+                        [
+                          180,
+                          -220
+                        ]
+                      ],
+                      "to": 820
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          -220
+                        ],
+                        [
+                          570,
+                          -220
+                        ],
+                        [
+                          570,
+                          -730
+                        ],
+                        [
+                          180,
+                          -730
+                        ]
+                      ],
+                      "to": 300
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          185,
+                          -220
+                        ],
+                        [
+                          565,
+                          -220
+                        ],
+                        [
+                          565,
+                          -730
+                        ],
+                        [
+                          185,
+                          -730
+                        ]
+                      ],
+                      "to": 440
+                    }
+                  ],
+                  "name": "V1 - Fauteuil 75x75",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              }
+            ],
+            "floor_boundary_mm": [
+              [
+                -3150.0,
+                -750.0
+              ],
+              [
+                -3150.0,
+                200.0
+              ],
+              [
+                -5750.0,
+                200.0
+              ],
+              [
+                -5750.0,
+                -2900.0
+              ],
+              [
+                -6100.0,
+                -2900.0
+              ],
+              [
+                -6100.0,
+                -6990.0
+              ],
+              [
+                -5460.0,
+                -6990.0
+              ],
+              [
+                -5110.0,
+                -7450.0
+              ],
+              [
+                -2930.0,
+                -7450.0
+              ],
+              [
+                -2560.0,
+                -7110.0
+              ],
+              [
+                -2160.0,
+                -7110.0
+              ],
+              [
+                -1790.0,
+                -7450.0
+              ],
+              [
+                -805.0,
+                -7450.0
+              ],
+              [
+                -455.0,
+                -6990.0
+              ],
+              [
+                105.0,
+                -6990.0
+              ],
+              [
+                455.0,
+                -7450.0
+              ],
+              [
+                1440.0,
+                -7450.0
+              ],
+              [
+                1810.0,
+                -7110.0
+              ],
+              [
+                2210.0,
+                -7110.0
+              ],
+              [
+                2580.0,
+                -7450.0
+              ],
+              [
+                4760.0,
+                -7450.0
+              ],
+              [
+                5110.0,
+                -6990.0
+              ],
+              [
+                5750.0,
+                -6990.0
+              ],
+              [
+                5750.0,
+                -2900.0
+              ],
+              [
+                5400.0,
+                -2900.0
+              ],
+              [
+                5400.0,
+                200.0
+              ],
+              [
+                2800.0,
+                200.0
+              ],
+              [
+                2800.0,
+                -750.0
+              ],
+              [
+                1950.0,
+                -750.0
+              ],
+              [
+                1950.0,
+                200.0
+              ],
+              [
+                -2300.0,
+                200.0
+              ],
+              [
+                -2300.0,
+                -750.0
+              ]
+            ],
+            "materials_palette": [
+              {
+                "color_hex": "#C8A97E",
+                "element": "Sol",
+                "finish_description": "Chêne massif brossé verni mat naturel (14 mm)",
+                "material_name": "Parquet Chêne Clair Point de Hongrie",
+                "space_category": "Séjour / Salle à manger"
+              },
+              {
+                "color_hex": "#E6E1DA",
+                "element": "Sol & Crédence",
+                "finish_description": "Granulats marbre blanc de Carrare & ocre",
+                "material_name": "Terrazzo Minéral Clair",
+                "space_category": "Cuisine & Entrée"
+              },
+              {
+                "color_hex": "#D7B98C",
+                "element": "Sol & Menuiseries",
+                "finish_description": "Parquet lames larges 18 cm + façades dressing lin tissé",
+                "material_name": "Chêne Miel & Lin Naturel",
+                "space_category": "Chambres (Lot B Nuit)"
+              },
+              {
+                "color_hex": "#CFC8BE",
+                "element": "Sol & Murs",
+                "finish_description": "Carrelage 60x60 cm antidérapant R10 + robinetterie laiton",
+                "material_name": "Grès Cérame Pierre de Bath & Laiton Brossé",
+                "space_category": "Salle de bain & WC"
+              }
+            ],
+            "mirror_mode": "LeftMirrorG",
+            "name": "Proposition V1 — ÉCLIPSE (Miroir Gauche — Dissociation franche Jour / Nuit)",
+            "new_walls": [
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1785.0,
+                  -1870.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_054",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  1785.0,
+                  -1015.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  2965.0,
+                  -1880.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_055",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  2965.0,
+                  -1080.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1550.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_056",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  750.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Infill200",
+                "end_mm": [
+                  -3125.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_057",
+                "is_existing": false,
+                "label": "PRJ_Rebouchage 20",
+                "start_mm": [
+                  -2325.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -2135.0,
+                  -1870.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_058",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  -2135.0,
+                  -1080.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -3315.0,
+                  -2395.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_059",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  -3315.0,
+                  -1080.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -350.0,
+                  -1835.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_060",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  -2170.0,
+                  -1835.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1820.0,
+                  -1835.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_061",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  0.0,
+                  -1835.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  935.0,
+                  -1800.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_062",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  935.0,
+                  0.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -2650.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_063",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  -3815.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -2350.0,
+                  -6780.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V1_ECLIPSE_W_064",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  -2350.0,
+                  -3450.0
+                ]
+              }
+            ],
+            "night_area_m2": 32.9,
+            "room_separators_mm": [
+              [
+                [
+                  2220.0,
+                  -3275.0
+                ],
+                [
+                  4530.0,
+                  -3275.0
+                ]
+              ],
+              [
+                [
+                  2965.0,
+                  -2420.0
+                ],
+                [
+                  2965.0,
+                  -3320.0
+                ]
+              ],
+              [
+                [
+                  1785.0,
+                  -1790.0
+                ],
+                [
+                  1785.0,
+                  -3180.0
+                ]
+              ],
+              [
+                [
+                  -175.0,
+                  -1790.0
+                ],
+                [
+                  -175.0,
+                  -2880.0
+                ]
+              ],
+              [
+                [
+                  -2135.0,
+                  -1790.0
+                ],
+                [
+                  -2135.0,
+                  -3180.0
+                ]
+              ]
+            ],
+            "rooms": [
+              {
+                "name": "ENTRÉE",
+                "number": "01",
+                "point_mm": [
+                  2220.0,
+                  -2150.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "DÉGAGEMENT",
+                "number": "02",
+                "point_mm": [
+                  1000.0,
+                  -2620.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "WC",
+                "number": "03",
+                "point_mm": [
+                  1370.0,
+                  -1400.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "BUANDERIE",
+                "number": "04",
+                "point_mm": [
+                  730.0,
+                  -1280.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "CUISINE",
+                "number": "05",
+                "point_mm": [
+                  4350.0,
+                  -1600.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "SÉJOUR / SALLE À MANGER",
+                "number": "06",
+                "point_mm": [
+                  3000.0,
+                  -3720.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "SDB",
+                "number": "07",
+                "point_mm": [
+                  -760.0,
+                  -920.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "DÉGAGEMENT NUIT",
+                "number": "08",
+                "point_mm": [
+                  -1180.0,
+                  -2620.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "PALIER NUIT",
+                "number": "09",
+                "point_mm": [
+                  -2720.0,
+                  -2050.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "CHAMBRE ENFANT 2",
+                "number": "10",
+                "point_mm": [
+                  -4000.0,
+                  -1220.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "CHAMBRE ENFANT 1",
+                "number": "11",
+                "point_mm": [
+                  -720.0,
+                  -6450.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "CHAMBRE PARENTS",
+                "number": "12",
+                "point_mm": [
+                  -5000.0,
+                  -4340.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              }
+            ],
+            "spatial_justification": "Offre la meilleure intimité familiale (aucune chambre ne donne sur le séjour), conserve 98% du refend porteur mitoyen (une seule baie de 93 cm avec tête de mur réglementaire de 30 cm et poutre 35x40 cm), et déploie un séjour/cuisine traversant Nord-Sud baigné par les deux bow-windows du Lot A.",
+            "structural_openings": [
+              {
+                "bbox_cm": [
+                  -35.0,
+                  187.0,
+                  0.0,
+                  280.0
+                ],
+                "beam_depth_mm": 400.0,
+                "beam_end_mm": [
+                  -175.0,
+                  -3000.0
+                ],
+                "beam_offset_mm": 2800.0,
+                "beam_start_mm": [
+                  -175.0,
+                  -1670.0
+                ],
+                "beam_width_mm": 350.0,
+                "host_wall_id": "V1_ECLIPSE_W_001",
+                "id": "OPENING-V1-MITOYEN",
+                "left_pier_mm": 1970.0,
+                "right_pier_mm": 300.0,
+                "span_mm": 930.0
+              }
+            ],
+            "total_habitable_area_m2": 65.9,
+            "variant_id": "V1_ECLIPSE",
+            "windows": [
+              {
+                "at_mm": [
+                  950.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V1_ECLIPSE_WIN_01",
+                "is_existing": true,
+                "label": "Fenêtre 80 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  3650.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V1_ECLIPSE_WIN_02",
+                "is_existing": true,
+                "label": "Fenêtre 200 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 200 x 170",
+                "width_mm": 2000.0
+              },
+              {
+                "at_mm": [
+                  5225.0,
+                  -1700.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V1_ECLIPSE_WIN_03",
+                "is_existing": true,
+                "label": "Fenêtre 140 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 140 x 170",
+                "width_mm": 1400.0
+              },
+              {
+                "at_mm": [
+                  5575.0,
+                  -5025.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V1_ECLIPSE_WIN_04",
+                "is_existing": true,
+                "label": "Fenêtre 155 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 155 x 170",
+                "width_mm": 1550.0
+              },
+              {
+                "at_mm": [
+                  -1300.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V1_ECLIPSE_WIN_05",
+                "is_existing": true,
+                "label": "Fenêtre 80 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  -4000.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V1_ECLIPSE_WIN_06",
+                "is_existing": true,
+                "label": "Fenêtre 200 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 200 x 170",
+                "width_mm": 2000.0
+              },
+              {
+                "at_mm": [
+                  -5575.0,
+                  -1700.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V1_ECLIPSE_WIN_07",
+                "is_existing": true,
+                "label": "Fenêtre 140 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 140 x 170",
+                "width_mm": 1400.0
+              },
+              {
+                "at_mm": [
+                  -5925.0,
+                  -5025.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V1_ECLIPSE_WIN_08",
+                "is_existing": true,
+                "label": "Fenêtre 155 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 155 x 170",
+                "width_mm": 1550.0
+              }
+            ]
+          },
+          "V2_ORBITE": {
+            "architectural_concept": "Parti 'Orbite' : Réunion par la droite mettant en scène la croix porteuse centrale comme pivot sculptural. Le séjour-repas (18.8 m²) s'installe à cheval sur l'axe mitoyen au Sud, tandis que les deux pôles Nuit (Suite parentale à l'Ouest, Chambre enfants + SDB à l'Est) occupent les extrémités opposées.",
+            "components": [
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -680.0
+                ],
+                "family_name": "V2 - WC suspendu 40x65"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  600.0,
+                  0.0
+                ],
+                "family_name": "V2 - Lave-mains 40x26"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -1600.0
+                ],
+                "family_name": "V2 - Lave-linge + sèche-linge en colonne 60x62"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  950.0,
+                  -1950.0
+                ],
+                "family_name": "V2 - Rangement buanderie 95x32"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -3100.0
+                ],
+                "family_name": "V2 - Douche à l'italienne 108x88"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  1120.0,
+                  -2020.0
+                ],
+                "family_name": "V2 - Meuble vasque 63x44"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  1820.0,
+                  -2950.0
+                ],
+                "family_name": "V2 - Banc à chaussures + patères 90x35"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  3000.0,
+                  0.0
+                ],
+                "family_name": "V2 - Plan de travail cuisine 205x62"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  5050.0,
+                  -3100.0
+                ],
+                "family_name": "V2 - Colonnes cuisine 60x63"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  5050.0,
+                  -1000.0
+                ],
+                "family_name": "V2 - Bibliothèque de passage 105x26"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -6150.0
+                ],
+                "family_name": "V2 - Lit 160 x 200"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -4520.0
+                ],
+                "family_name": "V2 - Chevet 34x40"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -6520.0
+                ],
+                "family_name": "V2 - Chevet 34x40"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  3430.0,
+                  -4250.0
+                ],
+                "family_name": "V2 - Dressing 95x60"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  1300.0,
+                  -7050.0
+                ],
+                "family_name": "V2 - Banquette-coffre 70x37"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  3300.0,
+                  -5750.0
+                ],
+                "family_name": "V2 - Table 160 x 80 (6 couverts)"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  3360.0,
+                  -5300.0
+                ],
+                "family_name": "V2 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  3890.0,
+                  -5300.0
+                ],
+                "family_name": "V2 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4420.0,
+                  -5300.0
+                ],
+                "family_name": "V2 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  4040.0,
+                  -7000.0
+                ],
+                "family_name": "V2 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  4580.0,
+                  -7000.0
+                ],
+                "family_name": "V2 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  5350.0,
+                  -5820.0
+                ],
+                "family_name": "V2 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  3500.0,
+                  -5200.0
+                ],
+                "family_name": "V2 - Buffet sur mesure 95x42"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4500.0,
+                  -3520.0
+                ],
+                "family_name": "V2 - Plante en pot 40x40"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  5770.0,
+                  -3470.0
+                ],
+                "family_name": "V2 - Meuble TV 90x43"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  6400.0,
+                  -4700.0
+                ],
+                "family_name": "V2 - Table basse 80x55"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  7750.0,
+                  -6620.0
+                ],
+                "family_name": "V2 - Canapé 190x84"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  6120.0,
+                  0.0
+                ],
+                "family_name": "V2 - Bureau 2 postes + étagère 201x60"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  6710.0,
+                  -1090.0
+                ],
+                "family_name": "V2 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  7610.0,
+                  -1090.0
+                ],
+                "family_name": "V2 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  6700.0,
+                  -3100.0
+                ],
+                "family_name": "V2 - Rangement 60x63"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  8220.0,
+                  -930.0
+                ],
+                "family_name": "V2 - Placard 111x62"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  9420.0,
+                  -20.0
+                ],
+                "family_name": "V2 - Baignoire 170x75"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  11150.0,
+                  -1450.0
+                ],
+                "family_name": "V2 - WC suspendu 40x65"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  11150.0,
+                  -2050.0
+                ],
+                "family_name": "V2 - Meuble double vasque 100x50"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  10280.0,
+                  -3100.0
+                ],
+                "family_name": "V2 - Douche à l'italienne 88x88"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  10250.0,
+                  -3520.0
+                ],
+                "family_name": "V2 - Lit 90 x 200"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  9000.0,
+                  -3520.0
+                ],
+                "family_name": "V2 - Lit 90 x 200"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  9900.0,
+                  -3520.0
+                ],
+                "family_name": "V2 - Chevet 35x35"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  7720.0,
+                  -5180.0
+                ],
+                "family_name": "V2 - Placard 88x60"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  10750.0,
+                  -7050.0
+                ],
+                "family_name": "V2 - Bureau 110x37"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  9990.0,
+                  -6220.0
+                ],
+                "family_name": "V2 - Chaise 42x45"
+              }
+            ],
+            "day_area_m2": 35.2,
+            "demolished_polygons_mm": [
+              [
+                [
+                  2930.0,
+                  -1880.0
+                ],
+                [
+                  3000.0,
+                  -1880.0
+                ],
+                [
+                  3000.0,
+                  -2280.0
+                ],
+                [
+                  2930.0,
+                  -2280.0
+                ]
+              ],
+              [
+                [
+                  3000.0,
+                  -2430.0
+                ],
+                [
+                  3500.0,
+                  -2430.0
+                ],
+                [
+                  3500.0,
+                  -2500.0
+                ],
+                [
+                  3000.0,
+                  -2500.0
+                ]
+              ],
+              [
+                [
+                  3430.0,
+                  -2500.0
+                ],
+                [
+                  3500.0,
+                  -2500.0
+                ],
+                [
+                  3500.0,
+                  -3320.0
+                ],
+                [
+                  3430.0,
+                  -3320.0
+                ]
+              ],
+              [
+                [
+                  3500.0,
+                  -3100.0
+                ],
+                [
+                  4450.0,
+                  -3100.0
+                ],
+                [
+                  4450.0,
+                  -3170.0
+                ],
+                [
+                  3500.0,
+                  -3170.0
+                ]
+              ],
+              [
+                [
+                  7650.0,
+                  -2430.0
+                ],
+                [
+                  8150.0,
+                  -2430.0
+                ],
+                [
+                  8150.0,
+                  -2500.0
+                ],
+                [
+                  7650.0,
+                  -2500.0
+                ]
+              ],
+              [
+                [
+                  7650.0,
+                  -2500.0
+                ],
+                [
+                  7720.0,
+                  -2500.0
+                ],
+                [
+                  7720.0,
+                  -3320.0
+                ],
+                [
+                  7650.0,
+                  -3320.0
+                ]
+              ],
+              [
+                [
+                  6700.0,
+                  -3100.0
+                ],
+                [
+                  7650.0,
+                  -3100.0
+                ],
+                [
+                  7650.0,
+                  -3170.0
+                ],
+                [
+                  6700.0,
+                  -3170.0
+                ]
+              ],
+              [
+                [
+                  8150.0,
+                  -1880.0
+                ],
+                [
+                  8220.0,
+                  -1880.0
+                ],
+                [
+                  8220.0,
+                  -2500.0
+                ],
+                [
+                  8150.0,
+                  -2500.0
+                ]
+              ],
+              [
+                [
+                  5050.0,
+                  -1000.0
+                ],
+                [
+                  6100.0,
+                  -1000.0
+                ],
+                [
+                  6100.0,
+                  -2400.0
+                ],
+                [
+                  5050.0,
+                  -2400.0
+                ]
+              ],
+              [
+                [
+                  5400.0,
+                  -3850.0
+                ],
+                [
+                  5750.0,
+                  -3850.0
+                ],
+                [
+                  5750.0,
+                  -6250.0
+                ],
+                [
+                  5400.0,
+                  -6250.0
+                ]
+              ]
+            ],
+            "doors": [
+              {
+                "at_mm": [
+                  2375.0,
+                  -840.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "V2_ORBITE_DOOR_01",
+                "is_entry_door": true,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  1785.0,
+                  -1480.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "V2_ORBITE_DOOR_02",
+                "is_entry_door": false,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  9365.0,
+                  -1480.0
+                ],
+                "flip_facing": false,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V2_ORBITE_DOOR_03",
+                "is_entry_door": false,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  1315.0,
+                  -965.0
+                ],
+                "flip_facing": false,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "V2_ORBITE_DOOR_04",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 73 x 204",
+                "width_mm": 730.0
+              },
+              {
+                "at_mm": [
+                  1285.0,
+                  -3135.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "V2_ORBITE_DOOR_05",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 73 x 204",
+                "width_mm": 730.0
+              },
+              {
+                "at_mm": [
+                  2900.0,
+                  -3415.0
+                ],
+                "flip_facing": true,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V2_ORBITE_DOOR_06",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  8250.0,
+                  -3415.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "V2_ORBITE_DOOR_07",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              }
+            ],
+            "existing_walls_kept": [
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -175.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_001",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  1850.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_002",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -175.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  1850.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_003",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  1850.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  2900.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_004",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  2900.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  3000.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_005",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  1750.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  5225.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_006",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  2900.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  650.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_007",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  2300.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_008",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  1650.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_009",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  4450.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -3850.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_010",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  5575.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_011",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  5575.0,
+                  -6250.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  114.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_012",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  464.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_013",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  114.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  1418.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_014",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  464.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  1768.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_015",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  1418.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  2232.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_016",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  1768.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  2582.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_017",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  2232.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  4736.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_018",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  2582.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5086.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_019",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  4736.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_020",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  5086.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1785.0,
+                  -3100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_021",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  1785.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  2965.0,
+                  -1080.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_022",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  2965.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  2965.0,
+                  -2465.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_023",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  2965.0,
+                  -2280.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  3465.0,
+                  -5235.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_024",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  3465.0,
+                  -4120.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1770.0,
+                  -6780.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_025",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  3465.0,
+                  -5235.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  750.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_026",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  650.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  11325.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_027",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  11325.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  9300.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_028",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  11325.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  9300.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_029",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  9300.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  8250.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_030",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  8250.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  9175.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_031",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  9400.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  8150.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_032",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  8375.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  5925.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_033",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  8250.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  10500.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_034",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  11325.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  8850.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_035",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  9500.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_036",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  6700.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  11036.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_037",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  11325.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  10686.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_038",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  11036.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  9732.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_039",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  10686.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  9382.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_040",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  9732.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  8918.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_041",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  9382.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  8568.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_042",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  8918.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  6414.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_043",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  8568.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  6064.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_044",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  6414.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_045",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  6064.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  9365.0,
+                  -3100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_046",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  9365.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  8185.0,
+                  -1080.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_047",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  8185.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  7685.0,
+                  -5235.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_048",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  7685.0,
+                  -4120.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  9380.0,
+                  -6780.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_049",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  7685.0,
+                  -5235.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  10400.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_050",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  10500.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  9500.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_051",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  9600.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "PartyWall1050",
+                "end_mm": [
+                  5575.0,
+                  -1000.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_052",
+                "is_existing": true,
+                "label": "EXI_Mur mitoyen 105",
+                "start_mm": [
+                  5575.0,
+                  200.0
+                ]
+              },
+              {
+                "category": "PartyWall1050",
+                "end_mm": [
+                  5575.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_053",
+                "is_existing": true,
+                "label": "EXI_Mur mitoyen 105",
+                "start_mm": [
+                  5575.0,
+                  -2400.0
+                ]
+              }
+            ],
+            "families": [
+              {
+                "category": "plumbing",
+                "kind": "wc",
+                "name": "V2 - WC suspendu 40x65",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          400,
+                          0
+                        ],
+                        [
+                          400,
+                          -160
+                        ],
+                        [
+                          0,
+                          -160
+                        ]
+                      ],
+                      "to": 1100
+                    },
+                    {
+                      "from": 200,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          368,
+                          -405
+                        ],
+                        [
+                          355.2,
+                          -498.8
+                        ],
+                        [
+                          318.8,
+                          -578.2
+                        ],
+                        [
+                          264.3,
+                          -631.4
+                        ],
+                        [
+                          200,
+                          -650
+                        ],
+                        [
+                          135.7,
+                          -631.4
+                        ],
+                        [
+                          81.2,
+                          -578.2
+                        ],
+                        [
+                          44.8,
+                          -498.8
+                        ],
+                        [
+                          32,
+                          -405
+                        ],
+                        [
+                          44.8,
+                          -311.2
+                        ],
+                        [
+                          81.2,
+                          -231.8
+                        ],
+                        [
+                          135.7,
+                          -178.6
+                        ],
+                        [
+                          200,
+                          -160
+                        ],
+                        [
+                          264.3,
+                          -178.6
+                        ],
+                        [
+                          318.8,
+                          -231.8
+                        ],
+                        [
+                          355.2,
+                          -311.2
+                        ]
+                      ],
+                      "to": 400
+                    }
+                  ],
+                  "kind": "wc",
+                  "name": "V2 - WC suspendu 40x65",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "lav",
+                "name": "V2 - Lave-mains 40x26",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 720,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          400,
+                          0
+                        ],
+                        [
+                          400,
+                          -260
+                        ],
+                        [
+                          0,
+                          -260
+                        ]
+                      ],
+                      "to": 850
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          200,
+                          -30
+                        ],
+                        "radius": 12
+                      },
+                      "from": 850,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 980
+                    }
+                  ],
+                  "kind": "lav",
+                  "name": "V2 - Lave-mains 40x26",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Lave-linge + sèche-linge en colonne 60x62",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          600,
+                          0
+                        ],
+                        [
+                          600,
+                          -620
+                        ],
+                        [
+                          0,
+                          -620
+                        ]
+                      ],
+                      "to": 1800
+                    }
+                  ],
+                  "name": "V2 - Lave-linge + sèche-linge en colonne 60x62",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V2 - Rangement buanderie 95x32",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          950,
+                          0
+                        ],
+                        [
+                          950,
+                          -320
+                        ],
+                        [
+                          0,
+                          -320
+                        ]
+                      ],
+                      "to": 2200
+                    }
+                  ],
+                  "name": "V2 - Rangement buanderie 95x32",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "shower",
+                "name": "V2 - Douche à l'italienne 108x88",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1080,
+                          0
+                        ],
+                        [
+                          1080,
+                          -880
+                        ],
+                        [
+                          0,
+                          -880
+                        ]
+                      ],
+                      "to": 30
+                    }
+                  ],
+                  "kind": "shower",
+                  "name": "V2 - Douche à l'italienne 108x88",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "lav",
+                "name": "V2 - Meuble vasque 63x44",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 300,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          630,
+                          0
+                        ],
+                        [
+                          630,
+                          -440
+                        ],
+                        [
+                          0,
+                          -440
+                        ]
+                      ],
+                      "to": 870
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          315,
+                          -40
+                        ],
+                        "radius": 14
+                      },
+                      "from": 870,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1050
+                    }
+                  ],
+                  "kind": "lav",
+                  "name": "V2 - Meuble vasque 63x44",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Banc à chaussures + patères 90x35",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          900,
+                          0
+                        ],
+                        [
+                          900,
+                          -350
+                        ],
+                        [
+                          0,
+                          -350
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 1500,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          900,
+                          0
+                        ],
+                        [
+                          900,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 1750
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          120,
+                          -40
+                        ],
+                        "radius": 15
+                      },
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1640
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          340,
+                          -40
+                        ],
+                        "radius": 15
+                      },
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1640
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          560,
+                          -40
+                        ],
+                        "radius": 15
+                      },
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1640
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          780,
+                          -40
+                        ],
+                        "radius": 15
+                      },
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1640
+                    }
+                  ],
+                  "name": "V2 - Banc à chaussures + patères 90x35",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V2 - Plan de travail cuisine 205x62",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2050,
+                          0
+                        ],
+                        [
+                          2050,
+                          -550
+                        ],
+                        [
+                          0,
+                          -550
+                        ]
+                      ],
+                      "to": 100
+                    },
+                    {
+                      "from": 100,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2050,
+                          0
+                        ],
+                        [
+                          2050,
+                          -590
+                        ],
+                        [
+                          0,
+                          -590
+                        ]
+                      ],
+                      "to": 870
+                    },
+                    {
+                      "from": 870,
+                      "material": "Ceramic tile",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2050,
+                          0
+                        ],
+                        [
+                          2050,
+                          -620
+                        ],
+                        [
+                          0,
+                          -620
+                        ]
+                      ],
+                      "to": 910
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          305,
+                          -50
+                        ],
+                        "radius": 16
+                      },
+                      "from": 910,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1180
+                    },
+                    {
+                      "from": 1500,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1500,
+                          0
+                        ],
+                        [
+                          1950,
+                          0
+                        ],
+                        [
+                          1950,
+                          -480
+                        ],
+                        [
+                          1500,
+                          -480
+                        ]
+                      ],
+                      "to": 1620
+                    },
+                    {
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1630,
+                          0
+                        ],
+                        [
+                          1820,
+                          0
+                        ],
+                        [
+                          1820,
+                          -250
+                        ],
+                        [
+                          1630,
+                          -250
+                        ]
+                      ],
+                      "to": 2800
+                    },
+                    {
+                      "from": 1450,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          600,
+                          0
+                        ],
+                        [
+                          1400,
+                          0
+                        ],
+                        [
+                          1400,
+                          -350
+                        ],
+                        [
+                          600,
+                          -350
+                        ]
+                      ],
+                      "to": 2150
+                    }
+                  ],
+                  "name": "V2 - Plan de travail cuisine 205x62",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V2 - Colonnes cuisine 60x63",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          600,
+                          0
+                        ],
+                        [
+                          600,
+                          -600
+                        ],
+                        [
+                          0,
+                          -600
+                        ]
+                      ],
+                      "to": 2250
+                    }
+                  ],
+                  "name": "V2 - Colonnes cuisine 60x63",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Bibliothèque de passage 105x26",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1050,
+                          0
+                        ],
+                        [
+                          1050,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          15,
+                          -20
+                        ],
+                        [
+                          15,
+                          -260
+                        ],
+                        [
+                          0,
+                          -260
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          510,
+                          -20
+                        ],
+                        [
+                          540,
+                          -20
+                        ],
+                        [
+                          540,
+                          -260
+                        ],
+                        [
+                          510,
+                          -260
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1035,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -260
+                        ],
+                        [
+                          1035,
+                          -260
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -260
+                        ],
+                        [
+                          0,
+                          -260
+                        ]
+                      ],
+                      "to": 80
+                    },
+                    {
+                      "from": 2370,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -260
+                        ],
+                        [
+                          0,
+                          -260
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 449.7,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -260
+                        ],
+                        [
+                          0,
+                          -260
+                        ]
+                      ],
+                      "to": 473.7
+                    },
+                    {
+                      "from": 831.3,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -260
+                        ],
+                        [
+                          0,
+                          -260
+                        ]
+                      ],
+                      "to": 855.3
+                    },
+                    {
+                      "from": 1213,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -260
+                        ],
+                        [
+                          0,
+                          -260
+                        ]
+                      ],
+                      "to": 1237
+                    },
+                    {
+                      "from": 1594.7,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -260
+                        ],
+                        [
+                          0,
+                          -260
+                        ]
+                      ],
+                      "to": 1618.7
+                    },
+                    {
+                      "from": 1976.3,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -20
+                        ],
+                        [
+                          1050,
+                          -260
+                        ],
+                        [
+                          0,
+                          -260
+                        ]
+                      ],
+                      "to": 2000.3
+                    },
+                    {
+                      "from": 473.7,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          20,
+                          -40
+                        ],
+                        [
+                          480,
+                          -40
+                        ],
+                        [
+                          480,
+                          -220
+                        ],
+                        [
+                          20,
+                          -220
+                        ]
+                      ],
+                      "to": 693.7
+                    },
+                    {
+                      "from": 855.3,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          20,
+                          -40
+                        ],
+                        [
+                          300,
+                          -40
+                        ],
+                        [
+                          300,
+                          -220
+                        ],
+                        [
+                          20,
+                          -220
+                        ]
+                      ],
+                      "to": 1095.3
+                    },
+                    {
+                      "from": 2000.3,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          80,
+                          -40
+                        ],
+                        [
+                          420,
+                          -40
+                        ],
+                        [
+                          420,
+                          -220
+                        ],
+                        [
+                          80,
+                          -220
+                        ]
+                      ],
+                      "to": 2260.3
+                    },
+                    {
+                      "from": 92,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          665,
+                          -40
+                        ],
+                        [
+                          885,
+                          -40
+                        ],
+                        [
+                          885,
+                          -220
+                        ],
+                        [
+                          665,
+                          -220
+                        ]
+                      ],
+                      "to": 312
+                    },
+                    {
+                      "from": 855.3,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          545,
+                          -40
+                        ],
+                        [
+                          1005,
+                          -40
+                        ],
+                        [
+                          1005,
+                          -220
+                        ],
+                        [
+                          545,
+                          -220
+                        ]
+                      ],
+                      "to": 1075.3
+                    },
+                    {
+                      "from": 1237,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          545,
+                          -40
+                        ],
+                        [
+                          825,
+                          -40
+                        ],
+                        [
+                          825,
+                          -220
+                        ],
+                        [
+                          545,
+                          -220
+                        ]
+                      ],
+                      "to": 1477
+                    }
+                  ],
+                  "name": "V2 - Bibliothèque de passage 105x26",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Lit 160 x 200",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1600,
+                          0
+                        ],
+                        [
+                          1600,
+                          -50
+                        ],
+                        [
+                          0,
+                          -50
+                        ]
+                      ],
+                      "to": 950
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -50
+                        ],
+                        [
+                          1600,
+                          -50
+                        ],
+                        [
+                          1600,
+                          -2000
+                        ],
+                        [
+                          0,
+                          -2000
+                        ]
+                      ],
+                      "to": 250
+                    },
+                    {
+                      "from": 250,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -60
+                        ],
+                        [
+                          1590,
+                          -60
+                        ],
+                        [
+                          1590,
+                          -1990
+                        ],
+                        [
+                          10,
+                          -1990
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          70,
+                          -90
+                        ],
+                        [
+                          770,
+                          -90
+                        ],
+                        [
+                          770,
+                          -290
+                        ],
+                        [
+                          70,
+                          -290
+                        ]
+                      ],
+                      "to": 580
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          830,
+                          -90
+                        ],
+                        [
+                          1530,
+                          -90
+                        ],
+                        [
+                          1530,
+                          -290
+                        ],
+                        [
+                          830,
+                          -290
+                        ]
+                      ],
+                      "to": 580
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          5,
+                          -480
+                        ],
+                        [
+                          1595,
+                          -480
+                        ],
+                        [
+                          1595,
+                          -1995
+                        ],
+                        [
+                          5,
+                          -1995
+                        ]
+                      ],
+                      "to": 500
+                    }
+                  ],
+                  "name": "V2 - Lit 160 x 200",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Chevet 34x40",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          340,
+                          0
+                        ],
+                        [
+                          340,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 500
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          170,
+                          -200
+                        ],
+                        "radius": 60
+                      },
+                      "from": 500,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "to": 530
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          170,
+                          -200
+                        ],
+                        "radius": 12
+                      },
+                      "from": 530,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 720
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          170,
+                          -200
+                        ],
+                        "radius": 100
+                      },
+                      "from": 720,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "to": 900
+                    }
+                  ],
+                  "name": "V2 - Chevet 34x40",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V2 - Dressing 95x60",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          950,
+                          0
+                        ],
+                        [
+                          950,
+                          -600
+                        ],
+                        [
+                          0,
+                          -600
+                        ]
+                      ],
+                      "to": 2500
+                    }
+                  ],
+                  "name": "V2 - Dressing 95x60",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Banquette-coffre 70x37",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          700,
+                          0
+                        ],
+                        [
+                          700,
+                          -370
+                        ],
+                        [
+                          0,
+                          -370
+                        ]
+                      ],
+                      "to": 380
+                    },
+                    {
+                      "from": 380,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -10
+                        ],
+                        [
+                          690,
+                          -10
+                        ],
+                        [
+                          690,
+                          -360
+                        ],
+                        [
+                          10,
+                          -360
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -10
+                        ],
+                        [
+                          670,
+                          -10
+                        ],
+                        [
+                          670,
+                          -120
+                        ],
+                        [
+                          30,
+                          -120
+                        ]
+                      ],
+                      "to": 750
+                    }
+                  ],
+                  "name": "V2 - Banquette-coffre 70x37",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Table 160 x 80 (6 couverts)",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1600,
+                          0
+                        ],
+                        [
+                          1600,
+                          -800
+                        ],
+                        [
+                          0,
+                          -800
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          80,
+                          -30
+                        ],
+                        [
+                          80,
+                          -80
+                        ],
+                        [
+                          30,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1520,
+                          -30
+                        ],
+                        [
+                          1570,
+                          -30
+                        ],
+                        [
+                          1570,
+                          -80
+                        ],
+                        [
+                          1520,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -720
+                        ],
+                        [
+                          80,
+                          -720
+                        ],
+                        [
+                          80,
+                          -770
+                        ],
+                        [
+                          30,
+                          -770
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1520,
+                          -720
+                        ],
+                        [
+                          1570,
+                          -720
+                        ],
+                        [
+                          1570,
+                          -770
+                        ],
+                        [
+                          1520,
+                          -770
+                        ]
+                      ],
+                      "to": 720
+                    }
+                  ],
+                  "name": "V2 - Table 160 x 80 (6 couverts)",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Chaise 42x45",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -10
+                        ],
+                        [
+                          60,
+                          -10
+                        ],
+                        [
+                          60,
+                          -40
+                        ],
+                        [
+                          30,
+                          -40
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          360,
+                          -10
+                        ],
+                        [
+                          390,
+                          -10
+                        ],
+                        [
+                          390,
+                          -40
+                        ],
+                        [
+                          360,
+                          -40
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -410
+                        ],
+                        [
+                          60,
+                          -410
+                        ],
+                        [
+                          60,
+                          -440
+                        ],
+                        [
+                          30,
+                          -440
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          360,
+                          -410
+                        ],
+                        [
+                          390,
+                          -410
+                        ],
+                        [
+                          390,
+                          -440
+                        ],
+                        [
+                          360,
+                          -440
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 440,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -10
+                        ],
+                        [
+                          410,
+                          -10
+                        ],
+                        [
+                          410,
+                          -450
+                        ],
+                        [
+                          10,
+                          -450
+                        ]
+                      ],
+                      "to": 470
+                    },
+                    {
+                      "from": 470,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          0
+                        ],
+                        [
+                          410,
+                          0
+                        ],
+                        [
+                          410,
+                          -30
+                        ],
+                        [
+                          10,
+                          -30
+                        ]
+                      ],
+                      "to": 850
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          0
+                        ],
+                        [
+                          60,
+                          0
+                        ],
+                        [
+                          60,
+                          -30
+                        ],
+                        [
+                          30,
+                          -30
+                        ]
+                      ],
+                      "to": 470
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          360,
+                          0
+                        ],
+                        [
+                          390,
+                          0
+                        ],
+                        [
+                          390,
+                          -30
+                        ],
+                        [
+                          360,
+                          -30
+                        ]
+                      ],
+                      "to": 470
+                    }
+                  ],
+                  "name": "V2 - Chaise 42x45",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Buffet sur mesure 95x42",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 80,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          950,
+                          0
+                        ],
+                        [
+                          950,
+                          -420
+                        ],
+                        [
+                          0,
+                          -420
+                        ]
+                      ],
+                      "to": 850
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          920,
+                          -30
+                        ],
+                        [
+                          920,
+                          -390
+                        ],
+                        [
+                          30,
+                          -390
+                        ]
+                      ],
+                      "to": 80
+                    }
+                  ],
+                  "name": "V2 - Buffet sur mesure 95x42",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Plante en pot 40x40",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "circle": {
+                        "centre": [
+                          200,
+                          -200
+                        ],
+                        "radius": 110
+                      },
+                      "from": 0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "to": 320
+                    }
+                  ],
+                  "name": "V2 - Plante en pot 40x40",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Meuble TV 90x43",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 60,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          900,
+                          0
+                        ],
+                        [
+                          900,
+                          -430
+                        ],
+                        [
+                          0,
+                          -430
+                        ]
+                      ],
+                      "to": 500
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          40,
+                          -40
+                        ],
+                        [
+                          860,
+                          -40
+                        ],
+                        [
+                          860,
+                          -390
+                        ],
+                        [
+                          40,
+                          -390
+                        ]
+                      ],
+                      "to": 60
+                    },
+                    {
+                      "from": 500,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          330,
+                          -70
+                        ],
+                        [
+                          570,
+                          -70
+                        ],
+                        [
+                          570,
+                          -170
+                        ],
+                        [
+                          330,
+                          -170
+                        ]
+                      ],
+                      "to": 520
+                    },
+                    {
+                      "from": 520,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          135,
+                          -90
+                        ],
+                        [
+                          765,
+                          -90
+                        ],
+                        [
+                          765,
+                          -120
+                        ],
+                        [
+                          135,
+                          -120
+                        ]
+                      ],
+                      "to": 879.1
+                    }
+                  ],
+                  "name": "V2 - Meuble TV 90x43",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Table basse 80x55",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 340,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          800,
+                          0
+                        ],
+                        [
+                          800,
+                          -550
+                        ],
+                        [
+                          0,
+                          -550
+                        ]
+                      ],
+                      "to": 380
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          40,
+                          -40
+                        ],
+                        [
+                          760,
+                          -40
+                        ],
+                        [
+                          760,
+                          -510
+                        ],
+                        [
+                          40,
+                          -510
+                        ]
+                      ],
+                      "to": 340
+                    }
+                  ],
+                  "name": "V2 - Table basse 80x55",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Canapé 190x84",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          180,
+                          -840
+                        ],
+                        [
+                          0,
+                          -840
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1720,
+                          0
+                        ],
+                        [
+                          1900,
+                          0
+                        ],
+                        [
+                          1900,
+                          -840
+                        ],
+                        [
+                          1720,
+                          -840
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          1720,
+                          0
+                        ],
+                        [
+                          1720,
+                          -220
+                        ],
+                        [
+                          180,
+                          -220
+                        ]
+                      ],
+                      "to": 820
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          -220
+                        ],
+                        [
+                          1720,
+                          -220
+                        ],
+                        [
+                          1720,
+                          -820
+                        ],
+                        [
+                          180,
+                          -820
+                        ]
+                      ],
+                      "to": 300
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          185,
+                          -220
+                        ],
+                        [
+                          945,
+                          -220
+                        ],
+                        [
+                          945,
+                          -820
+                        ],
+                        [
+                          185,
+                          -820
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          955,
+                          -220
+                        ],
+                        [
+                          1715,
+                          -220
+                        ],
+                        [
+                          1715,
+                          -820
+                        ],
+                        [
+                          955,
+                          -820
+                        ]
+                      ],
+                      "to": 440
+                    }
+                  ],
+                  "name": "V2 - Canapé 190x84",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Bureau 2 postes + étagère 201x60",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2010,
+                          0
+                        ],
+                        [
+                          2010,
+                          -600
+                        ],
+                        [
+                          0,
+                          -600
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          80,
+                          -30
+                        ],
+                        [
+                          80,
+                          -80
+                        ],
+                        [
+                          30,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1930,
+                          -30
+                        ],
+                        [
+                          1980,
+                          -30
+                        ],
+                        [
+                          1980,
+                          -80
+                        ],
+                        [
+                          1930,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -520
+                        ],
+                        [
+                          80,
+                          -520
+                        ],
+                        [
+                          80,
+                          -570
+                        ],
+                        [
+                          30,
+                          -570
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1930,
+                          -520
+                        ],
+                        [
+                          1980,
+                          -520
+                        ],
+                        [
+                          1980,
+                          -570
+                        ],
+                        [
+                          1930,
+                          -570
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 400,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2010,
+                          0
+                        ],
+                        [
+                          2010,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 1400,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2010,
+                          0
+                        ],
+                        [
+                          2010,
+                          -250
+                        ],
+                        [
+                          0,
+                          -250
+                        ]
+                      ],
+                      "to": 1430
+                    }
+                  ],
+                  "name": "V2 - Bureau 2 postes + étagère 201x60",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V2 - Rangement 60x63",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          600,
+                          0
+                        ],
+                        [
+                          600,
+                          -630
+                        ],
+                        [
+                          0,
+                          -630
+                        ]
+                      ],
+                      "to": 2200
+                    }
+                  ],
+                  "name": "V2 - Rangement 60x63",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V2 - Placard 111x62",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1110,
+                          0
+                        ],
+                        [
+                          1110,
+                          -620
+                        ],
+                        [
+                          0,
+                          -620
+                        ]
+                      ],
+                      "to": 2500
+                    }
+                  ],
+                  "name": "V2 - Placard 111x62",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "bath",
+                "name": "V2 - Baignoire 170x75",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1700,
+                          0
+                        ],
+                        [
+                          1700,
+                          -750
+                        ],
+                        [
+                          0,
+                          -750
+                        ]
+                      ],
+                      "to": 550
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          1580,
+                          -30
+                        ],
+                        "radius": 14
+                      },
+                      "from": 550,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 700
+                    }
+                  ],
+                  "kind": "bath",
+                  "name": "V2 - Baignoire 170x75",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "lav",
+                "name": "V2 - Meuble double vasque 100x50",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 300,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1000,
+                          0
+                        ],
+                        [
+                          1000,
+                          -500
+                        ],
+                        [
+                          0,
+                          -500
+                        ]
+                      ],
+                      "to": 870
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          250,
+                          -40
+                        ],
+                        "radius": 14
+                      },
+                      "from": 870,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1050
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          750,
+                          -40
+                        ],
+                        "radius": 14
+                      },
+                      "from": 870,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1050
+                    }
+                  ],
+                  "kind": "lav",
+                  "name": "V2 - Meuble double vasque 100x50",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "shower",
+                "name": "V2 - Douche à l'italienne 88x88",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          880,
+                          0
+                        ],
+                        [
+                          880,
+                          -880
+                        ],
+                        [
+                          0,
+                          -880
+                        ]
+                      ],
+                      "to": 30
+                    }
+                  ],
+                  "kind": "shower",
+                  "name": "V2 - Douche à l'italienne 88x88",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Lit 90 x 200",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          900,
+                          0
+                        ],
+                        [
+                          900,
+                          -50
+                        ],
+                        [
+                          0,
+                          -50
+                        ]
+                      ],
+                      "to": 950
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -50
+                        ],
+                        [
+                          900,
+                          -50
+                        ],
+                        [
+                          900,
+                          -2000
+                        ],
+                        [
+                          0,
+                          -2000
+                        ]
+                      ],
+                      "to": 250
+                    },
+                    {
+                      "from": 250,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -60
+                        ],
+                        [
+                          890,
+                          -60
+                        ],
+                        [
+                          890,
+                          -1990
+                        ],
+                        [
+                          10,
+                          -1990
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          90,
+                          -90
+                        ],
+                        [
+                          810,
+                          -90
+                        ],
+                        [
+                          810,
+                          -290
+                        ],
+                        [
+                          90,
+                          -290
+                        ]
+                      ],
+                      "to": 580
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          5,
+                          -480
+                        ],
+                        [
+                          895,
+                          -480
+                        ],
+                        [
+                          895,
+                          -1995
+                        ],
+                        [
+                          5,
+                          -1995
+                        ]
+                      ],
+                      "to": 500
+                    }
+                  ],
+                  "name": "V2 - Lit 90 x 200",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Chevet 35x35",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          350,
+                          0
+                        ],
+                        [
+                          350,
+                          -350
+                        ],
+                        [
+                          0,
+                          -350
+                        ]
+                      ],
+                      "to": 500
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          175,
+                          -175
+                        ],
+                        "radius": 60
+                      },
+                      "from": 500,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "to": 530
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          175,
+                          -175
+                        ],
+                        "radius": 12
+                      },
+                      "from": 530,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 720
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          175,
+                          -175
+                        ],
+                        "radius": 100
+                      },
+                      "from": 720,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "to": 900
+                    }
+                  ],
+                  "name": "V2 - Chevet 35x35",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V2 - Placard 88x60",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          880,
+                          0
+                        ],
+                        [
+                          880,
+                          -600
+                        ],
+                        [
+                          0,
+                          -600
+                        ]
+                      ],
+                      "to": 2500
+                    }
+                  ],
+                  "name": "V2 - Placard 88x60",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V2 - Bureau 110x37",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1100,
+                          0
+                        ],
+                        [
+                          1100,
+                          -370
+                        ],
+                        [
+                          0,
+                          -370
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          80,
+                          -30
+                        ],
+                        [
+                          80,
+                          -80
+                        ],
+                        [
+                          30,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1020,
+                          -30
+                        ],
+                        [
+                          1070,
+                          -30
+                        ],
+                        [
+                          1070,
+                          -80
+                        ],
+                        [
+                          1020,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -290
+                        ],
+                        [
+                          80,
+                          -290
+                        ],
+                        [
+                          80,
+                          -340
+                        ],
+                        [
+                          30,
+                          -340
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1020,
+                          -290
+                        ],
+                        [
+                          1070,
+                          -290
+                        ],
+                        [
+                          1070,
+                          -340
+                        ],
+                        [
+                          1020,
+                          -340
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 400,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1100,
+                          0
+                        ],
+                        [
+                          1100,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 720
+                    }
+                  ],
+                  "name": "V2 - Bureau 110x37",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              }
+            ],
+            "floor_boundary_mm": [
+              [
+                1950.0,
+                -750.0
+              ],
+              [
+                1950.0,
+                200.0
+              ],
+              [
+                -350.0,
+                200.0
+              ],
+              [
+                -350.0,
+                -6990.0
+              ],
+              [
+                105.0,
+                -6990.0
+              ],
+              [
+                455.0,
+                -7450.0
+              ],
+              [
+                1440.0,
+                -7450.0
+              ],
+              [
+                1810.0,
+                -7110.0
+              ],
+              [
+                2210.0,
+                -7110.0
+              ],
+              [
+                2580.0,
+                -7450.0
+              ],
+              [
+                4760.0,
+                -7450.0
+              ],
+              [
+                5110.0,
+                -6990.0
+              ],
+              [
+                6040.0,
+                -6990.0
+              ],
+              [
+                6390.0,
+                -7450.0
+              ],
+              [
+                8570.0,
+                -7450.0
+              ],
+              [
+                8940.0,
+                -7110.0
+              ],
+              [
+                9340.0,
+                -7110.0
+              ],
+              [
+                9710.0,
+                -7450.0
+              ],
+              [
+                10695.0,
+                -7450.0
+              ],
+              [
+                11045.0,
+                -6990.0
+              ],
+              [
+                11500.0,
+                -6990.0
+              ],
+              [
+                11500.0,
+                200.0
+              ],
+              [
+                9200.0,
+                200.0
+              ],
+              [
+                9200.0,
+                -750.0
+              ],
+              [
+                8350.0,
+                -750.0
+              ],
+              [
+                8350.0,
+                200.0
+              ],
+              [
+                2800.0,
+                200.0
+              ],
+              [
+                2800.0,
+                -750.0
+              ]
+            ],
+            "materials_palette": [
+              {
+                "color_hex": "#B59268",
+                "element": "Sol continu",
+                "finish_description": "Pose à l'anglaise traversante sur l'axe mitoyen",
+                "material_name": "Parquet Chêne Fumé Anglais",
+                "space_category": "Cœur Central (Salon / Repas)"
+              },
+              {
+                "color_hex": "#D2CDC6",
+                "element": "Murs & Poutres",
+                "finish_description": "Mise en valeur sculpturale de la croix porteuse centrale",
+                "material_name": "Enduit Chaux Ferrée & Béton Brut Lasuré",
+                "space_category": "Noyau Croix Porteuse"
+              },
+              {
+                "color_hex": "#8A6240",
+                "element": "Menuiserie sur mesure",
+                "finish_description": "Étagères toute hauteur 240 cm dans la percée Nord",
+                "material_name": "Noyer Canaletto & Acier Noir Sablé",
+                "space_category": "Bibliothèque de Passage"
+              }
+            ],
+            "mirror_mode": "RightMirrorD",
+            "name": "Proposition V2 — ORBITE (Miroir Droite — Boucle fluide autour de la croix porteuse)",
+            "new_walls": [
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  3465.0,
+                  -4120.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_054",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  3465.0,
+                  -3450.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1650.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_055",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  750.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Infill200",
+                "end_mm": [
+                  8375.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_056",
+                "is_existing": false,
+                "label": "PRJ_Rebouchage 20",
+                "start_mm": [
+                  9175.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  8185.0,
+                  -1650.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_057",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  8185.0,
+                  -1080.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  7685.0,
+                  -4120.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_058",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  7685.0,
+                  -3450.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  9600.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_059",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  10400.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  3500.0,
+                  -3415.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_060",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  2300.0,
+                  -3415.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  8850.0,
+                  -3415.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_061",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  7650.0,
+                  -3415.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1750.0,
+                  -965.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_062",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  0.0,
+                  -965.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1750.0,
+                  -1985.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V2_ORBITE_W_063",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  0.0,
+                  -1985.0
+                ]
+              }
+            ],
+            "night_area_m2": 33.3,
+            "room_separators_mm": [
+              [
+                [
+                  2965.0,
+                  -1000.0
+                ],
+                [
+                  2965.0,
+                  -3180.0
+                ]
+              ],
+              [
+                [
+                  2220.0,
+                  -3100.0
+                ],
+                [
+                  4530.0,
+                  -3100.0
+                ]
+              ],
+              [
+                [
+                  5050.0,
+                  -920.0
+                ],
+                [
+                  5050.0,
+                  -2480.0
+                ]
+              ],
+              [
+                [
+                  6100.0,
+                  -920.0
+                ],
+                [
+                  6100.0,
+                  -2480.0
+                ]
+              ],
+              [
+                [
+                  5575.0,
+                  -3770.0
+                ],
+                [
+                  5575.0,
+                  -6330.0
+                ]
+              ],
+              [
+                [
+                  8185.0,
+                  -1570.0
+                ],
+                [
+                  8185.0,
+                  -3180.0
+                ]
+              ],
+              [
+                [
+                  6620.0,
+                  -3100.0
+                ],
+                [
+                  8930.0,
+                  -3100.0
+                ]
+              ]
+            ],
+            "rooms": [
+              {
+                "name": "ENTRÉE",
+                "number": "01",
+                "point_mm": [
+                  2550.0,
+                  -2450.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "WC",
+                "number": "02",
+                "point_mm": [
+                  1100.0,
+                  -550.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "BUANDERIE",
+                "number": "03",
+                "point_mm": [
+                  800.0,
+                  -1350.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "SALLE D'EAU",
+                "number": "04",
+                "point_mm": [
+                  1330.0,
+                  -2820.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "CUISINE",
+                "number": "05",
+                "point_mm": [
+                  4000.0,
+                  -1650.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "CHAMBRE PARENTS",
+                "number": "06",
+                "point_mm": [
+                  1100.0,
+                  -3980.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "REPAS",
+                "number": "07",
+                "point_mm": [
+                  4550.0,
+                  -4700.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "SALON",
+                "number": "08",
+                "point_mm": [
+                  6500.0,
+                  -4100.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "BUREAU - BIBLIO.",
+                "number": "09",
+                "point_mm": [
+                  7120.0,
+                  -1750.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "DÉGAGEMENT",
+                "number": "10",
+                "point_mm": [
+                  8770.0,
+                  -2250.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "SDB",
+                "number": "11",
+                "point_mm": [
+                  10400.0,
+                  -1350.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "CHAMBRE ENFANTS",
+                "number": "12",
+                "point_mm": [
+                  9450.0,
+                  -6050.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              }
+            ],
+            "spatial_justification": "Maximise la surface habitable (68.5 m² + galerie bibliothèque de 1.5 m²), crée une circulation fluide en boucle autour du noyau porteur et sépare totalement la suite parentale de la chambre des enfants.",
+            "structural_openings": [
+              {
+                "bbox_cm": [
+                  505.0,
+                  100.0,
+                  610.0,
+                  240.0
+                ],
+                "beam_depth_mm": 400.0,
+                "beam_end_mm": [
+                  5575.0,
+                  -2600.0
+                ],
+                "beam_offset_mm": 2800.0,
+                "beam_start_mm": [
+                  5575.0,
+                  -800.0
+                ],
+                "beam_width_mm": 350.0,
+                "host_wall_id": "V2_ORBITE_W_052",
+                "id": "OPENING-V2-NORD",
+                "left_pier_mm": 1200.0,
+                "right_pier_mm": 875.0,
+                "span_mm": 1400.0
+              },
+              {
+                "bbox_cm": [
+                  540.0,
+                  385.0,
+                  575.0,
+                  625.0
+                ],
+                "beam_depth_mm": 400.0,
+                "beam_end_mm": [
+                  5575.0,
+                  -6450.0
+                ],
+                "beam_offset_mm": 2800.0,
+                "beam_start_mm": [
+                  5575.0,
+                  -3650.0
+                ],
+                "beam_width_mm": 350.0,
+                "host_wall_id": "V2_ORBITE_W_010",
+                "id": "OPENING-V2-SUD",
+                "left_pier_mm": 575.0,
+                "right_pier_mm": 575.0,
+                "span_mm": 2400.0
+              }
+            ],
+            "total_habitable_area_m2": 68.5,
+            "variant_id": "V2_ORBITE",
+            "windows": [
+              {
+                "at_mm": [
+                  950.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V2_ORBITE_WIN_01",
+                "is_existing": true,
+                "label": "Fenêtre 80 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  3650.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V2_ORBITE_WIN_02",
+                "is_existing": true,
+                "label": "Fenêtre 200 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 200 x 170",
+                "width_mm": 2000.0
+              },
+              {
+                "at_mm": [
+                  10200.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V2_ORBITE_WIN_03",
+                "is_existing": true,
+                "label": "Fenêtre 80 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  7500.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V2_ORBITE_WIN_04",
+                "is_existing": true,
+                "label": "Fenêtre 200 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 200 x 170",
+                "width_mm": 2000.0
+              }
+            ]
+          },
+          "V3_PASSAGE": {
+            "architectural_concept": "Parti 'Passage' : Création d'une grande perspective transversale ('rue intérieure' de 11.50 m de fenêtre Est à fenêtre Ouest) et d'espaces de réception en enfilade au Sud, structurés par des meubles-cloisons toute hauteur (60 cm d'épaisseur) dessinés sur mesure.",
+            "components": [
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -900.0
+                ],
+                "family_name": "V3 - Douche à l'italienne 90x90"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  1200.0,
+                  0.0
+                ],
+                "family_name": "V3 - WC suspendu 40x65"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -1960.0
+                ],
+                "family_name": "V3 - Meuble vasque 68x48"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  0.0,
+                  -2770.0
+                ],
+                "family_name": "V3 - Lave-linge + sèche-linge en colonne 62x62"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  620.0,
+                  -2070.0
+                ],
+                "family_name": "V3 - Plan de pliage + étagères 108x40"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  2930.0,
+                  -1950.0
+                ],
+                "family_name": "V3 - Banc à chaussures + patères 55x30"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  5050.0,
+                  -20.0
+                ],
+                "family_name": "V3 - Lit 90 x 200"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  5050.0,
+                  -1200.0
+                ],
+                "family_name": "V3 - Bureau 110x60"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  4000.0,
+                  -1960.0
+                ],
+                "family_name": "V3 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  5050.0,
+                  -3100.0
+                ],
+                "family_name": "V3 - Placard 150x55"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  2300.0,
+                  -6780.0
+                ],
+                "family_name": "V3 - Plan de travail cuisine 153x62"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  3200.0,
+                  -5620.0
+                ],
+                "family_name": "V3 - Table 160 x 86 (6 couverts)"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  3256.7,
+                  -5170.0
+                ],
+                "family_name": "V3 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  3676.7,
+                  -6930.0
+                ],
+                "family_name": "V3 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  3790.0,
+                  -5170.0
+                ],
+                "family_name": "V3 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  4210.0,
+                  -6930.0
+                ],
+                "family_name": "V3 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  4323.3,
+                  -5170.0
+                ],
+                "family_name": "V3 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  4743.3,
+                  -6930.0
+                ],
+                "family_name": "V3 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  5400.0,
+                  -3520.0
+                ],
+                "family_name": "V3 - Buffet sur mesure 68x45"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  50.0,
+                  -3470.0
+                ],
+                "family_name": "V3 - Bibliothèque + TV 160x38"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  950.0,
+                  -6220.0
+                ],
+                "family_name": "V3 - Canapé 220x85"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  1000.0,
+                  -5600.0
+                ],
+                "family_name": "V3 - Bout de canapé 35x35"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  -2050.0,
+                  -5400.0
+                ],
+                "family_name": "V3 - Plante en pot 40x40"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  1300.0,
+                  -7050.0
+                ],
+                "family_name": "V3 - Banquette-coffre 70x37"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  -950.0,
+                  -7050.0
+                ],
+                "family_name": "V3 - Banquette-coffre 70x37"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  -2070.0,
+                  -20.0
+                ],
+                "family_name": "V3 - Baignoire 170x70"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  -350.0,
+                  -850.0
+                ],
+                "family_name": "V3 - WC suspendu 40x65"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  -350.0,
+                  -1980.0
+                ],
+                "family_name": "V3 - Meuble vasque 95x48"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  -370.0,
+                  -2070.0
+                ],
+                "family_name": "V3 - Placard à linge 93x58"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  -5400.0,
+                  -920.0
+                ],
+                "family_name": "V3 - Lit 90 x 200"
+              },
+              {
+                "angle_deg": 90.0,
+                "at_mm": [
+                  -5400.0,
+                  -2300.0
+                ],
+                "family_name": "V3 - Bureau 110x60"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  -4350.0,
+                  -1540.0
+                ],
+                "family_name": "V3 - Chaise 42x45"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  -3900.0,
+                  -3100.0
+                ],
+                "family_name": "V3 - Placard 150x55"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  -5750.0,
+                  -3450.0
+                ],
+                "family_name": "V3 - Tête de lit à niches-chevets 212x15"
+              },
+              {
+                "angle_deg": 0.0,
+                "at_mm": [
+                  -5480.0,
+                  -3600.0
+                ],
+                "family_name": "V3 - Lit 160 x 200"
+              },
+              {
+                "angle_deg": 270.0,
+                "at_mm": [
+                  -2850.0,
+                  -5750.0
+                ],
+                "family_name": "V3 - Fauteuil 75x75"
+              },
+              {
+                "angle_deg": 180.0,
+                "at_mm": [
+                  -3070.0,
+                  -7080.0
+                ],
+                "family_name": "V3 - Banquette-coffre 186x28"
+              }
+            ],
+            "day_area_m2": 25.9,
+            "demolished_polygons_mm": [
+              [
+                [
+                  3430.0,
+                  -3320.0
+                ],
+                [
+                  3500.0,
+                  -3320.0
+                ],
+                [
+                  3500.0,
+                  -4120.0
+                ],
+                [
+                  3430.0,
+                  -4120.0
+                ]
+              ],
+              [
+                [
+                  3430.0,
+                  -4120.0
+                ],
+                [
+                  3500.0,
+                  -4120.0
+                ],
+                [
+                  3500.0,
+                  -5250.0
+                ],
+                [
+                  3430.0,
+                  -5250.0
+                ]
+              ],
+              [
+                [
+                  -3850.0,
+                  -3320.0
+                ],
+                [
+                  -3780.0,
+                  -3320.0
+                ],
+                [
+                  -3780.0,
+                  -4120.0
+                ],
+                [
+                  -3850.0,
+                  -4120.0
+                ]
+              ],
+              [
+                [
+                  -3850.0,
+                  -4120.0
+                ],
+                [
+                  -3780.0,
+                  -4120.0
+                ],
+                [
+                  -3780.0,
+                  -5250.0
+                ],
+                [
+                  -3850.0,
+                  -5250.0
+                ]
+              ],
+              [
+                [
+                  3430.0,
+                  -5220.0
+                ],
+                [
+                  3500.0,
+                  -5250.0
+                ],
+                [
+                  1820.0,
+                  -6780.0
+                ],
+                [
+                  1720.0,
+                  -6780.0
+                ]
+              ],
+              [
+                [
+                  -3780.0,
+                  -5220.0
+                ],
+                [
+                  -2070.0,
+                  -6780.0
+                ],
+                [
+                  -2170.0,
+                  -6780.0
+                ],
+                [
+                  -3850.0,
+                  -5250.0
+                ]
+              ],
+              [
+                [
+                  3430.0,
+                  -3170.0
+                ],
+                [
+                  3500.0,
+                  -3170.0
+                ],
+                [
+                  3500.0,
+                  -3320.0
+                ],
+                [
+                  3430.0,
+                  -3320.0
+                ]
+              ],
+              [
+                [
+                  -350.0,
+                  -3850.0
+                ],
+                [
+                  0.0,
+                  -3850.0
+                ],
+                [
+                  0.0,
+                  -6250.0
+                ],
+                [
+                  -350.0,
+                  -6250.0
+                ]
+              ]
+            ],
+            "doors": [
+              {
+                "at_mm": [
+                  2375.0,
+                  -840.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "V3_PASSAGE_DOOR_01",
+                "is_entry_door": true,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  1785.0,
+                  -1480.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "V3_PASSAGE_DOOR_02",
+                "is_entry_door": false,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  2965.0,
+                  -1480.0
+                ],
+                "flip_facing": false,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V3_PASSAGE_DOOR_03",
+                "is_entry_door": false,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  -2135.0,
+                  -1480.0
+                ],
+                "flip_facing": false,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V3_PASSAGE_DOOR_04",
+                "is_entry_door": false,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  -3315.0,
+                  -1480.0
+                ],
+                "flip_facing": true,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V3_PASSAGE_DOOR_05",
+                "is_entry_door": false,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  -1500.0,
+                  -3135.0
+                ],
+                "flip_facing": false,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V3_PASSAGE_DOOR_06",
+                "is_entry_door": false,
+                "is_existing": true,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  1785.0,
+                  -2550.0
+                ],
+                "flip_facing": false,
+                "flip_hand": false,
+                "height_mm": 2040.0,
+                "id": "V3_PASSAGE_DOOR_07",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  -2135.0,
+                  -2550.0
+                ],
+                "flip_facing": false,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "V3_PASSAGE_DOOR_08",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  -3215.0,
+                  -3415.0
+                ],
+                "flip_facing": true,
+                "flip_hand": true,
+                "height_mm": 2040.0,
+                "id": "V3_PASSAGE_DOOR_09",
+                "is_entry_door": false,
+                "is_existing": false,
+                "type_name": "Porte 80 x 204",
+                "width_mm": 800.0
+              }
+            ],
+            "existing_walls_kept": [
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -175.0,
+                  -3850.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_001",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -175.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_002",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -6250.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  1850.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_003",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -175.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  1850.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_004",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  1850.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  2900.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_005",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  2900.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  3000.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_006",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  1750.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  5225.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_007",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  2900.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5225.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_008",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  5225.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  650.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_009",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  2300.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_010",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  1650.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_011",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  4450.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_012",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  5575.0,
+                  -2900.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  114.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_013",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  464.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_014",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  114.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  1418.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_015",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  464.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  1768.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_016",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  1418.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  2232.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_017",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  1768.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  2582.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_018",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  2232.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  4736.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_019",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  2582.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5086.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_020",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  4736.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  5575.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_021",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  5086.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1785.0,
+                  -3100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_022",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  1785.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  2965.0,
+                  -2465.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_023",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  2965.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  3465.0,
+                  -2465.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_024",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  3000.0,
+                  -2465.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  3465.0,
+                  -3170.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_025",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  3465.0,
+                  -2500.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  4450.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_026",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  3500.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  750.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_027",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  650.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1650.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_028",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  1550.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -2200.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_029",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -175.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -2200.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_030",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -2200.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -3250.0,
+                  -740.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_031",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -3250.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -2325.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_032",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -2100.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -3350.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_033",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -3125.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Landing200",
+                "end_mm": [
+                  -5575.0,
+                  100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_034",
+                "is_existing": true,
+                "label": "EXI_Mur palier 20",
+                "start_mm": [
+                  -3250.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5575.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_035",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -5575.0,
+                  100.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -1000.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_036",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -2650.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_037",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -2000.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5925.0,
+                  -3275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_038",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -4800.0,
+                  -3275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5925.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_039",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -5925.0,
+                  -2900.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -464.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_040",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -175.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -814.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_041",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -464.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -1768.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_042",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -814.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -2118.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_043",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -1768.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -2582.0,
+                  -6955.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_044",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -2118.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -2932.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_045",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -2582.0,
+                  -6955.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5086.0,
+                  -7275.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_046",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -2932.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5436.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_047",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -5086.0,
+                  -7275.0
+                ]
+              },
+              {
+                "category": "LoadBearing350",
+                "end_mm": [
+                  -5925.0,
+                  -6825.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_048",
+                "is_existing": true,
+                "label": "EXI_Mur porteur 35",
+                "start_mm": [
+                  -5436.0,
+                  -6825.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -2135.0,
+                  -3100.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_049",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -2135.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -3315.0,
+                  -2465.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_050",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -3315.0,
+                  -930.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -3815.0,
+                  -2465.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_051",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -3350.0,
+                  -2465.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -3815.0,
+                  -3320.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_052",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -3815.0,
+                  -2500.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -4800.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_053",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -3850.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -2000.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_054",
+                "is_existing": true,
+                "label": "EXI_Cloison 7",
+                "start_mm": [
+                  -1000.0,
+                  -3135.0
+                ]
+              }
+            ],
+            "families": [
+              {
+                "category": "plumbing",
+                "kind": "shower",
+                "name": "V3 - Douche à l'italienne 90x90",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          900,
+                          0
+                        ],
+                        [
+                          900,
+                          -900
+                        ],
+                        [
+                          0,
+                          -900
+                        ]
+                      ],
+                      "to": 30
+                    }
+                  ],
+                  "kind": "shower",
+                  "name": "V3 - Douche à l'italienne 90x90",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "wc",
+                "name": "V3 - WC suspendu 40x65",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          400,
+                          0
+                        ],
+                        [
+                          400,
+                          -160
+                        ],
+                        [
+                          0,
+                          -160
+                        ]
+                      ],
+                      "to": 1100
+                    },
+                    {
+                      "from": 200,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          368,
+                          -405
+                        ],
+                        [
+                          355.2,
+                          -498.8
+                        ],
+                        [
+                          318.8,
+                          -578.2
+                        ],
+                        [
+                          264.3,
+                          -631.4
+                        ],
+                        [
+                          200,
+                          -650
+                        ],
+                        [
+                          135.7,
+                          -631.4
+                        ],
+                        [
+                          81.2,
+                          -578.2
+                        ],
+                        [
+                          44.8,
+                          -498.8
+                        ],
+                        [
+                          32,
+                          -405
+                        ],
+                        [
+                          44.8,
+                          -311.2
+                        ],
+                        [
+                          81.2,
+                          -231.8
+                        ],
+                        [
+                          135.7,
+                          -178.6
+                        ],
+                        [
+                          200,
+                          -160
+                        ],
+                        [
+                          264.3,
+                          -178.6
+                        ],
+                        [
+                          318.8,
+                          -231.8
+                        ],
+                        [
+                          355.2,
+                          -311.2
+                        ]
+                      ],
+                      "to": 400
+                    }
+                  ],
+                  "kind": "wc",
+                  "name": "V3 - WC suspendu 40x65",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "lav",
+                "name": "V3 - Meuble vasque 68x48",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 300,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          680,
+                          0
+                        ],
+                        [
+                          680,
+                          -480
+                        ],
+                        [
+                          0,
+                          -480
+                        ]
+                      ],
+                      "to": 870
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          340,
+                          -40
+                        ],
+                        "radius": 14
+                      },
+                      "from": 870,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1050
+                    }
+                  ],
+                  "kind": "lav",
+                  "name": "V3 - Meuble vasque 68x48",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Lave-linge + sèche-linge en colonne 62x62",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          620,
+                          0
+                        ],
+                        [
+                          620,
+                          -620
+                        ],
+                        [
+                          0,
+                          -620
+                        ]
+                      ],
+                      "to": 1800
+                    }
+                  ],
+                  "name": "V3 - Lave-linge + sèche-linge en colonne 62x62",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Plan de pliage + étagères 108x40",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 885,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1080,
+                          0
+                        ],
+                        [
+                          1080,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 915
+                    },
+                    {
+                      "from": 1285,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1080,
+                          0
+                        ],
+                        [
+                          1080,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 1315
+                    },
+                    {
+                      "from": 1685,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1080,
+                          0
+                        ],
+                        [
+                          1080,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 1715
+                    },
+                    {
+                      "from": 1965,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1080,
+                          0
+                        ],
+                        [
+                          1080,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 1995
+                    },
+                    {
+                      "from": 880,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          20,
+                          0
+                        ],
+                        [
+                          20,
+                          -400
+                        ],
+                        [
+                          0,
+                          -400
+                        ]
+                      ],
+                      "to": 2000
+                    },
+                    {
+                      "from": 880,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1060,
+                          0
+                        ],
+                        [
+                          1080,
+                          0
+                        ],
+                        [
+                          1080,
+                          -400
+                        ],
+                        [
+                          1060,
+                          -400
+                        ]
+                      ],
+                      "to": 2000
+                    }
+                  ],
+                  "name": "V3 - Plan de pliage + étagères 108x40",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Banc à chaussures + patères 55x30",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          550,
+                          0
+                        ],
+                        [
+                          550,
+                          -300
+                        ],
+                        [
+                          0,
+                          -300
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 1500,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          550,
+                          0
+                        ],
+                        [
+                          550,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 1750
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          120,
+                          -40
+                        ],
+                        "radius": 15
+                      },
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1640
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          340,
+                          -40
+                        ],
+                        "radius": 15
+                      },
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1640
+                    }
+                  ],
+                  "name": "V3 - Banc à chaussures + patères 55x30",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Lit 90 x 200",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          900,
+                          0
+                        ],
+                        [
+                          900,
+                          -50
+                        ],
+                        [
+                          0,
+                          -50
+                        ]
+                      ],
+                      "to": 950
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -50
+                        ],
+                        [
+                          900,
+                          -50
+                        ],
+                        [
+                          900,
+                          -2000
+                        ],
+                        [
+                          0,
+                          -2000
+                        ]
+                      ],
+                      "to": 250
+                    },
+                    {
+                      "from": 250,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -60
+                        ],
+                        [
+                          890,
+                          -60
+                        ],
+                        [
+                          890,
+                          -1990
+                        ],
+                        [
+                          10,
+                          -1990
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          90,
+                          -90
+                        ],
+                        [
+                          810,
+                          -90
+                        ],
+                        [
+                          810,
+                          -290
+                        ],
+                        [
+                          90,
+                          -290
+                        ]
+                      ],
+                      "to": 580
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          5,
+                          -480
+                        ],
+                        [
+                          895,
+                          -480
+                        ],
+                        [
+                          895,
+                          -1995
+                        ],
+                        [
+                          5,
+                          -1995
+                        ]
+                      ],
+                      "to": 500
+                    }
+                  ],
+                  "name": "V3 - Lit 90 x 200",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Bureau 110x60",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1100,
+                          0
+                        ],
+                        [
+                          1100,
+                          -600
+                        ],
+                        [
+                          0,
+                          -600
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          80,
+                          -30
+                        ],
+                        [
+                          80,
+                          -80
+                        ],
+                        [
+                          30,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1020,
+                          -30
+                        ],
+                        [
+                          1070,
+                          -30
+                        ],
+                        [
+                          1070,
+                          -80
+                        ],
+                        [
+                          1020,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -520
+                        ],
+                        [
+                          80,
+                          -520
+                        ],
+                        [
+                          80,
+                          -570
+                        ],
+                        [
+                          30,
+                          -570
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1020,
+                          -520
+                        ],
+                        [
+                          1070,
+                          -520
+                        ],
+                        [
+                          1070,
+                          -570
+                        ],
+                        [
+                          1020,
+                          -570
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 400,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1100,
+                          0
+                        ],
+                        [
+                          1100,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 720
+                    }
+                  ],
+                  "name": "V3 - Bureau 110x60",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Chaise 42x45",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -10
+                        ],
+                        [
+                          60,
+                          -10
+                        ],
+                        [
+                          60,
+                          -40
+                        ],
+                        [
+                          30,
+                          -40
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          360,
+                          -10
+                        ],
+                        [
+                          390,
+                          -10
+                        ],
+                        [
+                          390,
+                          -40
+                        ],
+                        [
+                          360,
+                          -40
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -410
+                        ],
+                        [
+                          60,
+                          -410
+                        ],
+                        [
+                          60,
+                          -440
+                        ],
+                        [
+                          30,
+                          -440
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          360,
+                          -410
+                        ],
+                        [
+                          390,
+                          -410
+                        ],
+                        [
+                          390,
+                          -440
+                        ],
+                        [
+                          360,
+                          -440
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 440,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -10
+                        ],
+                        [
+                          410,
+                          -10
+                        ],
+                        [
+                          410,
+                          -450
+                        ],
+                        [
+                          10,
+                          -450
+                        ]
+                      ],
+                      "to": 470
+                    },
+                    {
+                      "from": 470,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          0
+                        ],
+                        [
+                          410,
+                          0
+                        ],
+                        [
+                          410,
+                          -30
+                        ],
+                        [
+                          10,
+                          -30
+                        ]
+                      ],
+                      "to": 850
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          0
+                        ],
+                        [
+                          60,
+                          0
+                        ],
+                        [
+                          60,
+                          -30
+                        ],
+                        [
+                          30,
+                          -30
+                        ]
+                      ],
+                      "to": 470
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          360,
+                          0
+                        ],
+                        [
+                          390,
+                          0
+                        ],
+                        [
+                          390,
+                          -30
+                        ],
+                        [
+                          360,
+                          -30
+                        ]
+                      ],
+                      "to": 470
+                    }
+                  ],
+                  "name": "V3 - Chaise 42x45",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V3 - Placard 150x55",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1500,
+                          0
+                        ],
+                        [
+                          1500,
+                          -550
+                        ],
+                        [
+                          0,
+                          -550
+                        ]
+                      ],
+                      "to": 2500
+                    }
+                  ],
+                  "name": "V3 - Placard 150x55",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V3 - Plan de travail cuisine 153x62",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1530,
+                          0
+                        ],
+                        [
+                          1530,
+                          -550
+                        ],
+                        [
+                          0,
+                          -550
+                        ]
+                      ],
+                      "to": 100
+                    },
+                    {
+                      "from": 100,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1530,
+                          0
+                        ],
+                        [
+                          1530,
+                          -590
+                        ],
+                        [
+                          0,
+                          -590
+                        ]
+                      ],
+                      "to": 870
+                    },
+                    {
+                      "from": 870,
+                      "material": "Ceramic tile",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1530,
+                          0
+                        ],
+                        [
+                          1530,
+                          -620
+                        ],
+                        [
+                          0,
+                          -620
+                        ]
+                      ],
+                      "to": 910
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          1275,
+                          -50
+                        ],
+                        "radius": 16
+                      },
+                      "from": 910,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1180
+                    },
+                    {
+                      "from": 1500,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          100,
+                          0
+                        ],
+                        [
+                          530,
+                          0
+                        ],
+                        [
+                          530,
+                          -480
+                        ],
+                        [
+                          100,
+                          -480
+                        ]
+                      ],
+                      "to": 1620
+                    },
+                    {
+                      "from": 1620,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          230,
+                          0
+                        ],
+                        [
+                          400,
+                          0
+                        ],
+                        [
+                          400,
+                          -250
+                        ],
+                        [
+                          230,
+                          -250
+                        ]
+                      ],
+                      "to": 2800
+                    }
+                  ],
+                  "name": "V3 - Plan de travail cuisine 153x62",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Table 160 x 86 (6 couverts)",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 720,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1600,
+                          0
+                        ],
+                        [
+                          1600,
+                          -860
+                        ],
+                        [
+                          0,
+                          -860
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          80,
+                          -30
+                        ],
+                        [
+                          80,
+                          -80
+                        ],
+                        [
+                          30,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1520,
+                          -30
+                        ],
+                        [
+                          1570,
+                          -30
+                        ],
+                        [
+                          1570,
+                          -80
+                        ],
+                        [
+                          1520,
+                          -80
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -780
+                        ],
+                        [
+                          80,
+                          -780
+                        ],
+                        [
+                          80,
+                          -830
+                        ],
+                        [
+                          30,
+                          -830
+                        ]
+                      ],
+                      "to": 720
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1520,
+                          -780
+                        ],
+                        [
+                          1570,
+                          -780
+                        ],
+                        [
+                          1570,
+                          -830
+                        ],
+                        [
+                          1520,
+                          -830
+                        ]
+                      ],
+                      "to": 720
+                    }
+                  ],
+                  "name": "V3 - Table 160 x 86 (6 couverts)",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Buffet sur mesure 68x45",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 80,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          680,
+                          0
+                        ],
+                        [
+                          680,
+                          -450
+                        ],
+                        [
+                          0,
+                          -450
+                        ]
+                      ],
+                      "to": 850
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -30
+                        ],
+                        [
+                          650,
+                          -30
+                        ],
+                        [
+                          650,
+                          -420
+                        ],
+                        [
+                          30,
+                          -420
+                        ]
+                      ],
+                      "to": 80
+                    }
+                  ],
+                  "name": "V3 - Buffet sur mesure 68x45",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Bibliothèque + TV 160x38",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1600,
+                          0
+                        ],
+                        [
+                          1600,
+                          -20
+                        ],
+                        [
+                          0,
+                          -20
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          15,
+                          -20
+                        ],
+                        [
+                          15,
+                          -380
+                        ],
+                        [
+                          0,
+                          -380
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          785,
+                          -20
+                        ],
+                        [
+                          815,
+                          -20
+                        ],
+                        [
+                          815,
+                          -380
+                        ],
+                        [
+                          785,
+                          -380
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1585,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -380
+                        ],
+                        [
+                          1585,
+                          -380
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -380
+                        ],
+                        [
+                          0,
+                          -380
+                        ]
+                      ],
+                      "to": 80
+                    },
+                    {
+                      "from": 2370,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -380
+                        ],
+                        [
+                          0,
+                          -380
+                        ]
+                      ],
+                      "to": 2400
+                    },
+                    {
+                      "from": 449.7,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -380
+                        ],
+                        [
+                          0,
+                          -380
+                        ]
+                      ],
+                      "to": 473.7
+                    },
+                    {
+                      "from": 831.3,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -380
+                        ],
+                        [
+                          0,
+                          -380
+                        ]
+                      ],
+                      "to": 855.3
+                    },
+                    {
+                      "from": 1213,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -380
+                        ],
+                        [
+                          0,
+                          -380
+                        ]
+                      ],
+                      "to": 1237
+                    },
+                    {
+                      "from": 1594.7,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -380
+                        ],
+                        [
+                          0,
+                          -380
+                        ]
+                      ],
+                      "to": 1618.7
+                    },
+                    {
+                      "from": 1976.3,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -20
+                        ],
+                        [
+                          1600,
+                          -380
+                        ],
+                        [
+                          0,
+                          -380
+                        ]
+                      ],
+                      "to": 2000.3
+                    },
+                    {
+                      "from": 92,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          20,
+                          -40
+                        ],
+                        [
+                          480,
+                          -40
+                        ],
+                        [
+                          480,
+                          -260
+                        ],
+                        [
+                          20,
+                          -260
+                        ]
+                      ],
+                      "to": 312
+                    },
+                    {
+                      "from": 1618.7,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          80,
+                          -40
+                        ],
+                        [
+                          420,
+                          -40
+                        ],
+                        [
+                          420,
+                          -260
+                        ],
+                        [
+                          80,
+                          -260
+                        ]
+                      ],
+                      "to": 1878.7
+                    },
+                    {
+                      "from": 2000.3,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          80,
+                          -40
+                        ],
+                        [
+                          540,
+                          -40
+                        ],
+                        [
+                          540,
+                          -260
+                        ],
+                        [
+                          80,
+                          -260
+                        ]
+                      ],
+                      "to": 2200.3
+                    },
+                    {
+                      "from": 2000.3,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          880,
+                          -40
+                        ],
+                        [
+                          1220,
+                          -40
+                        ],
+                        [
+                          1220,
+                          -260
+                        ],
+                        [
+                          880,
+                          -260
+                        ]
+                      ],
+                      "to": 2260.3
+                    },
+                    {
+                      "from": 950,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          175,
+                          -30
+                        ],
+                        [
+                          1425,
+                          -30
+                        ],
+                        [
+                          1425,
+                          -60
+                        ],
+                        [
+                          175,
+                          -60
+                        ]
+                      ],
+                      "to": 1662.5
+                    }
+                  ],
+                  "name": "V3 - Bibliothèque + TV 160x38",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Canapé 220x85",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          180,
+                          -850
+                        ],
+                        [
+                          0,
+                          -850
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          2020,
+                          0
+                        ],
+                        [
+                          2200,
+                          0
+                        ],
+                        [
+                          2200,
+                          -850
+                        ],
+                        [
+                          2020,
+                          -850
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          2020,
+                          0
+                        ],
+                        [
+                          2020,
+                          -220
+                        ],
+                        [
+                          180,
+                          -220
+                        ]
+                      ],
+                      "to": 820
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          -220
+                        ],
+                        [
+                          2020,
+                          -220
+                        ],
+                        [
+                          2020,
+                          -830
+                        ],
+                        [
+                          180,
+                          -830
+                        ]
+                      ],
+                      "to": 300
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          185,
+                          -220
+                        ],
+                        [
+                          788.3,
+                          -220
+                        ],
+                        [
+                          788.3,
+                          -830
+                        ],
+                        [
+                          185,
+                          -830
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          798.3,
+                          -220
+                        ],
+                        [
+                          1401.7,
+                          -220
+                        ],
+                        [
+                          1401.7,
+                          -830
+                        ],
+                        [
+                          798.3,
+                          -830
+                        ]
+                      ],
+                      "to": 440
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1411.7,
+                          -220
+                        ],
+                        [
+                          2015,
+                          -220
+                        ],
+                        [
+                          2015,
+                          -830
+                        ],
+                        [
+                          1411.7,
+                          -830
+                        ]
+                      ],
+                      "to": 440
+                    }
+                  ],
+                  "name": "V3 - Canapé 220x85",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Bout de canapé 35x35",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 460,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          350,
+                          0
+                        ],
+                        [
+                          350,
+                          -350
+                        ],
+                        [
+                          0,
+                          -350
+                        ]
+                      ],
+                      "to": 500
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          40,
+                          -40
+                        ],
+                        [
+                          310,
+                          -40
+                        ],
+                        [
+                          310,
+                          -310
+                        ],
+                        [
+                          40,
+                          -310
+                        ]
+                      ],
+                      "to": 460
+                    }
+                  ],
+                  "name": "V3 - Bout de canapé 35x35",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Plante en pot 40x40",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "circle": {
+                        "centre": [
+                          200,
+                          -200
+                        ],
+                        "radius": 110
+                      },
+                      "from": 0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "to": 320
+                    }
+                  ],
+                  "name": "V3 - Plante en pot 40x40",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Banquette-coffre 70x37",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          700,
+                          0
+                        ],
+                        [
+                          700,
+                          -370
+                        ],
+                        [
+                          0,
+                          -370
+                        ]
+                      ],
+                      "to": 380
+                    },
+                    {
+                      "from": 380,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -10
+                        ],
+                        [
+                          690,
+                          -10
+                        ],
+                        [
+                          690,
+                          -360
+                        ],
+                        [
+                          10,
+                          -360
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -10
+                        ],
+                        [
+                          670,
+                          -10
+                        ],
+                        [
+                          670,
+                          -120
+                        ],
+                        [
+                          30,
+                          -120
+                        ]
+                      ],
+                      "to": 750
+                    }
+                  ],
+                  "name": "V3 - Banquette-coffre 70x37",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "bath",
+                "name": "V3 - Baignoire 170x70",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Porcelain",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1700,
+                          0
+                        ],
+                        [
+                          1700,
+                          -700
+                        ],
+                        [
+                          0,
+                          -700
+                        ]
+                      ],
+                      "to": 550
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          1580,
+                          -30
+                        ],
+                        "radius": 14
+                      },
+                      "from": 550,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 700
+                    }
+                  ],
+                  "kind": "bath",
+                  "name": "V3 - Baignoire 170x70",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "plumbing",
+                "kind": "lav",
+                "name": "V3 - Meuble vasque 95x48",
+                "raw_bimcraft_json": {
+                  "category": "plumbing",
+                  "forms": [
+                    {
+                      "from": 300,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          950,
+                          0
+                        ],
+                        [
+                          950,
+                          -480
+                        ],
+                        [
+                          0,
+                          -480
+                        ]
+                      ],
+                      "to": 870
+                    },
+                    {
+                      "circle": {
+                        "centre": [
+                          475,
+                          -40
+                        ],
+                        "radius": 14
+                      },
+                      "from": 870,
+                      "material": "Metal",
+                      "plane": "xy",
+                      "to": 1050
+                    }
+                  ],
+                  "kind": "lav",
+                  "name": "V3 - Meuble vasque 95x48",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "casework",
+                "kind": null,
+                "name": "V3 - Placard à linge 93x58",
+                "raw_bimcraft_json": {
+                  "category": "casework",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Gypsum board",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          930,
+                          0
+                        ],
+                        [
+                          930,
+                          -580
+                        ],
+                        [
+                          0,
+                          -580
+                        ]
+                      ],
+                      "to": 2500
+                    }
+                  ],
+                  "name": "V3 - Placard à linge 93x58",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Tête de lit à niches-chevets 212x15",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          2120,
+                          0
+                        ],
+                        [
+                          2120,
+                          -150
+                        ],
+                        [
+                          0,
+                          -150
+                        ]
+                      ],
+                      "to": 1100
+                    }
+                  ],
+                  "name": "V3 - Tête de lit à niches-chevets 212x15",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Lit 160 x 200",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1600,
+                          0
+                        ],
+                        [
+                          1600,
+                          -50
+                        ],
+                        [
+                          0,
+                          -50
+                        ]
+                      ],
+                      "to": 950
+                    },
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          -50
+                        ],
+                        [
+                          1600,
+                          -50
+                        ],
+                        [
+                          1600,
+                          -2000
+                        ],
+                        [
+                          0,
+                          -2000
+                        ]
+                      ],
+                      "to": 250
+                    },
+                    {
+                      "from": 250,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -60
+                        ],
+                        [
+                          1590,
+                          -60
+                        ],
+                        [
+                          1590,
+                          -1990
+                        ],
+                        [
+                          10,
+                          -1990
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          70,
+                          -90
+                        ],
+                        [
+                          770,
+                          -90
+                        ],
+                        [
+                          770,
+                          -290
+                        ],
+                        [
+                          70,
+                          -290
+                        ]
+                      ],
+                      "to": 580
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          830,
+                          -90
+                        ],
+                        [
+                          1530,
+                          -90
+                        ],
+                        [
+                          1530,
+                          -290
+                        ],
+                        [
+                          830,
+                          -290
+                        ]
+                      ],
+                      "to": 580
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          5,
+                          -480
+                        ],
+                        [
+                          1595,
+                          -480
+                        ],
+                        [
+                          1595,
+                          -1995
+                        ],
+                        [
+                          5,
+                          -1995
+                        ]
+                      ],
+                      "to": 500
+                    }
+                  ],
+                  "name": "V3 - Lit 160 x 200",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Fauteuil 75x75",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          180,
+                          -750
+                        ],
+                        [
+                          0,
+                          -750
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          570,
+                          0
+                        ],
+                        [
+                          750,
+                          0
+                        ],
+                        [
+                          750,
+                          -750
+                        ],
+                        [
+                          570,
+                          -750
+                        ]
+                      ],
+                      "to": 620
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          0
+                        ],
+                        [
+                          570,
+                          0
+                        ],
+                        [
+                          570,
+                          -220
+                        ],
+                        [
+                          180,
+                          -220
+                        ]
+                      ],
+                      "to": 820
+                    },
+                    {
+                      "from": 0,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          180,
+                          -220
+                        ],
+                        [
+                          570,
+                          -220
+                        ],
+                        [
+                          570,
+                          -730
+                        ],
+                        [
+                          180,
+                          -730
+                        ]
+                      ],
+                      "to": 300
+                    },
+                    {
+                      "from": 300,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          185,
+                          -220
+                        ],
+                        [
+                          565,
+                          -220
+                        ],
+                        [
+                          565,
+                          -730
+                        ],
+                        [
+                          185,
+                          -730
+                        ]
+                      ],
+                      "to": 440
+                    }
+                  ],
+                  "name": "V3 - Fauteuil 75x75",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              },
+              {
+                "category": "furniture",
+                "kind": null,
+                "name": "V3 - Banquette-coffre 186x28",
+                "raw_bimcraft_json": {
+                  "category": "furniture",
+                  "forms": [
+                    {
+                      "from": 0,
+                      "material": "Timber",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          0,
+                          0
+                        ],
+                        [
+                          1860,
+                          0
+                        ],
+                        [
+                          1860,
+                          -280
+                        ],
+                        [
+                          0,
+                          -280
+                        ]
+                      ],
+                      "to": 380
+                    },
+                    {
+                      "from": 380,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          10,
+                          -10
+                        ],
+                        [
+                          1850,
+                          -10
+                        ],
+                        [
+                          1850,
+                          -270
+                        ],
+                        [
+                          10,
+                          -270
+                        ]
+                      ],
+                      "to": 450
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          30,
+                          -10
+                        ],
+                        [
+                          616.7,
+                          -10
+                        ],
+                        [
+                          616.7,
+                          -120
+                        ],
+                        [
+                          30,
+                          -120
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          636.7,
+                          -10
+                        ],
+                        [
+                          1223.3,
+                          -10
+                        ],
+                        [
+                          1223.3,
+                          -120
+                        ],
+                        [
+                          636.7,
+                          -120
+                        ]
+                      ],
+                      "to": 750
+                    },
+                    {
+                      "from": 450,
+                      "material": "Fabric",
+                      "plane": "xy",
+                      "profile": [
+                        [
+                          1243.3,
+                          -10
+                        ],
+                        [
+                          1830,
+                          -10
+                        ],
+                        [
+                          1830,
+                          -120
+                        ],
+                        [
+                          1243.3,
+                          -120
+                        ]
+                      ],
+                      "to": 750
+                    }
+                  ],
+                  "name": "V3 - Banquette-coffre 186x28",
+                  "types": {
+                    "REFLET": {}
+                  }
+                }
+              }
+            ],
+            "floor_boundary_mm": [
+              [
+                -3150.0,
+                -750.0
+              ],
+              [
+                -3150.0,
+                200.0
+              ],
+              [
+                -5750.0,
+                200.0
+              ],
+              [
+                -5750.0,
+                -2900.0
+              ],
+              [
+                -6100.0,
+                -2900.0
+              ],
+              [
+                -6100.0,
+                -6990.0
+              ],
+              [
+                -5460.0,
+                -6990.0
+              ],
+              [
+                -5110.0,
+                -7450.0
+              ],
+              [
+                -2930.0,
+                -7450.0
+              ],
+              [
+                -2560.0,
+                -7110.0
+              ],
+              [
+                -2160.0,
+                -7110.0
+              ],
+              [
+                -1790.0,
+                -7450.0
+              ],
+              [
+                -805.0,
+                -7450.0
+              ],
+              [
+                -455.0,
+                -6990.0
+              ],
+              [
+                105.0,
+                -6990.0
+              ],
+              [
+                455.0,
+                -7450.0
+              ],
+              [
+                1440.0,
+                -7450.0
+              ],
+              [
+                1810.0,
+                -7110.0
+              ],
+              [
+                2210.0,
+                -7110.0
+              ],
+              [
+                2580.0,
+                -7450.0
+              ],
+              [
+                4760.0,
+                -7450.0
+              ],
+              [
+                5110.0,
+                -6990.0
+              ],
+              [
+                5750.0,
+                -6990.0
+              ],
+              [
+                5750.0,
+                -2900.0
+              ],
+              [
+                5400.0,
+                -2900.0
+              ],
+              [
+                5400.0,
+                200.0
+              ],
+              [
+                2800.0,
+                200.0
+              ],
+              [
+                2800.0,
+                -750.0
+              ],
+              [
+                1950.0,
+                -750.0
+              ],
+              [
+                1950.0,
+                200.0
+              ],
+              [
+                -2300.0,
+                200.0
+              ],
+              [
+                -2300.0,
+                -750.0
+              ]
+            ],
+            "materials_palette": [
+              {
+                "color_hex": "#D4B483",
+                "element": "Sol",
+                "finish_description": "Lames filantes 11.50 m de fenêtre à fenêtre",
+                "material_name": "Parquet Chêne Blond Continu",
+                "space_category": "Rue Intérieure & Enfilade Sud"
+              },
+              {
+                "color_hex": "#7D8C7D",
+                "element": "Menuiserie architecturale",
+                "finish_description": "Meubles-cloisons acoustiques 280 cm intégrant penderies et bibliothèque",
+                "material_name": "Bouleau Multiplis & Laque Vert Sauge Londonien",
+                "space_category": "Meubles-Cloisons Toute Hauteur (60 cm)"
+              }
+            ],
+            "mirror_mode": "LeftMirrorG",
+            "name": "Proposition V3 — PASSAGE (Miroir Gauche — Rue intérieure de fenêtre à fenêtre & Meubles-cloisons)",
+            "new_walls": [
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1550.0,
+                  -3135.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_055",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  750.0,
+                  -3135.0
+                ]
+              },
+              {
+                "category": "Infill200",
+                "end_mm": [
+                  -3125.0,
+                  -840.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_056",
+                "is_existing": false,
+                "label": "PRJ_Rebouchage 20",
+                "start_mm": [
+                  -2325.0,
+                  -840.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -3815.0,
+                  -3450.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_057",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  -3815.0,
+                  -3320.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -350.0,
+                  -2035.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_058",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  -2100.0,
+                  -2035.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  1750.0,
+                  -2035.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_059",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  0.0,
+                  -2035.0
+                ]
+              },
+              {
+                "category": "Partition70",
+                "end_mm": [
+                  -2650.0,
+                  -3415.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_060",
+                "is_existing": false,
+                "label": "PRJ_Cloison 7",
+                "start_mm": [
+                  -3780.0,
+                  -3415.0
+                ]
+              },
+              {
+                "category": "Millwork600",
+                "end_mm": [
+                  2000.0,
+                  -4250.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_061",
+                "is_existing": false,
+                "label": "PRJ_Meuble-cloison 60",
+                "start_mm": [
+                  2000.0,
+                  -3450.0
+                ]
+              },
+              {
+                "category": "Millwork600",
+                "end_mm": [
+                  2000.0,
+                  -6780.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_062",
+                "is_existing": false,
+                "label": "PRJ_Meuble-cloison 60",
+                "start_mm": [
+                  2000.0,
+                  -5250.0
+                ]
+              },
+              {
+                "category": "Millwork600",
+                "end_mm": [
+                  -2350.0,
+                  -4250.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_063",
+                "is_existing": false,
+                "label": "PRJ_Meuble-cloison 60",
+                "start_mm": [
+                  -2350.0,
+                  -3450.0
+                ]
+              },
+              {
+                "category": "Millwork600",
+                "end_mm": [
+                  -2350.0,
+                  -6780.0
+                ],
+                "height_mm": 2800.0,
+                "id": "V3_PASSAGE_W_064",
+                "is_existing": false,
+                "label": "PRJ_Meuble-cloison 60",
+                "start_mm": [
+                  -2350.0,
+                  -5250.0
+                ]
+              }
+            ],
+            "night_area_m2": 40.0,
+            "room_separators_mm": [
+              [
+                [
+                  2220.0,
+                  -3170.0
+                ],
+                [
+                  3580.0,
+                  -3170.0
+                ]
+              ],
+              [
+                [
+                  2000.0,
+                  -4170.0
+                ],
+                [
+                  2000.0,
+                  -5330.0
+                ]
+              ],
+              [
+                [
+                  -2350.0,
+                  -4170.0
+                ],
+                [
+                  -2350.0,
+                  -5330.0
+                ]
+              ]
+            ],
+            "rooms": [
+              {
+                "name": "ENTRÉE",
+                "number": "01",
+                "point_mm": [
+                  2370.0,
+                  -1600.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "SALLE D'EAU",
+                "number": "02",
+                "point_mm": [
+                  980.0,
+                  -1080.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "BUANDERIE",
+                "number": "03",
+                "point_mm": [
+                  1180.0,
+                  -2620.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "CHAMBRE ENFANT 1",
+                "number": "04",
+                "point_mm": [
+                  3850.0,
+                  -2320.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "CUISINE - REPAS",
+                "number": "05",
+                "point_mm": [
+                  4350.0,
+                  -4650.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "SALON",
+                "number": "06",
+                "point_mm": [
+                  600.0,
+                  -4650.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Jour"
+              },
+              {
+                "name": "SDB",
+                "number": "07",
+                "point_mm": [
+                  -1600.0,
+                  -1000.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "DÉGT",
+                "number": "08",
+                "point_mm": [
+                  -1220.0,
+                  -2400.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Services/Circulation"
+              },
+              {
+                "name": "HALL NUIT",
+                "number": "09",
+                "point_mm": [
+                  -2720.0,
+                  -1900.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "CHAMBRE ENFANT 2",
+                "number": "10",
+                "point_mm": [
+                  -4300.0,
+                  -2320.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              },
+              {
+                "name": "CHAMBRE PARENTS",
+                "number": "11",
+                "point_mm": [
+                  -4280.0,
+                  -6020.0
+                ],
+                "target_area_m2": 0.0,
+                "zone_type": "Nuit"
+              }
+            ],
+            "spatial_justification": "Valorise la double orientation Est-Sud-Ouest et intègre l'architecture intérieure au gros-œuvre via des meubles-cloisons acoustiques servant à la fois de séparation et de rangements massifs.",
+            "structural_openings": [
+              {
+                "bbox_cm": [
+                  -35.0,
+                  385.0,
+                  0.0,
+                  625.0
+                ],
+                "beam_depth_mm": 400.0,
+                "beam_end_mm": [
+                  -175.0,
+                  -6450.0
+                ],
+                "beam_offset_mm": 2800.0,
+                "beam_start_mm": [
+                  -175.0,
+                  -3650.0
+                ],
+                "beam_width_mm": 350.0,
+                "host_wall_id": "V3_PASSAGE_W_001",
+                "id": "OPENING-V3-SUD",
+                "left_pier_mm": 575.0,
+                "right_pier_mm": 575.0,
+                "span_mm": 2400.0
+              }
+            ],
+            "total_habitable_area_m2": 65.9,
+            "variant_id": "V3_PASSAGE",
+            "windows": [
+              {
+                "at_mm": [
+                  950.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V3_PASSAGE_WIN_01",
+                "is_existing": true,
+                "label": "Fenêtre 80 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  3650.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V3_PASSAGE_WIN_02",
+                "is_existing": true,
+                "label": "Fenêtre 200 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 200 x 170",
+                "width_mm": 2000.0
+              },
+              {
+                "at_mm": [
+                  5225.0,
+                  -1700.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V3_PASSAGE_WIN_03",
+                "is_existing": true,
+                "label": "Fenêtre 140 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 140 x 170",
+                "width_mm": 1400.0
+              },
+              {
+                "at_mm": [
+                  5575.0,
+                  -5025.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V3_PASSAGE_WIN_04",
+                "is_existing": true,
+                "label": "Fenêtre 155 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 155 x 170",
+                "width_mm": 1550.0
+              },
+              {
+                "at_mm": [
+                  -1300.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V3_PASSAGE_WIN_05",
+                "is_existing": true,
+                "label": "Fenêtre 80 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 80 x 170",
+                "width_mm": 800.0
+              },
+              {
+                "at_mm": [
+                  -4000.0,
+                  -7275.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V3_PASSAGE_WIN_06",
+                "is_existing": true,
+                "label": "Fenêtre 200 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 200 x 170",
+                "width_mm": 2000.0
+              },
+              {
+                "at_mm": [
+                  -5575.0,
+                  -1700.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V3_PASSAGE_WIN_07",
+                "is_existing": true,
+                "label": "Fenêtre 140 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 140 x 170",
+                "width_mm": 1400.0
+              },
+              {
+                "at_mm": [
+                  -5925.0,
+                  -5025.0
+                ],
+                "height_mm": 1700.0,
+                "id": "V3_PASSAGE_WIN_08",
+                "is_existing": true,
+                "label": "Fenêtre 155 x 170",
+                "sill_mm": 800.0,
+                "type_name": "Fenêtre 155 x 170",
+                "width_mm": 1550.0
+              }
+            ]
+          }
+        }
+      },
+      "project_folder": "REFLET_LONDON_AUTONOMOUS",
+      "run_summary": {
+        "agent_logs": [
+          {
+            "action": "Découverte live du catalogue OpenRouter, filtrage des modèles 100% gratuits et table de routage",
+            "agent_id": "00_OPENROUTER_FREE_ROUTER",
+            "agent_name": "00 — OpenRouter Free-First AI Router",
+            "details": "468 modèles découverts au total, 15 modèles GRATUITS qualifiés (9 Vision, 5 Raisonnement). Coût autorisé : 0.00 $ (Free-First strict).",
+            "duration_ms": 118,
+            "status": "COMPLETED",
+            "step_index": 1
+          },
+          {
+            "action": "Extraction PDF, détection des cotes/contraintes et structuration du cahier des charges",
+            "agent_id": "01_DOCUMENT_INTEL",
+            "agent_name": "01 — Document & Plan Intelligence",
+            "details": "4 pages PDF lues, 47 cotes numériques extraites, 6 espaces requis, HSP = 2800 mm.",
+            "duration_ms": 12,
+            "status": "COMPLETED",
+            "step_index": 2
+          },
+          {
+            "action": "Raisonnement architectural IA, génération des 3 propositions, organisation spatiale & familles 3D",
+            "agent_id": "02_03_04_SPATIAL_BIM",
+            "agent_name": "02/03/04 — Design, Spatial & BIM Intelligence",
+            "details": "3 propositions conçues ([\"V1_ECLIPSE\", \"V2_ORBITE\", \"V3_PASSAGE\"]). Solution retenue : V1_ECLIPSE.",
+            "duration_ms": 1,
+            "status": "COMPLETED",
+            "step_index": 3
+          },
+          {
+            "action": "Construction autonome des maquettes BIM et exports multi-formats sans Revit",
+            "agent_id": "04_BIMCRAFT_BUILDER",
+            "agent_name": "BIMcraft Autonomous Builder (Rust 0.11.0)",
+            "details": "3 maquettes .bimcraft, .ifc (IFC4), .glb (glTF 2.0 3D), .svg et .pdf générées et vérifiées.",
+            "duration_ms": 1422,
+            "status": "COMPLETED",
+            "step_index": 4
+          },
+          {
+            "action": "Contrôle géométrique, structurel, programme, validation BIMcraft & critique IA",
+            "agent_id": "05_ENGINEERING_QA",
+            "agent_name": "05 — Engineering & QA Autocorrection",
+            "details": "7/7 règles critiques validées à 100.0% sur la variante retenue V1_ECLIPSE.",
+            "duration_ms": 0,
+            "status": "COMPLETED",
+            "step_index": 5
+          },
+          {
+            "action": "Génération des plans DXF, Zoning SVG, Coupes A-A, Dossiers PDF, Rapport IA et Workspace Studio",
+            "agent_id": "06_PRESENTATION_INTEL",
+            "agent_name": "06 — Presentation Intelligence",
+            "details": "Dossiers complets générés dans \"c:\\\\Users\\\\teoba\\\\Documents\\\\Devs\\\\MCP Revit\\\\arc-autonomous-studio\\\\workspace_projects\\\\REFLET_LONDON_AUTONOMOUS\". APM v4 sauvegardé.",
+            "duration_ms": 22,
+            "status": "COMPLETED",
+            "step_index": 6
+          }
+        ],
+        "ai_telemetry": {
+          "allow_paid_models": false,
+          "api_key_configured": false,
+          "catalog_discovery_live": true,
+          "discovered_free_models": [
+            {
+              "completion_price_str": "0",
+              "context_length": 1048576,
+              "id": "thinkingmachines/inkling-2-small:free",
+              "is_free": true,
+              "modality": "text+image->text",
+              "name": "Thinking Machines: Inkling 2 Small (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 224,
+              "supports_code_json": true,
+              "supports_reasoning": true,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1000000,
+              "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "NVIDIA: Nemotron 3 Ultra (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 180,
+              "supports_code_json": true,
+              "supports_reasoning": true,
+              "supports_vision": false
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1048576,
+              "id": "inclusionai/ling-3.2-flash:free",
+              "is_free": true,
+              "modality": "text+image->text",
+              "name": "inclusionAI: Ling 3.2 Flash (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 174,
+              "supports_code_json": true,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1000000,
+              "id": "nvidia/nemotron-3.5-super-vl:free",
+              "is_free": true,
+              "modality": "text+image+video->text",
+              "name": "NVIDIA: Nemotron 3.5 Super VL (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 170,
+              "supports_code_json": true,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1024000,
+              "id": "baidu/ernie-5.5-flash-preview:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "Baidu: ERNIE-5.5-Flash-Preview (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 152,
+              "supports_code_json": false,
+              "supports_reasoning": true,
+              "supports_vision": false
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 262144,
+              "id": "google/gemma-4-31b-it:free",
+              "is_free": true,
+              "modality": "text+image+video->text",
+              "name": "Google: Gemma 4 31B (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 146,
+              "supports_code_json": true,
+              "supports_reasoning": true,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 256000,
+              "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+              "is_free": true,
+              "modality": "text+image+audio+video->text",
+              "name": "NVIDIA: Nemotron 3 Nano Omni (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 145,
+              "supports_code_json": true,
+              "supports_reasoning": true,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1048576,
+              "id": "particle-ai/particle-1:free",
+              "is_free": true,
+              "modality": "text+image->text",
+              "name": "Particle AI: Particle-1 (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 144,
+              "supports_code_json": false,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 1000000,
+              "id": "nvidia/nemotron-3.5-lightning:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "NVIDIA: Nemotron 3.5 Lightning (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 130,
+              "supports_code_json": true,
+              "supports_reasoning": false,
+              "supports_vision": false
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 262144,
+              "id": "google/gemma-4-26b-a4b-it:free",
+              "is_free": true,
+              "modality": "text+image+video->text",
+              "name": "Google: Gemma 4 26B A4B  (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 96,
+              "supports_code_json": true,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 512000,
+              "id": "dots-studio/dots-3-note-preview:free",
+              "is_free": true,
+              "modality": "text+image->text",
+              "name": "Dots Studio: Dots3-Note Preview (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 91,
+              "supports_code_json": false,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 200000,
+              "id": "openrouter/free",
+              "is_free": true,
+              "modality": "text+image->text",
+              "name": "Free Models Router",
+              "prompt_price_str": "0",
+              "suitability_score": 60,
+              "supports_code_json": false,
+              "supports_reasoning": false,
+              "supports_vision": true
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 256000,
+              "id": "cohere/north-mini-code:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "Cohere: North Mini Code (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 55,
+              "supports_code_json": true,
+              "supports_reasoning": false,
+              "supports_vision": false
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 262144,
+              "id": "liquid/lfm-3-1.7b:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "LiquidAI: LFM3-1.7B (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 26,
+              "supports_code_json": false,
+              "supports_reasoning": false,
+              "supports_vision": false
+            },
+            {
+              "completion_price_str": "0",
+              "context_length": 262144,
+              "id": "recursive/flint-v1.0:free",
+              "is_free": true,
+              "modality": "text->text",
+              "name": "Recursive: Flint (free)",
+              "prompt_price_str": "0",
+              "suitability_score": 26,
+              "supports_code_json": false,
+              "supports_reasoning": false,
+              "supports_vision": false
+            }
+          ],
+          "free_first_policy_enforced": true,
+          "free_models_discovered": 15,
+          "free_reasoning_models_count": 5,
+          "free_vision_models_count": 9,
+          "limitations_encountered": [
+            "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+          ],
+          "paid_calls_blocked_count": 0,
+          "provider": "OpenRouter (Free-First Multi-Model Router)",
+          "requests_log": [
+            {
+              "attempted_models": [
+                "thinkingmachines/inkling-2-small:free"
+              ],
+              "completion_tokens_est": 450,
+              "cost_usd": 0.0,
+              "execution_mode": "OpenRouter_Free_Catalog_With_Rust_NeuroSymbolic_Reasoner",
+              "failover_notes": [
+                "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+              ],
+              "failover_triggered": true,
+              "final_model_used": "thinkingmachines/inkling-2-small:free + Rust Neuro-Symbolic Architectural Reasoner",
+              "latency_ms": 0,
+              "prompt_tokens_est": 1192,
+              "request_index": 1,
+              "status": "COMPLETED_ZERO_COST",
+              "task": "DocumentAndPlanVisionAnalysis"
+            },
+            {
+              "attempted_models": [
+                "thinkingmachines/inkling-2-small:free"
+              ],
+              "completion_tokens_est": 450,
+              "cost_usd": 0.0,
+              "execution_mode": "OpenRouter_Free_Catalog_With_Rust_NeuroSymbolic_Reasoner",
+              "failover_notes": [
+                "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+              ],
+              "failover_triggered": true,
+              "final_model_used": "thinkingmachines/inkling-2-small:free + Rust Neuro-Symbolic Architectural Reasoner",
+              "latency_ms": 0,
+              "prompt_tokens_est": 64,
+              "request_index": 2,
+              "status": "COMPLETED_ZERO_COST",
+              "task": "ArchitecturalConceptAndDesign"
+            },
+            {
+              "attempted_models": [
+                "thinkingmachines/inkling-2-small:free"
+              ],
+              "completion_tokens_est": 450,
+              "cost_usd": 0.0,
+              "execution_mode": "OpenRouter_Free_Catalog_With_Rust_NeuroSymbolic_Reasoner",
+              "failover_notes": [
+                "Aucune clé OPENROUTER_API_KEY détectée dans l'environnement ou studio_config.toml : découverte live des 17 modèles gratuits effectuée + exécution par le moteur de raisonnement architectural neuro-symbolique Rust (0.00 $)."
+              ],
+              "failover_triggered": true,
+              "final_model_used": "thinkingmachines/inkling-2-small:free + Rust Neuro-Symbolic Architectural Reasoner",
+              "latency_ms": 0,
+              "prompt_tokens_est": 55,
+              "request_index": 3,
+              "status": "COMPLETED_ZERO_COST",
+              "task": "QaAndComplianceCritique"
+            }
+          ],
+          "task_routing_table": {
+            "ArchitecturalConceptAndDesign": {
+              "fallback_chain": [
+                "thinkingmachines/inkling-2-small:free",
+                "nvidia/nemotron-3-ultra-550b-a55b:free",
+                "baidu/ernie-5.5-flash-preview:free",
+                "google/gemma-4-31b-it:free",
+                "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+                "openrouter/free"
+              ],
+              "primary_model_id": "thinkingmachines/inkling-2-small:free",
+              "selection_reason": "Sélection des modèles gratuits à fort raisonnement (Nemotron Ultra 550B / Gemma 4 31B / Ernie 5.5) pour imaginer des partis architecturaux contrastés et justifier les choix.",
+              "task": "ArchitecturalConceptAndDesign"
+            },
+            "DocumentAndPlanVisionAnalysis": {
+              "fallback_chain": [
+                "thinkingmachines/inkling-2-small:free",
+                "inclusionai/ling-3.2-flash:free",
+                "nvidia/nemotron-3.5-super-vl:free",
+                "google/gemma-4-31b-it:free",
+                "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+                "particle-ai/particle-1:free",
+                "google/gemma-4-26b-a4b-it:free",
+                "dots-studio/dots-3-note-preview:free",
+                "openrouter/free"
+              ],
+              "primary_model_id": "thinkingmachines/inkling-2-small:free",
+              "selection_reason": "Sélection des modèles gratuits multimodaux (text+image->text) à grande fenêtre de contexte (jusqu'à 1M tokens) pour l'analyse de sujets PDF et plans.",
+              "task": "DocumentAndPlanVisionAnalysis"
+            },
+            "QaAndComplianceCritique": {
+              "fallback_chain": [
+                "thinkingmachines/inkling-2-small:free",
+                "nvidia/nemotron-3-ultra-550b-a55b:free",
+                "baidu/ernie-5.5-flash-preview:free",
+                "google/gemma-4-31b-it:free",
+                "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+                "openrouter/free"
+              ],
+              "primary_model_id": "thinkingmachines/inkling-2-small:free",
+              "selection_reason": "Sélection des modèles gratuits de vérification et critique analytique pour évaluer les variantes et converger avec le moteur géométrique Rust.",
+              "task": "QaAndComplianceCritique"
+            },
+            "SpatialAndStructuralReasoning": {
+              "fallback_chain": [
+                "thinkingmachines/inkling-2-small:free",
+                "nvidia/nemotron-3-ultra-550b-a55b:free",
+                "inclusionai/ling-3.2-flash:free",
+                "nvidia/nemotron-3.5-super-vl:free",
+                "google/gemma-4-31b-it:free",
+                "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+                "nvidia/nemotron-3.5-lightning:free",
+                "google/gemma-4-26b-a4b-it:free",
+                "cohere/north-mini-code:free",
+                "openrouter/free"
+              ],
+              "primary_model_id": "thinkingmachines/inkling-2-small:free",
+              "selection_reason": "Sélection des modèles gratuits spécialisés JSON/Code et raisonnement spatial pour structurer les programmes, surfaces et topologies.",
+              "task": "SpatialAndStructuralReasoning"
+            }
+          },
+          "total_models_discovered": 468
+        },
+        "ai_telemetry_report_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\openrouter_ai_telemetry_report.json",
+        "apm_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\arc_project_model.apm.json",
+        "bimcraft_builds": {
+          "V1_ECLIPSE": {
+            "bimcraft_model_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\01_BIMcraft_Model\\V1_ECLIPSE.bimcraft",
+            "build_duration_ms": 476,
+            "cli_version": "bimcraft-cli 0.11.0",
+            "elements_verified": true,
+            "glb_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\01_BIMcraft_Model\\V1_ECLIPSE.glb",
+            "ifc_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\01_BIMcraft_Model\\V1_ECLIPSE.ifc",
+            "inspection_raw": "{\n  \"counts\": {\n    \"beam\": 1,\n    \"component\": 41,\n    \"door\": 7,\n    \"floor\": 1,\n    \"level\": 2,\n    \"line\": 12,\n    \"room\": 12,\n    \"roomseparator\": 5,\n    \"schedule\": 1,\n    \"sheet\": 1,\n    \"viewport\": 1,\n    \"wall\": 64,\n    \"window\": 8\n  },\n  \"distribution_systems\": {\n    \"127/220 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"127 V\",\n      \"l_l\": \"220 V\",\n      \"l_n\": \"127 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"220/380 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"220 V\",\n      \"l_l\": \"380 V\",\n      \"l_n\": \"220 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"230/400 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"230 V\",\n      \"l_l\": \"400 V\",\n      \"l_n\": \"230 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"277/480 V\": {\n      \"l_g\": \"277 V\",\n      \"l_l\": \"480 V\",\n      \"l_n\": \"277 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    }\n  },\n  \"families\": {\n    \"Air Terminal\": {\n      \"category\": \"airterminal\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1000\",\n        \"2000\",\n        \"500\"\n      ]\n    },\n    \"Base Cabinet\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\",\n        \"Worktop\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1800 x 600\",\n        \"600 x 600\"\n      ]\n    },\n    \"Bathtub\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Length\",\n        \"Width\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"1500 x 700\",\n        \"1700 x 750\"\n      ]\n    },\n    \"Bed\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Length\",\n        \"Height\",\n        \"Headboard Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 2000\",\n        \"1800 x 2000\",\n        \"900 x 2000\"\n      ]\n    },\n    \"Casement Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Ceiling Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Diameter\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"300\",\n        \"400\"\n      ]\n    },\n    \"Chair\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"450 x 450\"\n      ]\n    },\n    \"Data Outlet\": {\n      \"category\": \"dataoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Desk\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1400 x 700\"\n      ]\n    },\n    \"Distribution Board\": {\n      \"category\": \"equipment\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"12 circuits\",\n        \"24 circuits\",\n        \"36 circuits\"\n      ]\n    },\n    \"Double Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1200 x 2100\",\n        \"1500 x 2100\",\n        \"1800 x 2100\"\n      ]\n    },\n    \"Earthing Electrode\": {\n      \"category\": \"earthing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"2400\",\n        \"3000\"\n      ]\n    },\n    \"Elbow 90\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Fixed Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Floor Drain\": {\n      \"category\": \"drain\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\"\n      ],\n      \"types\": [\n        \"100 x 100\",\n        \"150 x 150\"\n      ]\n    },\n    \"Gate Valve\": {\n      \"category\": \"pipeaccessory\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Inspection Box\": {\n      \"category\": \"inspectionbox\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"250\",\n        \"300\"\n      ]\n    },\n    \"Kitchen Sink\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 550\",\n        \"800 x 500\"\n      ]\n    },\n    \"Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"High 2100\",\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Patch Panel\": {\n      \"category\": \"patchpanel\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"24 ports\",\n        \"48 ports\"\n      ]\n    },\n    \"Rack\": {\n      \"category\": \"rack\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"600 x 1000\",\n        \"600 x 800\",\n        \"800 x 1000\"\n      ]\n    },\n    \"Recessed Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"1200 x 300\",\n        \"600 x 600\"\n      ]\n    },\n    \"Shower\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\"\n      ],\n      \"types\": [\n        \"800 x 800\",\n        \"900 x 900\"\n      ]\n    },\n    \"Single Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1000 x 2100\",\n        \"800 x 2100\",\n        \"900 x 2100\"\n      ]\n    },\n    \"Sliding Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1500 x 2100\",\n        \"2000 x 2100\",\n        \"2400 x 2100\"\n      ]\n    },\n    \"Sliding Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Sofa\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Arm Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 900\",\n        \"2000 x 900\"\n      ]\n    },\n    \"Switch\": {\n      \"category\": \"switch\",\n      \"connectors\": [\n        {\n          \"kind\": \"switch\",\n          \"system\": \"switch\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Table\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 800\",\n        \"1600 x 900\",\n        \"2000 x 1000\"\n      ]\n    },\n    \"Tee\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Three-Phase Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-unbalanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load L1\",\n        \"Load L2\",\n        \"Load L3\"\n      ],\n      \"types\": [\n        \"Balanced 1100\",\n        \"Unbalanced 1100\"\n      ]\n    },\n    \"V1 - Baignoire 170x70\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Banc à chaussures + patères 80x35\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Banquette-coffre 186x28\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Banquette-coffre 70x37\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Bibliothèque + TV 260x40\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Buffet sur mesure 95x45\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Bureau 120x55\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Bureau 75x37\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Canapé 220x95\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Cellier 105x55\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Chaise 42x45\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Chevet 36x40\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Chevet 40x35\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Colonnes cuisine 178x62\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Dressing 175x60\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Fauteuil 75x75\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Fauteuil 80x80\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Lave-linge + sèche-linge en colonne 62x62\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Lave-mains 30x28\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Lit 160 x 200\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Lit 90 x 190\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Meuble vasque 55x48\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Placard 140x60\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Placard 152x60\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Placard à linge 111x57\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Plan de travail cuisine 205x62\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Plante en pot 40x40\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Table 180 x 90 (6 couverts)\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - Table basse 60x100\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V1 - WC suspendu 40x65\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"Voice Outlet\": {\n      \"category\": \"voiceoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"WC\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"400 x 650\"\n      ]\n    },\n    \"Wardrobe\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"900 x 600\"\n      ]\n    },\n    \"Washbasin\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"500 x 400\",\n        \"600 x 450\"\n      ]\n    }\n  },\n  \"history\": [],\n  \"images\": {},\n  \"language\": \"en\",\n  \"levels\": [\n    {\n      \"elevation\": 0.0,\n      \"id\": 100000,\n      \"name\": \"N0 - Appartement\"\n    },\n    {\n      \"elevation\": 3050.0,\n      \"id\": 100001,\n      \"name\": \"N+1 - Sous-face dalle haute (HSP 280 + 25)\"\n    }\n  ],\n  \"materials\": {\n    \"Brick\": {\n      \"color\": [\n        178,\n        92,\n        70\n      ],\n      \"cut\": \"brick\",\n      \"surface\": \"brick\",\n      \"texture\": {\n        \"kind\": \"brick\",\n        \"size\": [\n          900.0,\n          600.0\n        ]\n      }\n    },\n    \"Ceramic tile\": {\n      \"color\": [\n        222,\n        220,\n        210\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"grid\",\n      \"texture\": {\n        \"kind\": \"tile\",\n        \"size\": [\n          1200.0,\n          1200.0\n        ]\n      }\n    },\n    \"Concrete\": {\n      \"color\": [\n        188,\n        188,\n        182\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Concrete block\": {\n      \"color\": [\n        176,\n        176,\n        170\n      ],\n      \"cut\": \"crosshatch\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"block\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Copper\": {\n      \"color\": [\n        184,\n        115,\n        51\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Fabric\": {\n      \"color\": [\n        176,\n        160,\n        136\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"fabric\",\n        \"size\": [\n          100.0,\n          100.0\n        ]\n      }\n    },\n    \"Glass\": {\n      \"color\": [\n        166,\n        200,\n        228\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"transparency\": 70\n    },\n    \"Gypsum board\": {\n      \"color\": [\n        242,\n        242,\n        238\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Insulation\": {\n      \"color\": [\n        232,\n        214,\n        140\n      ],\n      \"cut\": \"insulation\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"insulation\",\n        \"size\": [\n          600.0,\n          600.0\n        ]\n      }\n    },\n    \"Membrane\": {\n      \"color\": [\n        70,\n        70,\n        74\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Metal\": {\n      \"color\": [\n        150,\n        152,\n        158\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"PVC\": {\n      \"color\": [\n        226,\n        226,\n        214\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Plaster\": {\n      \"color\": [\n        238,\n        234,\n        224\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"plaster\",\n        \"size\": [\n          500.0,\n          500.0\n        ]\n      }\n    },\n    \"Porcelain\": {\n      \"color\": [\n        244,\n        244,\n        240\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Roof tiles\": {\n      \"color\": [\n        170,\n        86,\n        64\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"roof\",\n        \"size\": [\n          1320.0,\n          1000.0\n        ]\n      }\n    },\n    \"Screed\": {\n      \"color\": [\n        206,\n        200,\n        188\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Timber\": {\n      \"color\": [\n        196,\n        154,\n        102\n      ],\n      \"cut\": \"diagonal\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"boards\",\n        \"size\": [\n          1200.0,\n          1120.0\n        ]\n      }\n    }\n  },\n  \"name\": \"Project\",\n  \"option_sets\": {},\n  \"parameters\": {},\n  \"path\": \"c:\\\\Users\\\\teoba\\\\Documents\\\\Devs\\\\MCP Revit\\\\arc-autonomous-studio\\\\workspace_projects\\\\REFLET_LONDON_AUTONOMOUS\\\\V1_ECLIPSE\\\\01_BIMcraft_Model\\\\V1_ECLIPSE.bimcraft\",\n  \"phase_filters\": {\n    \"Show All\": {\n      \"demolished\": \"by-category\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show Complete\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"not-displayed\",\n      \"new\": \"by-category\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + Demolished\": {\n      \"demolished\": \"overridden\",\n      \"existing\": \"by-category\",\n      \"new\": \"not-displayed\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"overridden\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    }\n  },\n  \"phase_overrides\": {\n    \"demolished\": {\n      \"cut\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      },\n      \"projection\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      }\n    },\n    \"existing\": {\n      \"halftone\": true\n    }\n  },\n  \"phases\": [\n    \"Existing\",\n    \"New Construction\"\n  ],\n  \"project_units\": \"cm\",\n  \"room_area\": \"finish\",\n  \"standard\": \"iso\",\n  \"types\": {\n    \"ceiling\": {\n      \"Generic - 20mm\": {\n        \"grid\": 0.0,\n        \"thickness\": 20.0\n      },\n      \"Tile 600 x 600\": {\n        \"grid\": 600.0,\n        \"thickness\": 20.0\n      }\n    },\n    \"column\": {\n      \"Rectangular 400 x 400\": {\n        \"depth\": 400.0,\n        \"round\": false,\n        \"width\": 400.0\n      },\n      \"Round 300\": {\n        \"depth\": 300.0,\n        \"round\": true,\n        \"width\": 300.0\n      }\n    },\n    \"door\": {\n      \"Porte 73 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 730.0\n      },\n      \"Porte 80 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Porte 83 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 830.0\n      },\n      \"Single 800 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Single 900 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 900.0\n      }\n    },\n    \"floor\": {\n      \"EXI_Plancher existant 25\": {\n        \"thickness\": 250.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      }\n    },\n    \"footing\": {\n      \"Footing 1200 x 1200\": {\n        \"depth\": 1200.0,\n        \"round\": false,\n        \"width\": 1200.0\n      },\n      \"Footing 1500 x 1500\": {\n        \"depth\": 1500.0,\n        \"round\": false,\n        \"width\": 1500.0\n      }\n    },\n    \"railing\": {\n      \"Railing - 1000mm\": {\n        \"height\": 1000.0,\n        \"spacing\": 120.0\n      }\n    },\n    \"roof\": {\n      \"Generic - 300mm\": {\n        \"thickness\": 300.0\n      }\n    },\n    \"runs\": {\n      \"beam\": {\n        \"Beam 150 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 150.0\n        },\n        \"Beam 200 x 500\": {\n          \"depth\": 500.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"PRJ_Poutre 35 x 40\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 350.0\n        },\n        \"Steel Tube 150\": {\n          \"depth\": 150.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 150.0\n        }\n      },\n      \"cable\": {\n        \"Cat6\": {\n          \"depth\": 6.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 6.0\n        },\n        \"Cat6A\": {\n          \"depth\": 7.5,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 7.5\n        },\n        \"Optical 3\": {\n          \"depth\": 3.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 3.0\n        }\n      },\n      \"cabletray\": {\n        \"Perforated 100 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 100.0\n        },\n        \"Perforated 200 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"Perforated 300 x 100\": {\n          \"depth\": 100.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 300.0\n        }\n      },\n      \"conduit\": {\n        \"PVC 20\": {\n          \"depth\": 20.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 20.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 32\": {\n          \"depth\": 32.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 32.0\n        },\n        \"Steel 25\": {\n          \"depth\": 25.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 25.0\n        }\n      },\n      \"downconductor\": {\n        \"Copper 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 8.0\n        },\n        \"Flat 25 x 3\": {\n          \"depth\": 3.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 25.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"duct\": {\n        \"Rectangular 400 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 400.0\n        },\n        \"Rectangular 600 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 600.0\n        },\n        \"Round 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 300.0\n        }\n      },\n      \"groundconductor\": {\n        \"Copper 9\": {\n          \"depth\": 9.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 9.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"pipe\": {\n        \"Copper 22\": {\n          \"depth\": 22.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 22.0\n        },\n        \"PVC 110\": {\n          \"depth\": 110.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 110.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 50\": {\n          \"depth\": 50.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 50.0\n        }\n      },\n      \"stripfooting\": {\n        \"Strip 600 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 600.0\n        }\n      },\n      \"wire\": {\n        \"Wire 2.5\": {\n          \"depth\": 4.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 4.0\n        },\n        \"Wire 4\": {\n          \"depth\": 5.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 5.0\n        },\n        \"Wire 6\": {\n          \"depth\": 6.5,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 6.5\n        }\n      }\n    },\n    \"structural_column\": {\n      \"Concrete 200 x 500\": {\n        \"depth\": 500.0,\n        \"round\": false,\n        \"width\": 200.0\n      },\n      \"Concrete 300 x 300\": {\n        \"depth\": 300.0,\n        \"round\": false,\n        \"width\": 300.0\n      },\n      \"Concrete Round 400\": {\n        \"depth\": 400.0,\n        \"round\": true,\n        \"width\": 400.0\n      }\n    },\n    \"wall\": {\n      \"EXI_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"EXI_Mur mitoyen 105\": {\n        \"thickness\": 1050.0\n      },\n      \"EXI_Mur palier 20\": {\n        \"thickness\": 200.0\n      },\n      \"EXI_Mur porteur 35\": {\n        \"thickness\": 350.0\n      },\n      \"Exterior - 300mm\": {\n        \"layers\": [\n          {\n            \"function\": \"finish\",\n            \"guid\": \"acc3470e-2c6e-4740-b720-30f2edc84490\",\n            \"id\": 999628,\n            \"material\": \"Brick\",\n            \"thickness\": 100.0\n          },\n          {\n            \"function\": \"thermal\",\n            \"guid\": \"70fa54e3-c9fb-4834-ba0b-71a6267915ed\",\n            \"id\": 999627,\n            \"material\": \"Insulation\",\n            \"thickness\": 50.0\n          },\n          {\n            \"function\": \"structure\",\n            \"guid\": \"d1c52f24-f3cf-4403-981d-af0a4b83adb8\",\n            \"id\": 999626,\n            \"material\": \"Concrete block\",\n            \"thickness\": 140.0\n          },\n          {\n            \"function\": \"finish\",\n            \"guid\": \"18911019-97af-4e55-be93-ee161e9ca626\",\n            \"id\": 999625,\n            \"material\": \"Plaster\",\n            \"thickness\": 10.0\n          }\n        ],\n        \"thickness\": 300.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      },\n      \"Interior - 100mm\": {\n        \"thickness\": 100.0\n      },\n      \"PRJ_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"PRJ_Meuble-cloison 60\": {\n        \"thickness\": 600.0\n      },\n      \"PRJ_Rebouchage 20\": {\n        \"thickness\": 200.0\n      },\n      \"PRJ_Rebouchage 35\": {\n        \"thickness\": 350.0\n      }\n    },\n    \"window\": {\n      \"Fenêtre 140 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 1400.0\n      },\n      \"Fenêtre 155 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 1550.0\n      },\n      \"Fenêtre 200 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 2000.0\n      },\n      \"Fenêtre 80 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 800.0\n      },\n      \"Fixed 1200 x 1500\": {\n        \"height\": 1500.0,\n        \"sill\": 900.0,\n        \"width\": 1200.0\n      },\n      \"Fixed 600 x 900\": {\n        \"height\": 900.0,\n        \"sill\": 1100.0,\n        \"width\": 600.0\n      }\n    }\n  },\n  \"units\": \"mm\",\n  \"view_filters\": {},\n  \"view_templates\": {\n    \"Electrical Ceiling\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"dataoutlet\": {\n            \"hidden\": true\n          },\n          \"equipment\": {\n            \"hidden\": true\n          },\n          \"outlet\": {\n            \"hidden\": true\n          },\n          \"patchpanel\": {\n            \"hidden\": true\n          },\n          \"rack\": {\n            \"hidden\": true\n          },\n          \"switch\": {\n            \"hidden\": true\n          },\n          \"voiceoutlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Lighting\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"outlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Power\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"lighting\": {\n            \"halftone\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    }\n  },\n  \"voltages\": {\n    \"127 V\": {\n      \"max\": 139.7,\n      \"min\": 114.3,\n      \"nominal\": 127.0\n    },\n    \"220 V\": {\n      \"max\": 242.0,\n      \"min\": 198.0,\n      \"nominal\": 220.0\n    },\n    \"230 V\": {\n      \"max\": 253.0,\n      \"min\": 207.0,\n      \"nominal\": 230.0\n    },\n    \"277 V\": {\n      \"max\": 304.7,\n      \"min\": 249.3,\n      \"nominal\": 277.0\n    },\n    \"380 V\": {\n      \"max\": 418.0,\n      \"min\": 342.0,\n      \"nominal\": 380.0\n    },\n    \"400 V\": {\n      \"max\": 440.0,\n      \"min\": 360.0,\n      \"nominal\": 400.0\n    },\n    \"480 V\": {\n      \"max\": 528.0,\n      \"min\": 432.0,\n      \"nominal\": 480.0\n    }\n  },\n  \"warnings\": [],\n  \"wire_types\": {\n    \"Cu PVC 70 °C\": {\n      \"insulation\": \"PVC\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 36, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 9.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 11.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 14.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 17.5,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 24.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 32.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 41.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 57.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 76.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 101.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 125.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 151.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 192.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 232.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 269.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 309.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 353.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 415.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 477.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 571.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 656.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 758.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 881.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1012.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 70.0\n    },\n    \"Cu THHN 90 °C\": {\n      \"insulation\": \"THHN\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 90 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 30.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 40.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 55.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 75.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 95.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 145.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 170.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 195.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 225.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 260.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 290.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 320.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 350.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 430.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 535.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 555.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 585.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 615.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 90.0\n    },\n    \"Cu THW 75 °C\": {\n      \"insulation\": \"THW\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 75 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 20.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 35.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 50.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 65.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 85.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 100.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 150.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 175.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 200.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 230.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 255.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 285.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 310.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 335.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 420.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 460.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 490.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 545.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 75.0\n    },\n    \"Cu XLPE/EPR 90 °C\": {\n      \"insulation\": \"XLPE/EPR\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 37, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 12.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 15.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 18.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 23.0,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 31.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 42.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 54.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 75.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 100.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 133.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 164.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 198.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 253.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 306.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 354.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 407.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 464.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 546.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 628.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 751.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 864.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 998.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 1158.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1332.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 90.0\n    }\n  }\n}",
+            "pdf_sheet_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\01_BIMcraft_Model\\V1_ECLIPSE_sheet_A3.pdf",
+            "script_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\01_BIMcraft_Model\\V1_ECLIPSE.bimscript",
+            "svg_plan_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\01_BIMcraft_Model\\V1_ECLIPSE_plan.svg",
+            "variant_id": "V1_ECLIPSE"
+          },
+          "V2_ORBITE": {
+            "bimcraft_model_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\01_BIMcraft_Model\\V2_ORBITE.bimcraft",
+            "build_duration_ms": 520,
+            "cli_version": "bimcraft-cli 0.11.0",
+            "elements_verified": true,
+            "glb_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\01_BIMcraft_Model\\V2_ORBITE.glb",
+            "ifc_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\01_BIMcraft_Model\\V2_ORBITE.ifc",
+            "inspection_raw": "{\n  \"counts\": {\n    \"beam\": 2,\n    \"component\": 42,\n    \"door\": 7,\n    \"floor\": 1,\n    \"level\": 2,\n    \"line\": 10,\n    \"room\": 12,\n    \"roomseparator\": 7,\n    \"schedule\": 1,\n    \"sheet\": 1,\n    \"viewport\": 1,\n    \"wall\": 63,\n    \"window\": 4\n  },\n  \"distribution_systems\": {\n    \"127/220 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"127 V\",\n      \"l_l\": \"220 V\",\n      \"l_n\": \"127 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"220/380 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"220 V\",\n      \"l_l\": \"380 V\",\n      \"l_n\": \"220 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"230/400 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"230 V\",\n      \"l_l\": \"400 V\",\n      \"l_n\": \"230 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"277/480 V\": {\n      \"l_g\": \"277 V\",\n      \"l_l\": \"480 V\",\n      \"l_n\": \"277 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    }\n  },\n  \"families\": {\n    \"Air Terminal\": {\n      \"category\": \"airterminal\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1000\",\n        \"2000\",\n        \"500\"\n      ]\n    },\n    \"Base Cabinet\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\",\n        \"Worktop\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1800 x 600\",\n        \"600 x 600\"\n      ]\n    },\n    \"Bathtub\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Length\",\n        \"Width\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"1500 x 700\",\n        \"1700 x 750\"\n      ]\n    },\n    \"Bed\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Length\",\n        \"Height\",\n        \"Headboard Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 2000\",\n        \"1800 x 2000\",\n        \"900 x 2000\"\n      ]\n    },\n    \"Casement Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Ceiling Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Diameter\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"300\",\n        \"400\"\n      ]\n    },\n    \"Chair\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"450 x 450\"\n      ]\n    },\n    \"Data Outlet\": {\n      \"category\": \"dataoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Desk\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1400 x 700\"\n      ]\n    },\n    \"Distribution Board\": {\n      \"category\": \"equipment\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"12 circuits\",\n        \"24 circuits\",\n        \"36 circuits\"\n      ]\n    },\n    \"Double Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1200 x 2100\",\n        \"1500 x 2100\",\n        \"1800 x 2100\"\n      ]\n    },\n    \"Earthing Electrode\": {\n      \"category\": \"earthing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"2400\",\n        \"3000\"\n      ]\n    },\n    \"Elbow 90\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Fixed Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Floor Drain\": {\n      \"category\": \"drain\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\"\n      ],\n      \"types\": [\n        \"100 x 100\",\n        \"150 x 150\"\n      ]\n    },\n    \"Gate Valve\": {\n      \"category\": \"pipeaccessory\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Inspection Box\": {\n      \"category\": \"inspectionbox\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"250\",\n        \"300\"\n      ]\n    },\n    \"Kitchen Sink\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 550\",\n        \"800 x 500\"\n      ]\n    },\n    \"Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"High 2100\",\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Patch Panel\": {\n      \"category\": \"patchpanel\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"24 ports\",\n        \"48 ports\"\n      ]\n    },\n    \"Rack\": {\n      \"category\": \"rack\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"600 x 1000\",\n        \"600 x 800\",\n        \"800 x 1000\"\n      ]\n    },\n    \"Recessed Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"1200 x 300\",\n        \"600 x 600\"\n      ]\n    },\n    \"Shower\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\"\n      ],\n      \"types\": [\n        \"800 x 800\",\n        \"900 x 900\"\n      ]\n    },\n    \"Single Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1000 x 2100\",\n        \"800 x 2100\",\n        \"900 x 2100\"\n      ]\n    },\n    \"Sliding Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1500 x 2100\",\n        \"2000 x 2100\",\n        \"2400 x 2100\"\n      ]\n    },\n    \"Sliding Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Sofa\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Arm Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 900\",\n        \"2000 x 900\"\n      ]\n    },\n    \"Switch\": {\n      \"category\": \"switch\",\n      \"connectors\": [\n        {\n          \"kind\": \"switch\",\n          \"system\": \"switch\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Table\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 800\",\n        \"1600 x 900\",\n        \"2000 x 1000\"\n      ]\n    },\n    \"Tee\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Three-Phase Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-unbalanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load L1\",\n        \"Load L2\",\n        \"Load L3\"\n      ],\n      \"types\": [\n        \"Balanced 1100\",\n        \"Unbalanced 1100\"\n      ]\n    },\n    \"V2 - Baignoire 170x75\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Banc à chaussures + patères 90x35\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Banquette-coffre 70x37\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Bibliothèque de passage 105x26\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Buffet sur mesure 95x42\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Bureau 110x37\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Bureau 2 postes + étagère 201x60\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Canapé 190x84\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Chaise 42x45\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Chevet 34x40\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Chevet 35x35\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Colonnes cuisine 60x63\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Douche à l'italienne 108x88\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Douche à l'italienne 88x88\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Dressing 95x60\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Lave-linge + sèche-linge en colonne 60x62\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Lave-mains 40x26\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Lit 160 x 200\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Lit 90 x 200\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Meuble TV 90x43\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Meuble double vasque 100x50\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Meuble vasque 63x44\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Placard 111x62\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Placard 88x60\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Plan de travail cuisine 205x62\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Plante en pot 40x40\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Rangement 60x63\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Rangement buanderie 95x32\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Table 160 x 80 (6 couverts)\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - Table basse 80x55\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V2 - WC suspendu 40x65\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"Voice Outlet\": {\n      \"category\": \"voiceoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"WC\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"400 x 650\"\n      ]\n    },\n    \"Wardrobe\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"900 x 600\"\n      ]\n    },\n    \"Washbasin\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"500 x 400\",\n        \"600 x 450\"\n      ]\n    }\n  },\n  \"history\": [],\n  \"images\": {},\n  \"language\": \"en\",\n  \"levels\": [\n    {\n      \"elevation\": 0.0,\n      \"id\": 100000,\n      \"name\": \"N0 - Appartement\"\n    },\n    {\n      \"elevation\": 3050.0,\n      \"id\": 100001,\n      \"name\": \"N+1 - Sous-face dalle haute (HSP 280 + 25)\"\n    }\n  ],\n  \"materials\": {\n    \"Brick\": {\n      \"color\": [\n        178,\n        92,\n        70\n      ],\n      \"cut\": \"brick\",\n      \"surface\": \"brick\",\n      \"texture\": {\n        \"kind\": \"brick\",\n        \"size\": [\n          900.0,\n          600.0\n        ]\n      }\n    },\n    \"Ceramic tile\": {\n      \"color\": [\n        222,\n        220,\n        210\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"grid\",\n      \"texture\": {\n        \"kind\": \"tile\",\n        \"size\": [\n          1200.0,\n          1200.0\n        ]\n      }\n    },\n    \"Concrete\": {\n      \"color\": [\n        188,\n        188,\n        182\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Concrete block\": {\n      \"color\": [\n        176,\n        176,\n        170\n      ],\n      \"cut\": \"crosshatch\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"block\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Copper\": {\n      \"color\": [\n        184,\n        115,\n        51\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Fabric\": {\n      \"color\": [\n        176,\n        160,\n        136\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"fabric\",\n        \"size\": [\n          100.0,\n          100.0\n        ]\n      }\n    },\n    \"Glass\": {\n      \"color\": [\n        166,\n        200,\n        228\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"transparency\": 70\n    },\n    \"Gypsum board\": {\n      \"color\": [\n        242,\n        242,\n        238\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Insulation\": {\n      \"color\": [\n        232,\n        214,\n        140\n      ],\n      \"cut\": \"insulation\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"insulation\",\n        \"size\": [\n          600.0,\n          600.0\n        ]\n      }\n    },\n    \"Membrane\": {\n      \"color\": [\n        70,\n        70,\n        74\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Metal\": {\n      \"color\": [\n        150,\n        152,\n        158\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"PVC\": {\n      \"color\": [\n        226,\n        226,\n        214\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Plaster\": {\n      \"color\": [\n        238,\n        234,\n        224\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"plaster\",\n        \"size\": [\n          500.0,\n          500.0\n        ]\n      }\n    },\n    \"Porcelain\": {\n      \"color\": [\n        244,\n        244,\n        240\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Roof tiles\": {\n      \"color\": [\n        170,\n        86,\n        64\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"roof\",\n        \"size\": [\n          1320.0,\n          1000.0\n        ]\n      }\n    },\n    \"Screed\": {\n      \"color\": [\n        206,\n        200,\n        188\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Timber\": {\n      \"color\": [\n        196,\n        154,\n        102\n      ],\n      \"cut\": \"diagonal\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"boards\",\n        \"size\": [\n          1200.0,\n          1120.0\n        ]\n      }\n    }\n  },\n  \"name\": \"Project\",\n  \"option_sets\": {},\n  \"parameters\": {},\n  \"path\": \"c:\\\\Users\\\\teoba\\\\Documents\\\\Devs\\\\MCP Revit\\\\arc-autonomous-studio\\\\workspace_projects\\\\REFLET_LONDON_AUTONOMOUS\\\\V2_ORBITE\\\\01_BIMcraft_Model\\\\V2_ORBITE.bimcraft\",\n  \"phase_filters\": {\n    \"Show All\": {\n      \"demolished\": \"by-category\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show Complete\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"not-displayed\",\n      \"new\": \"by-category\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + Demolished\": {\n      \"demolished\": \"overridden\",\n      \"existing\": \"by-category\",\n      \"new\": \"not-displayed\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"overridden\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    }\n  },\n  \"phase_overrides\": {\n    \"demolished\": {\n      \"cut\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      },\n      \"projection\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      }\n    },\n    \"existing\": {\n      \"halftone\": true\n    }\n  },\n  \"phases\": [\n    \"Existing\",\n    \"New Construction\"\n  ],\n  \"project_units\": \"cm\",\n  \"room_area\": \"finish\",\n  \"standard\": \"iso\",\n  \"types\": {\n    \"ceiling\": {\n      \"Generic - 20mm\": {\n        \"grid\": 0.0,\n        \"thickness\": 20.0\n      },\n      \"Tile 600 x 600\": {\n        \"grid\": 600.0,\n        \"thickness\": 20.0\n      }\n    },\n    \"column\": {\n      \"Rectangular 400 x 400\": {\n        \"depth\": 400.0,\n        \"round\": false,\n        \"width\": 400.0\n      },\n      \"Round 300\": {\n        \"depth\": 300.0,\n        \"round\": true,\n        \"width\": 300.0\n      }\n    },\n    \"door\": {\n      \"Porte 73 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 730.0\n      },\n      \"Porte 80 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Single 800 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Single 900 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 900.0\n      }\n    },\n    \"floor\": {\n      \"EXI_Plancher existant 25\": {\n        \"thickness\": 250.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      }\n    },\n    \"footing\": {\n      \"Footing 1200 x 1200\": {\n        \"depth\": 1200.0,\n        \"round\": false,\n        \"width\": 1200.0\n      },\n      \"Footing 1500 x 1500\": {\n        \"depth\": 1500.0,\n        \"round\": false,\n        \"width\": 1500.0\n      }\n    },\n    \"railing\": {\n      \"Railing - 1000mm\": {\n        \"height\": 1000.0,\n        \"spacing\": 120.0\n      }\n    },\n    \"roof\": {\n      \"Generic - 300mm\": {\n        \"thickness\": 300.0\n      }\n    },\n    \"runs\": {\n      \"beam\": {\n        \"Beam 150 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 150.0\n        },\n        \"Beam 200 x 500\": {\n          \"depth\": 500.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"PRJ_Poutre 35 x 40\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 350.0\n        },\n        \"Steel Tube 150\": {\n          \"depth\": 150.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 150.0\n        }\n      },\n      \"cable\": {\n        \"Cat6\": {\n          \"depth\": 6.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 6.0\n        },\n        \"Cat6A\": {\n          \"depth\": 7.5,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 7.5\n        },\n        \"Optical 3\": {\n          \"depth\": 3.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 3.0\n        }\n      },\n      \"cabletray\": {\n        \"Perforated 100 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 100.0\n        },\n        \"Perforated 200 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"Perforated 300 x 100\": {\n          \"depth\": 100.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 300.0\n        }\n      },\n      \"conduit\": {\n        \"PVC 20\": {\n          \"depth\": 20.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 20.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 32\": {\n          \"depth\": 32.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 32.0\n        },\n        \"Steel 25\": {\n          \"depth\": 25.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 25.0\n        }\n      },\n      \"downconductor\": {\n        \"Copper 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 8.0\n        },\n        \"Flat 25 x 3\": {\n          \"depth\": 3.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 25.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"duct\": {\n        \"Rectangular 400 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 400.0\n        },\n        \"Rectangular 600 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 600.0\n        },\n        \"Round 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 300.0\n        }\n      },\n      \"groundconductor\": {\n        \"Copper 9\": {\n          \"depth\": 9.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 9.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"pipe\": {\n        \"Copper 22\": {\n          \"depth\": 22.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 22.0\n        },\n        \"PVC 110\": {\n          \"depth\": 110.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 110.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 50\": {\n          \"depth\": 50.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 50.0\n        }\n      },\n      \"stripfooting\": {\n        \"Strip 600 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 600.0\n        }\n      },\n      \"wire\": {\n        \"Wire 2.5\": {\n          \"depth\": 4.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 4.0\n        },\n        \"Wire 4\": {\n          \"depth\": 5.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 5.0\n        },\n        \"Wire 6\": {\n          \"depth\": 6.5,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 6.5\n        }\n      }\n    },\n    \"structural_column\": {\n      \"Concrete 200 x 500\": {\n        \"depth\": 500.0,\n        \"round\": false,\n        \"width\": 200.0\n      },\n      \"Concrete 300 x 300\": {\n        \"depth\": 300.0,\n        \"round\": false,\n        \"width\": 300.0\n      },\n      \"Concrete Round 400\": {\n        \"depth\": 400.0,\n        \"round\": true,\n        \"width\": 400.0\n      }\n    },\n    \"wall\": {\n      \"EXI_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"EXI_Mur mitoyen 105\": {\n        \"thickness\": 1050.0\n      },\n      \"EXI_Mur palier 20\": {\n        \"thickness\": 200.0\n      },\n      \"EXI_Mur porteur 35\": {\n        \"thickness\": 350.0\n      },\n      \"Exterior - 300mm\": {\n        \"layers\": [\n          {\n            \"function\": \"finish\",\n            \"guid\": \"6c1a3f0e-fc38-44d0-92ff-f51f3cfa46e4\",\n            \"id\": 999628,\n            \"material\": \"Brick\",\n            \"thickness\": 100.0\n          },\n          {\n            \"function\": \"thermal\",\n            \"guid\": \"61330327-e022-484e-a45a-439b66f30da8\",\n            \"id\": 999627,\n            \"material\": \"Insulation\",\n            \"thickness\": 50.0\n          },\n          {\n            \"function\": \"structure\",\n            \"guid\": \"21c5eace-17c6-4ee1-a9df-359778cc85d6\",\n            \"id\": 999626,\n            \"material\": \"Concrete block\",\n            \"thickness\": 140.0\n          },\n          {\n            \"function\": \"finish\",\n            \"guid\": \"c1b4a40e-52e8-44d2-8958-d45364bb81b4\",\n            \"id\": 999625,\n            \"material\": \"Plaster\",\n            \"thickness\": 10.0\n          }\n        ],\n        \"thickness\": 300.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      },\n      \"Interior - 100mm\": {\n        \"thickness\": 100.0\n      },\n      \"PRJ_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"PRJ_Meuble-cloison 60\": {\n        \"thickness\": 600.0\n      },\n      \"PRJ_Rebouchage 20\": {\n        \"thickness\": 200.0\n      },\n      \"PRJ_Rebouchage 35\": {\n        \"thickness\": 350.0\n      }\n    },\n    \"window\": {\n      \"Fenêtre 200 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 2000.0\n      },\n      \"Fenêtre 80 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 800.0\n      },\n      \"Fixed 1200 x 1500\": {\n        \"height\": 1500.0,\n        \"sill\": 900.0,\n        \"width\": 1200.0\n      },\n      \"Fixed 600 x 900\": {\n        \"height\": 900.0,\n        \"sill\": 1100.0,\n        \"width\": 600.0\n      }\n    }\n  },\n  \"units\": \"mm\",\n  \"view_filters\": {},\n  \"view_templates\": {\n    \"Electrical Ceiling\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"dataoutlet\": {\n            \"hidden\": true\n          },\n          \"equipment\": {\n            \"hidden\": true\n          },\n          \"outlet\": {\n            \"hidden\": true\n          },\n          \"patchpanel\": {\n            \"hidden\": true\n          },\n          \"rack\": {\n            \"hidden\": true\n          },\n          \"switch\": {\n            \"hidden\": true\n          },\n          \"voiceoutlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Lighting\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"outlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Power\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"lighting\": {\n            \"halftone\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    }\n  },\n  \"voltages\": {\n    \"127 V\": {\n      \"max\": 139.7,\n      \"min\": 114.3,\n      \"nominal\": 127.0\n    },\n    \"220 V\": {\n      \"max\": 242.0,\n      \"min\": 198.0,\n      \"nominal\": 220.0\n    },\n    \"230 V\": {\n      \"max\": 253.0,\n      \"min\": 207.0,\n      \"nominal\": 230.0\n    },\n    \"277 V\": {\n      \"max\": 304.7,\n      \"min\": 249.3,\n      \"nominal\": 277.0\n    },\n    \"380 V\": {\n      \"max\": 418.0,\n      \"min\": 342.0,\n      \"nominal\": 380.0\n    },\n    \"400 V\": {\n      \"max\": 440.0,\n      \"min\": 360.0,\n      \"nominal\": 400.0\n    },\n    \"480 V\": {\n      \"max\": 528.0,\n      \"min\": 432.0,\n      \"nominal\": 480.0\n    }\n  },\n  \"warnings\": [],\n  \"wire_types\": {\n    \"Cu PVC 70 °C\": {\n      \"insulation\": \"PVC\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 36, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 9.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 11.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 14.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 17.5,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 24.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 32.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 41.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 57.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 76.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 101.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 125.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 151.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 192.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 232.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 269.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 309.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 353.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 415.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 477.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 571.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 656.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 758.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 881.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1012.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 70.0\n    },\n    \"Cu THHN 90 °C\": {\n      \"insulation\": \"THHN\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 90 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 30.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 40.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 55.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 75.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 95.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 145.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 170.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 195.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 225.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 260.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 290.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 320.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 350.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 430.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 535.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 555.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 585.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 615.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 90.0\n    },\n    \"Cu THW 75 °C\": {\n      \"insulation\": \"THW\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 75 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 20.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 35.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 50.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 65.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 85.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 100.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 150.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 175.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 200.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 230.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 255.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 285.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 310.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 335.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 420.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 460.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 490.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 545.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 75.0\n    },\n    \"Cu XLPE/EPR 90 °C\": {\n      \"insulation\": \"XLPE/EPR\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 37, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 12.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 15.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 18.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 23.0,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 31.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 42.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 54.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 75.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 100.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 133.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 164.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 198.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 253.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 306.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 354.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 407.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 464.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 546.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 628.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 751.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 864.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 998.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 1158.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1332.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 90.0\n    }\n  }\n}",
+            "pdf_sheet_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\01_BIMcraft_Model\\V2_ORBITE_sheet_A3.pdf",
+            "script_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\01_BIMcraft_Model\\V2_ORBITE.bimscript",
+            "svg_plan_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\01_BIMcraft_Model\\V2_ORBITE_plan.svg",
+            "variant_id": "V2_ORBITE"
+          },
+          "V3_PASSAGE": {
+            "bimcraft_model_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\01_BIMcraft_Model\\V3_PASSAGE.bimcraft",
+            "build_duration_ms": 424,
+            "cli_version": "bimcraft-cli 0.11.0",
+            "elements_verified": true,
+            "glb_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\01_BIMcraft_Model\\V3_PASSAGE.glb",
+            "ifc_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\01_BIMcraft_Model\\V3_PASSAGE.ifc",
+            "inspection_raw": "{\n  \"counts\": {\n    \"beam\": 1,\n    \"component\": 37,\n    \"door\": 9,\n    \"floor\": 1,\n    \"level\": 2,\n    \"line\": 8,\n    \"room\": 11,\n    \"roomseparator\": 3,\n    \"schedule\": 1,\n    \"sheet\": 1,\n    \"viewport\": 1,\n    \"wall\": 64,\n    \"window\": 8\n  },\n  \"distribution_systems\": {\n    \"127/220 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"127 V\",\n      \"l_l\": \"220 V\",\n      \"l_n\": \"127 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"220/380 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"220 V\",\n      \"l_l\": \"380 V\",\n      \"l_n\": \"220 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"230/400 V\": {\n      \"ground\": \"TN-S\",\n      \"l_g\": \"230 V\",\n      \"l_l\": \"400 V\",\n      \"l_n\": \"230 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    },\n    \"277/480 V\": {\n      \"l_g\": \"277 V\",\n      \"l_l\": \"480 V\",\n      \"l_n\": \"277 V\",\n      \"phases\": 3,\n      \"wires\": 4\n    }\n  },\n  \"families\": {\n    \"Air Terminal\": {\n      \"category\": \"airterminal\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1000\",\n        \"2000\",\n        \"500\"\n      ]\n    },\n    \"Base Cabinet\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\",\n        \"Worktop\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1800 x 600\",\n        \"600 x 600\"\n      ]\n    },\n    \"Bathtub\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Length\",\n        \"Width\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"1500 x 700\",\n        \"1700 x 750\"\n      ]\n    },\n    \"Bed\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Length\",\n        \"Height\",\n        \"Headboard Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 2000\",\n        \"1800 x 2000\",\n        \"900 x 2000\"\n      ]\n    },\n    \"Casement Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Ceiling Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Diameter\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"300\",\n        \"400\"\n      ]\n    },\n    \"Chair\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"450 x 450\"\n      ]\n    },\n    \"Data Outlet\": {\n      \"category\": \"dataoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Desk\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"1400 x 700\"\n      ]\n    },\n    \"Distribution Board\": {\n      \"category\": \"equipment\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"12 circuits\",\n        \"24 circuits\",\n        \"36 circuits\"\n      ]\n    },\n    \"Double Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1200 x 2100\",\n        \"1500 x 2100\",\n        \"1800 x 2100\"\n      ]\n    },\n    \"Earthing Electrode\": {\n      \"category\": \"earthing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Height\",\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"2400\",\n        \"3000\"\n      ]\n    },\n    \"Elbow 90\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Fixed Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Floor Drain\": {\n      \"category\": \"drain\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\"\n      ],\n      \"types\": [\n        \"100 x 100\",\n        \"150 x 150\"\n      ]\n    },\n    \"Gate Valve\": {\n      \"category\": \"pipeaccessory\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Inspection Box\": {\n      \"category\": \"inspectionbox\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"250\",\n        \"300\"\n      ]\n    },\n    \"Kitchen Sink\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 550\",\n        \"800 x 500\"\n      ]\n    },\n    \"Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"High 2100\",\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Patch Panel\": {\n      \"category\": \"patchpanel\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"24 ports\",\n        \"48 ports\"\n      ]\n    },\n    \"Rack\": {\n      \"category\": \"rack\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"600 x 1000\",\n        \"600 x 800\",\n        \"800 x 1000\"\n      ]\n    },\n    \"Recessed Luminaire\": {\n      \"category\": \"lighting\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-balanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Mounting Height\",\n        \"Load\"\n      ],\n      \"types\": [\n        \"1200 x 300\",\n        \"600 x 600\"\n      ]\n    },\n    \"Shower\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\"\n      ],\n      \"types\": [\n        \"800 x 800\",\n        \"900 x 900\"\n      ]\n    },\n    \"Single Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1000 x 2100\",\n        \"800 x 2100\",\n        \"900 x 2100\"\n      ]\n    },\n    \"Sliding Door\": {\n      \"category\": \"door\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Frame Width\",\n        \"Leaf Thickness\",\n        \"Frame Material\",\n        \"Leaf Material\"\n      ],\n      \"types\": [\n        \"1500 x 2100\",\n        \"2000 x 2100\",\n        \"2400 x 2100\"\n      ]\n    },\n    \"Sliding Window\": {\n      \"category\": \"window\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Height\",\n        \"Sill Height\",\n        \"Frame Width\",\n        \"Frame Depth\",\n        \"Frame Material\"\n      ],\n      \"types\": [\n        \"1200 x 1500\",\n        \"1800 x 1200\",\n        \"600 x 900\"\n      ]\n    },\n    \"Sofa\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Seat Height\",\n        \"Height\",\n        \"Arm Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1600 x 900\",\n        \"2000 x 900\"\n      ]\n    },\n    \"Switch\": {\n      \"category\": \"switch\",\n      \"connectors\": [\n        {\n          \"kind\": \"switch\",\n          \"system\": \"switch\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"Table\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Thickness\",\n        \"Leg Width\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 800\",\n        \"1600 x 900\",\n        \"2000 x 1000\"\n      ]\n    },\n    \"Tee\": {\n      \"category\": \"pipefitting\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Diameter\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"110\",\n        \"25\",\n        \"50\"\n      ]\n    },\n    \"Three-Phase Outlet\": {\n      \"category\": \"outlet\",\n      \"connectors\": [\n        {\n          \"kind\": \"power\",\n          \"system\": \"power-unbalanced\"\n        }\n      ],\n      \"parameters\": [\n        \"Mounting Height\",\n        \"Load L1\",\n        \"Load L2\",\n        \"Load L3\"\n      ],\n      \"types\": [\n        \"Balanced 1100\",\n        \"Unbalanced 1100\"\n      ]\n    },\n    \"V3 - Baignoire 170x70\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Banc à chaussures + patères 55x30\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Banquette-coffre 186x28\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Banquette-coffre 70x37\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Bibliothèque + TV 160x38\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Bout de canapé 35x35\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Buffet sur mesure 68x45\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Bureau 110x60\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Canapé 220x85\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Chaise 42x45\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Douche à l'italienne 90x90\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Fauteuil 75x75\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Lave-linge + sèche-linge en colonne 62x62\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Lit 160 x 200\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Lit 90 x 200\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Meuble vasque 68x48\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Meuble vasque 95x48\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Placard 150x55\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Placard à linge 93x58\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Plan de pliage + étagères 108x40\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Plan de travail cuisine 153x62\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Plante en pot 40x40\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Table 160 x 86 (6 couverts)\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - Tête de lit à niches-chevets 212x15\": {\n      \"category\": \"furniture\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"V3 - WC suspendu 40x65\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"REFLET\"\n      ]\n    },\n    \"Voice Outlet\": {\n      \"category\": \"voiceoutlet\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Mounting Height\"\n      ],\n      \"types\": [\n        \"Low 300\",\n        \"Medium 1100\"\n      ]\n    },\n    \"WC\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [],\n      \"types\": [\n        \"400 x 650\"\n      ]\n    },\n    \"Wardrobe\": {\n      \"category\": \"casework\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\",\n        \"Material\"\n      ],\n      \"types\": [\n        \"1200 x 600\",\n        \"900 x 600\"\n      ]\n    },\n    \"Washbasin\": {\n      \"category\": \"plumbing\",\n      \"connectors\": [],\n      \"parameters\": [\n        \"Width\",\n        \"Depth\",\n        \"Height\"\n      ],\n      \"types\": [\n        \"500 x 400\",\n        \"600 x 450\"\n      ]\n    }\n  },\n  \"history\": [],\n  \"images\": {},\n  \"language\": \"en\",\n  \"levels\": [\n    {\n      \"elevation\": 0.0,\n      \"id\": 100000,\n      \"name\": \"N0 - Appartement\"\n    },\n    {\n      \"elevation\": 3050.0,\n      \"id\": 100001,\n      \"name\": \"N+1 - Sous-face dalle haute (HSP 280 + 25)\"\n    }\n  ],\n  \"materials\": {\n    \"Brick\": {\n      \"color\": [\n        178,\n        92,\n        70\n      ],\n      \"cut\": \"brick\",\n      \"surface\": \"brick\",\n      \"texture\": {\n        \"kind\": \"brick\",\n        \"size\": [\n          900.0,\n          600.0\n        ]\n      }\n    },\n    \"Ceramic tile\": {\n      \"color\": [\n        222,\n        220,\n        210\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"grid\",\n      \"texture\": {\n        \"kind\": \"tile\",\n        \"size\": [\n          1200.0,\n          1200.0\n        ]\n      }\n    },\n    \"Concrete\": {\n      \"color\": [\n        188,\n        188,\n        182\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Concrete block\": {\n      \"color\": [\n        176,\n        176,\n        170\n      ],\n      \"cut\": \"crosshatch\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"block\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Copper\": {\n      \"color\": [\n        184,\n        115,\n        51\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"Fabric\": {\n      \"color\": [\n        176,\n        160,\n        136\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"fabric\",\n        \"size\": [\n          100.0,\n          100.0\n        ]\n      }\n    },\n    \"Glass\": {\n      \"color\": [\n        166,\n        200,\n        228\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"transparency\": 70\n    },\n    \"Gypsum board\": {\n      \"color\": [\n        242,\n        242,\n        238\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Insulation\": {\n      \"color\": [\n        232,\n        214,\n        140\n      ],\n      \"cut\": \"insulation\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"insulation\",\n        \"size\": [\n          600.0,\n          600.0\n        ]\n      }\n    },\n    \"Membrane\": {\n      \"color\": [\n        70,\n        70,\n        74\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Metal\": {\n      \"color\": [\n        150,\n        152,\n        158\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"metal\",\n        \"size\": [\n          800.0,\n          800.0\n        ]\n      }\n    },\n    \"PVC\": {\n      \"color\": [\n        226,\n        226,\n        214\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"none\"\n    },\n    \"Plaster\": {\n      \"color\": [\n        238,\n        234,\n        224\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"plaster\",\n        \"size\": [\n          500.0,\n          500.0\n        ]\n      }\n    },\n    \"Porcelain\": {\n      \"color\": [\n        244,\n        244,\n        240\n      ],\n      \"cut\": \"none\",\n      \"surface\": \"none\"\n    },\n    \"Roof tiles\": {\n      \"color\": [\n        170,\n        86,\n        64\n      ],\n      \"cut\": \"solid\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"roof\",\n        \"size\": [\n          1320.0,\n          1000.0\n        ]\n      }\n    },\n    \"Screed\": {\n      \"color\": [\n        206,\n        200,\n        188\n      ],\n      \"cut\": \"concrete\",\n      \"surface\": \"none\",\n      \"texture\": {\n        \"kind\": \"concrete\",\n        \"size\": [\n          1000.0,\n          1000.0\n        ]\n      }\n    },\n    \"Timber\": {\n      \"color\": [\n        196,\n        154,\n        102\n      ],\n      \"cut\": \"diagonal\",\n      \"surface\": \"horizontal\",\n      \"texture\": {\n        \"kind\": \"boards\",\n        \"size\": [\n          1200.0,\n          1120.0\n        ]\n      }\n    }\n  },\n  \"name\": \"Project\",\n  \"option_sets\": {},\n  \"parameters\": {},\n  \"path\": \"c:\\\\Users\\\\teoba\\\\Documents\\\\Devs\\\\MCP Revit\\\\arc-autonomous-studio\\\\workspace_projects\\\\REFLET_LONDON_AUTONOMOUS\\\\V3_PASSAGE\\\\01_BIMcraft_Model\\\\V3_PASSAGE.bimcraft\",\n  \"phase_filters\": {\n    \"Show All\": {\n      \"demolished\": \"by-category\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show Complete\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"by-category\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    },\n    \"Show New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"not-displayed\",\n      \"new\": \"by-category\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + Demolished\": {\n      \"demolished\": \"overridden\",\n      \"existing\": \"by-category\",\n      \"new\": \"not-displayed\",\n      \"temporary\": \"not-displayed\"\n    },\n    \"Show Previous + New\": {\n      \"demolished\": \"not-displayed\",\n      \"existing\": \"overridden\",\n      \"new\": \"by-category\",\n      \"temporary\": \"by-category\"\n    }\n  },\n  \"phase_overrides\": {\n    \"demolished\": {\n      \"cut\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      },\n      \"projection\": {\n        \"color\": [\n          200,\n          40,\n          30\n        ],\n        \"dash\": \"dashed\"\n      }\n    },\n    \"existing\": {\n      \"halftone\": true\n    }\n  },\n  \"phases\": [\n    \"Existing\",\n    \"New Construction\"\n  ],\n  \"project_units\": \"cm\",\n  \"room_area\": \"finish\",\n  \"standard\": \"iso\",\n  \"types\": {\n    \"ceiling\": {\n      \"Generic - 20mm\": {\n        \"grid\": 0.0,\n        \"thickness\": 20.0\n      },\n      \"Tile 600 x 600\": {\n        \"grid\": 600.0,\n        \"thickness\": 20.0\n      }\n    },\n    \"column\": {\n      \"Rectangular 400 x 400\": {\n        \"depth\": 400.0,\n        \"round\": false,\n        \"width\": 400.0\n      },\n      \"Round 300\": {\n        \"depth\": 300.0,\n        \"round\": true,\n        \"width\": 300.0\n      }\n    },\n    \"door\": {\n      \"Porte 80 x 204\": {\n        \"height\": 2040.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Single 800 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 800.0\n      },\n      \"Single 900 x 2100\": {\n        \"height\": 2100.0,\n        \"sill\": 0.0,\n        \"width\": 900.0\n      }\n    },\n    \"floor\": {\n      \"EXI_Plancher existant 25\": {\n        \"thickness\": 250.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      }\n    },\n    \"footing\": {\n      \"Footing 1200 x 1200\": {\n        \"depth\": 1200.0,\n        \"round\": false,\n        \"width\": 1200.0\n      },\n      \"Footing 1500 x 1500\": {\n        \"depth\": 1500.0,\n        \"round\": false,\n        \"width\": 1500.0\n      }\n    },\n    \"railing\": {\n      \"Railing - 1000mm\": {\n        \"height\": 1000.0,\n        \"spacing\": 120.0\n      }\n    },\n    \"roof\": {\n      \"Generic - 300mm\": {\n        \"thickness\": 300.0\n      }\n    },\n    \"runs\": {\n      \"beam\": {\n        \"Beam 150 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 150.0\n        },\n        \"Beam 200 x 500\": {\n          \"depth\": 500.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"PRJ_Poutre 35 x 40\": {\n          \"depth\": 400.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 350.0\n        },\n        \"Steel Tube 150\": {\n          \"depth\": 150.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 150.0\n        }\n      },\n      \"cable\": {\n        \"Cat6\": {\n          \"depth\": 6.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 6.0\n        },\n        \"Cat6A\": {\n          \"depth\": 7.5,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 7.5\n        },\n        \"Optical 3\": {\n          \"depth\": 3.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 3.0\n        }\n      },\n      \"cabletray\": {\n        \"Perforated 100 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 100.0\n        },\n        \"Perforated 200 x 50\": {\n          \"depth\": 50.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 200.0\n        },\n        \"Perforated 300 x 100\": {\n          \"depth\": 100.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 300.0\n        }\n      },\n      \"conduit\": {\n        \"PVC 20\": {\n          \"depth\": 20.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 20.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 32\": {\n          \"depth\": 32.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 32.0\n        },\n        \"Steel 25\": {\n          \"depth\": 25.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 25.0\n        }\n      },\n      \"downconductor\": {\n        \"Copper 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 8.0\n        },\n        \"Flat 25 x 3\": {\n          \"depth\": 3.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 25.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"duct\": {\n        \"Rectangular 400 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 400.0\n        },\n        \"Rectangular 600 x 400\": {\n          \"depth\": 400.0,\n          \"material\": \"Metal\",\n          \"round\": false,\n          \"width\": 600.0\n        },\n        \"Round 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 300.0\n        }\n      },\n      \"groundconductor\": {\n        \"Copper 9\": {\n          \"depth\": 9.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 9.0\n        },\n        \"Steel 8\": {\n          \"depth\": 8.0,\n          \"material\": \"Metal\",\n          \"round\": true,\n          \"width\": 8.0\n        }\n      },\n      \"pipe\": {\n        \"Copper 22\": {\n          \"depth\": 22.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 22.0\n        },\n        \"PVC 110\": {\n          \"depth\": 110.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 110.0\n        },\n        \"PVC 25\": {\n          \"depth\": 25.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 25.0\n        },\n        \"PVC 50\": {\n          \"depth\": 50.0,\n          \"material\": \"PVC\",\n          \"round\": true,\n          \"width\": 50.0\n        }\n      },\n      \"stripfooting\": {\n        \"Strip 600 x 300\": {\n          \"depth\": 300.0,\n          \"material\": \"Concrete\",\n          \"round\": false,\n          \"width\": 600.0\n        }\n      },\n      \"wire\": {\n        \"Wire 2.5\": {\n          \"depth\": 4.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 4.0\n        },\n        \"Wire 4\": {\n          \"depth\": 5.0,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 5.0\n        },\n        \"Wire 6\": {\n          \"depth\": 6.5,\n          \"material\": \"Copper\",\n          \"round\": true,\n          \"width\": 6.5\n        }\n      }\n    },\n    \"structural_column\": {\n      \"Concrete 200 x 500\": {\n        \"depth\": 500.0,\n        \"round\": false,\n        \"width\": 200.0\n      },\n      \"Concrete 300 x 300\": {\n        \"depth\": 300.0,\n        \"round\": false,\n        \"width\": 300.0\n      },\n      \"Concrete Round 400\": {\n        \"depth\": 400.0,\n        \"round\": true,\n        \"width\": 400.0\n      }\n    },\n    \"wall\": {\n      \"EXI_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"EXI_Mur mitoyen 105\": {\n        \"thickness\": 1050.0\n      },\n      \"EXI_Mur palier 20\": {\n        \"thickness\": 200.0\n      },\n      \"EXI_Mur porteur 35\": {\n        \"thickness\": 350.0\n      },\n      \"Exterior - 300mm\": {\n        \"layers\": [\n          {\n            \"function\": \"finish\",\n            \"guid\": \"abdd6dcd-e059-4ae0-8b45-8eac2aba2b9f\",\n            \"id\": 999628,\n            \"material\": \"Brick\",\n            \"thickness\": 100.0\n          },\n          {\n            \"function\": \"thermal\",\n            \"guid\": \"c80d547d-f747-4ca2-82b1-9ba79bee1c39\",\n            \"id\": 999627,\n            \"material\": \"Insulation\",\n            \"thickness\": 50.0\n          },\n          {\n            \"function\": \"structure\",\n            \"guid\": \"1d354c88-e964-4465-93fd-f74d0c3c26b5\",\n            \"id\": 999626,\n            \"material\": \"Concrete block\",\n            \"thickness\": 140.0\n          },\n          {\n            \"function\": \"finish\",\n            \"guid\": \"ec73cf88-7833-4dbd-8baf-a0d16e3f2fe9\",\n            \"id\": 999625,\n            \"material\": \"Plaster\",\n            \"thickness\": 10.0\n          }\n        ],\n        \"thickness\": 300.0\n      },\n      \"Generic - 200mm\": {\n        \"thickness\": 200.0\n      },\n      \"Interior - 100mm\": {\n        \"thickness\": 100.0\n      },\n      \"PRJ_Cloison 7\": {\n        \"thickness\": 70.0\n      },\n      \"PRJ_Meuble-cloison 60\": {\n        \"thickness\": 600.0\n      },\n      \"PRJ_Rebouchage 20\": {\n        \"thickness\": 200.0\n      },\n      \"PRJ_Rebouchage 35\": {\n        \"thickness\": 350.0\n      }\n    },\n    \"window\": {\n      \"Fenêtre 140 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 1400.0\n      },\n      \"Fenêtre 155 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 1550.0\n      },\n      \"Fenêtre 200 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 2000.0\n      },\n      \"Fenêtre 80 x 170\": {\n        \"height\": 1700.0,\n        \"sill\": 800.0,\n        \"width\": 800.0\n      },\n      \"Fixed 1200 x 1500\": {\n        \"height\": 1500.0,\n        \"sill\": 900.0,\n        \"width\": 1200.0\n      },\n      \"Fixed 600 x 900\": {\n        \"height\": 900.0,\n        \"sill\": 1100.0,\n        \"width\": 600.0\n      }\n    }\n  },\n  \"units\": \"mm\",\n  \"view_filters\": {},\n  \"view_templates\": {\n    \"Electrical Ceiling\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"dataoutlet\": {\n            \"hidden\": true\n          },\n          \"equipment\": {\n            \"hidden\": true\n          },\n          \"outlet\": {\n            \"hidden\": true\n          },\n          \"patchpanel\": {\n            \"hidden\": true\n          },\n          \"rack\": {\n            \"hidden\": true\n          },\n          \"switch\": {\n            \"hidden\": true\n          },\n          \"voiceoutlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Lighting\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"outlet\": {\n            \"hidden\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    },\n    \"Electrical Power\": {\n      \"controls\": [\n        \"categories\"\n      ],\n      \"graphics\": {\n        \"categories\": {\n          \"lighting\": {\n            \"halftone\": true\n          }\n        }\n      },\n      \"kind\": \"plan\"\n    }\n  },\n  \"voltages\": {\n    \"127 V\": {\n      \"max\": 139.7,\n      \"min\": 114.3,\n      \"nominal\": 127.0\n    },\n    \"220 V\": {\n      \"max\": 242.0,\n      \"min\": 198.0,\n      \"nominal\": 220.0\n    },\n    \"230 V\": {\n      \"max\": 253.0,\n      \"min\": 207.0,\n      \"nominal\": 230.0\n    },\n    \"277 V\": {\n      \"max\": 304.7,\n      \"min\": 249.3,\n      \"nominal\": 277.0\n    },\n    \"380 V\": {\n      \"max\": 418.0,\n      \"min\": 342.0,\n      \"nominal\": 380.0\n    },\n    \"400 V\": {\n      \"max\": 440.0,\n      \"min\": 360.0,\n      \"nominal\": 400.0\n    },\n    \"480 V\": {\n      \"max\": 528.0,\n      \"min\": 432.0,\n      \"nominal\": 480.0\n    }\n  },\n  \"warnings\": [],\n  \"wire_types\": {\n    \"Cu PVC 70 °C\": {\n      \"insulation\": \"PVC\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 36, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 9.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 11.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 14.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 17.5,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 24.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 32.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 41.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 57.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 76.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 101.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 125.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 151.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 192.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 232.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 269.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 309.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 353.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 415.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 477.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 571.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 656.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 758.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 881.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1012.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 70.0\n    },\n    \"Cu THHN 90 °C\": {\n      \"insulation\": \"THHN\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 90 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 30.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 40.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 55.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 75.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 95.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 145.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 170.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 195.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 225.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 260.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 290.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 320.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 350.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 430.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 535.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 555.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 585.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 615.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 90.0\n    },\n    \"Cu THW 75 °C\": {\n      \"insulation\": \"THW\",\n      \"material\": \"copper\",\n      \"note\": \"NFPA 70 (NEC) Table 310.16, 75 °C column, 30 °C ambient, up to three current-carrying conductors in a raceway. Sizes are AWG or kcmil, kept in mm².\",\n      \"sizes\": [\n        {\n          \"ampacity\": 20.0,\n          \"label\": \"14 AWG\",\n          \"section\": 2.08\n        },\n        {\n          \"ampacity\": 25.0,\n          \"label\": \"12 AWG\",\n          \"section\": 3.31\n        },\n        {\n          \"ampacity\": 35.0,\n          \"label\": \"10 AWG\",\n          \"section\": 5.26\n        },\n        {\n          \"ampacity\": 50.0,\n          \"label\": \"8 AWG\",\n          \"section\": 8.37\n        },\n        {\n          \"ampacity\": 65.0,\n          \"label\": \"6 AWG\",\n          \"section\": 13.3\n        },\n        {\n          \"ampacity\": 85.0,\n          \"label\": \"4 AWG\",\n          \"section\": 21.2\n        },\n        {\n          \"ampacity\": 100.0,\n          \"label\": \"3 AWG\",\n          \"section\": 26.7\n        },\n        {\n          \"ampacity\": 115.0,\n          \"label\": \"2 AWG\",\n          \"section\": 33.6\n        },\n        {\n          \"ampacity\": 130.0,\n          \"label\": \"1 AWG\",\n          \"section\": 42.4\n        },\n        {\n          \"ampacity\": 150.0,\n          \"label\": \"1/0 AWG\",\n          \"section\": 53.5\n        },\n        {\n          \"ampacity\": 175.0,\n          \"label\": \"2/0 AWG\",\n          \"section\": 67.4\n        },\n        {\n          \"ampacity\": 200.0,\n          \"label\": \"3/0 AWG\",\n          \"section\": 85.0\n        },\n        {\n          \"ampacity\": 230.0,\n          \"label\": \"4/0 AWG\",\n          \"section\": 107.2\n        },\n        {\n          \"ampacity\": 255.0,\n          \"label\": \"250 kcmil\",\n          \"section\": 126.7\n        },\n        {\n          \"ampacity\": 285.0,\n          \"label\": \"300 kcmil\",\n          \"section\": 152.0\n        },\n        {\n          \"ampacity\": 310.0,\n          \"label\": \"350 kcmil\",\n          \"section\": 177.3\n        },\n        {\n          \"ampacity\": 335.0,\n          \"label\": \"400 kcmil\",\n          \"section\": 202.7\n        },\n        {\n          \"ampacity\": 380.0,\n          \"label\": \"500 kcmil\",\n          \"section\": 253.4\n        },\n        {\n          \"ampacity\": 420.0,\n          \"label\": \"600 kcmil\",\n          \"section\": 304.0\n        },\n        {\n          \"ampacity\": 460.0,\n          \"label\": \"700 kcmil\",\n          \"section\": 354.7\n        },\n        {\n          \"ampacity\": 475.0,\n          \"label\": \"750 kcmil\",\n          \"section\": 380.0\n        },\n        {\n          \"ampacity\": 490.0,\n          \"label\": \"800 kcmil\",\n          \"section\": 405.4\n        },\n        {\n          \"ampacity\": 520.0,\n          \"label\": \"900 kcmil\",\n          \"section\": 456.0\n        },\n        {\n          \"ampacity\": 545.0,\n          \"label\": \"1000 kcmil\",\n          \"section\": 506.7\n        }\n      ],\n      \"temperature\": 75.0\n    },\n    \"Cu XLPE/EPR 90 °C\": {\n      \"insulation\": \"XLPE/EPR\",\n      \"material\": \"copper\",\n      \"note\": \"NBR 5410:2004 Tabela 37, reference method B1 (insulated conductors in conduit on a wall), two loaded conductors, 30 °C ambient. The same family as IEC 60364-5-52; check a design against the standard in force.\",\n      \"sizes\": [\n        {\n          \"ampacity\": 12.0,\n          \"section\": 0.5\n        },\n        {\n          \"ampacity\": 15.0,\n          \"section\": 0.75\n        },\n        {\n          \"ampacity\": 18.0,\n          \"section\": 1.0\n        },\n        {\n          \"ampacity\": 23.0,\n          \"section\": 1.5\n        },\n        {\n          \"ampacity\": 31.0,\n          \"section\": 2.5\n        },\n        {\n          \"ampacity\": 42.0,\n          \"section\": 4.0\n        },\n        {\n          \"ampacity\": 54.0,\n          \"section\": 6.0\n        },\n        {\n          \"ampacity\": 75.0,\n          \"section\": 10.0\n        },\n        {\n          \"ampacity\": 100.0,\n          \"section\": 16.0\n        },\n        {\n          \"ampacity\": 133.0,\n          \"section\": 25.0\n        },\n        {\n          \"ampacity\": 164.0,\n          \"section\": 35.0\n        },\n        {\n          \"ampacity\": 198.0,\n          \"section\": 50.0\n        },\n        {\n          \"ampacity\": 253.0,\n          \"section\": 70.0\n        },\n        {\n          \"ampacity\": 306.0,\n          \"section\": 95.0\n        },\n        {\n          \"ampacity\": 354.0,\n          \"section\": 120.0\n        },\n        {\n          \"ampacity\": 407.0,\n          \"section\": 150.0\n        },\n        {\n          \"ampacity\": 464.0,\n          \"section\": 185.0\n        },\n        {\n          \"ampacity\": 546.0,\n          \"section\": 240.0\n        },\n        {\n          \"ampacity\": 628.0,\n          \"section\": 300.0\n        },\n        {\n          \"ampacity\": 751.0,\n          \"section\": 400.0\n        },\n        {\n          \"ampacity\": 864.0,\n          \"section\": 500.0\n        },\n        {\n          \"ampacity\": 998.0,\n          \"section\": 630.0\n        },\n        {\n          \"ampacity\": 1158.0,\n          \"section\": 800.0\n        },\n        {\n          \"ampacity\": 1332.0,\n          \"section\": 1000.0\n        }\n      ],\n      \"temperature\": 90.0\n    }\n  }\n}",
+            "pdf_sheet_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\01_BIMcraft_Model\\V3_PASSAGE_sheet_A3.pdf",
+            "script_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\01_BIMcraft_Model\\V3_PASSAGE.bimscript",
+            "svg_plan_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\01_BIMcraft_Model\\V3_PASSAGE_plan.svg",
+            "variant_id": "V3_PASSAGE"
+          }
+        },
+        "deliverables": {
+          "V1_ECLIPSE": {
+            "dxf_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\02_Deliverables\\V1_ECLIPSE_plan_1-50.dxf",
+            "markdown_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\02_Deliverables\\V1_ECLIPSE_NOTICE_ET_CONFORMITE.md",
+            "pdf_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\02_Deliverables\\V1_ECLIPSE_DOSSIER_ARCHITECTURAL_COMPLET.pdf",
+            "qa_report_json_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\02_Deliverables\\V1_ECLIPSE_qa_compliance_report.json",
+            "svg_section_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\02_Deliverables\\V1_ECLIPSE_coupe_AA.svg",
+            "svg_zoning_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V1_ECLIPSE\\02_Deliverables\\V1_ECLIPSE_zoning_circulation.svg",
+            "variant_id": "V1_ECLIPSE"
+          },
+          "V2_ORBITE": {
+            "dxf_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\02_Deliverables\\V2_ORBITE_plan_1-50.dxf",
+            "markdown_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\02_Deliverables\\V2_ORBITE_NOTICE_ET_CONFORMITE.md",
+            "pdf_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\02_Deliverables\\V2_ORBITE_DOSSIER_ARCHITECTURAL_COMPLET.pdf",
+            "qa_report_json_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\02_Deliverables\\V2_ORBITE_qa_compliance_report.json",
+            "svg_section_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\02_Deliverables\\V2_ORBITE_coupe_AA.svg",
+            "svg_zoning_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V2_ORBITE\\02_Deliverables\\V2_ORBITE_zoning_circulation.svg",
+            "variant_id": "V2_ORBITE"
+          },
+          "V3_PASSAGE": {
+            "dxf_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\02_Deliverables\\V3_PASSAGE_plan_1-50.dxf",
+            "markdown_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\02_Deliverables\\V3_PASSAGE_NOTICE_ET_CONFORMITE.md",
+            "pdf_dossier_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\02_Deliverables\\V3_PASSAGE_DOSSIER_ARCHITECTURAL_COMPLET.pdf",
+            "qa_report_json_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\02_Deliverables\\V3_PASSAGE_qa_compliance_report.json",
+            "svg_section_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\02_Deliverables\\V3_PASSAGE_coupe_AA.svg",
+            "svg_zoning_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\V3_PASSAGE\\02_Deliverables\\V3_PASSAGE_zoning_circulation.svg",
+            "variant_id": "V3_PASSAGE"
+          }
+        },
+        "detected_archetype": "LondonDualLotApartment { hsp_mm: 2800.0, target_area_m2: 70.0, max_load_bearing_span_mm: 4000.0, min_pier_mm: 300.0 }",
+        "non_regression_check": {
+          "all_tools_count": 230,
+          "binary_intact": true,
+          "cad_tools_count": 10,
+          "compact_tools_count": 31,
+          "details": [
+            "Cargo.toml SHA-256 intact : true",
+            "tools_manifest.json SHA-256 intact : true",
+            "revit-mcp-server.exe SHA-256 intact : true",
+            "JSON-RPC stdio 'compact' profile : init=true, tools=31",
+            "JSON-RPC stdio 'all' profile : tools=230",
+            "JSON-RPC stdio 'cad-mcp' mode : init=true"
+          ],
+          "initialize_ok": true,
+          "manifest_intact": true,
+          "passed": true
+        },
+        "revit_adapter_payload_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\revit_2027_optional_batch_payload.json",
+        "selected_variant_id": "V1_ECLIPSE",
+        "studio_dashboard_html_path": "c:\\Users\\teoba\\Documents\\Devs\\MCP Revit\\arc-autonomous-studio\\workspace_projects\\REFLET_LONDON_AUTONOMOUS\\ARC_Autonomous_Studio_Workspace.html",
+        "success": true,
+        "total_duration_ms": 1610,
+        "variants_comparison": {
+          "evaluatedVariants": [
+            "V1_ECLIPSE",
+            "V2_ORBITE",
+            "V3_PASSAGE"
+          ],
+          "scores": {
+            "V1_ECLIPSE": {
+              "dayNightBalance": 99,
+              "familyFunctionality": 97,
+              "structuralEconomy": 98,
+              "total": 98.0
+            },
+            "V2_ORBITE": {
+              "dayNightBalance": 94,
+              "familyFunctionality": 95,
+              "structuralEconomy": 90,
+              "total": 93.0
+            },
+            "V3_PASSAGE": {
+              "dayNightBalance": 92,
+              "familyFunctionality": 96,
+              "structuralEconomy": 94,
+              "total": 94.0
+            }
+          },
+          "selectedBestVariant": "V1_ECLIPSE",
+          "selectionRationale": "Les 3 variantes respectent 100% du cahier des charges (HSP 280 cm, porte d'entrée conservée, porteurs respectés avec têtes >= 30 cm et poutres, mobilier sur mesure). V1_ECLIPSE offre l'équilibre Jour/Nuit le plus lisible (33.0 m² Jour / 32.9 m² Nuit, 3 vraies chambres + SDB + Salle d'eau/WC + Buanderie) avec l'intervention structurelle la plus sobre (un seul percement de 93 cm dans le mur mitoyen)."
+        }
+      },
+      "variant_svgs": {
+        "V1_ECLIPSE": {
+          "bimcraft_floorplan_svg": "",
+          "notice_markdown": "",
+          "section_aa_svg": "",
+          "zoning_circulation_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-7000 -1100 13650 9810\" style=\"background:#FAF8F5;font-family:'Inter','Segoe UI',sans-serif;\">\n<text x=\"-6750\" y=\"-720\" fill=\"#18181B\" font-size=\"240\" font-weight=\"700\">Proposition V1 — ÉCLIPSE (Miroir Gauche — Dissociation franche Jour / Nuit) — ZONING &amp; SCHÉMA DE CIRCULATION (Échelle 1:50)</text><text x=\"-6750\" y=\"-480\" fill=\"#52525B\" font-size=\"150\">Zone Jour : 33.0 m² (Ambre) | Zone Nuit : 32.9 m² (Bleu Cobalt) | Total Habitable : 65.9 m² | HSP : 280 cm</text><polygon points=\"-3150,750 -3150,-200 -5750,-200 -5750,2900 -6100,2900 -6100,6990 -5460,6990 -5110,7450 -2930,7450 -2560,7110 -2160,7110 -1790,7450 -805,7450 -455,6990 105,6990 455,7450 1440,7450 1810,7110 2210,7110 2580,7450 4760,7450 5110,6990 5750,6990 5750,2900 5400,2900 5400,-200 2800,-200 2800,750 1950,750 1950,-200 -2300,-200 -2300,750\" fill=\"#F4F1EA\" stroke=\"#27272A\" stroke-width=\"25\" /><circle cx=\"2220\" cy=\"2150\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"2220\" y=\"2120\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">01 — ENTRÉE</text><text x=\"2220\" y=\"2290\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"1000\" cy=\"2620\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1000\" y=\"2590\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">02 — DÉGAGEMENT</text><text x=\"1000\" y=\"2760\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"1370\" cy=\"1400\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1370\" y=\"1370\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">03 — WC</text><text x=\"1370\" y=\"1540\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"730\" cy=\"1280\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"730\" y=\"1250\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">04 — BUANDERIE</text><text x=\"730\" y=\"1420\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"4350\" cy=\"1600\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"4350\" y=\"1570\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">05 — CUISINE</text><text x=\"4350\" y=\"1740\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"3000\" cy=\"3720\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"3000\" y=\"3690\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">06 — SÉJOUR / SALLE À MANGER</text><text x=\"3000\" y=\"3860\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"-760\" cy=\"920\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-760\" y=\"890\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">07 — SDB</text><text x=\"-760\" y=\"1060\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"-1180\" cy=\"2620\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-1180\" y=\"2590\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">08 — DÉGAGEMENT NUIT</text><text x=\"-1180\" y=\"2760\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"-2720\" cy=\"2050\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-2720\" y=\"2020\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">09 — PALIER NUIT</text><text x=\"-2720\" y=\"2190\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"-4000\" cy=\"1220\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-4000\" y=\"1190\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">10 — CHAMBRE ENFANT 2</text><text x=\"-4000\" y=\"1360\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"-720\" cy=\"6450\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-720\" y=\"6420\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">11 — CHAMBRE ENFANT 1</text><text x=\"-720\" y=\"6590\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"-5000\" cy=\"4340\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-5000\" y=\"4310\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">12 — CHAMBRE PARENTS</text><text x=\"-5000\" y=\"4480\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><line x1=\"-175\" y1=\"-100\" x2=\"-175\" y2=\"1870\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"2800\" x2=\"-175\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"-100\" x2=\"1850\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"1850\" y1=\"-100\" x2=\"1850\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"2900\" y1=\"-100\" x2=\"2900\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"1750\" y1=\"840\" x2=\"3000\" y2=\"840\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"2900\" y1=\"-100\" x2=\"5225\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"5225\" y1=\"-100\" x2=\"5225\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"3275\" x2=\"650\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1650\" y1=\"3275\" x2=\"2300\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"4450\" y1=\"3275\" x2=\"5575\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"5575\" y1=\"2900\" x2=\"5575\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"6825\" x2=\"114\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"114\" y1=\"6825\" x2=\"464\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"464\" y1=\"7275\" x2=\"1418\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1418\" y1=\"7275\" x2=\"1768\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1768\" y1=\"6955\" x2=\"2232\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"2232\" y1=\"6955\" x2=\"2582\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"2582\" y1=\"7275\" x2=\"4736\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"4736\" y1=\"7275\" x2=\"5086\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"5086\" y1=\"6825\" x2=\"5575\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1785\" y1=\"930\" x2=\"1785\" y2=\"1015\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"2965\" y1=\"930\" x2=\"2965\" y2=\"1080\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"2965\" y1=\"1880\" x2=\"2965\" y2=\"2465\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"650\" y1=\"3135\" x2=\"750\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"1550\" y1=\"3135\" x2=\"1650\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"-100\" x2=\"-2200\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-2200\" y1=\"-100\" x2=\"-2200\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-3250\" y1=\"-100\" x2=\"-3250\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-2100\" y1=\"840\" x2=\"-2325\" y2=\"840\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-3125\" y1=\"840\" x2=\"-3350\" y2=\"840\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-3250\" y1=\"-100\" x2=\"-5575\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-5575\" y1=\"-100\" x2=\"-5575\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"3275\" x2=\"-1000\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-2000\" y1=\"3275\" x2=\"-2650\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-4800\" y1=\"3275\" x2=\"-5925\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-5925\" y1=\"2900\" x2=\"-5925\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"6825\" x2=\"-464\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-464\" y1=\"6825\" x2=\"-814\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-814\" y1=\"7275\" x2=\"-1768\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-1768\" y1=\"7275\" x2=\"-2118\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-2118\" y1=\"6955\" x2=\"-2582\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-2582\" y1=\"6955\" x2=\"-2932\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-2932\" y1=\"7275\" x2=\"-5086\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-5086\" y1=\"7275\" x2=\"-5436\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-5436\" y1=\"6825\" x2=\"-5925\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-2135\" y1=\"930\" x2=\"-2135\" y2=\"1080\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3315\" y1=\"930\" x2=\"-3315\" y2=\"1080\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3315\" y1=\"2395\" x2=\"-3315\" y2=\"2465\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3315\" y1=\"2465\" x2=\"-3815\" y2=\"2465\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3815\" y1=\"2465\" x2=\"-3815\" y2=\"3170\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3815\" y1=\"3135\" x2=\"-4800\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-1000\" y1=\"3135\" x2=\"-2000\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"1785\" y1=\"1015\" x2=\"1785\" y2=\"1870\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"2965\" y1=\"1080\" x2=\"2965\" y2=\"1880\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"750\" y1=\"3135\" x2=\"1550\" y2=\"3135\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-2325\" y1=\"840\" x2=\"-3125\" y2=\"840\" stroke=\"#B45309\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-2135\" y1=\"1080\" x2=\"-2135\" y2=\"1870\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3315\" y1=\"1080\" x2=\"-3315\" y2=\"2395\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-2170\" y1=\"1835\" x2=\"-350\" y2=\"1835\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"0\" y1=\"1835\" x2=\"1820\" y2=\"1835\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"935\" y1=\"-0\" x2=\"935\" y2=\"1800\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3815\" y1=\"3135\" x2=\"-2650\" y2=\"3135\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-2350\" y1=\"3450\" x2=\"-2350\" y2=\"6780\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"1670\" x2=\"-175\" y2=\"3000\" stroke=\"#DC2626\" stroke-width=\"90\" stroke-dasharray=\"120,80\" /></svg>\n"
+        },
+        "V2_ORBITE": {
+          "bimcraft_floorplan_svg": "",
+          "notice_markdown": "",
+          "section_aa_svg": "",
+          "zoning_circulation_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-1250 -1100 13650 9810\" style=\"background:#FAF8F5;font-family:'Inter','Segoe UI',sans-serif;\">\n<text x=\"-1000\" y=\"-720\" fill=\"#18181B\" font-size=\"240\" font-weight=\"700\">Proposition V2 — ORBITE (Miroir Droite — Boucle fluide autour de la croix porteuse) — ZONING &amp; SCHÉMA DE CIRCULATION (Échelle 1:50)</text><text x=\"-1000\" y=\"-480\" fill=\"#52525B\" font-size=\"150\">Zone Jour : 35.2 m² (Ambre) | Zone Nuit : 33.3 m² (Bleu Cobalt) | Total Habitable : 68.5 m² | HSP : 280 cm</text><polygon points=\"1950,750 1950,-200 -350,-200 -350,6990 105,6990 455,7450 1440,7450 1810,7110 2210,7110 2580,7450 4760,7450 5110,6990 6040,6990 6390,7450 8570,7450 8940,7110 9340,7110 9710,7450 10695,7450 11045,6990 11500,6990 11500,-200 9200,-200 9200,750 8350,750 8350,-200 2800,-200 2800,750\" fill=\"#F4F1EA\" stroke=\"#27272A\" stroke-width=\"25\" /><circle cx=\"2550\" cy=\"2450\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"2550\" y=\"2420\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">01 — ENTRÉE</text><text x=\"2550\" y=\"2590\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"1100\" cy=\"550\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1100\" y=\"520\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">02 — WC</text><text x=\"1100\" y=\"690\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"800\" cy=\"1350\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"800\" y=\"1320\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">03 — BUANDERIE</text><text x=\"800\" y=\"1490\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"1330\" cy=\"2820\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1330\" y=\"2790\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">04 — SALLE D'EAU</text><text x=\"1330\" y=\"2960\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"4000\" cy=\"1650\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"4000\" y=\"1620\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">05 — CUISINE</text><text x=\"4000\" y=\"1790\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"1100\" cy=\"3980\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1100\" y=\"3950\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">06 — CHAMBRE PARENTS</text><text x=\"1100\" y=\"4120\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"4550\" cy=\"4700\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"4550\" y=\"4670\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">07 — REPAS</text><text x=\"4550\" y=\"4840\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"6500\" cy=\"4100\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"6500\" y=\"4070\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">08 — SALON</text><text x=\"6500\" y=\"4240\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"7120\" cy=\"1750\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"7120\" y=\"1720\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">09 — BUREAU - BIBLIO.</text><text x=\"7120\" y=\"1890\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"8770\" cy=\"2250\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"8770\" y=\"2220\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">10 — DÉGAGEMENT</text><text x=\"8770\" y=\"2390\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"10400\" cy=\"1350\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"10400\" y=\"1320\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">11 — SDB</text><text x=\"10400\" y=\"1490\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"9450\" cy=\"6050\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"9450\" y=\"6020\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">12 — CHAMBRE ENFANTS</text><text x=\"9450\" y=\"6190\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><line x1=\"-175\" y1=\"-100\" x2=\"-175\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"-100\" x2=\"1850\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"1850\" y1=\"-100\" x2=\"1850\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"2900\" y1=\"-100\" x2=\"2900\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"1750\" y1=\"840\" x2=\"3000\" y2=\"840\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"2900\" y1=\"-100\" x2=\"5225\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"3275\" x2=\"650\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1650\" y1=\"3275\" x2=\"2300\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"4450\" y1=\"3275\" x2=\"5575\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"5575\" y1=\"3275\" x2=\"5575\" y2=\"3850\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"5575\" y1=\"6250\" x2=\"5575\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"6825\" x2=\"114\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"114\" y1=\"6825\" x2=\"464\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"464\" y1=\"7275\" x2=\"1418\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1418\" y1=\"7275\" x2=\"1768\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1768\" y1=\"6955\" x2=\"2232\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"2232\" y1=\"6955\" x2=\"2582\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"2582\" y1=\"7275\" x2=\"4736\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"4736\" y1=\"7275\" x2=\"5086\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"5086\" y1=\"6825\" x2=\"5575\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1785\" y1=\"930\" x2=\"1785\" y2=\"3100\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"2965\" y1=\"930\" x2=\"2965\" y2=\"1080\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"2965\" y1=\"2280\" x2=\"2965\" y2=\"2465\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"3465\" y1=\"4120\" x2=\"3465\" y2=\"5235\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"3465\" y1=\"5235\" x2=\"1770\" y2=\"6780\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"650\" y1=\"3135\" x2=\"750\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"11325\" y1=\"-100\" x2=\"11325\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"11325\" y1=\"-100\" x2=\"9300\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"9300\" y1=\"-100\" x2=\"9300\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"8250\" y1=\"-100\" x2=\"8250\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"9400\" y1=\"840\" x2=\"9175\" y2=\"840\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"8375\" y1=\"840\" x2=\"8150\" y2=\"840\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"8250\" y1=\"-100\" x2=\"5925\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"11325\" y1=\"3275\" x2=\"10500\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"9500\" y1=\"3275\" x2=\"8850\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"6700\" y1=\"3275\" x2=\"5575\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"11325\" y1=\"6825\" x2=\"11036\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"11036\" y1=\"6825\" x2=\"10686\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"10686\" y1=\"7275\" x2=\"9732\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"9732\" y1=\"7275\" x2=\"9382\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"9382\" y1=\"6955\" x2=\"8918\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"8918\" y1=\"6955\" x2=\"8568\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"8568\" y1=\"7275\" x2=\"6414\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"6414\" y1=\"7275\" x2=\"6064\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"6064\" y1=\"6825\" x2=\"5575\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"9365\" y1=\"930\" x2=\"9365\" y2=\"3100\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"8185\" y1=\"930\" x2=\"8185\" y2=\"1080\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"7685\" y1=\"4120\" x2=\"7685\" y2=\"5235\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"7685\" y1=\"5235\" x2=\"9380\" y2=\"6780\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"10500\" y1=\"3135\" x2=\"10400\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"9600\" y1=\"3135\" x2=\"9500\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"5575\" y1=\"-200\" x2=\"5575\" y2=\"1000\" stroke=\"#18181B\" stroke-width=\"1050\" stroke-linecap=\"square\" /><line x1=\"5575\" y1=\"2400\" x2=\"5575\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"1050\" stroke-linecap=\"square\" /><line x1=\"3465\" y1=\"3450\" x2=\"3465\" y2=\"4120\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"750\" y1=\"3135\" x2=\"1650\" y2=\"3135\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"9175\" y1=\"840\" x2=\"8375\" y2=\"840\" stroke=\"#B45309\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"8185\" y1=\"1080\" x2=\"8185\" y2=\"1650\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"7685\" y1=\"3450\" x2=\"7685\" y2=\"4120\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"10400\" y1=\"3135\" x2=\"9600\" y2=\"3135\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"2300\" y1=\"3415\" x2=\"3500\" y2=\"3415\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"7650\" y1=\"3415\" x2=\"8850\" y2=\"3415\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"0\" y1=\"965\" x2=\"1750\" y2=\"965\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"0\" y1=\"1985\" x2=\"1750\" y2=\"1985\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"5575\" y1=\"800\" x2=\"5575\" y2=\"2600\" stroke=\"#DC2626\" stroke-width=\"90\" stroke-dasharray=\"120,80\" /><line x1=\"5575\" y1=\"3650\" x2=\"5575\" y2=\"6450\" stroke=\"#DC2626\" stroke-width=\"90\" stroke-dasharray=\"120,80\" /></svg>\n"
+        },
+        "V3_PASSAGE": {
+          "bimcraft_floorplan_svg": "",
+          "notice_markdown": "",
+          "section_aa_svg": "",
+          "zoning_circulation_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-7000 -1100 13650 9810\" style=\"background:#FAF8F5;font-family:'Inter','Segoe UI',sans-serif;\">\n<text x=\"-6750\" y=\"-720\" fill=\"#18181B\" font-size=\"240\" font-weight=\"700\">Proposition V3 — PASSAGE (Miroir Gauche — Rue intérieure de fenêtre à fenêtre & Meubles-cloisons) — ZONING &amp; SCHÉMA DE CIRCULATION (Échelle 1:50)</text><text x=\"-6750\" y=\"-480\" fill=\"#52525B\" font-size=\"150\">Zone Jour : 25.9 m² (Ambre) | Zone Nuit : 40.0 m² (Bleu Cobalt) | Total Habitable : 65.9 m² | HSP : 280 cm</text><polygon points=\"-3150,750 -3150,-200 -5750,-200 -5750,2900 -6100,2900 -6100,6990 -5460,6990 -5110,7450 -2930,7450 -2560,7110 -2160,7110 -1790,7450 -805,7450 -455,6990 105,6990 455,7450 1440,7450 1810,7110 2210,7110 2580,7450 4760,7450 5110,6990 5750,6990 5750,2900 5400,2900 5400,-200 2800,-200 2800,750 1950,750 1950,-200 -2300,-200 -2300,750\" fill=\"#F4F1EA\" stroke=\"#27272A\" stroke-width=\"25\" /><circle cx=\"2370\" cy=\"1600\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"2370\" y=\"1570\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">01 — ENTRÉE</text><text x=\"2370\" y=\"1740\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"980\" cy=\"1080\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"980\" y=\"1050\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">02 — SALLE D'EAU</text><text x=\"980\" y=\"1220\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"1180\" cy=\"2620\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"1180\" y=\"2590\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">03 — BUANDERIE</text><text x=\"1180\" y=\"2760\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"3850\" cy=\"2320\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"3850\" y=\"2290\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">04 — CHAMBRE ENFANT 1</text><text x=\"3850\" y=\"2460\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"4350\" cy=\"4650\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"4350\" y=\"4620\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">05 — CUISINE - REPAS</text><text x=\"4350\" y=\"4790\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"600\" cy=\"4650\" r=\"680\" fill=\"rgba(245, 158, 11, 0.24)\" stroke=\"#D97706\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"600\" y=\"4620\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">06 — SALON</text><text x=\"600\" y=\"4790\" text-anchor=\"middle\" fill=\"#D97706\" font-size=\"120\" font-weight=\"600\">[Jour]</text><circle cx=\"-1600\" cy=\"1000\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-1600\" y=\"970\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">07 — SDB</text><text x=\"-1600\" y=\"1140\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"-1220\" cy=\"2400\" r=\"680\" fill=\"rgba(16, 185, 129, 0.22)\" stroke=\"#059669\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-1220\" y=\"2370\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">08 — DÉGT</text><text x=\"-1220\" y=\"2540\" text-anchor=\"middle\" fill=\"#059669\" font-size=\"120\" font-weight=\"600\">[Services/Circulation]</text><circle cx=\"-2720\" cy=\"1900\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-2720\" y=\"1870\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">09 — HALL NUIT</text><text x=\"-2720\" y=\"2040\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"-4300\" cy=\"2320\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-4300\" y=\"2290\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">10 — CHAMBRE ENFANT 2</text><text x=\"-4300\" y=\"2460\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><circle cx=\"-4280\" cy=\"6020\" r=\"680\" fill=\"rgba(59, 130, 246, 0.22)\" stroke=\"#2563EB\" stroke-width=\"18\" stroke-dasharray=\"40,25\" /><text x=\"-4280\" y=\"5990\" text-anchor=\"middle\" fill=\"#18181B\" font-size=\"145\" font-weight=\"700\">11 — CHAMBRE PARENTS</text><text x=\"-4280\" y=\"6160\" text-anchor=\"middle\" fill=\"#2563EB\" font-size=\"120\" font-weight=\"600\">[Nuit]</text><line x1=\"-175\" y1=\"-100\" x2=\"-175\" y2=\"3850\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"6250\" x2=\"-175\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"-100\" x2=\"1850\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"1850\" y1=\"-100\" x2=\"1850\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"2900\" y1=\"-100\" x2=\"2900\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"1750\" y1=\"840\" x2=\"3000\" y2=\"840\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"2900\" y1=\"-100\" x2=\"5225\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"5225\" y1=\"-100\" x2=\"5225\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"3275\" x2=\"650\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1650\" y1=\"3275\" x2=\"2300\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"4450\" y1=\"3275\" x2=\"5575\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"5575\" y1=\"2900\" x2=\"5575\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"6825\" x2=\"114\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"114\" y1=\"6825\" x2=\"464\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"464\" y1=\"7275\" x2=\"1418\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1418\" y1=\"7275\" x2=\"1768\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1768\" y1=\"6955\" x2=\"2232\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"2232\" y1=\"6955\" x2=\"2582\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"2582\" y1=\"7275\" x2=\"4736\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"4736\" y1=\"7275\" x2=\"5086\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"5086\" y1=\"6825\" x2=\"5575\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"1785\" y1=\"930\" x2=\"1785\" y2=\"3100\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"2965\" y1=\"930\" x2=\"2965\" y2=\"2465\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"3000\" y1=\"2465\" x2=\"3465\" y2=\"2465\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"3465\" y1=\"2500\" x2=\"3465\" y2=\"3170\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"3500\" y1=\"3135\" x2=\"4450\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"650\" y1=\"3135\" x2=\"750\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"1550\" y1=\"3135\" x2=\"1650\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"-100\" x2=\"-2200\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-2200\" y1=\"-100\" x2=\"-2200\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-3250\" y1=\"-100\" x2=\"-3250\" y2=\"740\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-2100\" y1=\"840\" x2=\"-2325\" y2=\"840\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-3125\" y1=\"840\" x2=\"-3350\" y2=\"840\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-3250\" y1=\"-100\" x2=\"-5575\" y2=\"-100\" stroke=\"#18181B\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-5575\" y1=\"-100\" x2=\"-5575\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"3275\" x2=\"-1000\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-2000\" y1=\"3275\" x2=\"-2650\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-4800\" y1=\"3275\" x2=\"-5925\" y2=\"3275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-5925\" y1=\"2900\" x2=\"-5925\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"6825\" x2=\"-464\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-464\" y1=\"6825\" x2=\"-814\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-814\" y1=\"7275\" x2=\"-1768\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-1768\" y1=\"7275\" x2=\"-2118\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-2118\" y1=\"6955\" x2=\"-2582\" y2=\"6955\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-2582\" y1=\"6955\" x2=\"-2932\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-2932\" y1=\"7275\" x2=\"-5086\" y2=\"7275\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-5086\" y1=\"7275\" x2=\"-5436\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-5436\" y1=\"6825\" x2=\"-5925\" y2=\"6825\" stroke=\"#18181B\" stroke-width=\"350\" stroke-linecap=\"square\" /><line x1=\"-2135\" y1=\"930\" x2=\"-2135\" y2=\"3100\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3315\" y1=\"930\" x2=\"-3315\" y2=\"2465\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3350\" y1=\"2465\" x2=\"-3815\" y2=\"2465\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3815\" y1=\"2500\" x2=\"-3815\" y2=\"3320\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3850\" y1=\"3135\" x2=\"-4800\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-1000\" y1=\"3135\" x2=\"-2000\" y2=\"3135\" stroke=\"#18181B\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"750\" y1=\"3135\" x2=\"1550\" y2=\"3135\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-2325\" y1=\"840\" x2=\"-3125\" y2=\"840\" stroke=\"#B45309\" stroke-width=\"200\" stroke-linecap=\"square\" /><line x1=\"-3815\" y1=\"3320\" x2=\"-3815\" y2=\"3450\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-2100\" y1=\"2035\" x2=\"-350\" y2=\"2035\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"0\" y1=\"2035\" x2=\"1750\" y2=\"2035\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"-3780\" y1=\"3415\" x2=\"-2650\" y2=\"3415\" stroke=\"#B45309\" stroke-width=\"70\" stroke-linecap=\"square\" /><line x1=\"2000\" y1=\"3450\" x2=\"2000\" y2=\"4250\" stroke=\"#B45309\" stroke-width=\"600\" stroke-linecap=\"square\" /><line x1=\"2000\" y1=\"5250\" x2=\"2000\" y2=\"6780\" stroke=\"#B45309\" stroke-width=\"600\" stroke-linecap=\"square\" /><line x1=\"-2350\" y1=\"3450\" x2=\"-2350\" y2=\"4250\" stroke=\"#B45309\" stroke-width=\"600\" stroke-linecap=\"square\" /><line x1=\"-2350\" y1=\"5250\" x2=\"-2350\" y2=\"6780\" stroke=\"#B45309\" stroke-width=\"600\" stroke-linecap=\"square\" /><line x1=\"-175\" y1=\"3650\" x2=\"-175\" y2=\"6450\" stroke=\"#DC2626\" stroke-width=\"90\" stroke-dasharray=\"120,80\" /></svg>\n"
+        }
+      }
+    }
+  ],
+  "service_default_endpoint": "http://127.0.0.1:7878",
+  "strict_free_first_policy": true,
+  "studio_version": "0.3.0"
+};

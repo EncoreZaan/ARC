@@ -1,0 +1,9 @@
+[package]
+name = "studio-qa"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+studio-apm = { path = "../studio-apm" }
+serde.workspace = true
+serde_json.workspace = true

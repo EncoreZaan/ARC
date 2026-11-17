@@ -1,6 +1,6 @@
 # 🏛️ ARC (ARCHITECTURE & REVIT COPILOT) — MASTER PROJECT STATE & ARCHITECTURE BIBLE
-> **Statut global du système :** Opérationnel & Ultra-Performant (v3.3.0 — 268 Outils [267 manifest + `revit_dispatch`], 0-Warning Clippy Rust, Buffer JSON-RPC Réutilisable, Suite de Tests Unitaires Rust, Landing Page Blueprint Studio v3.3.0)  
-> **Dernière mise à jour :** 14 Novembre 2026  
+> **Statut global du système :** Opérationnel & Ultra-Performant (v4.0.0 Workspace Unifié + Sous-Système Isolé **ARC Autonomous Studio v0.3.0** — Interface ARC unique à 6 sections (`Dashboard ARC`, `Autonomous Studio`, `BIMcraft`, `MCP Tools`, `Revit`, `Paramètres & IA`) connectée au démon Rust indépendant `arc-studio serve 7878` + Mode Extension Zéro-Latence pour **BIMcraft** (`arc-studio launch`) & **Revit 2027** (`RevitAiDockablePanel`) + Upload PDF navigateur & Synthèse paramétrique générique `CustomParametricBuilding` + 268 Outils MCP historiques 100% préservés)  
+> **Dernière mise à jour :** 16 Novembre 2026  
 > **Dépôt officiel :** [https://github.com/EncoreZaan/ARC.git](https://github.com/EncoreZaan/ARC.git)  
 > **Site officiel (Landing Page 3D) :** [https://encorezaan.github.io/ARC/](https://encorezaan.github.io/ARC/)  
 > **Auteur & Propriétaire :** @EncoreZaan  
@@ -240,6 +240,29 @@
   - Activation de `lto = "fat"`, réduction des features Tokio au strict nécessaire, et `rustflags = ["-C", "target-cpu=native"]` (instructions matérielles AVX2/AVX-512 et Apple Silicon NEON).
 
 ## 4. Historique Chronologique des Versions
+
+### [ARC Autonomous Studio v0.2.0 — OpenRouter Free-First & Intelligence Architecturale Générique] - 2026-11-16
+- **Intégration OpenRouter Free-First (`crates/studio-ai-runtime/`) :**
+  - Découverte automatique en direct de `https://openrouter.ai/api/v1/models` (468 modèles inspectés, **15 modèles texte/vision 100% gratuits** qualifiés et classés par capacités : `thinkingmachines/inkling-2-small:free`, `nvidia/nemotron-3-ultra-550b-a55b:free`, `inclusionai/ling-3.2-flash:free`, `nvidia/nemotron-3.5-super-vl:free`, `baidu/ernie-5.5-flash-preview:free`, `google/gemma-4-31b-it:free`, `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free`, etc.).
+  - **Politique FREE-FIRST Stricte :** Garde-fou matériel (`verify_model_is_strictly_free`) interdisant tout appel à un modèle payant tant que `allow_paid_models = false` (testé unitairement).
+  - **Sélection Multi-Modèles par Tâche & Failover Automatique :** Table de routage dédiée aux 4 familles de tâches architecturales (`DocumentAndPlanVisionAnalysis`, `ArchitecturalConceptAndDesign`, `SpatialAndStructuralReasoning`, `QaAndComplianceCritique`) avec bascule transparente en cas de quota/indisponibilité et repli neuro-symbolique Rust.
+- **Analyse Générique des PDF & Conception Architecturale Dynamique (`studio-doc-intel`, `studio-spatial`, `studio-qa`) :**
+  - Détection automatique de l'archétype, des cotes, de l'enveloppe et des contraintes d'un sujet PDF inconnu.
+  - Ajout de la règle d'autocorrection **`QA-CLASH-01B`** dans `studio-qa` qui a détecté et corrigé automatiquement un chevauchement réel entre la porte d'entrée Sud et la fenêtre Sud de *La Cabane* signalé par `bimcraft-cli 0.11.0`.
+  - **Validation E2E complète sur un second sujet PDF distinct (*Sujet 1 MJM — La Cabane*, `LA_CABANE_V3_Planches_A4_1-50.pdf`) :** Génération dynamique des 3 variantes (`CAB_V1_BANDE_SERVANTE`, `CAB_V2_MEUBLE_HABITE`, `CAB_V3_PLANCHER_HABITE`), sélection justifiée de `CAB_V3_PLANCHER_HABITE` (estrade +35 cm, lit-tiroir 140×200 cm, SDB 4.8 m² sous HSP 240 cm), construction `.bimcraft` / `.ifc` / `.glb` / `.svg` / `.pdf` et rapport de télémétrie IA (`openrouter_ai_telemetry_report.json`) en **859 ms** avec 0 régression sur les MCP historiques.
+
+### [ARC Autonomous Studio v0.1.0 — Sous-Système Isolé] - 2026-11-16
+- **Architecture Isolée & Zéro Régression MCP (`arc-autonomous-studio/`) :**
+  - Création d'un Cargo Workspace Rust 100% indépendant sous `arc-autonomous-studio/` sans modifier un seul octet de `revit-mcp-server/`, `revit-addin/` ni de `%APPDATA%\Claude\claude_desktop_config.json`.
+  - **8 Crates Rust modulaires :**
+    1. `studio-apm` : **ARC Project Model (APM)** typé, versionné par digest SHA-256 et persistant (`arc_project_model.apm.json`).
+    2. `studio-doc-intel` : **Agent 01 (Document Intelligence)** — extraction native des PDF (`lopdf`), identification du programme architectural, des contraintes structurelles (HSP 280 cm, 2 lots en miroir ~70 m², porteur max 4 m + têtes $\ge 30\text{ cm}$ + poutre, conservation porte d'entrée) et des ambiguïtés.
+    3. `studio-spatial` : **Agents 02, 03 & 04 (Design, Spatial & BIM Intelligence)** — synthèse autonome des 3 variantes contrastées (`V1_ECLIPSE`, `V2_ORBITE`, `V3_PASSAGE`), calcul géométrique des réunions de lots en miroir, percements porteurs, cloisons, portes et familles 3D sur mesure.
+    4. `studio-bimcraft` : **BIMcraft Autonomous Builder (Priorité N°1)** — compilation transactionnelle de l'APM vers `bimcraft-cli 0.11.0`, génération sans Revit des maquettes `.bimcraft`, `.ifc` (IFC4), `.glb` (glTF 2.0 3D), `.svg` et `.pdf` A3, avec vérification analytique via `bimcraft-cli info`.
+    5. `studio-qa` : **Agent 05 (Engineering, QA & Autocorrection)** — validation mathématique sur 7 familles de règles (HSP, porteurs/têtes/poutres, porte d'entrée, façades, programme, surfaces, intégrité BIMcraft) et boucle autonome `CONSTRUCTION -> ANALYSE -> DÉTECTION -> CORRECTION -> VALIDATION`.
+    6. `studio-deliverables` : **Agent 06 (Presentation Intelligence)** — exportateur Rust natif DXF R12 multi-calques, planches SVG de Zoning + Circulation et Coupe Longitudinale A-A, Dossier PDF 1.4 natif, Notice Markdown et Rapport QA JSON.
+    7. `studio-mcp-bridge` : Vérificateur de non-régression MCP (contrôle des empreintes SHA-256 des binaires/manifests historiques et test JSON-RPC `stdio` en direct) + compilateur de payload optionnel vers Revit 2027.
+    8. `studio-orchestrator` (`arc-studio`) : Orchestrateur central exécutant le cas réel de bout en bout en **1.42 s** et générant l'espace de travail `ARC_Autonomous_Studio_Workspace.html`.
 
 ### [v3.3.1] - 2026-11-16
 - **Corrections Landing Page & Confidentialité (`docs/`) :**

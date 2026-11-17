@@ -205,11 +205,13 @@ public class RevitAiDockablePanel : Page, IDockablePaneProvider
         var btnRunPmrAudit = CreateActionButton("📋 Audit PMR Global (1 Clic)", (s, e) => ExecuteFastAction("full_pmr_audit"));
         var btnCaptureView = CreateActionButton("👁️ Capture Instantanée IA", (s, e) => ExecuteFastAction("capture_view"));
         var btnGeneratePavilion = CreateActionButton("🏗️ Macro-Conception Pavillon T4", (s, e) => ExecuteFastAction("macro_t4"));
+        var btnOpenAutonomousStudio = CreateActionButton("⚡ Ouvrir ARC Autonomous Studio", (s, e) => LaunchAutonomousStudioExtension());
 
         toolsStack.Children.Add(toolsHeader);
         toolsStack.Children.Add(btnRunPmrAudit);
         toolsStack.Children.Add(btnCaptureView);
         toolsStack.Children.Add(btnGeneratePavilion);
+        toolsStack.Children.Add(btnOpenAutonomousStudio);
         toolsBorder.Child = toolsStack;
         rootStack.Children.Add(toolsBorder);
 
@@ -373,6 +375,60 @@ public class RevitAiDockablePanel : Page, IDockablePaneProvider
         catch (Exception ex)
         {
             TaskDialog.Show("Erreur Copilot", ex.Message);
+        }
+    }
+
+    /// <summary>
+    /// Lance à la demande l'extension isolée ARC Autonomous Studio (0 ms d'impact au démarrage de Revit).
+    /// </summary>
+    private void LaunchAutonomousStudioExtension()
+    {
+        try
+        {
+            bool studioUp = false;
+            try
+            {
+                using var tcp = new System.Net.Sockets.TcpClient();
+                var res = tcp.BeginConnect("127.0.0.1", 7878, null, null);
+                studioUp = res.AsyncWaitHandle.WaitOne(TimeSpan.FromMilliseconds(150)) && tcp.Connected;
+            }
+            catch { studioUp = false; }
+
+            if (!studioUp)
+            {
+                string[] candidates =
+                {
+                    System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".cargo", "bin", "arc-studio.exe"),
+                    @"c:\Users\teoba\Documents\Devs\MCP Revit\arc-autonomous-studio\target\release\arc-studio.exe",
+                    System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "ARC", "arc-studio.exe"),
+                };
+                foreach (var exe in candidates)
+                {
+                    if (System.IO.File.Exists(exe))
+                    {
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = exe,
+                            Arguments = "serve 7878",
+                            UseShellExecute = false,
+                            CreateNoWindow = true,
+                            WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+                        });
+                        System.Threading.Thread.Sleep(350);
+                        break;
+                    }
+                }
+            }
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "http://127.0.0.1:7878/#studio",
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex)
+        {
+            TaskDialog.Show("ARC Autonomous Studio", $"Impossible d'ouvrir le Studio : {ex.Message}");
         }
     }
 }

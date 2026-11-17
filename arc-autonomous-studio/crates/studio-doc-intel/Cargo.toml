@@ -1,0 +1,11 @@
+[package]
+name = "studio-doc-intel"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+studio-apm = { path = "../studio-apm" }
+studio-ai-runtime = { path = "../studio-ai-runtime" }
+serde.workspace = true
+serde_json.workspace = true
+lopdf.workspace = true

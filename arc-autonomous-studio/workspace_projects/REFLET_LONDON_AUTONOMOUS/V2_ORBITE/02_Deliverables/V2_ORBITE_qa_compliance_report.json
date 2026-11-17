@@ -1,0 +1,90 @@
+{
+  "variant_id": "V2_ORBITE",
+  "iteration": 1,
+  "score_100": 100.0,
+  "converged": true,
+  "checks": [
+    {
+      "rule_id": "QA-HSP-01",
+      "category": "Gabarit & Volumétrie",
+      "description": "Respect de la Hauteur Sous Plafond réglementaire du sujet (HSP = 280 cm)",
+      "passed": true,
+      "measured_value": "63 murs à 2800 mm (écarts détectés: 0)",
+      "expected_bound": "= 2800 mm",
+      "auto_corrected": false,
+      "correction_note": null
+    },
+    {
+      "rule_id": "QA-CLASH-01B",
+      "category": "Collisions Baies (Porte / Fenêtre)",
+      "description": "Absence de chevauchement entre portes et fenêtres sur un même mur hôte (trumeau >= 15 cm)",
+      "passed": true,
+      "measured_value": "7 portes et 4 fenêtres inspectées (chevauchements détectés: 0)",
+      "expected_bound": "0 collision baie/baie",
+      "auto_corrected": false,
+      "correction_note": null
+    },
+    {
+      "rule_id": "QA-STRUCT-02",
+      "category": "Structure & Murs Porteurs",
+      "description": "Ouverture mur porteur <= 4.00 m + têtes de mur >= 30 cm de part et d'autre + poutre BA",
+      "passed": true,
+      "measured_value": "2 percement(s) : portée max = 2400 mm, tête de mur min = 575 mm, poutre 35x40 cm active",
+      "expected_bound": "Portée <= 4000 mm & Têtes >= 300 mm",
+      "auto_corrected": false,
+      "correction_note": null
+    },
+    {
+      "rule_id": "QA-ENTRY-03",
+      "category": "Accès & Enveloppe",
+      "description": "Présence et conformité de la porte d'entrée principale (+ rebouchage 2nd accès si réunion de lots)",
+      "passed": true,
+      "measured_value": "Porte d'entrée principale = true, Conformité accès = true",
+      "expected_bound": "Porte d'entrée conforme au sujet",
+      "auto_corrected": false,
+      "correction_note": null
+    },
+    {
+      "rule_id": "QA-FACADE-04",
+      "category": "Façades & Ouvertures Extérieures",
+      "description": "Conservation des ouvertures existantes en façade (0 nouvelle ouverture extérieure créée)",
+      "passed": true,
+      "measured_value": "4 baies existantes, 0 baies neuves (total 4)",
+      "expected_bound": "0 nouvelle ouverture extérieure",
+      "auto_corrected": false,
+      "correction_note": null
+    },
+    {
+      "rule_id": "QA-PROG-05",
+      "category": "Programme Architectural",
+      "description": "Présence vérifiée de tous les espaces exigés par le sujet PDF et du mobilier dessiné sur mesure",
+      "passed": true,
+      "measured_value": "12 espaces fonctionnels modélisés, SDB=true, Cuisine=true, Salon/Séjour=true, 42 composants 3D sur mesure (31 familles)",
+      "expected_bound": "100% des espaces du programme + mobilier sur mesure",
+      "auto_corrected": false,
+      "correction_note": null
+    },
+    {
+      "rule_id": "QA-AREA-06",
+      "category": "Surfaces & Équilibre Spatial",
+      "description": "Surface habitable conforme au gabarit du sujet (cible 70.0 m²)",
+      "passed": true,
+      "measured_value": "Total Habitable = 68.5 m² (Zone Jour/Atelier = 35.2 m², Zone Nuit = 33.3 m²)",
+      "expected_bound": "70.0 m² ± 8.0 m²",
+      "auto_corrected": false,
+      "correction_note": null
+    },
+    {
+      "rule_id": "QA-BIM-07",
+      "category": "Intégrité Modèle BIMcraft",
+      "description": "Compilation sans erreur dans BIMcraft 0.11.0 et validation des éléments 2D/3D générés",
+      "passed": true,
+      "measured_value": "130 objets BIM compilés et vérifiés sur disque",
+      "expected_bound": "Modèle .bimcraft + .ifc + .glb + .svg valides",
+      "auto_corrected": false,
+      "correction_note": null
+    }
+  ],
+  "bimcraft_verified": true,
+  "bimcraft_elements_count": 130
+}

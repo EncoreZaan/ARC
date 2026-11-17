@@ -1,0 +1,43 @@
+# ARC Autonomous Studio v0.2.0 — Isolated Configuration
+# Ce sous-système est 100% indépendant des serveurs MCP historiques (revit, cad-mcp, bimcraft, revit-officiel).
+
+[studio]
+name = "ARC Autonomous Studio"
+version = "0.2.0"
+http_bind = "127.0.0.1:7878"
+workspace_dir = "./workspace_projects"
+logs_dir = "./logs"
+
+[ai.openrouter]
+# Clé API unique OpenRouter (peut aussi être définie via la variable d'environnement OPENROUTER_API_KEY)
+api_key = ""
+endpoint_models = "https://openrouter.ai/api/v1/models"
+endpoint_chat = "https://openrouter.ai/api/v1/chat/completions"
+
+# POLITIQUE FREE-FIRST STRICTE :
+# - Tant que allow_paid_models = false, AUCUN modèle ayant un coût prompt > 0 ou completion > 0 ne peut être appelé.
+# - Le routeur filtre automatiquement les modèles gratuits (pricing.prompt == "0" && pricing.completion == "0")
+#   et sélectionne le meilleur modèle gratuit par tâche avec bascule (failover) automatique en cas de 429/503.
+free_first_policy = true
+allow_paid_models = false
+max_failover_attempts = 4
+timeout_seconds = 45
+
+[engines.bimcraft]
+enabled = true
+priority = 1
+require_revit = false
+auto_detect_cli = true
+
+[engines.revit_optional_bridge]
+enabled = false
+mcp_binary_path = "../revit-mcp-server/target/release/revit-mcp-server.exe"
+read_only_baseline_hashes = true
+
+[qa_loop]
+max_iterations = 5
+min_convergence_score = 95.0
+enforce_load_bearing_max_span_mm = 4000.0
+enforce_min_pier_return_mm = 300.0
+enforce_preserve_entry_door = true
+enforce_forbid_new_exterior_openings = true

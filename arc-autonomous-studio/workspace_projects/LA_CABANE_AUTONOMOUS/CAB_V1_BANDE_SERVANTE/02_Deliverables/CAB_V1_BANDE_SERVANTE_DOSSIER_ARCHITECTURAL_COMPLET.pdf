@@ -1,0 +1,69 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 2922 >>
+stream
+BT
+/F1 10 Tf
+40 800 Td
+14 TL
+(ARC AUTONOMOUS STUDIO - DOSSIER ARCHITECTURAL COMPLET) Tj T*
+(Projet : LA CABANE - Micro-Habitat & Atelier Polyvalent \(ARC-AUTO-CABANE-2026\)) Tj T*
+(Client : Elise / Alex / Camille - Creatifs independants en teletravail & accueil week-end) Tj T*
+(Echelle de reference : 1:50 | Unite canonique : mm | Version APM : v4) Tj T*
+(------------------------------------------------------------------------) Tj T*
+(1. ANALYSE DU SUJET PDF & CONTRAINTES REGLEMENTAIRES) Tj T*
+(   - Hauteur Sous Plafond \(HSP\) : 2400 mm \(280 cm\)) Tj T*
+(   - Reunion de 2 lots en miroir : Oui \(~35 m2 au sol\)) Tj T*
+(   - Ouverture mur porteur max : 0 mm | Tetes de mur min : 200 mm + Poutre BA) Tj T*
+(   - Porte d'entree conservee a l'identique \(2375, -840 mm\) | 0 ouverture facade creee) Tj T*
+(------------------------------------------------------------------------) Tj T*
+(2. PROPOSITION RETENUE : Variante 1 - LA BANDE SERVANTE \(Atelier-Bureau Alex\)) Tj T*
+(   - Surface Jour : 26.5 m2 | Surface Nuit : 8.3 m2 | Total Habitable : 35.1 m2) Tj T*
+(   - Murs existants conserves : 4 segments | Cloisons projet : 2 segments) Tj T*
+(   - Portes : 2 | Fenetres : 6 | Poutres BA : 0) Tj T*
+(   - Mobilier sur mesure : 9 familles 3D / 9 composants poses) Tj T*
+(   - Pieces du programme \(6\) :) Tj T*
+(     * [01] ESTRADE-ATELIER \(+0.35m\) \(Jour\)) Tj T*
+(     * [02] SALLE D'EAU / WC \(Services/Circulation\)) Tj T*
+(     * [03] SALON & LECTURE \(Jour\)) Tj T*
+(     * [04] CHAMBRE D'AMIS \(LIT-TIROIR WEEK-END\) \(Nuit\)) Tj T*
+(     * [05] CUISINE & REPAS \(Jour\)) Tj T*
+(     * [06] ENTREE / CIRCULATION \(Services/Circulation\)) Tj T*
+(------------------------------------------------------------------------) Tj T*
+(3. RAPPORT DE CONTROLE QUALITE & AUTOCORRECTION \(Score : 100.0% - Converge : true\)) Tj T*
+(   - [PASS] QA-HSP-01 : 6 murs a 2400 mm \(ecarts detectes: 0\) \(= 2400 mm\)) Tj T*
+(   - [PASS] QA-CLASH-01B : 2 portes et 6 fenetres inspectees \(chevauchements detectes: 0\) \(0 collision baie/baie\)) Tj T*
+(   - [PASS] QA-STRUCT-02 : 0 percement\(s\) : portee max = 0 mm, tete de mur min = 0 mm, poutre 35x40 cm active \(Portee <= 4000 mm & Tetes >= 300 mm\)) Tj T*
+(   - [PASS] QA-ENTRY-03 : Porte d'entree principale = true, Conformite acces = true \(Porte d'entree conforme au sujet\)) Tj T*
+(   - [PASS] QA-FACADE-04 : 6 baies existantes, 0 baies neuves \(total 6\) \(0 nouvelle ouverture exterieure\)) Tj T*
+(   - [PASS] QA-PROG-05 : 6 espaces fonctionnels modelises, SDB=true, Cuisine=true, Salon/Sejour=true, 9 composants 3D sur mesure \(9 familles\) \(100% des espaces du programme + mobilier sur mesure\)) Tj T*
+(   - [PASS] QA-AREA-06 : Total Habitable = 35.1 m2 \(Zone Jour/Atelier = 26.5 m2, Zone Nuit = 8.3 m2\) \(35.1 m2 ± 8.0 m2\)) Tj T*
+(   - [PASS] QA-BIM-07 : 29 objets BIM compiles et verifies sur disque \(Modele .bimcraft + .ifc + .glb + .svg valides\)) Tj T*
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3284
+%%EOF

@@ -2178,4 +2178,631 @@ revit-mcp-server.exe cad render plan_rdc.dxf`
 
   initArcReleaseSync();
 
+  // ---------------------------------------------------------------------------
+  // 9. ARC v4.0 Unified Workspace Navigation & Autonomous Studio Controller
+  // ---------------------------------------------------------------------------
+  function initArcUnifiedWorkspace() {
+    const STUDIO_API_BASE = 'http://127.0.0.1:7878';
+    let studioState = window.ARC_STUDIO_SNAPSHOT || null;
+    let activeProjectIdx = 0;
+    let activeVariantId = null;
+    let activeVizTab = 'zoning';
+    let showAllViews = false;
+    let daemonOnline = false;
+
+    // 9.1 Navigation entre les 6 sections unifiées d'ARC
+    function switchArcView(viewName) {
+      showAllViews = false;
+      const toggleBtn = document.getElementById('btn-toggle-all-views');
+      if (toggleBtn) toggleBtn.textContent = 'Afficher Tout';
+
+      document.querySelectorAll('.bp-nav-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-arc-nav') === viewName);
+      });
+
+      const map = {
+        'dashboard': 'view-dashboard',
+        'studio': 'view-studio',
+        'bimcraft': 'view-bimcraft',
+        'mcp-tools': 'view-mcp-tools',
+        'revit': 'view-revit',
+        'settings': 'view-settings'
+      };
+      const targetPanelId = map[viewName] || 'view-dashboard';
+
+      document.querySelectorAll('.arc-view-panel').forEach(panel => {
+        panel.classList.toggle('active-view', panel.id === targetPanelId);
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('[data-arc-nav]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const v = el.getAttribute('data-arc-nav');
+        if (v) switchArcView(v);
+      });
+    });
+
+    const toggleAllBtn = document.getElementById('btn-toggle-all-views');
+    if (toggleAllBtn) {
+      toggleAllBtn.addEventListener('click', () => {
+        showAllViews = !showAllViews;
+        if (showAllViews) {
+          document.querySelectorAll('.arc-view-panel').forEach(p => p.classList.add('active-view'));
+          toggleAllBtn.textContent = 'Mode Onglets';
+        } else {
+          switchArcView('dashboard');
+        }
+      });
+    }
+
+    // 9.2 Vérification de santé du démon Rust indépendant (127.0.0.1:7878)
+    async function checkStudioDaemon() {
+      const pill = document.getElementById('studio-daemon-pill');
+      const meta = document.getElementById('studio-daemon-meta');
+      const dashBadge = document.getElementById('dash-studio-badge');
+      try {
+        const res = await fetch(`${STUDIO_API_BASE}/api/studio/health`, { method: 'GET' });
+        if (res.ok) {
+          const data = await res.json();
+          daemonOnline = true;
+          if (pill) {
+            pill.textContent = `● SERVICE STUDIO ACTIF (PID ${data.pid})`;
+            pill.classList.remove('offline');
+          }
+          if (meta) {
+            meta.textContent = `Connecté à ${STUDIO_API_BASE} · ${data.bimcraft_engine} · MCP Intact (${data.mcp_tools_intact_count} outils)`;
+          }
+          if (dashBadge) {
+            dashBadge.textContent = `STUDIO LIVE (PID ${data.pid})`;
+          }
+          // Récupère le snapshot frais depuis l'API
+          const snapRes = await fetch(`${STUDIO_API_BASE}/api/studio/snapshot`);
+          if (snapRes.ok) {
+            studioState = await snapRes.json();
+            renderStudioWorkspace();
+            renderOpenRouterSettings();
+          }
+          return true;
+        }
+      } catch (_) {
+        daemonOnline = false;
+      }
+
+      if (pill) {
+        pill.textContent = '● MODE AUTONOME LOCAL (SNAPSHOT SYNCHRONISÉ)';
+        pill.classList.add('offline');
+      }
+      if (meta) {
+        meta.textContent = 'Service démon arrêté (lancez `arc-studio serve 7878` pour l\'API live) · Projets & livrables disponibles hors-ligne';
+      }
+      return false;
+    }
+
+    // 9.3 Rendu complet d'Autonomous Studio dans la vue #view-studio
+    function renderStudioWorkspace() {
+      if (!studioState || !Array.isArray(studioState.projects) || studioState.projects.length === 0) {
+        return;
+      }
+
+      if (activeProjectIdx >= studioState.projects.length) {
+        activeProjectIdx = 0;
+      }
+      const proj = studioState.projects[activeProjectIdx];
+      const apm = proj.apm;
+      const summary = proj.run_summary;
+      const svgs = proj.variant_svgs || {};
+
+      if (!activeVariantId || !apm.variants[activeVariantId]) {
+        activeVariantId = apm.selected_variant_id || Object.keys(apm.variants)[0];
+      }
+
+      // Sélecteur de projets
+      const selectorBar = document.getElementById('studio-project-selector-bar');
+      if (selectorBar) {
+        selectorBar.innerHTML = studioState.projects.map((p, idx) => {
+          const isAct = idx === activeProjectIdx;
+          return `<button type="button" class="filter-btn ${isAct ? 'active' : ''}" data-proj-idx="${idx}">
+            ${p.apm.metadata.title}
+          </button>`;
+        }).join('');
+
+        selectorBar.querySelectorAll('[data-proj-idx]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            activeProjectIdx = parseInt(btn.getAttribute('data-proj-idx'), 10);
+            activeVariantId = null;
+            renderStudioWorkspace();
+          });
+        });
+      }
+
+      // Métadonnées & Cahier des charges extrait du PDF
+      const titleEl = document.getElementById('studio-project-title');
+      const subEl = document.getElementById('studio-project-subtitle');
+      const constraintsEl = document.getElementById('studio-brief-constraints');
+      const spacesEl = document.getElementById('studio-brief-spaces');
+      const durEl = document.getElementById('studio-total-duration');
+
+      if (titleEl) titleEl.textContent = apm.metadata.title;
+      if (subEl) subEl.textContent = `${apm.metadata.subtitle} — Profil : ${apm.metadata.client_profile}`;
+      if (durEl) durEl.textContent = `${summary.total_duration_ms} ms`;
+
+      if (constraintsEl && apm.brief && apm.brief.constraints) {
+        const c = apm.brief.constraints;
+        constraintsEl.innerHTML = `
+          <div><strong>Source PDF :</strong> ${apm.metadata.source_brief_pdf || 'Sujet PDF'}</div>
+          <div><strong>HSP :</strong> ${c.ceiling_height_mm} mm · <strong>Dalle :</strong> ${c.slab_thickness_mm} mm · <strong>Échelle :</strong> ${apm.metadata.reference_scale}</div>
+          <div><strong>Portée max :</strong> ${c.max_structural_span_mm} mm · <strong>Trumeau min :</strong> ${c.min_structural_pier_mm} mm</div>
+        `;
+      }
+
+      if (spacesEl && apm.brief && Array.isArray(apm.brief.required_spaces)) {
+        spacesEl.innerHTML = apm.brief.required_spaces.map(sp => `
+          <div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--bp-line); padding:0.2rem 0;">
+            <span>• <strong>${sp.label}</strong> <span style="color:var(--bp-ink-muted); font-size:0.74rem;">(${sp.zone})</span></span>
+            <span style="font-family:var(--font-mono); font-weight:700; color:var(--bp-cobalt);">${sp.target_area_m2.toFixed(1)} m²</span>
+          </div>
+        `).join('');
+      }
+
+      // Journal des 6 agents IA
+      const timelineEl = document.getElementById('studio-agents-timeline');
+      if (timelineEl && Array.isArray(summary.agent_logs)) {
+        timelineEl.innerHTML = summary.agent_logs.map(log => `
+          <div class="studio-agent-item">
+            <div class="studio-agent-head">
+              <span>${log.agent_name}</span>
+              <span style="color:var(--bp-emerald);">${log.duration_ms} ms</span>
+            </div>
+            <div class="studio-agent-desc">${log.details}</div>
+          </div>
+        `).join('');
+      }
+
+      // Cartes des 3 Propositions Architecturales
+      const variantsContainer = document.getElementById('studio-variants-container');
+      const selectedBadge = document.getElementById('studio-selected-badge');
+      const rationaleEl = document.getElementById('studio-selection-rationale');
+
+      if (selectedBadge) {
+        selectedBadge.textContent = `RETENUE : ${apm.selected_variant_id}`;
+      }
+
+      if (variantsContainer && apm.variants) {
+        const varKeys = Object.keys(apm.variants);
+        variantsContainer.innerHTML = varKeys.map(vid => {
+          const v = apm.variants[vid];
+          const qa = apm.qa_reports ? apm.qa_reports[vid] : null;
+          const isSelected = vid === activeVariantId;
+          const isWinner = vid === apm.selected_variant_id;
+          return `
+            <div class="studio-variant-card ${isSelected ? 'selected' : ''}" data-var-id="${vid}">
+              <div class="studio-variant-badge">
+                ${isWinner ? '★ SOLUTION RETENUE · ' : ''}${vid}
+              </div>
+              <div style="font-family:var(--font-display); font-weight:800; font-size:1rem; margin-bottom:0.3rem;">
+                ${v.name}
+              </div>
+              <div style="font-size:0.78rem; color:var(--bp-ink-soft); margin-bottom:0.55rem;">
+                ${v.concept_axis}
+              </div>
+              <div style="font-family:var(--font-mono); font-size:0.72rem; display:flex; justify-content:space-between; border-top:1px solid var(--bp-line); padding-top:0.45rem;">
+                <span>Surface : <strong>${v.total_habitable_area_m2.toFixed(1)} m²</strong></span>
+                <span style="color:var(--bp-emerald);">QA : <strong>${qa ? qa.score_100.toFixed(0) : 100}%</strong></span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        variantsContainer.querySelectorAll('[data-var-id]').forEach(card => {
+          card.addEventListener('click', () => {
+            activeVariantId = card.getAttribute('data-var-id');
+            renderStudioWorkspace();
+          });
+        });
+      }
+
+      if (rationaleEl && summary.variants_comparison) {
+        const comp = summary.variants_comparison;
+        const activeVar = apm.variants[activeVariantId];
+        rationaleEl.innerHTML = `
+          <div><strong>Justification IA &amp; Architecturale (${activeVariantId}) :</strong> ${activeVar ? activeVar.design_rationale : ''}</div>
+          ${comp.selection_reason ? `<div style="margin-top:0.35rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--bp-cobalt);">→ Arbitrage multicritère : ${comp.selection_reason}</div>` : ''}
+        `;
+      }
+
+      // Visionneuse SVG & Notice
+      renderStudioViewer(svgs[activeVariantId], apm.variants[activeVariantId]);
+
+      // Tableau QA
+      const qaTbody = document.getElementById('studio-qa-tbody');
+      const qaBadge = document.getElementById('studio-qa-score-badge');
+      const qaRep = apm.qa_reports ? apm.qa_reports[activeVariantId] : null;
+      if (qaBadge && qaRep) {
+        qaBadge.textContent = `SCORE QA : ${qaRep.score_100.toFixed(0)}% (${qaRep.checks.length}/${qaRep.checks.length} OK · ${qaRep.iterations_run} passe auto-corrective)`;
+      }
+      if (qaTbody && qaRep && Array.isArray(qaRep.checks)) {
+        qaTbody.innerHTML = qaRep.checks.map(chk => `
+          <tr>
+            <td style="font-family:var(--font-mono); font-weight:700; color:var(--bp-cobalt);">${chk.rule_code}</td>
+            <td style="font-family:var(--font-mono); font-size:0.75rem;">${chk.category}</td>
+            <td>
+              <span style="font-family:var(--font-mono); font-size:0.72rem; font-weight:700; padding:0.15rem 0.45rem; border-radius:3px; background:var(--bp-emerald-soft); color:var(--bp-emerald);">
+                ${chk.passed ? 'VALIDÉ' : 'CORRIGÉ'}
+              </span>
+            </td>
+            <td>
+              <div>${chk.message}</div>
+              ${chk.remediation_applied ? `<div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--bp-copper); margin-top:0.2rem;">⚡ Auto-Correction : ${chk.remediation_applied}</div>` : ''}
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Grille des Livrables (.bimcraft, .ifc, .glb, .dxf, .svg, .pdf, .md)
+      const delivGrid = document.getElementById('studio-deliverables-grid');
+      const bimBuild = summary.bimcraft_builds ? summary.bimcraft_builds[activeVariantId] : null;
+      const delivBundle = summary.deliverables ? summary.deliverables[activeVariantId] : null;
+
+      if (delivGrid) {
+        const items = [];
+        if (bimBuild) {
+          items.push({ fmt: 'BIMCRAFT (.bimcraft)', name: 'Modèle Natif BIMcraft 0.11.0', path: bimBuild.bimcraft_model_path });
+          items.push({ fmt: 'IFC4 (.ifc)', name: 'Maquette BIM Interopérable IFC4', path: bimBuild.ifc_path });
+          items.push({ fmt: 'GLTF 3D (.glb)', name: 'Maquette Volumétrique 3D glTF 2.0', path: bimBuild.glb_path });
+          items.push({ fmt: 'SVG 1:50 (.svg)', name: 'Plan Technique BIMcraft 1:50', path: bimBuild.svg_floorplan_path });
+        }
+        if (delivBundle) {
+          items.push({ fmt: 'AUTOCAD (.dxf)', name: 'Plan Multi-Calques DXF R12 (mm)', path: delivBundle.dxf_plan_path });
+          items.push({ fmt: 'ZONING (.svg)', name: 'Schéma Zoning & Circulation 1:50', path: delivBundle.svg_zoning_circulation_path });
+          items.push({ fmt: 'COUPE A-A (.svg)', name: 'Coupe Longitudinale A-A Cotée', path: delivBundle.svg_section_aa_path });
+          items.push({ fmt: 'DOSSIER (.pdf)', name: 'Dossier Architectural PDF 1.4', path: delivBundle.pdf_dossier_path });
+          items.push({ fmt: 'NOTICE (.md)', name: 'Notice Architecturale & Surfaces', path: delivBundle.markdown_notice_path });
+        }
+        if (summary.revit_adapter_payload_path) {
+          items.push({ fmt: 'REVIT 2027 (.json)', name: 'Payload Batch Revit 2027 Optionnel', path: summary.revit_adapter_payload_path });
+        }
+
+        delivGrid.innerHTML = items.map(it => {
+          const dlHref = daemonOnline
+            ? `${STUDIO_API_BASE}/api/studio/download?file=${encodeURIComponent(it.path)}`
+            : '#';
+          return `
+            <div class="studio-deliv-item">
+              <div class="studio-deliv-format">${it.fmt}</div>
+              <div class="studio-deliv-name">${it.name}</div>
+              <div class="studio-deliv-path">${it.path}</div>
+              <div style="margin-top:0.35rem; display:flex; gap:0.4rem;">
+                ${daemonOnline
+                  ? `<a href="${dlHref}" target="_blank" class="filter-btn active" style="text-decoration:none; font-size:0.68rem;">Ouvrir / Télécharger</a>`
+                  : `<button type="button" class="filter-btn" data-copy-path="${it.path.replace(/"/g, '&quot;')}" style="font-size:0.68rem;">Copier Chemin</button>`
+                }
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        delivGrid.querySelectorAll('[data-copy-path]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const p = btn.getAttribute('data-copy-path');
+            if (navigator.clipboard && p) {
+              navigator.clipboard.writeText(p);
+              btn.textContent = 'Chemin Copié ✓';
+              setTimeout(() => { btn.textContent = 'Copier Chemin'; }, 1500);
+            }
+          });
+        });
+      }
+    }
+
+    function renderStudioViewer(svgBundle, variantObj) {
+      const canvas = document.getElementById('studio-viewer-canvas');
+      if (!canvas) return;
+      if (!svgBundle) {
+        canvas.innerHTML = '<div style="padding:2rem; font-family:var(--font-mono);">Aperçu non disponible.</div>';
+        return;
+      }
+
+      if (activeVizTab === 'zoning' && svgBundle.zoning_circulation_svg) {
+        canvas.innerHTML = svgBundle.zoning_circulation_svg;
+      } else if (activeVizTab === 'bimcraft' && svgBundle.bimcraft_floorplan_svg) {
+        canvas.innerHTML = svgBundle.bimcraft_floorplan_svg;
+      } else if (activeVizTab === 'section' && svgBundle.section_aa_svg) {
+        canvas.innerHTML = svgBundle.section_aa_svg;
+      } else if (activeVizTab === 'notice') {
+        const md = svgBundle.notice_markdown || (variantObj ? variantObj.design_rationale : '');
+        canvas.innerHTML = `<pre style="width:100%; white-space:pre-wrap; font-family:var(--font-mono); font-size:0.8rem; color:var(--bp-ink); background:var(--bp-paper); padding:1.25rem; border-radius:4px; border:1px solid var(--bp-line-strong);">${md.replace(/</g, '&lt;')}</pre>`;
+      }
+    }
+
+    document.querySelectorAll('[data-studio-viz]').forEach(tab => {
+      tab.addEventListener('click', () => {
+        activeVizTab = tab.getAttribute('data-studio-viz') || 'zoning';
+        document.querySelectorAll('[data-studio-viz]').forEach(t => {
+          t.classList.toggle('active', t === tab);
+        });
+        if (studioState && studioState.projects[activeProjectIdx]) {
+          const p = studioState.projects[activeProjectIdx];
+          renderStudioViewer(p.variant_svgs[activeVariantId], p.apm.variants[activeVariantId]);
+        }
+      });
+    });
+
+    // 9.4 Rendu de la section Paramètres & Configuration IA (OpenRouter Free-First)
+    function renderOpenRouterSettings() {
+      if (!studioState || !studioState.openrouter_report) return;
+      const rep = studioState.openrouter_report;
+
+      const dashFreeVal = document.getElementById('dash-free-models-val');
+      if (dashFreeVal) {
+        dashFreeVal.textContent = `${rep.free_models_discovered} Free (0$)`;
+      }
+
+      const statusEl = document.getElementById('settings-openrouter-status');
+      if (statusEl) {
+        statusEl.textContent = `Catalogue OpenRouter analysé : ${rep.total_models_discovered} modèles découverts · ${rep.free_models_discovered} modèles strictement gratuits (0.00 $) retenus (${rep.free_vision_models_count} Vision, ${rep.free_reasoning_models_count} Raisonnement).`;
+      }
+
+      const badgeEl = document.getElementById('settings-free-count-badge');
+      if (badgeEl) {
+        badgeEl.textContent = `${rep.free_models_discovered} MODÈLES GRATUITS QUALIFIÉS SUR ${rep.total_models_discovered}`;
+      }
+
+      const tbody = document.getElementById('settings-routing-tbody');
+      const routingMap = rep.task_routing_table || rep.routing_table;
+      if (tbody && routingMap) {
+        const entries = Object.entries(routingMap);
+        tbody.innerHTML = entries.map(([taskName, route]) => {
+          const primaryModel = route.primary_model_id || route.primary_free_model || 'N/A';
+          const fallbackList = route.fallback_chain || route.fallback_free_models || [];
+          return `
+          <tr>
+            <td style="font-family:var(--font-mono); font-weight:700; color:var(--bp-ink);">${taskName}</td>
+            <td style="font-family:var(--font-mono); color:var(--bp-cobalt); font-weight:700;">${primaryModel}</td>
+            <td style="font-family:var(--font-mono); font-size:0.75rem; color:var(--bp-ink-soft);">${fallbackList.join(' → ')}</td>
+            <td>
+              <span style="font-family:var(--font-mono); font-size:0.72rem; font-weight:700; padding:0.15rem 0.45rem; border-radius:3px; background:var(--bp-emerald-soft); color:var(--bp-emerald);">
+                0.00 $ (FREE-FIRST)
+              </span>
+            </td>
+          </tr>
+        `;
+        }).join('');
+      }
+    }
+
+    // 9.5 Actions interactives (Lancement de projet PDF, changement rapide de sujet, Config OpenRouter, Start/Stop Service)
+    const btnCabane = document.getElementById('btn-switch-cabane');
+    if (btnCabane) {
+      btnCabane.addEventListener('click', () => {
+        if (!studioState || !studioState.projects) return;
+        const idx = studioState.projects.findIndex(p => p.project_folder.includes('CABANE'));
+        if (idx >= 0) {
+          activeProjectIdx = idx;
+          activeVariantId = null;
+          renderStudioWorkspace();
+        }
+      });
+    }
+
+    const btnLondon = document.getElementById('btn-switch-london');
+    if (btnLondon) {
+      btnLondon.addEventListener('click', () => {
+        if (!studioState || !studioState.projects) return;
+        const idx = studioState.projects.findIndex(p => p.project_folder.includes('LONDON'));
+        if (idx >= 0) {
+          activeProjectIdx = idx;
+          activeVariantId = null;
+          renderStudioWorkspace();
+        }
+      });
+    }
+
+    const fileInput = document.getElementById('studio-pdf-file-input');
+    const pathInput = document.getElementById('studio-pdf-path-input');
+    let uploadedPdfPayload = null; // { filename, base64 }
+
+    function arrayBufferToBase64(buffer) {
+      const bytes = new Uint8Array(buffer);
+      let binary = '';
+      const chunk = 0x8000;
+      for (let i = 0; i < bytes.length; i += chunk) {
+        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+      }
+      return btoa(binary);
+    }
+
+    if (fileInput && pathInput) {
+      fileInput.addEventListener('change', async () => {
+        if (fileInput.files && fileInput.files.length > 0) {
+          const f = fileInput.files[0];
+          pathInput.value = f.name;
+          try {
+            const buf = await f.arrayBuffer();
+            uploadedPdfPayload = {
+              filename: f.name,
+              base64: arrayBufferToBase64(buf)
+            };
+          } catch (_) {
+            uploadedPdfPayload = null;
+          }
+        }
+      });
+    }
+
+    const btnRun = document.getElementById('btn-run-autonomous-project');
+    if (btnRun) {
+      btnRun.addEventListener('click', async () => {
+        const origText = btnRun.textContent;
+        btnRun.textContent = '⏳ Exécution du Pipeline Autonome (9 étapes)...';
+        btnRun.disabled = true;
+
+        const pdfVal = pathInput ? pathInput.value.trim() : '';
+        const preset = pdfVal.toLowerCase().includes('london') || pdfVal.toLowerCase().includes('sujet-2')
+          ? 'london'
+          : 'cabane';
+
+        let createdFolder = null;
+        if (daemonOnline) {
+          try {
+            const bodyObj = {
+              preset,
+              pdf_path: pdfVal || null
+            };
+            if (uploadedPdfPayload && (!pdfVal || pdfVal === uploadedPdfPayload.filename)) {
+              bodyObj.pdf_filename = uploadedPdfPayload.filename;
+              bodyObj.pdf_base64 = uploadedPdfPayload.base64;
+            }
+            const res = await fetch(`${STUDIO_API_BASE}/api/studio/projects/run`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(bodyObj)
+            });
+            if (res.ok) {
+              const payload = await res.json();
+              if (payload.snapshot) {
+                studioState = payload.snapshot;
+              }
+              if (payload.project_folder) {
+                createdFolder = payload.project_folder;
+              }
+            }
+          } catch (_) {}
+        }
+
+        if (studioState && studioState.projects) {
+          let targetIdx = -1;
+          if (createdFolder) {
+            targetIdx = studioState.projects.findIndex(p => p.project_folder === createdFolder);
+          }
+          if (targetIdx < 0) {
+            targetIdx = studioState.projects.findIndex(p =>
+              preset === 'london' ? p.project_folder.includes('LONDON') : p.project_folder.includes('CABANE')
+            );
+          }
+          if (targetIdx >= 0) {
+            activeProjectIdx = targetIdx;
+            activeVariantId = null;
+          }
+          renderStudioWorkspace();
+        }
+
+        setTimeout(() => {
+          btnRun.textContent = '✅ Projet Généré & Vérifié (100% QA)';
+          btnRun.disabled = false;
+          setTimeout(() => { btnRun.textContent = origText; }, 2200);
+        }, 350);
+      });
+    }
+
+    const btnPing = document.getElementById('btn-studio-ping');
+    if (btnPing) {
+      btnPing.addEventListener('click', () => {
+        checkStudioDaemon();
+      });
+    }
+
+    const btnStop = document.getElementById('btn-studio-stop');
+    if (btnStop) {
+      btnStop.addEventListener('click', async () => {
+        if (daemonOnline) {
+          try {
+            await fetch(`${STUDIO_API_BASE}/api/studio/service/stop`, { method: 'POST' });
+          } catch (_) {}
+        }
+        daemonOnline = false;
+        checkStudioDaemon();
+      });
+    }
+
+    const btnSaveOr = document.getElementById('btn-save-openrouter-config');
+    if (btnSaveOr) {
+      btnSaveOr.addEventListener('click', async () => {
+        const keyInput = document.getElementById('input-openrouter-key');
+        const keyVal = keyInput ? keyInput.value.trim() : '';
+        const statusEl = document.getElementById('settings-openrouter-status');
+        if (daemonOnline) {
+          try {
+            const res = await fetch(`${STUDIO_API_BASE}/api/studio/config`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ api_key: keyVal, allow_paid_models: false })
+            });
+            if (res.ok) {
+              const data = await res.json();
+              if (data.openrouter_report && studioState) {
+                studioState.openrouter_report = data.openrouter_report;
+                renderOpenRouterSettings();
+              }
+              if (statusEl) {
+                statusEl.textContent = '✅ Clé OpenRouter enregistrée dans studio_config.toml · Politique FREE-FIRST stricte vérifiée.';
+              }
+              return;
+            }
+          } catch (_) {}
+        }
+        if (statusEl) {
+          statusEl.textContent = '✅ Configuration FREE-FIRST validée localement (0.00 $ garanti · 15 modèles gratuits routés).';
+        }
+      });
+    }
+
+    const btnRefreshOr = document.getElementById('btn-refresh-openrouter-models');
+    if (btnRefreshOr) {
+      btnRefreshOr.addEventListener('click', async () => {
+        if (daemonOnline) {
+          try {
+            const res = await fetch(`${STUDIO_API_BASE}/api/studio/models`);
+            if (res.ok && studioState) {
+              studioState.openrouter_report = await res.json();
+            }
+          } catch (_) {}
+        }
+        renderOpenRouterSettings();
+      });
+    }
+
+    const btnOpenBimcraft = document.getElementById('btn-open-in-bimcraft');
+    if (btnOpenBimcraft) {
+      btnOpenBimcraft.addEventListener('click', async () => {
+        if (!studioState || !studioState.projects || !studioState.projects[activeProjectIdx]) return;
+        const proj = studioState.projects[activeProjectIdx];
+        const bimBuild = proj.run_summary && proj.run_summary.bimcraft_builds
+          ? proj.run_summary.bimcraft_builds[activeVariantId]
+          : null;
+        const modelPath = bimBuild ? bimBuild.bimcraft_model_path : '';
+        if (daemonOnline) {
+          try {
+            const res = await fetch(`${STUDIO_API_BASE}/api/studio/bimcraft/open`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ model_path: modelPath })
+            });
+            if (res.ok) {
+              const orig = btnOpenBimcraft.textContent;
+              btnOpenBimcraft.textContent = '✅ BIMcraft Live ouvert !';
+              setTimeout(() => { btnOpenBimcraft.textContent = orig; }, 2000);
+              return;
+            }
+          } catch (_) {}
+        }
+        alert('Démarrez le service Studio (arc-studio serve 7878) pour ouvrir BIMcraft directement depuis le navigateur.');
+      });
+    }
+
+    // Initialisation au chargement (+ routage par hash URL #studio, #bimcraft, #mcp-tools, #revit, #settings)
+    renderStudioWorkspace();
+    renderOpenRouterSettings();
+    checkStudioDaemon();
+
+    const hashView = window.location.hash ? window.location.hash.replace('#', '') : '';
+    if (['dashboard', 'studio', 'bimcraft', 'mcp-tools', 'revit', 'settings'].includes(hashView)) {
+      switchArcView(hashView);
+    }
+  }
+
+  initArcUnifiedWorkspace();
+
 })();

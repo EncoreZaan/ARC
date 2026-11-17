@@ -3,36 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARC v3.3.0 — Pont MCP 100% Rust pour Autodesk Revit & BIMcraft</title>
-  <meta name="description" content="ARC v3.3.0 : serveur MCP 100% Rust SIMD, 268 outils BIM, Autodesk Revit 2027 & BIMcraft (macOS, Linux, Windows).">
+  <title>ARC — Architecture &amp; Revit Copilot · Autonomous Studio, BIMcraft &amp; 268 Outils MCP</title>
+  <meta name="description" content="Application unifiée ARC : Dashboard, Autonomous Studio (OpenRouter Free-First), BIMcraft 0.11.0, 268 Outils MCP Rust et Autodesk Revit 2027.">
   <link rel="canonical" href="https://encorezaan.github.io/ARC/">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./variant-blueprint.css?v=3.3.1">
+  <link rel="stylesheet" href="./variant-blueprint.css?v=4.0.0">
 </head>
 <body>
-  <!-- Header Simple & Direct -->
+  <!-- Barre de Navigation Unifiée ARC (6 Sections + Moteurs Indépendants) -->
   <header class="bp-header">
     <div class="container bp-nav-inner">
-      <a href="./" class="bp-brand">
+      <a href="#dashboard" class="bp-brand" data-arc-nav="dashboard">
         <span class="bp-brand-mark">ARC</span>
-        <span>v3.3.0</span>
-        <span class="bp-brand-sub">Blueprint Studio<br>100% Rust MCP</span>
+        <span>v4.0</span>
+        <span class="bp-brand-sub">Unified Architecture<br>100% Rust Core</span>
       </a>
 
-      <ul class="bp-nav-links">
-        <li><a href="#telemetry">Benchmarks</a></li>
-        <li><a href="#architecture">Architecture</a></li>
-        <li><a href="#outils">268 Outils</a></li>
-        <li><a href="#installation">Config &amp; Liens</a></li>
-        <li><a href="./revit_architecture_guide.md">Docs</a></li>
-        <li><a href="https://github.com/EncoreZaan/ARC" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <ul class="bp-nav-links" id="arc-unified-nav">
+        <li>
+          <button type="button" class="bp-nav-tab active" data-arc-nav="dashboard">
+            <span class="tab-dot"></span>Dashboard ARC
+          </button>
+        </li>
+        <li>
+          <button type="button" class="bp-nav-tab studio-tab" data-arc-nav="studio">
+            <span class="tab-dot"></span>Autonomous Studio
+          </button>
+        </li>
+        <li>
+          <button type="button" class="bp-nav-tab" data-arc-nav="bimcraft">
+            BIMcraft
+          </button>
+        </li>
+        <li>
+          <button type="button" class="bp-nav-tab" data-arc-nav="mcp-tools">
+            MCP Tools (268)
+          </button>
+        </li>
+        <li>
+          <button type="button" class="bp-nav-tab" data-arc-nav="revit">
+            Revit
+          </button>
+        </li>
+        <li>
+          <button type="button" class="bp-nav-tab" data-arc-nav="settings">
+            Paramètres &amp; IA
+          </button>
+        </li>
       </ul>
 
       <div class="bp-nav-actions">
+        <button type="button" class="bp-variant-switch" id="btn-toggle-all-views" title="Afficher toutes les sections sur une seule page ou naviguer par onglet">
+          Vue Unifiée
+        </button>
         <a id="nav-btn-arc" href="https://github.com/EncoreZaan/ARC/releases/download/v3.3.0/ARC-Setup-v3.3.0.exe" download class="bp-btn-primary">
           Télécharger ARC
         </a>
@@ -41,248 +68,578 @@
   </header>
 
   <main>
-    <!-- Hero Section -->
-    <section class="bp-hero" id="hero">
-      <div class="container bp-hero-grid">
-        <div>
-          <div class="bp-eyebrow">
-            <span class="dot"></span>
-            <span>REV. 3.3.0 · 100% RUST SIMD · ZERO PYTHON · 268 OUTILS</span>
-          </div>
-          <h1 class="bp-hero-title">
-            L'architecture BIM pilotée par l'IA, <span class="accent-cobalt">précision CAD</span> &amp; vitesse <span class="accent-copper">Rust</span>.
-          </h1>
-          <p class="bp-hero-subtitle">
-            Connectez Claude Desktop, Cursor et Antigravity à <strong>Autodesk Revit 2024–2027</strong> et <strong>BIMcraft</strong>. Zéro dépendance Python, Named Pipe Pool à 0.02 ms, LBVH Sweep-and-Prune et rendu DXF/SVG 1:1 natif.
-          </p>
-
-          <div class="bp-hero-cta">
-            <a id="hero-btn-bimcraft" href="https://github.com/IPedrax/BIMCraft/releases/latest" class="bp-btn-primary">
-              <span id="hero-bimcraft-btn-text">Installer BIMcraft Live</span>
-            </a>
-            <a id="hero-btn-arc" href="https://github.com/EncoreZaan/ARC/releases/download/v3.3.0/ARC-Setup-v3.3.0.exe" download class="bp-btn-secondary bp-btn-copper">
-              <span id="hero-arc-btn-text">Télécharger ARC v3.3.0 (.exe)</span>
-            </a>
-            <a href="#outils" class="bp-btn-secondary">
-              Explorer les 268 outils
-            </a>
-          </div>
-
-          <!-- Tous les liens essentiels visibles directement -->
-          <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.5rem; font-family: var(--font-mono); font-size: 0.78rem;">
-            <a href="https://github.com/EncoreZaan/ARC" target="_blank" rel="noopener noreferrer" class="bp-variant-switch">GitHub Repo ↗</a>
-            <a href="https://github.com/EncoreZaan/ARC/releases" target="_blank" rel="noopener noreferrer" class="bp-variant-switch">Releases ARC ↗</a>
-            <a href="https://github.com/IPedrax/BIMCraft/releases" target="_blank" rel="noopener noreferrer" class="bp-variant-switch">Releases BIMcraft ↗</a>
-            <a href="./revit_architecture_guide.md" class="bp-variant-switch">Guide Architecture</a>
-            <a href="./mcp_tools_reference.md" class="bp-variant-switch">Référence 268 Outils</a>
-            <a href="./claude_configuration.md" class="bp-variant-switch">Config Claude</a>
-            <a href="./troubleshooting.md" class="bp-variant-switch">Dépannage</a>
-          </div>
-
-          <div class="bp-cli-strip">
-            <span class="prompt">$</span>
-            <span>revit-mcp-server bench &amp;&amp; revit-mcp-server doctor</span>
-          </div>
-        </div>
-
-        <!-- Plan Blueprint Paramétrique -->
-        <div class="bp-draft-card">
-          <div class="bp-draft-header">
-            <span>PLANCHE A1 · DEMO_BIM_PARAMETRIC.RVT</span>
-            <span>ÉCHELLE 1:50 · SIMD LBVH</span>
-          </div>
-          <div class="bp-draft-body">
-            <svg class="bp-blueprint-svg" viewBox="0 0 460 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Plan architectural paramétrique avec cotations et balayage LBVH">
-              <rect x="36" y="34" width="388" height="196" stroke="#0B1221" stroke-width="5" fill="#FFFFFF"/>
-              <rect x="42" y="40" width="376" height="184" stroke="#1D4ED8" stroke-width="1" stroke-dasharray="4 3"/>
-
-              <line x1="185" y1="36" x2="185" y2="165" stroke="#0B1221" stroke-width="3.5"/>
-              <line x1="185" y1="165" x2="295" y2="165" stroke="#0B1221" stroke-width="3.5"/>
-              <line x1="295" y1="36" x2="295" y2="230" stroke="#0B1221" stroke-width="3.5"/>
-
-              <path d="M 185 120 L 150 120 A 35 35 0 0 1 185 85" stroke="#1D4ED8" stroke-width="1.2" fill="rgba(29,78,216,0.06)"/>
-              <path d="M 295 190 L 330 190 A 35 35 0 0 0 295 155" stroke="#1D4ED8" stroke-width="1.2" fill="rgba(29,78,216,0.06)"/>
-
-              <line x1="70" y1="228" x2="135" y2="105" stroke="#C2410C" stroke-width="1.2" stroke-dasharray="5 4"/>
-              <line x1="115" y1="228" x2="160" y2="105" stroke="#C2410C" stroke-width="1.2" stroke-dasharray="5 4"/>
-              <circle cx="110" cy="140" r="16" stroke="#C2410C" stroke-width="1.2" fill="rgba(194,65,12,0.08)"/>
-
-              <line x1="36" y1="18" x2="424" y2="18" stroke="#1D4ED8" stroke-width="1"/>
-              <line x1="36" y1="12" x2="36" y2="24" stroke="#1D4ED8" stroke-width="1"/>
-              <line x1="424" y1="12" x2="424" y2="24" stroke="#1D4ED8" stroke-width="1"/>
-              <rect x="195" y="9" width="70" height="16" fill="#FAFBFD"/>
-              <text x="230" y="21" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#1D4ED8">11 400 mm</text>
-
-              <text x="110" y="95" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0B1221">SÉJOUR · 34.2 m²</text>
-              <text x="110" y="109" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#15803D">FLJ 3.8% · RE2020 OK</text>
-
-              <text x="240" y="100" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0B1221">CUISINE</text>
-              <text x="240" y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#64748B">11.8 m²</text>
-
-              <text x="360" y="130" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0B1221">CHAMBRE 01</text>
-              <text x="360" y="143" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#1D4ED8">PMR Ø1500 OK</text>
-
-              <g class="bp-scan-line">
-                <line x1="28" y1="50" x2="432" y2="50" stroke="#C2410C" stroke-width="1.5"/>
-                <rect x="336" y="38" width="92" height="14" rx="2" fill="#C2410C"/>
-                <text x="382" y="48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" fill="#FFFFFF">LBVH · 0.14 ms</text>
-              </g>
-            </svg>
-          </div>
-          <div class="bp-draft-footer">
-            <div class="bp-draft-cell">
-              <div class="bp-draft-cell-label">IPC Pipe Pool</div>
-              <div class="bp-draft-cell-val">0.02 ms</div>
+    <!-- =====================================================================
+         SECTION 1 : DASHBOARD ARC
+         ===================================================================== -->
+    <div class="arc-view-panel active-view" id="view-dashboard">
+      <section class="bp-hero" id="hero">
+        <div class="container bp-hero-grid">
+          <div>
+            <div class="bp-eyebrow">
+              <span class="dot"></span>
+              <span>ARC UNIFIED PLATFORM · RUST CORE · AUTONOMOUS STUDIO · BIMCRAFT 0.11.0 · 268 MCP TOOLS</span>
             </div>
-            <div class="bp-draft-cell">
-              <div class="bp-draft-cell-label">Clash 10k LBVH</div>
-              <div class="bp-draft-cell-val">0.14 ms</div>
+            <h1 class="bp-hero-title">
+              Une seule application <span class="accent-cobalt">ARC</span>, plusieurs moteurs <span class="accent-copper">Rust</span> indépendants.
+            </h1>
+            <p class="bp-hero-subtitle">
+              Importez un sujet PDF dans <strong>Autonomous Studio</strong> pour concevoir, vérifier et livrer un projet complet dans <strong>BIMcraft</strong>, ou pilotez <strong>Autodesk Revit 2024–2027</strong> et Claude Desktop via les <strong>268 outils MCP</strong>.
+            </p>
+
+            <div class="bp-hero-cta">
+              <button type="button" class="bp-btn-primary bp-btn-copper" data-arc-nav="studio">
+                Ouvrir Autonomous Studio →
+              </button>
+              <a id="hero-btn-bimcraft" href="https://github.com/IPedrax/BIMCraft/releases/latest" class="bp-btn-primary">
+                <span id="hero-bimcraft-btn-text">Installer BIMcraft Live</span>
+              </a>
+              <a id="hero-btn-arc" href="https://github.com/EncoreZaan/ARC/releases/download/v3.3.0/ARC-Setup-v3.3.0.exe" download class="bp-btn-secondary">
+                <span id="hero-arc-btn-text">Télécharger ARC v3.3.0 (.exe)</span>
+              </a>
+              <button type="button" class="bp-btn-secondary" data-arc-nav="mcp-tools">
+                Explorer les 268 outils MCP
+              </button>
             </div>
-            <div class="bp-draft-cell">
-              <div class="bp-draft-cell-label">ACV INIES Rust</div>
-              <div class="bp-draft-cell-val">191 µs</div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.5rem; font-family: var(--font-mono); font-size: 0.78rem;">
+              <a href="https://github.com/EncoreZaan/ARC" target="_blank" rel="noopener noreferrer" class="bp-variant-switch">GitHub Repo ↗</a>
+              <a href="https://github.com/EncoreZaan/ARC/releases" target="_blank" rel="noopener noreferrer" class="bp-variant-switch">Releases ARC ↗</a>
+              <a href="https://github.com/IPedrax/BIMCraft/releases" target="_blank" rel="noopener noreferrer" class="bp-variant-switch">Releases BIMcraft ↗</a>
+              <a href="./revit_architecture_guide.md" class="bp-variant-switch">Guide Architecture</a>
+              <a href="./mcp_tools_reference.md" class="bp-variant-switch">Référence 268 Outils</a>
+              <a href="./claude_configuration.md" class="bp-variant-switch">Config Claude</a>
+              <a href="./troubleshooting.md" class="bp-variant-switch">Dépannage</a>
+            </div>
+
+            <div class="bp-cli-strip">
+              <span class="prompt">$</span>
+              <span>arc-studio serve 7878 &amp;&amp; revit-mcp-server doctor</span>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Bento Telemetry Section -->
-    <section class="bp-section" id="telemetry">
-      <div class="container">
-        <div class="bp-section-head">
-          <div>
-            <div class="bp-section-tag">01 · BENCHMARKS MATÉRIELS CERTIFIÉS</div>
-            <h2 class="bp-section-title">Tout en Rust natif. Zéro goulot d'étranglement.</h2>
-          </div>
-          <p class="bp-section-desc">
-            Chaque calcul critique (clash 3D, bilan carbone INIES, parseur vocal NLP, rendu DXF/SVG et diff de variantes) s'exécute en mémoire statique Rust avec Rayon + SIMD natif.
-          </p>
-        </div>
+          <!-- Plan Blueprint Paramétrique & État des Services -->
+          <div class="bp-draft-card">
+            <div class="bp-draft-header">
+              <span>ÉTAT DES MOTEURS INDÉPENDANTS ARC</span>
+              <span id="dash-studio-badge">STUDIO RUST · PRÊT</span>
+            </div>
+            <div class="bp-draft-body">
+              <svg class="bp-blueprint-svg" viewBox="0 0 460 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Plan architectural paramétrique avec cotations et balayage LBVH">
+                <rect x="36" y="34" width="388" height="196" stroke="#0B1221" stroke-width="5" fill="#FFFFFF"/>
+                <rect x="42" y="40" width="376" height="184" stroke="#1D4ED8" stroke-width="1" stroke-dasharray="4 3"/>
 
-        <div class="bp-bento-grid">
-          <div class="bp-metric-card highlight-cobalt">
-            <div class="bp-metric-label">Named Pipe Pool</div>
-            <div class="bp-metric-value">0.02 <span class="unit">ms</span></div>
-            <p class="bp-metric-sub">Descripteur persistant Windows + CachedPipeSecurity C#, 0 syscall par appel.</p>
-          </div>
+                <line x1="185" y1="36" x2="185" y2="165" stroke="#0B1221" stroke-width="3.5"/>
+                <line x1="185" y1="165" x2="295" y2="165" stroke="#0B1221" stroke-width="3.5"/>
+                <line x1="295" y1="36" x2="295" y2="230" stroke="#0B1221" stroke-width="3.5"/>
 
-          <div class="bp-metric-card highlight-copper">
-            <div class="bp-metric-label">Sweep-and-Prune 10k</div>
-            <div class="bp-metric-value">0.14 <span class="unit">ms</span></div>
-            <p class="bp-metric-sub">128× plus rapide que l'approche naïve. LBVH clusterisé aligné cache L1.</p>
-          </div>
+                <path d="M 185 120 L 150 120 A 35 35 0 0 1 185 85" stroke="#1D4ED8" stroke-width="1.2" fill="rgba(29,78,216,0.06)"/>
+                <path d="M 295 190 L 330 190 A 35 35 0 0 0 295 155" stroke="#1D4ED8" stroke-width="1.2" fill="rgba(29,78,216,0.06)"/>
 
-          <div class="bp-metric-card">
-            <div class="bp-metric-label">Empreinte Contexte IA</div>
-            <div class="bp-metric-value">-90.5 <span class="unit">%</span></div>
-            <p class="bp-metric-sub">Profil compact par défaut + format colonnaire + extraction multimodale Base64.</p>
-          </div>
+                <line x1="70" y1="228" x2="135" y2="105" stroke="#C2410C" stroke-width="1.2" stroke-dasharray="5 4"/>
+                <line x1="115" y1="228" x2="160" y2="105" stroke="#C2410C" stroke-width="1.2" stroke-dasharray="5 4"/>
+                <circle cx="110" cy="140" r="16" stroke="#C2410C" stroke-width="1.2" fill="rgba(194,65,12,0.08)"/>
 
-          <div class="bp-metric-card">
-            <div class="bp-metric-label">Runtime CAD (0 Python)</div>
-            <div class="bp-metric-value">&lt; 4 <span class="unit">Mo</span></div>
-            <p class="bp-metric-sub">Binaire unique <code>revit-mcp-server cad-mcp</code> : 190 Mo de RAM libérés.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+                <line x1="36" y1="18" x2="424" y2="18" stroke="#1D4ED8" stroke-width="1"/>
+                <line x1="36" y1="12" x2="36" y2="24" stroke="#1D4ED8" stroke-width="1"/>
+                <line x1="424" y1="12" x2="424" y2="24" stroke="#1D4ED8" stroke-width="1"/>
+                <rect x="195" y="9" width="70" height="16" fill="#FAFBFD"/>
+                <text x="230" y="21" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#1D4ED8">11 400 mm</text>
 
-    <!-- Dual-Engine Architecture -->
-    <section class="bp-section" id="architecture">
-      <div class="container">
-        <div class="bp-section-head">
-          <div>
-            <div class="bp-section-tag">02 · ARCHITECTURE DUAL-ENGINE</div>
-            <h2 class="bp-section-title">macOS, Linux &amp; Windows en natif.</h2>
-          </div>
-          <p class="bp-section-desc">
-            Que vous travailliez sur Mac Apple Silicon M1–M4 avec BIMcraft Metal ou sur station Windows avec Autodesk Revit 2027, l'API MCP reste strictement identique.
-          </p>
-        </div>
+                <text x="110" y="95" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0B1221">SÉJOUR · 34.2 m²</text>
+                <text x="110" y="109" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#15803D">FLJ 3.8% · RE2020 OK</text>
 
-        <div class="bp-arch-grid">
-          <article class="bp-arch-card">
-            <span class="bp-arch-badge copper">SERVEUR MCP RUST (v3.3.0)</span>
-            <h3>Cerveau Géométrique &amp; IPC</h3>
-            <p>Binaire autonome compilé en Fat LTO + SIMD natif. Orchestre les 268 outils, le circuit breaker et le cache sub-milliseconde.</p>
-            <ul class="bp-arch-list">
-              <li>→ carbon_lca.rs (INIES RE2020 en 191 µs)</li>
-              <li>→ dxf_engine.rs (SVG/PDF 1:1 sans Python)</li>
-              <li>→ voice_nlp.rs &amp; branch_engine.rs</li>
-            </ul>
-          </article>
+                <text x="240" y="100" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0B1221">CUISINE</text>
+                <text x="240" y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#64748B">11.8 m²</text>
 
-          <article class="bp-arch-card">
-            <span class="bp-arch-badge">ENGINE A · REVIT 2027</span>
-            <h3>Add-in C# .NET 10</h3>
-            <p>Exécution thread-safe sur le thread STA Revit via Dual-Queue (ExternalEvent + Idling) et SafeModalInterceptor.</p>
-            <ul class="bp-arch-list">
-              <li>→ Named Pipe \\.\pipe\revit_mcp_ipc</li>
-              <li>→ SharedMemory 64 Mo WriteArray</li>
-              <li>→ DirectContext3D HUD holographique</li>
-            </ul>
-          </article>
+                <text x="360" y="130" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0B1221">CHAMBRE 01</text>
+                <text x="360" y="143" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#1D4ED8">PMR Ø1500 OK</text>
 
-          <article class="bp-arch-card">
-            <span class="bp-arch-badge emerald">ENGINE B · BIMCRAFT</span>
-            <h3>Modeleur Rust Multi-OS</h3>
-            <p>Rendu matériel Metal (macOS) &amp; Vulkan/DX12. Importe .rvt/.rfa sans licence Windows et bascule automatiquement en fallback.</p>
-            <ul class="bp-arch-list">
-              <li>→ Cache OnceLock &amp; PID TTL (390 µs)</li>
-              <li>→ Spawn direct Win32 / Unix Socket</li>
-              <li>→ Sync GitHub Releases 1-clic</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Explorateur des 268 Outils -->
-    <section class="bp-section" id="outils">
-      <div class="container">
-        <div class="bp-section-head">
-          <div>
-            <div class="bp-section-tag">03 · CATALOGUE UNIFIÉ</div>
-            <h2 class="bp-section-title">Explorateur des <span id="active-tool-count">268</span> outils MCP</h2>
-          </div>
-          <p class="bp-section-desc">
-            Filtrez par domaine ou recherchez un outil précis. Chaque outil est accessible directement ou via le méta-outil <code>revit_dispatch</code>.
-          </p>
-        </div>
-
-        <div class="bp-tools-controls">
-          <div class="bp-search-wrap">
-            <svg class="bp-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="tool-search" class="tool-search-input" placeholder="Rechercher parmi les 268 outils (ex: clash, re2020, dxf, bimcraft, wall...)">
-          </div>
-
-          <div class="tools-filters" id="category-filters">
-            <button class="filter-btn active" data-category="all">Tous</button>
-            <button class="filter-btn" data-category="rust">Performance Rust</button>
-            <button class="filter-btn" data-category="bimcraft">BIMcraft</button>
-            <button class="filter-btn" data-category="modeling">Modélisation</button>
-            <button class="filter-btn" data-category="analysis">RE2020 &amp; Audits</button>
-            <button class="filter-btn" data-category="docs">CAD &amp; Docs</button>
+                <g class="bp-scan-line">
+                  <line x1="28" y1="50" x2="432" y2="50" stroke="#C2410C" stroke-width="1.5"/>
+                  <rect x="336" y="38" width="92" height="14" rx="2" fill="#C2410C"/>
+                  <text x="382" y="48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" fill="#FFFFFF">LBVH · 0.14 ms</text>
+                </g>
+              </svg>
+            </div>
+            <div class="bp-draft-footer">
+              <div class="bp-draft-cell">
+                <div class="bp-draft-cell-label">IPC Pipe Pool</div>
+                <div class="bp-draft-cell-val">0.02 ms</div>
+              </div>
+              <div class="bp-draft-cell">
+                <div class="bp-draft-cell-label">OpenRouter IA</div>
+                <div class="bp-draft-cell-val" id="dash-free-models-val">15 Free (0$)</div>
+              </div>
+              <div class="bp-draft-cell">
+                <div class="bp-draft-cell-label">Non-Régression MCP</div>
+                <div class="bp-draft-cell-val" id="dash-mcp-intact-val">100% Intact</div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="tools-grid" id="tools-grid"></div>
-      </div>
-    </section>
-
-    <!-- Installation, Config & Tous les Liens -->
-    <section class="bp-section" id="installation">
-      <div class="container bp-split-grid">
-        <div class="bp-code-box">
-          <div class="bp-code-bar">
-            <span>claude_desktop_config.json (100% Rust)</span>
-            <button class="copy-btn" id="btn-copy-config">Copier JSON</button>
+      <!-- Bento Telemetry Section -->
+      <section class="bp-section" id="telemetry">
+        <div class="container">
+          <div class="bp-section-head">
+            <div>
+              <div class="bp-section-tag">01 · BENCHMARKS MATÉRIELS &amp; ÉCOSYSTÈME UNIFIÉ</div>
+              <h2 class="bp-section-title">Tout en Rust natif. Zéro goulot d'étranglement.</h2>
+            </div>
+            <p class="bp-section-desc">
+              Chaque moteur fonctionne dans son propre espace mémoire isolé : le serveur MCP historique reste 100% dédié à Claude Desktop &amp; Revit, tandis qu'Autonomous Studio orchestre la conception autonome de bout en bout.
+            </p>
           </div>
-          <pre class="bp-code-pre"><code id="config-code-content">{
+
+          <div class="bp-bento-grid">
+            <div class="bp-metric-card highlight-cobalt">
+              <div class="bp-metric-label">Named Pipe Pool (MCP)</div>
+              <div class="bp-metric-value">0.02 <span class="unit">ms</span></div>
+              <p class="bp-metric-sub">Descripteur persistant Windows + CachedPipeSecurity C#, 0 syscall par appel.</p>
+            </div>
+
+            <div class="bp-metric-card highlight-copper">
+              <div class="bp-metric-label">Autonomous Studio E2E</div>
+              <div class="bp-metric-value">0.88 <span class="unit">sec</span></div>
+              <p class="bp-metric-sub">Analyse PDF, 3 variantes IA, maquettes 3D BIMcraft (.ifc/.glb), QA &amp; plans DXF/SVG/PDF.</p>
+            </div>
+
+            <div class="bp-metric-card">
+              <div class="bp-metric-label">OpenRouter Free-First</div>
+              <div class="bp-metric-value">0.00 <span class="unit">$</span></div>
+              <p class="bp-metric-sub">Découverte dynamique de 15 modèles gratuits sur 468, routage par tâche et failover.</p>
+            </div>
+
+            <div class="bp-metric-card">
+              <div class="bp-metric-label">Isolation &amp; Contrats MCP</div>
+              <div class="bp-metric-value">268 <span class="unit">outils</span></div>
+              <p class="bp-metric-sub">Binaire <code>revit-mcp-server.exe</code> et <code>claude_desktop_config.json</code> 100% préservés.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =====================================================================
+         SECTION 2 : AUTONOMOUS STUDIO (INTÉGRÉ DANS ARC, MOTEUR ISOLÉ)
+         ===================================================================== -->
+    <div class="arc-view-panel" id="view-studio">
+      <section class="bp-section" id="autonomous-studio-section">
+        <div class="container">
+          <!-- Barre de contrôle du processus indépendant Rust Studio -->
+          <div class="studio-service-bar">
+            <div class="studio-service-left">
+              <span class="studio-status-pill" id="studio-daemon-pill">● SERVICE STUDIO : SNAPSHOT ACTIF</span>
+              <span id="studio-daemon-meta">Processus Rust isolé · API Locale 127.0.0.1:7878 · Zéro dépendance MCP</span>
+            </div>
+            <div class="studio-service-actions">
+              <button type="button" class="studio-mini-btn" id="btn-studio-ping">Vérifier Service (127.0.0.1:7878)</button>
+              <button type="button" class="studio-mini-btn" data-arc-nav="settings">Configurer Clé OpenRouter (Free-First)</button>
+              <button type="button" class="studio-mini-btn danger" id="btn-studio-stop" title="Arrête uniquement le démon Autonomous Studio sans affecter ARC ni les serveurs MCP">Arrêter Service Studio</button>
+            </div>
+          </div>
+
+          <div class="bp-section-head" style="margin-bottom: 1.5rem;">
+            <div>
+              <div class="bp-section-tag">02 · ARC AUTONOMOUS STUDIO (SYSTÈME INDÉPENDANT INTÉGRÉ)</div>
+              <h2 class="bp-section-title">De n'importe quel sujet PDF à la maquette BIMcraft &amp; aux livrables.</h2>
+            </div>
+            <p class="bp-section-desc">
+              Importez un cahier des charges PDF (avec plans ou photos), lancez les 6 agents IA (politique <strong>OpenRouter FREE-FIRST</strong>) et récupérez les maquettes 3D et planches 1:50 contrôlées.
+            </p>
+          </div>
+
+          <!-- Import PDF & Lancement de Projet Autonome -->
+          <div class="studio-launcher-card">
+            <div class="studio-launcher-grid">
+              <div class="studio-pdf-dropzone">
+                <div style="font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; color: var(--bp-cobalt);">
+                  IMPORTER UN SUJET ARCHITECTURAL (PDF + PLANS / PHOTOS)
+                </div>
+                <div class="studio-input-row">
+                  <input type="file" id="studio-pdf-file-input" accept=".pdf" style="font-family: var(--font-mono); font-size: 0.78rem;">
+                  <input type="text" id="studio-pdf-path-input" class="studio-text-input" placeholder="Ou chemin local du PDF (ex: C:\Users\teoba\Downloads\LA_CABANE_V3_Planches_A4_1-50.pdf)">
+                </div>
+                <div style="font-size: 0.78rem; color: var(--bp-ink-soft);">
+                  Le moteur <code>studio-doc-intel</code> extrait automatiquement le texte, les cotes, les surfaces, les contraintes structurelles et l'archétype spatial.
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; color: var(--bp-ink-muted); text-transform: uppercase;">
+                  PROJETS AUTONOMES DISPONIBLES &amp; EXÉCUTION DIRECTE
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;" id="studio-project-selector-bar">
+                  <!-- Boutons des projets injectés dynamiquement par app.js -->
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.25rem;">
+                  <button type="button" class="bp-btn-primary bp-btn-copper" id="btn-run-autonomous-project">
+                    ▶ Lancer le Projet Autonome (9 étapes)
+                  </button>
+                  <button type="button" class="bp-btn-primary" id="btn-open-in-bimcraft">
+                    ⚡ Ouvrir dans BIMcraft Live
+                  </button>
+                  <button type="button" class="bp-btn-secondary" id="btn-switch-cabane">
+                    Sujet 1 : La Cabane (3,05 × 6,10 m)
+                  </button>
+                  <button type="button" class="bp-btn-secondary" id="btn-switch-london">
+                    Sujet 2 : Appartement Londonien (70 m²)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grille Principale du Studio : Colonne Gauche (Brief + Agents + IA) / Colonne Droite (Variantes + Visionneuse + QA + Livrables) -->
+          <div class="studio-workspace-grid">
+            <!-- Colonne Gauche -->
+            <div>
+              <div class="studio-panel-card">
+                <div class="studio-panel-title">
+                  <span>CAHIER DES CHARGES EXTRAIT DU PDF</span>
+                  <span id="studio-brief-pages-badge" style="color: var(--bp-cobalt);">PDF ANALYSÉ</span>
+                </div>
+                <h3 id="studio-project-title" style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 900; margin-bottom: 0.35rem;">
+                  LA CABANE — Micro-Habitat &amp; Atelier
+                </h3>
+                <p id="studio-project-subtitle" style="font-size: 0.85rem; color: var(--bp-ink-soft); margin-bottom: 0.85rem;">
+                  Chargement du modèle architectural...
+                </p>
+                <div id="studio-brief-constraints" style="font-family: var(--font-mono); font-size: 0.76rem; background: var(--bp-paper); padding: 0.75rem; border-radius: 4px; border: 1px solid var(--bp-line-strong); margin-bottom: 0.85rem;">
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--bp-ink-muted); margin-bottom: 0.4rem;">
+                  PROGRAMME ARCHITECTURAL REQUIS :
+                </div>
+                <div id="studio-brief-spaces" style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.8rem;">
+                </div>
+              </div>
+
+              <div class="studio-panel-card">
+                <div class="studio-panel-title">
+                  <span>PIPELINE DES 6 AGENTS IA &amp; MOTEURS RUST</span>
+                  <span id="studio-total-duration" style="color: var(--bp-emerald);">876 ms</span>
+                </div>
+                <div class="studio-agent-list" id="studio-agents-timeline">
+                  <!-- Journal des agents injecté dynamiquement -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Colonne Droite -->
+            <div>
+              <!-- Comparateur des 3 Propositions Architecturales -->
+              <div class="studio-panel-card">
+                <div class="studio-panel-title">
+                  <span>PROPOSITIONS ARCHITECTURALES GÉNÉRÉES &amp; SÉLECTION RAISONNÉE</span>
+                  <span id="studio-selected-badge" style="color: var(--bp-cobalt);">3 VARIANTES</span>
+                </div>
+                <div class="studio-variants-grid" id="studio-variants-container">
+                  <!-- Cartes des 3 variantes injectées dynamiquement -->
+                </div>
+                <div id="studio-selection-rationale" style="font-size: 0.84rem; background: var(--bp-cobalt-soft); border-left: 3.5px solid var(--bp-cobalt); padding: 0.75rem 1rem; border-radius: 4px; color: var(--bp-ink);">
+                </div>
+              </div>
+
+              <!-- Visionneuse Architecturale Intégrée (Plan BIMcraft 1:50, Zoning SVG, Coupe A-A, Notice) -->
+              <div class="studio-viewer-box">
+                <div class="studio-viewer-tabs">
+                  <button type="button" class="studio-viewer-tab active" data-studio-viz="zoning">
+                    Plan Zoning &amp; Circulation (1:50)
+                  </button>
+                  <button type="button" class="studio-viewer-tab" data-studio-viz="bimcraft">
+                    Plan Technique BIMcraft 0.11.0 (SVG)
+                  </button>
+                  <button type="button" class="studio-viewer-tab" data-studio-viz="section">
+                    Coupe Longitudinale A-A (HSP &amp; Dalle)
+                  </button>
+                  <button type="button" class="studio-viewer-tab" data-studio-viz="notice">
+                    Notice Architecturale &amp; Surfaces
+                  </button>
+                </div>
+                <div class="studio-viewer-canvas" id="studio-viewer-canvas">
+                  <!-- Rendu SVG ou Notice Markdown injecté dynamiquement -->
+                </div>
+              </div>
+
+              <!-- Contrôle Qualité Mathématique & Auto-Correction (QA Engine) -->
+              <div class="studio-panel-card">
+                <div class="studio-panel-title">
+                  <span>CONTRÔLE QUALITÉ GÉOMÉTRIQUE &amp; AUTO-CORRECTION (STUDIO-QA)</span>
+                  <span id="studio-qa-score-badge" style="color: var(--bp-emerald);">SCORE QA : 100%</span>
+                </div>
+                <div style="overflow-x: auto;">
+                  <table class="studio-qa-table">
+                    <thead>
+                      <tr>
+                        <th>Code Règle</th>
+                        <th>Catégorie</th>
+                        <th>Statut</th>
+                        <th>Mesure / Vérification &amp; Auto-Correction</th>
+                      </tr>
+                    </thead>
+                    <tbody id="studio-qa-tbody">
+                      <!-- Lignes QA injectées dynamiquement -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Livrables Finaux Générés (.bimcraft, .ifc, .glb, .dxf, .svg, .pdf, .md) -->
+              <div class="studio-panel-card">
+                <div class="studio-panel-title">
+                  <span>LIVRABLES ARCHITECTURAUX &amp; MAQUETTES BIMCRAFT GÉNÉRÉS</span>
+                  <span>ÉCHELLE 1:50 · UNITÉS MM</span>
+                </div>
+                <div class="studio-deliverables-grid" id="studio-deliverables-grid">
+                  <!-- Cartes de livrables injectées dynamiquement -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =====================================================================
+         SECTION 3 : BIMCRAFT (MOTEUR BIM PRINCIPAL 100% RUST)
+         ===================================================================== -->
+    <div class="arc-view-panel" id="view-bimcraft">
+      <section class="bp-section" id="bimcraft-section">
+        <div class="container">
+          <div class="bp-section-head">
+            <div>
+              <div class="bp-section-tag">03 · ENGINE PRIMAIRE : BIMCRAFT 0.11.0 (100% RUST)</div>
+              <h2 class="bp-section-title">Modeleur BIM autonome multi-OS sans dépendance Revit.</h2>
+            </div>
+            <p class="bp-section-desc">
+              BIMcraft compile en une seule passe les scripts <code>.bcs</code> générés par Autonomous Studio vers les formats natifs <code>.bimcraft</code>, <code>.ifc</code> (IFC4), <code>.glb</code> (glTF 2.0 3D), <code>.svg</code> et <code>.pdf</code>.
+            </p>
+          </div>
+
+          <div class="bp-arch-grid" style="margin-bottom: 2.5rem;">
+            <article class="bp-arch-card">
+              <span class="bp-arch-badge emerald">BIMCRAFT CLI 0.11.0</span>
+              <h3>Compilation Transactionnelle</h3>
+              <p>Plus de 170 commandes géométriques en Rust natif : murs porteurs, cloisons, dalles, toitures, portes, fenêtres, cotations et mobilier 3D CSG.</p>
+              <ul class="bp-arch-list">
+                <li>→ Boîtes 3D &amp; Cylindres paramétriques</li>
+                <li>→ Détection de chevauchement d'ouvertures</li>
+                <li>→ Vérification <code>bimcraft-cli info --json</code></li>
+              </ul>
+            </article>
+
+            <article class="bp-arch-card">
+              <span class="bp-arch-badge copper">EXPORTS STANDARDS OUVERTS</span>
+              <h3>Interopérabilité IFC4 &amp; glTF 2.0</h3>
+              <p>Chaque variante conçue dans Autonomous Studio produit immédiatement une maquette 3D <code>.glb</code> et un modèle <code>.ifc</code> exploitable dans tout logiciel BIM.</p>
+              <ul class="bp-arch-list">
+                <li>→ Export natif <code>.bimcraft</code> &amp; <code>.ifc</code></li>
+                <li>→ Maquette 3D <code>.glb</code> (glTF 2.0)</li>
+                <li>→ Planches vectorielles <code>.svg</code> &amp; <code>.pdf</code></li>
+              </ul>
+            </article>
+
+            <article class="bp-arch-card">
+              <span class="bp-arch-badge">MULTI-PLATEFORME</span>
+              <h3>macOS Metal, Windows &amp; Linux</h3>
+              <p>Exécution autonome en local avec accélération matérielle GPU Metal (Apple Silicon M1–M4) et Vulkan/DirectX 12 sur Windows et Linux.</p>
+              <ul class="bp-arch-list">
+                <li>→ Zéro licence propriétaire requise</li>
+                <li>→ Temps de build &lt; 300 ms par variante</li>
+                <li>→ Pont direct vers MCP &amp; Studio</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="bp-download-panel">
+            <div class="bp-section-tag">TÉLÉCHARGEMENTS DIRECTS BIMCRAFT &amp; ARC</div>
+            <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem;">
+              Installer BIMcraft &amp; ARC sur votre poste
+            </h3>
+            <p id="detected-os-msg" style="font-size: 0.9rem; color: var(--bp-ink-soft);">
+              Écoute active GitHub API : détection automatique de votre système d'exploitation.
+            </p>
+
+            <div class="bp-os-grid" id="bimcraft-download-row">
+              <a id="bimcraft-btn-mac" href="https://github.com/IPedrax/BIMCraft/releases/latest" class="btn-dl-platform">
+                <span id="bimcraft-label-mac">macOS .dmg (Metal)</span>
+              </a>
+              <a id="bimcraft-btn-win" href="https://github.com/IPedrax/BIMCraft/releases/latest" class="btn-dl-platform">
+                <span id="bimcraft-label-win">Windows .msi (x64)</span>
+              </a>
+              <a id="bimcraft-btn-linux" href="https://github.com/IPedrax/BIMCraft/releases/latest" class="btn-dl-platform">
+                <span id="bimcraft-label-linux">Linux .AppImage</span>
+              </a>
+              <a id="arc-btn-win" href="https://github.com/EncoreZaan/ARC/releases/download/v3.3.0/ARC-Setup-v3.3.0.exe" download class="btn-dl-platform">
+                <span id="arc-label-win">ARC v3.3.0 (.exe Windows)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =====================================================================
+         SECTION 4 : MCP TOOLS (268 OUTILS HISTORIQUES 100% PRÉSERVÉS)
+         ===================================================================== -->
+    <div class="arc-view-panel" id="view-mcp-tools">
+      <section class="bp-section" id="outils">
+        <div class="container">
+          <div class="bp-section-head">
+            <div>
+              <div class="bp-section-tag">04 · CATALOGUE MCP HISTORIQUE (ZÉRO RÉGRESSION)</div>
+              <h2 class="bp-section-title">Explorateur des <span id="active-tool-count">268</span> outils MCP</h2>
+            </div>
+            <p class="bp-section-desc">
+              Tous les outils MCP historiques (`revit-mcp-server.exe` et `cad-mcp`) continuent de fonctionner exactement comme avant avec Claude Desktop et les autres clients MCP.
+            </p>
+          </div>
+
+          <div class="bp-tools-controls">
+            <div class="bp-search-wrap">
+              <svg class="bp-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="tool-search" class="tool-search-input" placeholder="Rechercher parmi les 268 outils (ex: clash, re2020, dxf, bimcraft, wall...)">
+            </div>
+
+            <div class="tools-filters" id="category-filters">
+              <button class="filter-btn active" data-category="all">Tous</button>
+              <button class="filter-btn" data-category="rust">Performance Rust</button>
+              <button class="filter-btn" data-category="bimcraft">BIMcraft</button>
+              <button class="filter-btn" data-category="modeling">Modélisation</button>
+              <button class="filter-btn" data-category="analysis">RE2020 &amp; Audits</button>
+              <button class="filter-btn" data-category="docs">CAD &amp; Docs</button>
+            </div>
+          </div>
+
+          <div class="tools-grid" id="tools-grid"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =====================================================================
+         SECTION 5 : REVIT (ADD-IN C# .NET 10 & ADAPTATEUR SECONDAIRE)
+         ===================================================================== -->
+    <div class="arc-view-panel" id="view-revit">
+      <section class="bp-section" id="architecture">
+        <div class="container">
+          <div class="bp-section-head">
+            <div>
+              <div class="bp-section-tag">05 · INTÉGRATION AUTODESK REVIT 2027 &amp; DUAL-ENGINE</div>
+              <h2 class="bp-section-title">Pont IPC Named Pipe 0.02 ms &amp; Adaptateur Studio.</h2>
+            </div>
+            <p class="bp-section-desc">
+              L'add-in C# .NET 10 (`RevitMCP.dll`) et le serveur `revit-mcp-server.exe` restent 100% indépendants d'Autonomous Studio, tout en pouvant recevoir un payload transactionnel JSON optionnel.
+            </p>
+          </div>
+
+          <div class="bp-arch-grid">
+            <article class="bp-arch-card">
+              <span class="bp-arch-badge">ADD-IN C# .NET 10 (REVIT 2027)</span>
+              <h3>Exécution STA Thread-Safe</h3>
+              <p>Déployé dans <code>%APPDATA%\Autodesk\Revit\Addins\2027\</code> avec panneau ancrable WPF <em>Revit AI Copilot</em> et intercepteur modal sécurisé.</p>
+              <ul class="bp-arch-list">
+                <li>→ Named Pipe <code>\\.\pipe\revit_mcp_ipc</code></li>
+                <li>→ SharedMemory 64 Mo WriteArray</li>
+                <li>→ DirectContext3D HUD holographique</li>
+              </ul>
+            </article>
+
+            <article class="bp-arch-card">
+              <span class="bp-arch-badge copper">SERVEUR MCP RUST (v3.3.0)</span>
+              <h3>Contrat MCP Certifié Intact</h3>
+              <p>Empreinte SHA-256 vérifiée automatiquement à chaque exécution d'Autonomous Studio par la crate <code>studio-mcp-bridge</code>.</p>
+              <ul class="bp-arch-list">
+                <li>→ <code>tools_manifest.json</code> : 100% intact</li>
+                <li>→ Profils <code>compact</code> (28) &amp; <code>all</code> (230)</li>
+                <li>→ Microservice <code>cad-mcp</code> Rust natif</li>
+              </ul>
+            </article>
+
+            <article class="bp-arch-card">
+              <span class="bp-arch-badge emerald">PONT FACULTATIF STUDIO → REVIT</span>
+              <h3>Payload Batch Transactionnel</h3>
+              <p>Chaque projet conçu dans Autonomous Studio génère un fichier <code>revit_2027_optional_batch_payload.json</code> prêt à être rejoué dans Revit 2027 si souhaité.</p>
+              <ul class="bp-arch-list">
+                <li>→ Aucune dépendance inverse vers Studio</li>
+                <li>→ Conversion automatique mm → pieds internes</li>
+                <li>→ Compatible <code>arc_batch_macro</code></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =====================================================================
+         SECTION 6 : PARAMÈTRES ET CONFIGURATION IA (OPENROUTER FREE-FIRST & MCP)
+         ===================================================================== -->
+    <div class="arc-view-panel" id="view-settings">
+      <section class="bp-section" id="installation">
+        <div class="container">
+          <div class="bp-section-head">
+            <div>
+              <div class="bp-section-tag">06 · PARAMÈTRES IA OPENROUTER (FREE-FIRST) &amp; CONFIGURATION MCP</div>
+              <h2 class="bp-section-title">Une seule clé API OpenRouter. Politique 100% Gratuite stricte.</h2>
+            </div>
+            <p class="bp-section-desc">
+              Configurez votre clé OpenRouter unique : ARC découvre automatiquement tous les modèles disponibles, filtre les modèles à <strong>0.00 $</strong>, les route par tâche et bloque tout appel payant non autorisé.
+            </p>
+          </div>
+
+          <div class="bp-split-grid" style="margin-bottom: 2rem;">
+            <!-- Panneau Configuration OpenRouter Free-First -->
+            <div class="studio-panel-card" style="margin-bottom: 0;">
+              <div class="studio-panel-title">
+                <span>CONFIGURATION OPENROUTER &amp; POLITIQUE FREE-FIRST</span>
+                <span id="settings-free-policy-badge" style="color: var(--bp-emerald);">VERROU 0.00 $ ACTIF</span>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 0.9rem;">
+                <div>
+                  <label for="input-openrouter-key" style="display: block; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; margin-bottom: 0.35rem;">
+                    CLÉ API UNIQUE OPENROUTER (stockée dans <code>config/studio_config.toml</code>) :
+                  </label>
+                  <input type="password" id="input-openrouter-key" class="studio-text-input" style="width: 100%;" placeholder="sk-or-v1-................................................">
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--bp-emerald-soft); border: 1px solid var(--bp-emerald); border-radius: 4px;">
+                  <div>
+                    <div style="font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; color: var(--bp-emerald);">
+                      POLITIQUE STRICTE FREE-FIRST (<code>allow_paid_models = false</code>)
+                    </div>
+                    <div style="font-size: 0.78rem; color: var(--bp-ink-soft);">
+                      Exige <code>pricing.prompt == "0"</code> et <code>pricing.completion == "0"</code>. Aucun modèle payant ne peut être appelé sans autorisation explicite.
+                    </div>
+                  </div>
+                  <input type="checkbox" id="toggle-strict-free-first" checked disabled style="width: 18px; height: 18px; accent-color: var(--bp-emerald);">
+                </div>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
+                  <button type="button" class="bp-btn-primary" id="btn-save-openrouter-config">
+                    Enregistrer &amp; Découvrir les Modèles Gratuits
+                  </button>
+                  <button type="button" class="bp-btn-secondary" id="btn-refresh-openrouter-models">
+                    Rafraîchir Catalogue OpenRouter
+                  </button>
+                </div>
+
+                <div id="settings-openrouter-status" style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--bp-ink-soft); padding: 0.65rem; background: var(--bp-paper); border-radius: 4px;">
+                  Catalogue OpenRouter analysé : 468 modèles découverts · 15 modèles strictement gratuits (0.00 $) retenus.
+                </div>
+              </div>
+            </div>
+
+            <!-- Configuration Claude Desktop (100% Préservée) -->
+            <div class="bp-code-box">
+              <div class="bp-code-bar">
+                <span>claude_desktop_config.json (100% Rust · Intact)</span>
+                <button class="copy-btn" id="btn-copy-config">Copier JSON</button>
+              </div>
+              <pre class="bp-code-pre"><code id="config-code-content">{
   "mcpServers": {
     "revit": {
       "command": "C:\\Program Files\\ARC\\revit-mcp-server.exe",
@@ -296,49 +653,40 @@
     }
   }
 }</code></pre>
-        </div>
-
-        <div class="bp-download-panel">
-          <div class="bp-section-tag">04 · TÉLÉCHARGEMENTS &amp; LIENS DIRECTS</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem;">
-            Téléchargements ARC &amp; BIMcraft
-          </h3>
-          <p id="detected-os-msg" style="font-size: 0.9rem; color: var(--bp-ink-soft);">
-            Écoute active GitHub API : détection automatique de votre système d'exploitation.
-          </p>
-
-          <div class="bp-os-grid" id="bimcraft-download-row">
-            <a id="bimcraft-btn-mac" href="https://github.com/IPedrax/BIMCraft/releases/latest" class="btn-dl-platform">
-              <span id="bimcraft-label-mac">macOS .dmg (Metal)</span>
-            </a>
-            <a id="bimcraft-btn-win" href="https://github.com/IPedrax/BIMCraft/releases/latest" class="btn-dl-platform">
-              <span id="bimcraft-label-win">Windows .msi (x64)</span>
-            </a>
-            <a id="bimcraft-btn-linux" href="https://github.com/IPedrax/BIMCraft/releases/latest" class="btn-dl-platform">
-              <span id="bimcraft-label-linux">Linux .AppImage</span>
-            </a>
-            <a id="arc-btn-win" href="https://github.com/EncoreZaan/ARC/releases/download/v3.3.0/ARC-Setup-v3.3.0.exe" download class="btn-dl-platform">
-              <span id="arc-label-win">ARC v3.3.0 (.exe Windows)</span>
-            </a>
+            </div>
           </div>
 
-          <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--bp-line); display: flex; flex-wrap: wrap; gap: 0.75rem; font-family: var(--font-mono); font-size: 0.78rem;">
-            <a href="./revit_architecture_guide.md" style="color: var(--bp-cobalt); font-weight: 600;">Guide Architecture</a>
-            <a href="./mcp_tools_reference.md" style="color: var(--bp-cobalt); font-weight: 600;">Référence Outils</a>
-            <a href="./claude_configuration.md" style="color: var(--bp-cobalt); font-weight: 600;">Config Claude</a>
-            <a href="./troubleshooting.md" style="color: var(--bp-cobalt); font-weight: 600;">Dépannage</a>
-            <a href="./test_report.md" style="color: var(--bp-cobalt); font-weight: 600;">Rapport Tests</a>
-            <a href="https://github.com/EncoreZaan/ARC" target="_blank" rel="noopener noreferrer" style="color: var(--bp-copper); font-weight: 600;">Code Source GitHub ↗</a>
+          <!-- Table de Routage Multi-Modèles Gratuits par Tâche -->
+          <div class="studio-panel-card">
+            <div class="studio-panel-title">
+              <span>ROUTAGE AUTOMATIQUE DES MODÈLES GRATUITS PAR TÂCHE ARCHITECTURALE</span>
+              <span id="settings-free-count-badge">15 MODÈLES GRATUITS QUALIFIÉS</span>
+            </div>
+            <div style="overflow-x: auto;">
+              <table class="studio-qa-table">
+                <thead>
+                  <tr>
+                    <th>Tâche Architecturale</th>
+                    <th>Modèle Gratuit Primaire Sélectionné</th>
+                    <th>Modèles Gratuits de Secours (Failover Automatique)</th>
+                    <th>Coût Certifié</th>
+                  </tr>
+                </thead>
+                <tbody id="settings-routing-tbody">
+                  <!-- Injecté dynamiquement depuis openrouter_report -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
   <footer class="bp-footer">
     <div class="container bp-footer-inner">
       <div>
-        &copy; 2026 <strong>ARC — Architectural Intelligence Bridge</strong> (v3.3.0) · Par <a href="https://github.com/EncoreZaan" target="_blank" rel="noopener noreferrer">@EncoreZaan</a> · Licence MIT.
+        &copy; 2026 <strong>ARC — Architecture &amp; Revit Copilot</strong> (v4.0 Unified Workspace) · Par <a href="https://github.com/EncoreZaan" target="_blank" rel="noopener noreferrer">@EncoreZaan</a> · Licence MIT.
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 1.25rem;">
         <a href="./revit_architecture_guide.md">Architecture</a>
@@ -350,6 +698,7 @@
     </div>
   </footer>
 
-  <script src="./app.js?v=3.3.2"></script>
+  <script src="./studio-projects-snapshot.js?v=4.0.0"></script>
+  <script src="./app.js?v=4.0.0"></script>
 </body>
 </html>

@@ -1,0 +1,128 @@
+{
+  "atomic": true,
+  "operations": [
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 6.3,
+        "endY": -0.1,
+        "height": 2.4,
+        "startX": 0.1,
+        "startY": -0.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 6.3,
+        "endY": -6.1,
+        "height": 2.4,
+        "startX": 6.3,
+        "startY": -0.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 0.1,
+        "endY": -6.1,
+        "height": 2.4,
+        "startX": 6.3,
+        "startY": -6.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 0.1,
+        "endY": -0.1,
+        "height": 2.4,
+        "startX": 0.1,
+        "startY": -6.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 4.14,
+        "endY": -2.6,
+        "height": 2.4,
+        "startX": 4.14,
+        "startY": -0.2,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 6.2,
+        "endY": -2.6,
+        "height": 2.4,
+        "startX": 4.14,
+        "startY": -2.6,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "ESTRADE-ATELIER (+0.35m)",
+        "number": "01",
+        "x": 1.8,
+        "y": -1.3
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "SALLE D'EAU / WC",
+        "number": "02",
+        "x": 5.15,
+        "y": -1.3
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "SALON & LECTURE",
+        "number": "03",
+        "x": 1.4,
+        "y": -4.4
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)",
+        "number": "04",
+        "x": 2.2,
+        "y": -3.6
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "CUISINE & REPAS",
+        "number": "05",
+        "x": 4.8,
+        "y": -4.4
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "ENTRÉE / CIRCULATION",
+        "number": "06",
+        "x": 3.0,
+        "y": -5.2
+      }
+    }
+  ],
+  "operationsCount": 12,
+  "targetEngine": "Autodesk Revit 2027 (Optional Adapter via Named Pipe / MCP)",
+  "variantId": "CAB_V3_PLANCHER_HABITE"
+}

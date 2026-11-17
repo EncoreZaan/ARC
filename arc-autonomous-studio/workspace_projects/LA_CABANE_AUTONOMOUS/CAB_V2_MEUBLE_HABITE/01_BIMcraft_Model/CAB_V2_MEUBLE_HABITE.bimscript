@@ -1,0 +1,67 @@
+modify {"id":100000,"name":"N0 - Appartement"}
+modify {"elevation":2600,"id":100001,"name":"N+1 - Sous-face dalle haute (HSP 240 + 20)"}
+units {"length":"cm"}
+room_area {"at":"finish"}
+type {"category":"wall","name":"EXI_Mur porteur 35","thickness":350}
+type {"category":"wall","name":"EXI_Mur palier 20","thickness":200}
+type {"category":"wall","name":"EXI_Mur mitoyen 105","thickness":1050}
+type {"category":"wall","name":"EXI_Cloison 7","thickness":70}
+type {"category":"wall","name":"PRJ_Cloison 7","thickness":70}
+type {"category":"wall","name":"PRJ_Rebouchage 20","thickness":200}
+type {"category":"wall","name":"PRJ_Rebouchage 35","thickness":350}
+type {"category":"wall","name":"PRJ_Meuble-cloison 60","thickness":600}
+type {"category":"floor","name":"EXI_Plancher existant 25","thickness":200}
+type {"category":"door","height":2040,"name":"Porte 80 x 204","width":800}
+type {"category":"door","height":2040,"name":"Porte 83 x 204","width":830}
+type {"category":"window","height":1700,"name":"Fenêtre 80 x 170","sill":800,"width":800}
+type {"category":"window","height":1700,"name":"Fenêtre 200 x 170","sill":800,"width":2000}
+type {"category":"beam","depth":400,"material":"Concrete","name":"PRJ_Poutre 35 x 40","width":350}
+line_style {"color":"#c8281e","name":"Démolition","pattern":"Dash","pen":3}
+floor {"boundary":[[-1220,0],[6400,0],[6400,-6200],[-1220,-6200]],"type":"EXI_Plancher existant 25"}
+wall {"height":2400,"points":[[100,-100],[6300,-100]],"type":"EXI_Mur palier 20"}
+wall {"height":2400,"points":[[6300,-100],[6300,-6100]],"type":"EXI_Mur palier 20"}
+wall {"height":2400,"points":[[6300,-6100],[100,-6100]],"type":"EXI_Mur palier 20"}
+wall {"height":2400,"points":[[100,-6100],[100,-100]],"type":"EXI_Mur palier 20"}
+window {"at":[100,-1400],"type":"Fenêtre 200 x 170"}
+window {"at":[100,-3100],"type":"Fenêtre 80 x 170"}
+window {"at":[100,-4100],"type":"Fenêtre 80 x 170"}
+window {"at":[6300,-1950],"type":"Fenêtre 80 x 170"}
+window {"at":[1320,-6100],"type":"Fenêtre 80 x 170"}
+window {"at":[2260,-6100],"type":"Fenêtre 80 x 170"}
+door {"at":[3275,-6100],"flip_facing":true,"flip_hand":false,"type":"Porte 83 x 204"}
+phase {"now":"New Construction"}
+wall {"height":2400,"points":[[4140,-200],[4140,-2600]],"type":"PRJ_Cloison 7"}
+wall {"height":2400,"points":[[4140,-2600],[6200,-2600]],"type":"PRJ_Cloison 7"}
+door {"at":[5100,-2600],"flip_facing":true,"flip_hand":true,"type":"Porte 80 x 204"}
+family {"category":"furniture","forms":[{"from":0.0,"material":"Timber","plane":"xy","profile":[[0.0,0.0],[3900.0,0.0],[3900.0,-2400.0],[0.0,-2400.0]],"to":350.0},{"from":0.0,"material":"Timber","plane":"xy","profile":[[0.0,-2400.0],[1300.0,-2400.0],[1300.0,-2700.0],[0.0,-2700.0]],"to":175.0},{"from":0.0,"material":"Timber","plane":"xy","profile":[[2900.0,-2400.0],[3900.0,-2400.0],[3900.0,-2700.0],[2900.0,-2700.0]],"to":175.0}],"name":"CAB - Estrade-Atelier Habitee 390x240 (+35cm)","types":{"CABANE":{}}}
+family {"category":"furniture","forms":[{"from":20.0,"material":"Timber","plane":"xy","profile":[[0.0,0.0],[1400.0,0.0],[1400.0,-2000.0],[0.0,-2000.0]],"to":220.0},{"from":220.0,"material":"Fabric","plane":"xy","profile":[[20.0,-20.0],[1380.0,-20.0],[1380.0,-1980.0],[20.0,-1980.0]],"to":330.0}],"name":"CAB - Lit-Tiroir Escamotable 140x200","types":{"CABANE":{}}}
+family {"category":"furniture","forms":[{"from":1070.0,"material":"Timber","plane":"xy","profile":[[0.0,0.0],[2300.0,0.0],[2300.0,-600.0],[0.0,-600.0]],"to":1100.0},{"from":350.0,"material":"Timber","plane":"xy","profile":[[1850.0,0.0],[2300.0,0.0],[2300.0,-600.0],[1850.0,-600.0]],"to":2400.0}],"name":"CAB - Bureau Atelier Sur Mesure 230x60","types":{"CABANE":{}}}
+family {"category":"casework","forms":[{"from":0.0,"material":"Timber","plane":"xy","profile":[[0.0,0.0],[2600.0,0.0],[2600.0,-600.0],[0.0,-600.0]],"to":900.0},{"from":900.0,"material":"Ceramic tile","plane":"xy","profile":[[0.0,0.0],[2600.0,0.0],[2600.0,-620.0],[0.0,-620.0]],"to":930.0}],"name":"CAB - Kitchenette Lineaire 260x60","types":{"CABANE":{}}}
+family {"category":"furniture","forms":[{"from":720.0,"material":"Timber","plane":"xy","profile":[[0.0,0.0],[850.0,0.0],[850.0,-1350.0],[0.0,-1350.0]],"to":750.0},{"from":0.0,"material":"Timber","plane":"xy","profile":[[-450.0,-200.0],[-30.0,-200.0],[-30.0,-620.0],[-450.0,-620.0]],"to":450.0},{"from":0.0,"material":"Timber","plane":"xy","profile":[[-450.0,-750.0],[-30.0,-750.0],[-30.0,-1170.0],[-450.0,-1170.0]],"to":450.0}],"name":"CAB - Table Repas 135x85 + Chaises","types":{"CABANE":{}}}
+family {"category":"furniture","forms":[{"from":0.0,"material":"Fabric","plane":"xy","profile":[[0.0,0.0],[850.0,0.0],[850.0,-1650.0],[0.0,-1650.0]],"to":420.0},{"from":420.0,"material":"Fabric","plane":"xy","profile":[[0.0,0.0],[200.0,0.0],[200.0,-1650.0],[0.0,-1650.0]],"to":820.0},{"from":0.0,"material":"Timber","plane":"xy","profile":[[1050.0,-300.0],[1650.0,-300.0],[1650.0,-1350.0],[1050.0,-1350.0]],"to":360.0}],"name":"CAB - Canape 2 Places 165x85 + Table Basse","types":{"CABANE":{}}}
+family {"category":"plumbing","forms":[{"from":0.0,"material":"Porcelain","plane":"xy","profile":[[0.0,0.0],[1200.0,0.0],[1200.0,-900.0],[0.0,-900.0]],"to":40.0}],"kind":"shower","name":"CAB - Douche Italienne 120x90","types":{"CABANE":{}}}
+family {"category":"plumbing","forms":[{"from":300.0,"material":"Timber","plane":"xy","profile":[[0.0,0.0],[480.0,0.0],[480.0,-650.0],[0.0,-650.0]],"to":860.0}],"kind":"lav","name":"CAB - Meuble Vasque 65x48","types":{"CABANE":{}}}
+family {"category":"plumbing","forms":[{"from":0.0,"material":"Porcelain","plane":"xy","profile":[[0.0,0.0],[400.0,0.0],[400.0,-650.0],[0.0,-650.0]],"to":420.0}],"kind":"wc","name":"CAB - WC Suspendu 40x65","types":{"CABANE":{}}}
+component {"angle":0,"at":[200,-200],"family":"CAB - Estrade-Atelier Habitee 390x240 (+35cm)"}
+component {"angle":0,"at":[1600,-500],"family":"CAB - Lit-Tiroir Escamotable 140x200"}
+component {"angle":0,"at":[400,-250],"family":"CAB - Bureau Atelier Sur Mesure 230x60"}
+component {"angle":270,"at":[5550,-2800],"family":"CAB - Kitchenette Lineaire 260x60"}
+component {"angle":0,"at":[4300,-3400],"family":"CAB - Table Repas 135x85 + Chaises"}
+component {"angle":0,"at":[250,-4000],"family":"CAB - Canape 2 Places 165x85 + Table Basse"}
+component {"angle":0,"at":[4980,-220],"family":"CAB - Douche Italienne 120x90"}
+component {"angle":0,"at":[4350,-220],"family":"CAB - WC Suspendu 40x65"}
+component {"angle":0,"at":[4200,-1450],"family":"CAB - Meuble Vasque 65x48"}
+room_separator {"points":[[200,-2600],[4140,-2600]]}
+room_separator {"points":[[2500,-2600],[2500,-6000]]}
+room_separator {"points":[[3800,-2600],[3800,-6000]]}
+room {"name":"ESTRADE-ATELIER (+0.35m)","number":"01","point":[1800,-1300]}
+room {"name":"SALLE D'EAU / WC","number":"02","point":[5150,-1300]}
+room {"name":"SALON & LECTURE","number":"03","point":[1400,-4400]}
+room {"name":"CHAMBRE D'AMIS (LIT-TIROIR WEEK-END)","number":"04","point":[2200,-3600]}
+room {"name":"CUISINE & REPAS","number":"05","point":[4800,-4400]}
+room {"name":"ENTRÉE / CIRCULATION","number":"06","point":[3000,-5200]}
+scale {"scale":50,"view":"N0 - Appartement"}
+graphics {"phase":"New Construction","phase_filter":"Show Previous + New","view":"N0 - Appartement"}
+sheet {"name":"REFLET - CAB_V2_MEUBLE_HABITE - Plan projet 1:50","number":"A101","size":"A3"}
+place {"scale":50,"sheet":"A101","view":"N0 - Appartement"}
+schedule {"category":"rooms","fields":["Number","Name",{"name":"Area","total":true}],"name":"Surfaces des pièces"}

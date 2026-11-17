@@ -1,0 +1,74 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 3136 >>
+stream
+BT
+/F1 10 Tf
+40 800 Td
+14 TL
+(ARC AUTONOMOUS STUDIO - DOSSIER ARCHITECTURAL COMPLET) Tj T*
+(Projet : REFLET - L'Appartement Familial Londonien \(ARC-AUTO-LONDON-2026\)) Tj T*
+(Client : Famille contemporaine londonienne \(parents + 2 enfants\)) Tj T*
+(Echelle de reference : 1:50 | Unite canonique : mm | Version APM : v4) Tj T*
+(------------------------------------------------------------------------) Tj T*
+(1. ANALYSE DU SUJET PDF & CONTRAINTES REGLEMENTAIRES) Tj T*
+(   - Hauteur Sous Plafond \(HSP\) : 2800 mm \(280 cm\)) Tj T*
+(   - Reunion de 2 lots en miroir : Oui \(~70 m2 au sol\)) Tj T*
+(   - Ouverture mur porteur max : 4000 mm | Tetes de mur min : 300 mm + Poutre BA) Tj T*
+(   - Porte d'entree conservee a l'identique \(2375, -840 mm\) | 0 ouverture facade creee) Tj T*
+(------------------------------------------------------------------------) Tj T*
+(2. PROPOSITION RETENUE : Proposition V3 - PASSAGE \(Miroir Gauche - Rue interieure de fenetre a fenetre & Meubles-cloisons\)) Tj T*
+(   - Surface Jour : 25.9 m2 | Surface Nuit : 40.0 m2 | Total Habitable : 65.9 m2) Tj T*
+(   - Murs existants conserves : 54 segments | Cloisons projet : 10 segments) Tj T*
+(   - Portes : 9 | Fenetres : 8 | Poutres BA : 1) Tj T*
+(   - Mobilier sur mesure : 25 familles 3D / 37 composants poses) Tj T*
+(   - Pieces du programme \(11\) :) Tj T*
+(     * [01] ENTREE \(Services/Circulation\)) Tj T*
+(     * [02] SALLE D'EAU \(Services/Circulation\)) Tj T*
+(     * [03] BUANDERIE \(Services/Circulation\)) Tj T*
+(     * [04] CHAMBRE ENFANT 1 \(Nuit\)) Tj T*
+(     * [05] CUISINE - REPAS \(Jour\)) Tj T*
+(     * [06] SALON \(Jour\)) Tj T*
+(     * [07] SDB \(Services/Circulation\)) Tj T*
+(     * [08] DEGT \(Services/Circulation\)) Tj T*
+(     * [09] HALL NUIT \(Nuit\)) Tj T*
+(     * [10] CHAMBRE ENFANT 2 \(Nuit\)) Tj T*
+(     * [11] CHAMBRE PARENTS \(Nuit\)) Tj T*
+(------------------------------------------------------------------------) Tj T*
+(3. RAPPORT DE CONTROLE QUALITE & AUTOCORRECTION \(Score : 100.0% - Converge : true\)) Tj T*
+(   - [PASS] QA-HSP-01 : 64 murs a 2800 mm \(ecarts detectes: 0\) \(= 2800 mm\)) Tj T*
+(   - [PASS] QA-CLASH-01B : 9 portes et 8 fenetres inspectees \(chevauchements detectes: 0\) \(0 collision baie/baie\)) Tj T*
+(   - [PASS] QA-STRUCT-02 : 1 percement\(s\) : portee max = 2400 mm, tete de mur min = 575 mm, poutre 35x40 cm active \(Portee <= 4000 mm & Tetes >= 300 mm\)) Tj T*
+(   - [PASS] QA-ENTRY-03 : Porte d'entree principale = true, Conformite acces = true \(Porte d'entree conforme au sujet\)) Tj T*
+(   - [PASS] QA-FACADE-04 : 8 baies existantes, 0 baies neuves \(total 8\) \(0 nouvelle ouverture exterieure\)) Tj T*
+(   - [PASS] QA-PROG-05 : 11 espaces fonctionnels modelises, SDB=true, Cuisine=true, Salon/Sejour=true, 37 composants 3D sur mesure \(25 familles\) \(100% des espaces du programme + mobilier sur mesure\)) Tj T*
+(   - [PASS] QA-AREA-06 : Total Habitable = 65.9 m2 \(Zone Jour/Atelier = 25.9 m2, Zone Nuit = 40.0 m2\) \(70.0 m2 ± 8.0 m2\)) Tj T*
+(   - [PASS] QA-BIM-07 : 130 objets BIM compiles et verifies sur disque \(Modele .bimcraft + .ifc + .glb + .svg valides\)) Tj T*
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3498
+%%EOF

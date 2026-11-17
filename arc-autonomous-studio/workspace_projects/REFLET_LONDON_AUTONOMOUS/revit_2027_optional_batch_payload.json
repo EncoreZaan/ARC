@@ -1,0 +1,820 @@
+{
+  "atomic": true,
+  "operations": [
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -0.175,
+        "endY": -1.87,
+        "height": 2.8,
+        "startX": -0.175,
+        "startY": 0.1,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -0.175,
+        "endY": -6.825,
+        "height": 2.8,
+        "startX": -0.175,
+        "startY": -2.8,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 1.85,
+        "endY": 0.1,
+        "height": 2.8,
+        "startX": -0.175,
+        "startY": 0.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 1.85,
+        "endY": -0.74,
+        "height": 2.8,
+        "startX": 1.85,
+        "startY": 0.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 2.9,
+        "endY": -0.74,
+        "height": 2.8,
+        "startX": 2.9,
+        "startY": 0.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 3.0,
+        "endY": -0.84,
+        "height": 2.8,
+        "startX": 1.75,
+        "startY": -0.84,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 5.225,
+        "endY": 0.1,
+        "height": 2.8,
+        "startX": 2.9,
+        "startY": 0.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 5.225,
+        "endY": -3.275,
+        "height": 2.8,
+        "startX": 5.225,
+        "startY": 0.1,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 0.65,
+        "endY": -3.275,
+        "height": 2.8,
+        "startX": -0.175,
+        "startY": -3.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 2.3,
+        "endY": -3.275,
+        "height": 2.8,
+        "startX": 1.65,
+        "startY": -3.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 5.575,
+        "endY": -3.275,
+        "height": 2.8,
+        "startX": 4.45,
+        "startY": -3.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 5.575,
+        "endY": -6.825,
+        "height": 2.8,
+        "startX": 5.575,
+        "startY": -2.9,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 0.114,
+        "endY": -6.825,
+        "height": 2.8,
+        "startX": -0.175,
+        "startY": -6.825,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 0.464,
+        "endY": -7.275,
+        "height": 2.8,
+        "startX": 0.114,
+        "startY": -6.825,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 1.418,
+        "endY": -7.275,
+        "height": 2.8,
+        "startX": 0.464,
+        "startY": -7.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 1.768,
+        "endY": -6.955,
+        "height": 2.8,
+        "startX": 1.418,
+        "startY": -7.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 2.232,
+        "endY": -6.955,
+        "height": 2.8,
+        "startX": 1.768,
+        "startY": -6.955,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 2.582,
+        "endY": -7.275,
+        "height": 2.8,
+        "startX": 2.232,
+        "startY": -6.955,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 4.736,
+        "endY": -7.275,
+        "height": 2.8,
+        "startX": 2.582,
+        "startY": -7.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 5.086,
+        "endY": -6.825,
+        "height": 2.8,
+        "startX": 4.736,
+        "startY": -7.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 5.575,
+        "endY": -6.825,
+        "height": 2.8,
+        "startX": 5.086,
+        "startY": -6.825,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 1.785,
+        "endY": -1.015,
+        "height": 2.8,
+        "startX": 1.785,
+        "startY": -0.93,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 2.965,
+        "endY": -1.08,
+        "height": 2.8,
+        "startX": 2.965,
+        "startY": -0.93,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 2.965,
+        "endY": -2.465,
+        "height": 2.8,
+        "startX": 2.965,
+        "startY": -1.88,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 0.75,
+        "endY": -3.135,
+        "height": 2.8,
+        "startX": 0.65,
+        "startY": -3.135,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 1.65,
+        "endY": -3.135,
+        "height": 2.8,
+        "startX": 1.55,
+        "startY": -3.135,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.2,
+        "endY": 0.1,
+        "height": 2.8,
+        "startX": -0.175,
+        "startY": 0.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.2,
+        "endY": -0.74,
+        "height": 2.8,
+        "startX": -2.2,
+        "startY": 0.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -3.25,
+        "endY": -0.74,
+        "height": 2.8,
+        "startX": -3.25,
+        "startY": 0.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.325,
+        "endY": -0.84,
+        "height": 2.8,
+        "startX": -2.1,
+        "startY": -0.84,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -3.35,
+        "endY": -0.84,
+        "height": 2.8,
+        "startX": -3.125,
+        "startY": -0.84,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -5.575,
+        "endY": 0.1,
+        "height": 2.8,
+        "startX": -3.25,
+        "startY": 0.1,
+        "wallType": "EXI_Mur palier 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -5.575,
+        "endY": -3.275,
+        "height": 2.8,
+        "startX": -5.575,
+        "startY": 0.1,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -1.0,
+        "endY": -3.275,
+        "height": 2.8,
+        "startX": -0.175,
+        "startY": -3.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.65,
+        "endY": -3.275,
+        "height": 2.8,
+        "startX": -2.0,
+        "startY": -3.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -5.925,
+        "endY": -3.275,
+        "height": 2.8,
+        "startX": -4.8,
+        "startY": -3.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -5.925,
+        "endY": -6.825,
+        "height": 2.8,
+        "startX": -5.925,
+        "startY": -2.9,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -0.464,
+        "endY": -6.825,
+        "height": 2.8,
+        "startX": -0.175,
+        "startY": -6.825,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -0.814,
+        "endY": -7.275,
+        "height": 2.8,
+        "startX": -0.464,
+        "startY": -6.825,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -1.768,
+        "endY": -7.275,
+        "height": 2.8,
+        "startX": -0.814,
+        "startY": -7.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.118,
+        "endY": -6.955,
+        "height": 2.8,
+        "startX": -1.768,
+        "startY": -7.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.582,
+        "endY": -6.955,
+        "height": 2.8,
+        "startX": -2.118,
+        "startY": -6.955,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.932,
+        "endY": -7.275,
+        "height": 2.8,
+        "startX": -2.582,
+        "startY": -6.955,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -5.086,
+        "endY": -7.275,
+        "height": 2.8,
+        "startX": -2.932,
+        "startY": -7.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -5.436,
+        "endY": -6.825,
+        "height": 2.8,
+        "startX": -5.086,
+        "startY": -7.275,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -5.925,
+        "endY": -6.825,
+        "height": 2.8,
+        "startX": -5.436,
+        "startY": -6.825,
+        "wallType": "EXI_Mur porteur 35"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.135,
+        "endY": -1.08,
+        "height": 2.8,
+        "startX": -2.135,
+        "startY": -0.93,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -3.315,
+        "endY": -1.08,
+        "height": 2.8,
+        "startX": -3.315,
+        "startY": -0.93,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -3.315,
+        "endY": -2.465,
+        "height": 2.8,
+        "startX": -3.315,
+        "startY": -2.395,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -3.815,
+        "endY": -2.465,
+        "height": 2.8,
+        "startX": -3.315,
+        "startY": -2.465,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -3.815,
+        "endY": -3.17,
+        "height": 2.8,
+        "startX": -3.815,
+        "startY": -2.465,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -4.8,
+        "endY": -3.135,
+        "height": 2.8,
+        "startX": -3.815,
+        "startY": -3.135,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.0,
+        "endY": -3.135,
+        "height": 2.8,
+        "startX": -1.0,
+        "startY": -3.135,
+        "wallType": "EXI_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 1.785,
+        "endY": -1.87,
+        "height": 2.8,
+        "startX": 1.785,
+        "startY": -1.015,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 2.965,
+        "endY": -1.88,
+        "height": 2.8,
+        "startX": 2.965,
+        "startY": -1.08,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 1.55,
+        "endY": -3.135,
+        "height": 2.8,
+        "startX": 0.75,
+        "startY": -3.135,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -3.125,
+        "endY": -0.84,
+        "height": 2.8,
+        "startX": -2.325,
+        "startY": -0.84,
+        "wallType": "PRJ_Rebouchage 20"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.135,
+        "endY": -1.87,
+        "height": 2.8,
+        "startX": -2.135,
+        "startY": -1.08,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -3.315,
+        "endY": -2.395,
+        "height": 2.8,
+        "startX": -3.315,
+        "startY": -1.08,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -0.35,
+        "endY": -1.835,
+        "height": 2.8,
+        "startX": -2.17,
+        "startY": -1.835,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 1.82,
+        "endY": -1.835,
+        "height": 2.8,
+        "startX": 0.0,
+        "startY": -1.835,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": 0.935,
+        "endY": -1.8,
+        "height": 2.8,
+        "startX": 0.935,
+        "startY": 0.0,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.65,
+        "endY": -3.135,
+        "height": 2.8,
+        "startX": -3.815,
+        "startY": -3.135,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "walls/create",
+      "args": {
+        "endX": -2.35,
+        "endY": -6.78,
+        "height": 2.8,
+        "startX": -2.35,
+        "startY": -3.45,
+        "wallType": "PRJ_Cloison 7"
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "ENTRÉE",
+        "number": "01",
+        "x": 2.22,
+        "y": -2.15
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "DÉGAGEMENT",
+        "number": "02",
+        "x": 1.0,
+        "y": -2.62
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "WC",
+        "number": "03",
+        "x": 1.37,
+        "y": -1.4
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "BUANDERIE",
+        "number": "04",
+        "x": 0.73,
+        "y": -1.28
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "CUISINE",
+        "number": "05",
+        "x": 4.35,
+        "y": -1.6
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "SÉJOUR / SALLE À MANGER",
+        "number": "06",
+        "x": 3.0,
+        "y": -3.72
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "SDB",
+        "number": "07",
+        "x": -0.76,
+        "y": -0.92
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "DÉGAGEMENT NUIT",
+        "number": "08",
+        "x": -1.18,
+        "y": -2.62
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "PALIER NUIT",
+        "number": "09",
+        "x": -2.72,
+        "y": -2.05
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "CHAMBRE ENFANT 2",
+        "number": "10",
+        "x": -4.0,
+        "y": -1.22
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "CHAMBRE ENFANT 1",
+        "number": "11",
+        "x": -0.72,
+        "y": -6.45
+      }
+    },
+    {
+      "action": "rooms/create",
+      "args": {
+        "name": "CHAMBRE PARENTS",
+        "number": "12",
+        "x": -5.0,
+        "y": -4.34
+      }
+    }
+  ],
+  "operationsCount": 76,
+  "targetEngine": "Autodesk Revit 2027 (Optional Adapter via Named Pipe / MCP)",
+  "variantId": "V1_ECLIPSE"
+}
